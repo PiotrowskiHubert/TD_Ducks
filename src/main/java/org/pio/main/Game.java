@@ -1,5 +1,6 @@
 package org.pio.main;
 
+import org.pio.Entities.Enemy;
 import org.pio.scene.PlayScene;
 
 import javax.swing.*;
@@ -87,50 +88,8 @@ public class Game extends JFrame implements Runnable {
 
     private void updateGame() {
 
-        if (!getPlayScene().getEnemies().isEmpty()){
+        getPlayScene().update();
 
-            for (int i = 0; i < getPlayScene().getEnemies().size(); i++) {
-                getPlayScene().getEnemies().get(i).update();
-
-                if (i<getPlayScene().getEnemies().size()-1) {
-
-                    if (getPlayScene().getEnemies().get(i).getPosWidthX() -
-                            getPlayScene().getEnemies().get(i + 1).getPosWidthX() >= 50) {
-                        getPlayScene().getEnemies().get(i + 1).setCanGo(true);
-                    }
-
-                    if (getPlayScene().getEnemies().get(i).getPosWidthX()>=getPlayScene().getLvl().getEndPointWidthX()&&
-                            getPlayScene().getEnemies().get(i).getPosHeightY()>=getPlayScene().getLvl().getEndPointHeightY()){
-                        getPlayScene().getEnemies().remove(getPlayScene().getEnemies().get(i));
-                    }
-
-                } else{
-                    if (getPlayScene().getEnemies().get(i).getPosWidthX()>=getPlayScene().getLvl().getEndPointWidthX()&&
-                            getPlayScene().getEnemies().get(i).getPosHeightY()>=getPlayScene().getLvl().getEndPointHeightY()){
-                        getPlayScene().getEnemies().remove(getPlayScene().getEnemies().get(i));
-                    }
-                }
-            }
-
-        }
-
-
-        if (getPlayScene().getEnemy_1()!=null){
-            getPlayScene().getEnemy_1().update();
-        }
-
-        if (getPlayScene().getEnemy_1()!=null) {
-
-            if (getPlayScene().getEnemy_1().getPosWidthX()>50
-                    && !getPlayScene().getEnemies().get(0).isCanGo()){
-                getPlayScene().getEnemies().get(0).setCanGo(true);
-            }
-
-            if (getPlayScene().getLvl().getEndPointWidthX() <= getPlayScene().getEnemy_1().getPosWidthX() &&
-                    getPlayScene().getLvl().getEndPointHeightY() <= getPlayScene().getEnemy_1().getPosHeightY()) {
-                getPlayScene().deletor();
-            }
-        }
     }
     public Render getRender() {
         return render;

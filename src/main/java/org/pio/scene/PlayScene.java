@@ -6,17 +6,21 @@ import org.pio.main.Game;
 import org.pio.Level;
 import org.pio.ui.SidePanel;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayScene extends GameScene implements sceneMeethods{
     private Level lvl;
     private SidePanel sidePanel;
-    private AllyTower allyTower_1;
+    private List<Enemy> enemyList;
     private List<Enemy> enemies;
     private List<AllyTower> allyTowers;
-    private Enemy enemy_1, enemy;
+    private BufferedImage spriteEnemyAtlas;
     private int mouseX, mouseY;
 
 
@@ -26,65 +30,65 @@ public class PlayScene extends GameScene implements sceneMeethods{
         initLevel();
 
         sidePanel = new SidePanel(720,0,100,480,this);
-        allyTower_1 = new AllyTower(100,100);
 
-        enemy_1=new Enemy(lvl.getSpwnPointWidthX(), lvl.getSpwnPointHeightY());
-        enemy_1.setCanGo(true);
-        enemy_1.setId(-1);
     }
 
     private void initLevel(){
         lvl=new Level(18,12);
         allyTowers=new ArrayList<>();
+
         initEnemies();
     }
 
     private void initEnemies(){
-            enemies=new ArrayList<>();
+
+        createEnemyList();
+
+        enemies=new ArrayList<>();
+        Enemy enemy;
 
         for (int i = 0; i < 30; i++) {
-            enemy=new Enemy(lvl.getSpwnPointWidthX(),lvl.getSpwnPointHeightY());
+            enemy=new Enemy(enemyList.get(0).getNameEntity(), enemyList.get(0).getPosWidthX(), enemyList.get(0).getPosHeightY(), enemyList.get(0).getSprite());
             enemy.setId(i);
+
+            if (i==0){
+                enemy.setCanGo(true);
+            }
+
             enemies.add(enemy);
         }
 
     }
 
-    public void render(Graphics g){
-        lvl.drawLevel(g);
-        sidePanel.drawPanel(g);
-        allyTower_1.drawEntity(g);
+    private void createEnemyList(){
+        loadEnemyAtlas();
+        enemyList =new ArrayList<>();
 
-        if (!allyTowers.isEmpty()){
-            for (AllyTower ally :
-                    allyTowers) {
-                ally.drawEntity(g);
+        enemyList.add(new Enemy("BasicDuck", lvl.getSpwnPointWidthX(), lvl.getSpwnPointHeightY()-5,getSprite(0,0,40,40)));
+    }
+
+    private void loadEnemyAtlas(){
+        spriteEnemyAtlas = getSpriteEnemyAtlas();
+    }
+
+    private BufferedImage getSpriteEnemyAtlas(){
+        BufferedImage img = null;
+
+        InputStream is = Level.class.getClassLoader().getResourceAsStream("DuckEnemy.png");
+
+        try {
+            if (is!=null){
+                img= ImageIO.read(is);
             }
+        } catch (IOException e) {
+            System.out.println("FailedToLoadEnemyAtlas");
         }
 
-        if (!enemies.isEmpty()){
-
-            for (Enemy enemy : enemies) {
-                enemy.drawEntity(g);
-            }
-
-        }
-
-        if (enemy_1!=null) {
-            enemy_1.drawEntity(g);
-        }
+        return img;
     }
 
-    public void deletor(){
-        enemy_1=null;
-    }
-
-    public AllyTower getAllyTower_1() {
-        return allyTower_1;
-    }
-
-    public Enemy getEnemy_1() {
-        return enemy_1;
+    private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
+        return spriteEnemyAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
     }
 
     public Level getLvl() {
@@ -94,6 +98,63 @@ public class PlayScene extends GameScene implements sceneMeethods{
     public List<Enemy> getEnemies() {
         return enemies;
     }
+
+    // -------- UPDATE ------- //
+
+    public void update(){
+        if (!getEnemies().isEmpty()){
+
+            for (int i = 0; i < getEnemies().size(); i++) {
+                getEnemies().get(i).update();
+
+                if (i<getEnemies().size()-1) {
+
+                    if (getEnemies().get(i).getPosWidthX() -
+                            getEnemies().get(i + 1).getPosWidthX() >= 50) {
+                        getEnemies().get(i + 1).setCanGo(true);
+                    }
+
+                    if (getEnemies().get(i).getPosWidthX()>=getLvl().getEndPointWidthX()){
+                        getEnemies().remove(getEnemies().get(i));
+                    }
+
+                } else{
+                    if (getEnemies().get(i).getPosWidthX()>=getLvl().getEndPointWidthX()){
+                        getEnemies().remove(getEnemies().get(i));
+                    }
+                }
+            }
+
+        }
+    }
+
+    // -------- RENDER ------- //
+
+    public void render(Graphics g){
+        lvl.drawLevel(g);
+        sidePanel.drawPanel(g);
+
+        if (!allyTowers.isEmpty()){
+            for (AllyTower ally : allyTowers) {
+                ally.drawEntity(g);
+            }
+        }
+
+        if (!enemies.isEmpty()){
+
+//            for (Enemy enemy : enemyList) {
+//                enemy.drawEntity(g);
+//            }
+
+            for (Enemy enemy: enemies){
+                g.drawImage(enemy.getSprite(), enemy.getPosWidthX(),enemy.getPosHeightY(),null);
+            }
+
+        }
+
+    }
+
+    // -------- INPUTS ------- //
 
     @Override
     public void mouseClicked(int x, int y) {

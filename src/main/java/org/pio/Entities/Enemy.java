@@ -3,23 +3,20 @@ package org.pio.Entities;
 import org.pio.Level;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Enemy extends Entity {
-    int movSpeed;
-    int id;
-    int health=1;
-    boolean canGo=false;
+    private int movSpeed;
+    private int id;
+    private boolean canGo=false;
 
-//    public Enemy(int posWidthX, int posHeightY, int width, int height, int movSpeed) {
-//        this.posWidthX=posWidthX;
-//        this.posHeightY=posHeightY;
-//        this.width=width;
-//        this.height=height;
-//        this.movSpeed=movSpeed;
-//    }
-public Enemy(int posWidthX, int posHeightY) {
+public Enemy(String nameEnemy, int posWidthX, int posHeightY, BufferedImage spriteEnemy) {
+    this.nameEntity=nameEnemy;
+
     this.posWidthX=posWidthX;
     this.posHeightY=posHeightY;
+    this.sprite=spriteEnemy;
+
     this.width=20;
     this.height=30;
     this.movSpeed=1;
@@ -43,7 +40,7 @@ public Enemy(int posWidthX, int posHeightY) {
 
     @Override
     public void drawEntity(Graphics g) {
-        super.drawEntity(g);
+
     }
 
     public void setCanGo(boolean canGo) {
@@ -61,4 +58,5 @@ public Enemy(int posWidthX, int posHeightY) {
     public void setId(int id) {
         this.id = id;
     }
+
 }
