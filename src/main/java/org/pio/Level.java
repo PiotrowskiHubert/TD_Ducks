@@ -75,11 +75,6 @@ public class Level {
             }
         }
 
-        spwnPointWidthX=0;
-        spwnPointHeightY=245;
-
-        endPointWidthX=720;
-        endPointHeightY=245;
     }
 
     public void drawLevel(Graphics g){
@@ -99,19 +94,4 @@ public class Level {
         }
     }
 
-    public int getSpwnPointWidthX() {
-        return spwnPointWidthX;
-    }
-
-    public int getSpwnPointHeightY() {
-        return spwnPointHeightY;
-    }
-
-    public int getEndPointWidthX() {
-        return endPointWidthX;
-    }
-
-    public int getEndPointHeightY() {
-        return endPointHeightY;
-    }
 }

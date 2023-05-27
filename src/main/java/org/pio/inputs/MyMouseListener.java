@@ -20,6 +20,11 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
             game.getPlayScene().mouseClicked(e.getX(), e.getY());
         }
 
+        if (e.getButton()==MouseEvent.BUTTON3){
+            //game.getPlayScene().getSidePanel().mouseClicked(e.getX(),e.getY());
+        }
+
+
     }
 
     @Override

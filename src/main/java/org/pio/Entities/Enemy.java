@@ -6,8 +6,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Enemy extends Entity {
+    private static int spwnPointWidthX, spwnPointHeightY, endPointWidthX, endPointHeightY;
     private int movSpeed;
-    private int id;
     private boolean canGo=false;
 
 public Enemy(String nameEnemy, int posWidthX, int posHeightY, BufferedImage spriteEnemy) {
@@ -51,12 +51,27 @@ public Enemy(String nameEnemy, int posWidthX, int posHeightY, BufferedImage spri
         return canGo;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
 
+    public static int getSpwnPointWidthX() {
+        spwnPointWidthX=-50;
+        return spwnPointWidthX;
+    }
+
+    public static int getSpwnPointHeightY() {
+        spwnPointHeightY=245;
+        return spwnPointHeightY;
+    }
+
+    public static int getEndPointWidthX() {
+        endPointWidthX=720;
+        return endPointWidthX;
+    }
+
+    public static int getEndPointHeightY() {
+        endPointHeightY=245;
+        return endPointHeightY;
+    }
 }

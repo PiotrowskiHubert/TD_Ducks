@@ -15,6 +15,7 @@ public class Entity {
     protected Rectangle entityBounds;
     protected int posWidthX, posHeightY;
     protected int width, height;
+    protected int id;
 
     public void initBounds(){
         entityBounds=new Rectangle(posWidthX, posHeightY, width, height);
@@ -79,5 +80,19 @@ public class Entity {
         this.posHeightY = posHeightY;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setSprite(BufferedImage sprite) {
+        this.sprite = sprite;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }

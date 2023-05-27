@@ -11,16 +11,25 @@ public class AllyTower extends Entity {
 //
 //        this.posWidthX=posWidthX;
 //        this.posHeightY=posHeightY;
-//        this.width=20;
-//        this.height=20;
+//        this.width=40;
+//        this.height=40;
 //    }
-    public AllyTower(int posWidthX, int posHeightY) {
 
-    this.posWidthX=posWidthX;
-    this.posHeightY=posHeightY;
-    this.width=20;
-    this.height=20;
+    public AllyTower(int posWidthX, int posHeightY, BufferedImage spriteTower) {
+        this.sprite=spriteTower;
+
+        this.posWidthX=posWidthX;
+        this.posHeightY=posHeightY;
+        this.width=40;
+        this.height=40;
     }
+
+    public AllyTower(String nameTower,BufferedImage spriteTower, int id) {
+        this.sprite=spriteTower;
+        this.nameEntity=nameTower;
+        this.id=id;
+    }
+
 
     @Override
     public void initBounds() {
@@ -46,4 +55,5 @@ public class AllyTower extends Entity {
     public int getPosHeightY() {
         return super.getPosHeightY();
     }
+
 }
