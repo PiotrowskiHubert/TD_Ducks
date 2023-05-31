@@ -42,7 +42,6 @@ public class SidePanel {
         buttonList.add(bTower_0);
         bTower_0 =new Button("Turret_4", posX, posY+id*posYOffSet, bWidth, bHeight, id++);
         buttonList.add(bTower_0);
-
     }
 
     public void drawPanel(Graphics g){

@@ -36,23 +36,10 @@ public class Level extends GameScene {
 
     public void updateLevel(){
 
-//        if (rounds.get(currentRound).getEnemies().isEmpty()){
-//            if (currentRound<numOfRounds){
-//                System.out.println("end of Round");
-//                currentRound++;
-//                System.out.println(currentRound);
-//                System.out.println(rounds.get(currentRound).getEnemies().size());
-//            }
-//        }
-
-//        for (int i = 0; i < roundsList.size(); i++) {
-//            for (Enemy enemies : roundsList.get(i).getEnemies()) {
-//                System.out.print(enemies.getIndex());
-//            }
-//            System.out.println();
-//        }
-        //System.out.println(roundsList.get(1).getEnemies().get(0).getPosWidthX());
-
+        System.out.println(getRoundsList().get(currentRound).getEnemies().size());
+        if (getRoundsList().get(currentRound).getEnemies().isEmpty()) {
+            currentRound++;
+        }
     }
 
     private void createLevel(){
@@ -63,7 +50,7 @@ public class Level extends GameScene {
         numOfRounds=2;
         for (int i = 0; i < numOfRounds; i++) {
             Round round = new Round();
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < 15; j++) {
 
                 Enemy enemy = new Enemy(getGame().getEnemyManager().getEnemies().get(0).getNameEntity(),
                         getGame().getEnemyManager().getEnemies().get(0).getPosWidthX(),

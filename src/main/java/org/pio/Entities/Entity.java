@@ -71,7 +71,6 @@ public class Entity {
     }
 
             // -------SET-------- //
-
     public void setPosWidthX(int posWidthX) {
         this.posWidthX = posWidthX;
     }
