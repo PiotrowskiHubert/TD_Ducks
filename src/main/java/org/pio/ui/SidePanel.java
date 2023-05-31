@@ -106,13 +106,16 @@ public class SidePanel {
 
     public void drawSelectedTurret(Graphics g){
         if (selectedTower!=null){
-            g.drawImage(selectedTower.getSprite(), playScene.getMouseX(), playScene.getMouseY(),40,40,null);
+            g.setColor(new Color(0f,0f,0f,.5f));
+            g.fillOval(playScene.getMouseX()-100, playScene.getMouseY()-100, 100*2, 100*2);
+            g.setColor(Color.black);
+            g.drawOval(playScene.getMouseX()-100, playScene.getMouseY()-100, 100*2, 100*2);
+            g.drawImage(selectedTower.getSprite(), playScene.getMouseX()-20, playScene.getMouseY()-20,40,40,null);
         }
     }
     public static AllyTower getSelectedTower() {
         return selectedTower;
     }
-
     public static void setSelectedTower(AllyTower selectedTower) {
         SidePanel.selectedTower = selectedTower;
     }

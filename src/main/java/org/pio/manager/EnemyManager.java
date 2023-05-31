@@ -2,12 +2,8 @@ package org.pio.manager;
 
 import org.pio.Entities.Enemy;
 import org.pio.scene.Level;
-import org.pio.scene.Round;
-import org.pio.tiles.Tile;
-import org.pio.writers.WriterMethods;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
@@ -15,18 +11,17 @@ import java.util.List;
 
 public class EnemyManager {
     private List<Enemy> enemyList;
-    private List<Enemy> enemies=new ArrayList<>();;
     private BufferedImage spriteEnemyAtlas;
 
     public EnemyManager() {
         loadEnemyAtlas();
         createEnemies();
-
     }
 
     private void createEnemies(){
-        enemyList =new ArrayList<>();
         int id=0;
+        enemyList =new ArrayList<>();
+
         enemyList.add(new Enemy("BasicDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
         enemyList.add(new Enemy("LeadDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
         enemyList.add(new Enemy("CamoDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
@@ -34,19 +29,6 @@ public class EnemyManager {
     }
     private void loadEnemyAtlas(){
         spriteEnemyAtlas = getSpriteEnemyAtlas();
-    }
-
-    public void addBasicDuckToList(){
-        Enemy enemy;
-        enemy=new Enemy(enemyList.get(0).getNameEntity(), enemyList.get(0).getPosWidthX(), enemyList.get(0).getPosHeightY(), enemyList.get(0).getId(),enemyList.get(0).getSprite());
-        if (enemies.size()==0){
-            enemy.setIndex(0);
-        }else {
-            enemy.setIndex(enemies.get(enemies.size()-1).getIndex()+1);
-        }
-
-        enemies.add(enemy);
-        System.out.println("BasicDuckAdded");
     }
 
     public void readEnemiesFromTextFile(){
@@ -61,7 +43,7 @@ public class EnemyManager {
             while ((nextLine = reader.readLine()) != null) {
 
                 if (nextLine.equals("1")){
-                    addBasicDuckToList();
+
                 }
 
             }
@@ -71,33 +53,33 @@ public class EnemyManager {
         }
     }
 
-    public void update(List<Round> roundList){
+    public void update(List<Enemy> enemies){
 
-        if (!roundList.get(0).getEnemies().isEmpty()){
+            if (!enemies.isEmpty()){
 
-            for (int i = 0; i < roundList.get(0).getEnemies().size(); i++) {
-                roundList.get(0).getEnemies().get(i).update();
+                for (int i = 0; i < enemies.size(); i++) {
+                    enemies.get(i).update();
 
-                if (i < roundList.get(0).getEnemies().size() - 1) {
+                        if (i < enemies.size() - 1) {
 
-                    if (roundList.get(0).getEnemies().get(i).getPosWidthX()-
-                            roundList.get(0).getEnemies().get(i+1).getPosWidthX()>=50){
-                        roundList.get(0).getEnemies().get(i+1).setCanGo(true);
-                    }
+                            if (enemies.get(i).getPosWidthX()-
+                                    enemies.get(i+1).getPosWidthX()>=50){
+                                enemies.get(i+1).setCanGo(true);
+                        }
 
-                    if (roundList.get(0).getEnemies().get(i).getPosWidthX()>=Enemy.getEndPointWidthX()){
-                        roundList.get(0).getEnemies().remove(roundList.get(0).getEnemies().get(i));
-                    }
+                        if (enemies.get(i).getPosWidthX()>=Enemy.getEndPointWidthX()){
+                            enemies.remove(enemies.get(i));
+                        }
 
-                 } else {
+                    } else {
 
-                    if (roundList.get(0).getEnemies().get(i).getPosWidthX()>=Enemy.getEndPointWidthX()){
-                        roundList.get(0).getEnemies().remove(roundList.get(0).getEnemies().get(i));
+                        if (enemies.get(i).getPosWidthX()>=Enemy.getEndPointWidthX()){
+                            enemies.remove(enemies.get(i));
+                        }
                     }
                 }
-            }
 
-        }
+            }
     }
 
     private BufferedImage getSpriteEnemyAtlas(){
@@ -118,7 +100,7 @@ public class EnemyManager {
     private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
         return spriteEnemyAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
     }
-    public List<Enemy> getEnemies() {
-        return enemies;
+    public List<Enemy> getEnemyList() {
+        return enemyList;
     }
 }

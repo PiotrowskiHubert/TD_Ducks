@@ -22,17 +22,20 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
     private void initLevel(){
 
-        lvl=new Level(18,12, getGame(),5);
+        lvl=new Level(18,12, getGame(),1);
     }
 
     public void startWave(){
-        getLvl().getRoundsList().get(0).getEnemies().get(0).setCanGo(true);
+        getLvl().getRoundsList().get(getLvl().currentRound).getEnemies().get(0).setCanGo(true)  ;
     }
 
     // -------- UPDATE ------- //
 
     public void update(){
-        getLvl().getGame().getEnemyManager().update(getLvl().getRoundsList());
+        if(getLvl().currentRound<getLvl().getNUM_OF_ROUNDS()){
+            getLvl().getGame().getEnemyManager().update(getLvl().getRoundsList().get(getLvl().currentRound).getEnemies());
+        }
+
         getLvl().updateLevel();
     }
 
@@ -44,9 +47,6 @@ public class PlayScene extends GameScene implements sceneMeethods{
         lvl.drawEnemies(g);
 
         getGame().getAllyTowerManager().render(g);
-
-        //getGame().getEnemyManager().drawEnemies(g);
-
     }
 
     // -------- INPUTS ------- //
@@ -65,14 +65,12 @@ public class PlayScene extends GameScene implements sceneMeethods{
         }
 
     }
-
     @Override
     public void rightMouseClicked(int x, int y) {
         if (SidePanel.getSelectedTower()!=null){
             SidePanel.setSelectedTower(null);
         }
     }
-
     @Override
     public void mouseMoved(int x, int y) {
 
@@ -84,7 +82,6 @@ public class PlayScene extends GameScene implements sceneMeethods{
         mouseY=y;
 
     }
-
     @Override
     public void mousePressed(int x, int y) {
         if (x>720){
@@ -93,39 +90,31 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
 
     }
-
     @Override
     public void mouseReleased(int x, int y) {
         sidePanel.mouseReleased(x,y);
     }
-
     @Override
     public void mouseDragged(int x, int y) {
 
     }
-
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode()==KeyEvent.VK_SPACE){
             startWave();
         }
-
-        if (e.getKeyCode()==KeyEvent.VK_A){
-            getGame().getEnemyManager().addBasicDuckToList();
-        }
     }
+
+    // -------- GET ------- //
 
     public Level getLvl() {
         return lvl;
     }
-
     public SidePanel getSidePanel() {
         return sidePanel;
     }
-
     public static int getMouseX() {
         return mouseX;
     }
-
     public static int getMouseY() {
         return mouseY;
     }

@@ -1,6 +1,7 @@
 package org.pio.manager;
 
 import org.pio.Entities.AllyTower;
+import org.pio.Entities.Bullet;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
 import org.pio.ui.SidePanel;
@@ -32,6 +33,10 @@ public class AllyTowerManager {
         allyTowersList.add(new AllyTower("Tower_3",getSprite(0,0,40,40), id++));
         allyTowersList.add(new AllyTower("Tower_4",getSprite(0,0,40,40), id++));
 
+        for (AllyTower allyTower : allyTowersList) {
+            allyTower.setRange(150);
+        }
+
     }
 
     private void loadAllyTowerAtlas(){
@@ -40,9 +45,8 @@ public class AllyTowerManager {
 
     public void addTower(int x, int y){
         AllyTower allyTower;
-        allyTower=new AllyTower(PlayScene.getMouseX(), PlayScene.getMouseY(), SidePanel.getSelectedTower().getSprite());
+        allyTower=new AllyTower(PlayScene.getMouseX()-20, PlayScene.getMouseY()-20, SidePanel.getSelectedTower().getSprite());
         allyTowersPlaced.add(allyTower);
-
     }
 
     private BufferedImage getSpriteAllyTowerAtlas(){

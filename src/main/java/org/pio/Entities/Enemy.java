@@ -2,6 +2,8 @@ package org.pio.Entities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Enemy extends Entity {
     private static int spwnPointWidthX, spwnPointHeightY, endPointWidthX, endPointHeightY;
@@ -21,6 +23,7 @@ public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedIm
     this.movSpeed=1;
     this.entityBounds=initBounds();
 }
+
 
     @Override
     public Rectangle initBounds() {

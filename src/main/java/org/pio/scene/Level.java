@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Level extends GameScene {
     private final int START_ROUND=0;
-    private int numOfRounds;
+    private final int NUM_OF_ROUNDS;
     public int currentRound;
     private static int lvlHeight, lvlWidth;
     private static Tile [][] lvlArr;
@@ -19,7 +19,7 @@ public class Level extends GameScene {
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
 
         super(game);
-        this.numOfRounds=numOfRounds;
+        this.NUM_OF_ROUNDS=numOfRounds;
         Level.lvlWidth =lvlWidth;
         Level.lvlHeight =lvlHeight;
 
@@ -33,43 +33,40 @@ public class Level extends GameScene {
         getGame().getLvlManager().readLevel();
 
     }
-
     public void updateLevel(){
 
-        System.out.println(getRoundsList().get(currentRound).getEnemies().size());
-        if (getRoundsList().get(currentRound).getEnemies().isEmpty()) {
-            currentRound++;
+        if (currentRound<NUM_OF_ROUNDS){
+            if (getRoundsList().get(currentRound).getEnemies().isEmpty()) {
+                if (currentRound<NUM_OF_ROUNDS){
+                    currentRound++;
+                    System.out.println(currentRound);
+                }
+            }
         }
+
     }
-
-    private void createLevel(){
-
-        //WriterMethods.writeEnemiesToTextFile(10);
-        getGame().getEnemyManager().readEnemiesFromTextFile();
-
-        numOfRounds=2;
-        for (int i = 0; i < numOfRounds; i++) {
+    private void addBasicDuckToList(List<Round> enemyList, int numOfEnemies){
             Round round = new Round();
-            for (int j = 0; j < 15; j++) {
+            for (int j = 0; j < numOfEnemies; j++) {
 
-                Enemy enemy = new Enemy(getGame().getEnemyManager().getEnemies().get(0).getNameEntity(),
-                        getGame().getEnemyManager().getEnemies().get(0).getPosWidthX(),
-                        getGame().getEnemyManager().getEnemies().get(0).getPosHeightY(),
-                        getGame().getEnemyManager().getEnemies().get(0).getId(),
-                        getGame().getEnemyManager().getEnemies().get(0).getSprite());
-                        round.getEnemies().add(enemy);
+                Enemy enemy = new Enemy(getGame().getEnemyManager().getEnemyList().get(0).getNameEntity(),
+                        getGame().getEnemyManager().getEnemyList().get(0).getPosWidthX(),
+                        getGame().getEnemyManager().getEnemyList().get(0).getPosHeightY(),
+                        getGame().getEnemyManager().getEnemyList().get(0).getId(),
+                        getGame().getEnemyManager().getEnemyList().get(0).getSprite());
+
+                round.getEnemies().add(enemy);
 
             }
 
-
-            roundsList.add(round);
-        }
-
-        roundsList.get(0).getEnemies().remove(0);
-        System.out.println(roundsList.get(1).getEnemies().size());
-
+            enemyList.add(round);
     }
+    private void createLevel(){
 
+        for (int i = 0; i < NUM_OF_ROUNDS; i++) {
+            addBasicDuckToList(roundsList,10);
+        }
+    }
     public void drawLevel(Graphics g){
 
         for (int i = 0; i < lvlHeight; i++) {
@@ -86,17 +83,20 @@ public class Level extends GameScene {
             }
         }
     }
-
     public void drawEnemies(Graphics g){
 
-        if (!roundsList.get(currentRound).getEnemies().isEmpty()) {
-            for (Enemy enemy : roundsList.get(currentRound).getEnemies()) {
-                g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
+        if (currentRound<NUM_OF_ROUNDS){
+            if (!roundsList.get(currentRound).getEnemies().isEmpty()) {
+                for (Enemy enemy : roundsList.get(currentRound).getEnemies()) {
+                    g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
+                }
             }
         }
 
     }
-
+    public int getNUM_OF_ROUNDS() {
+        return NUM_OF_ROUNDS;
+    }
     public static int getLvlHeight() {
         return lvlHeight;
     }
