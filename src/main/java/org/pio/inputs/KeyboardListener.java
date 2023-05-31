@@ -18,7 +18,7 @@ public class KeyboardListener implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        game.getPlayScene().keyPressed(e);
 
     }
 

@@ -17,11 +17,11 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getButton()==MouseEvent.BUTTON1){
-            game.getPlayScene().mouseClicked(e.getX(), e.getY());
+            game.getPlayScene().leftMouseClicked(e.getX(), e.getY());
         }
 
         if (e.getButton()==MouseEvent.BUTTON3){
-            //game.getPlayScene().getSidePanel().mouseClicked(e.getX(),e.getY());
+            game.getPlayScene().rightMouseClicked(e.getX(), e.getY());
         }
 
 

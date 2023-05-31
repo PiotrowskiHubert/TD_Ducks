@@ -5,23 +5,14 @@ import java.awt.image.BufferedImage;
 
 public class AllyTower extends Entity {
 
-//    public AllyTower(String nameTower, int posWidthX, int posHeightY, BufferedImage spriteTower) {
-//        this.nameEntity=nameTower;
-//        this.sprite=spriteTower;
-//
-//        this.posWidthX=posWidthX;
-//        this.posHeightY=posHeightY;
-//        this.width=40;
-//        this.height=40;
-//    }
-
     public AllyTower(int posWidthX, int posHeightY, BufferedImage spriteTower) {
-        this.sprite=spriteTower;
-
         this.posWidthX=posWidthX;
         this.posHeightY=posHeightY;
+        this.sprite=spriteTower;
+
         this.width=40;
         this.height=40;
+        this.entityBounds=initBounds();
     }
 
     public AllyTower(String nameTower,BufferedImage spriteTower, int id) {
@@ -32,8 +23,8 @@ public class AllyTower extends Entity {
 
 
     @Override
-    public void initBounds() {
-        super.initBounds();
+    public Rectangle initBounds() {
+        return super.initBounds();
     }
 
     @Override

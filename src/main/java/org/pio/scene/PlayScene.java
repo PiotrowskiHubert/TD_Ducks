@@ -1,17 +1,15 @@
 package org.pio.scene;
 
 import org.pio.main.Game;
-import org.pio.Level;
 import org.pio.ui.SidePanel;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class PlayScene extends GameScene implements sceneMeethods{
     private Level lvl;
     private SidePanel sidePanel;
     private static int mouseX, mouseY;
-    private boolean canPlaceTower = false;
-
 
     public PlayScene(Game game) {
         super(game);
@@ -24,15 +22,18 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
     private void initLevel(){
 
-        lvl=new Level(18,12);
+        lvl=new Level(18,12, getGame(),5);
+    }
 
-        getGame().getEnemyManager().initEnemies();
+    public void startWave(){
+        getLvl().getRoundsList().get(0).getEnemies().get(0).setCanGo(true);
     }
 
     // -------- UPDATE ------- //
 
     public void update(){
-        getGame().getEnemyManager().update();
+        getLvl().getGame().getEnemyManager().update(getLvl().getRoundsList());
+        getLvl().updateLevel();
     }
 
     // -------- RENDER ------- //
@@ -40,27 +41,36 @@ public class PlayScene extends GameScene implements sceneMeethods{
     public void render(Graphics g){
         lvl.drawLevel(g);
         sidePanel.drawPanel(g);
+        lvl.drawEnemies(g);
 
         getGame().getAllyTowerManager().render(g);
 
-        getGame().getEnemyManager().drawEnemies(g);
+        //getGame().getEnemyManager().drawEnemies(g);
 
     }
 
     // -------- INPUTS ------- //
 
     @Override
-    public void mouseClicked(int x, int y) {
+    public void leftMouseClicked(int x, int y) {
         if (x>720){
             sidePanel.mouseClicked(x,y);
         }
 
         if (x<720){
-            getGame().getAllyTowerManager().addTower(x,y);
-
+            if (SidePanel.getSelectedTower()!=null) {
+                getGame().getAllyTowerManager().addTower(x, y);
+                SidePanel.setSelectedTower(null);
+            }
         }
 
-        System.out.println("x: "+x+" | y: "+y);
+    }
+
+    @Override
+    public void rightMouseClicked(int x, int y) {
+        if (SidePanel.getSelectedTower()!=null){
+            SidePanel.setSelectedTower(null);
+        }
     }
 
     @Override
@@ -92,6 +102,16 @@ public class PlayScene extends GameScene implements sceneMeethods{
     @Override
     public void mouseDragged(int x, int y) {
 
+    }
+
+    public void keyPressed(KeyEvent e){
+        if (e.getKeyCode()==KeyEvent.VK_SPACE){
+            startWave();
+        }
+
+        if (e.getKeyCode()==KeyEvent.VK_A){
+            getGame().getEnemyManager().addBasicDuckToList();
+        }
     }
 
     public Level getLvl() {

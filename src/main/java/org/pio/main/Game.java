@@ -2,6 +2,7 @@ package org.pio.main;
 
 import org.pio.manager.AllyTowerManager;
 import org.pio.manager.EnemyManager;
+import org.pio.manager.LvlManager;
 import org.pio.scene.PlayScene;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import javax.swing.*;
 public class Game extends JFrame implements Runnable {
     private GameScreen gameScreen;
     private EnemyManager enemyManager;
+    private LvlManager lvlManager;
     private AllyTowerManager allyTowerManager;
     private Render render;
     private PlayScene playScene;
@@ -36,6 +38,7 @@ public class Game extends JFrame implements Runnable {
         render=new Render(this);
         enemyManager = new EnemyManager();
         allyTowerManager=new AllyTowerManager();
+        lvlManager=new LvlManager();
         playScene=new PlayScene(this);
 
     }
@@ -108,5 +111,8 @@ public class Game extends JFrame implements Runnable {
     }
     public AllyTowerManager getAllyTowerManager() {
         return allyTowerManager;
+    }
+    public LvlManager getLvlManager() {
+        return lvlManager;
     }
 }

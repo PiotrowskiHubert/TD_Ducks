@@ -1,7 +1,6 @@
 package org.pio.Entities;
 
-import org.pio.Level;
-import org.pio.tiles.Tile;
+import org.pio.scene.Level;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,8 +16,9 @@ public class Entity {
     protected int width, height;
     protected int id;
 
-    public void initBounds(){
+    public Rectangle initBounds(){
         entityBounds=new Rectangle(posWidthX, posHeightY, width, height);
+        return entityBounds;
     }
 
     public void update(){
