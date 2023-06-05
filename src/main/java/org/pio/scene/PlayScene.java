@@ -22,7 +22,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
     private void initLevel(){
 
-        lvl=new Level(18,12, getGame(),1);
+        lvl=new Level(18,12, getGame(),5);
     }
 
     public void startWave(){

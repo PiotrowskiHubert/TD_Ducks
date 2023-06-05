@@ -33,9 +33,6 @@ public class AllyTowerManager {
         allyTowersList.add(new AllyTower("Tower_3",getSprite(0,0,40,40), id++));
         allyTowersList.add(new AllyTower("Tower_4",getSprite(0,0,40,40), id++));
 
-        for (AllyTower allyTower : allyTowersList) {
-            allyTower.setRange(150);
-        }
 
     }
 
@@ -73,8 +70,14 @@ public class AllyTowerManager {
 
         if (!allyTowersPlaced.isEmpty()){
             for (AllyTower ally : allyTowersPlaced) {
-
+                ally.drawRange(g);
                 g.drawImage(ally.getSprite(),ally.getPosWidthX(),ally.getPosHeightY(),ally.getWidth(),ally.getHeight(),null);
+
+                if (!ally.getBulletList().isEmpty()){
+                    for (Bullet bullet : ally.getBulletList()) {
+                        bullet.draw(g);
+                    }
+                }
             }
         }
 
@@ -83,8 +86,10 @@ public class AllyTowerManager {
     public List<AllyTower> getAllyTowersList() {
         return allyTowersList;
     }
-
     public AllyTower getAllyTower(int id){
         return allyTowersList.get(id);
+    }
+    public List<AllyTower> getAllyTowersPlaced() {
+        return allyTowersPlaced;
     }
 }

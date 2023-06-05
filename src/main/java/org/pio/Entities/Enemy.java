@@ -62,26 +62,21 @@ public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedIm
         spwnPointWidthX=-50;
         return spwnPointWidthX;
     }
-
     public static int getSpwnPointHeightY() {
         spwnPointHeightY=240;
         return spwnPointHeightY;
     }
-
     public static int getEndPointWidthX() {
         endPointWidthX=720;
         return endPointWidthX;
     }
-
     public static int getEndPointHeightY() {
         endPointHeightY=245;
         return endPointHeightY;
     }
-
     public int getIndex() {
         return index;
     }
-
     public void setIndex(int index) {
         this.index = index;
     }

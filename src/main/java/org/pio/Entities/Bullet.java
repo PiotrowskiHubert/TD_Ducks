@@ -21,5 +21,10 @@ public class Bullet {
         return bulletHitBox;
     }
 
+    public void draw(Graphics g){
+        g.setColor(Color.red);
+        g.fillRect(bulletHitBox.x, bulletHitBox.y, bulletHitBox.width, bulletHitBox.height);
+    }
+
 
 }

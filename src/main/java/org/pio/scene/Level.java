@@ -33,7 +33,77 @@ public class Level extends GameScene {
         getGame().getLvlManager().readLevel();
 
     }
+    private void isCurrentRoundBelowMaxNumOfRounds(){
+        if (!(currentRound<NUM_OF_ROUNDS)) {
+
+            return;
+        }
+    }
+    public void ifEnemyInRangeAddToAvailableTargetList(){
+            isCurrentRoundBelowMaxNumOfRounds();
+
+            if (!getGame().getAllyTowerManager().getAllyTowersPlaced().isEmpty()) {
+
+                for (int i = 0; i < getGame().getAllyTowerManager().getAllyTowersPlaced().size(); i++) {
+                    for (Enemy enemy : roundsList.get(currentRound).getEnemies()) {
+
+                        if (getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())) {
+
+                            boolean alreadyExists=false;
+
+                            for (Enemy enemyInRangeList : getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList()) {
+                                if (enemy.getIndex()==enemyInRangeList.getIndex()){
+                                    alreadyExists=true;
+                                }
+                            }
+
+                            if (!alreadyExists){
+                                getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().add(enemy);
+                            } else {
+
+                                int enemyPosOnList =0;
+
+                                for (Enemy enemyPosInRangeList : getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList()) {
+                                    if (enemyPosInRangeList.getIndex() == enemy.getIndex()) {
+                                        break;
+                                    }
+                                    enemyPosOnList++;
+                                }
+
+
+                                getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().get(enemyPosOnList).setPosWidthX(enemy.getPosWidthX());
+                                getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().get(enemyPosOnList).setPosHeightY(enemy.getPosHeightY());
+                            }
+
+                            for (Enemy enemyInRangeListSout : getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList()) {
+                                System.out.print(enemyInRangeListSout.getIndex()+ " ");
+                            }
+
+                            System.out.println();
+
+
+                        }
+
+                            if (!getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().isEmpty()){
+                                if (!getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
+                                     if (getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getPosWidthX()<enemy.getPosWidthX()){
+
+                                         getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().remove(0);
+                                     }
+                                }
+
+                            }
+
+
+                    }
+                }
+
+            }
+
+    }
     public void updateLevel(){
+
+        ifEnemyInRangeAddToAvailableTargetList();
 
         if (currentRound<NUM_OF_ROUNDS){
             if (getRoundsList().get(currentRound).getEnemies().isEmpty()) {
@@ -55,10 +125,15 @@ public class Level extends GameScene {
                         getGame().getEnemyManager().getEnemyList().get(0).getId(),
                         getGame().getEnemyManager().getEnemyList().get(0).getSprite());
 
+                if (round.getEnemies().isEmpty()){
+                    enemy.setIndex(1);
+                }else {
+                    enemy.setIndex(round.getEnemies().get(j-1).getIndex()+1);
+                }
+
                 round.getEnemies().add(enemy);
 
             }
-
             enemyList.add(round);
     }
     private void createLevel(){
@@ -66,6 +141,14 @@ public class Level extends GameScene {
         for (int i = 0; i < NUM_OF_ROUNDS; i++) {
             addBasicDuckToList(roundsList,10);
         }
+
+        for (Round rounds : roundsList) {
+            for (Enemy enemy : rounds.getEnemies()) {
+                System.out.print(enemy.getIndex()+" ");
+            }
+            System.out.println();
+        }
+
     }
     public void drawLevel(Graphics g){
 
