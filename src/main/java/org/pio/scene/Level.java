@@ -1,8 +1,11 @@
 package org.pio.scene;
 
+import org.pio.Entities.AllyTower;
+import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemy;
 import org.pio.main.Game;
 import org.pio.tiles.Tile;
+import org.pio.writers.Helper;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -42,6 +45,10 @@ public class Level extends GameScene {
     public void ifEnemyInRangeAddToAvailableTargetList(){
             isCurrentRoundBelowMaxNumOfRounds();
 
+            if (Helper.isAllyTowerEmpty(getGame().getAllyTowerManager().getAllyTowersPlaced())){
+                return;
+            }
+
             if (!getGame().getAllyTowerManager().getAllyTowersPlaced().isEmpty()) {
 
                 for (int i = 0; i < getGame().getAllyTowerManager().getAllyTowersPlaced().size(); i++) {
@@ -75,13 +82,6 @@ public class Level extends GameScene {
                                 getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().get(enemyPosOnList).setPosHeightY(enemy.getPosHeightY());
                             }
 
-                            for (Enemy enemyInRangeListSout : getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList()) {
-                                System.out.print(enemyInRangeListSout.getIndex()+ " ");
-                            }
-
-                            System.out.println();
-
-
                         }
 
                             if (!getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().isEmpty()){
@@ -104,7 +104,6 @@ public class Level extends GameScene {
     public void updateLevel(){
 
         ifEnemyInRangeAddToAvailableTargetList();
-
         if (currentRound<NUM_OF_ROUNDS){
             if (getRoundsList().get(currentRound).getEnemies().isEmpty()) {
                 if (currentRound<NUM_OF_ROUNDS){

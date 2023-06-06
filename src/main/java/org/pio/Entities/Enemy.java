@@ -10,8 +10,10 @@ public class Enemy extends Entity {
     private final int movSpeed;
     private boolean canGo=false;
     private int index;
+    private Rectangle enemyHitBox;
 
-public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy) {
+
+    public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy) {
     this.nameEntity=nameEnemy;
     this.posWidthX=posWidthX;
     this.posHeightY=posHeightY;
@@ -21,7 +23,7 @@ public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedIm
     this.width=40;
     this.height=40;
     this.movSpeed=1;
-    this.entityBounds=initBounds();
+    this.enemyHitBox=initBounds();
 }
 
 
@@ -33,6 +35,11 @@ public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedIm
     @Override
     public void update() {
         move();
+        updateHitBox();
+    }
+    private Rectangle updateHitBox(){
+        enemyHitBox.setBounds(posWidthX, posHeightY,width,height);
+        return enemyHitBox;
     }
 
     public void move(){
@@ -79,5 +86,9 @@ public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedIm
     }
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public Rectangle getEnemyHitBox() {
+        return enemyHitBox;
     }
 }

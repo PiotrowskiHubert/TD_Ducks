@@ -1,5 +1,7 @@
 package org.pio.Entities;
 
+import org.pio.manager.AllyTowerManager;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
@@ -24,12 +26,23 @@ public class AllyTower extends Entity {
         this.rangeEllipse = initRangeEllipse();
         this.bulletList=new ArrayList<>();
         this.enemiesInRangeList=new ArrayList<>();
+
     }
 
     public AllyTower(String nameTower,BufferedImage spriteTower, int id) {
         this.sprite=spriteTower;
         this.nameEntity=nameTower;
         this.id=id;
+    }
+
+    public void shot(){
+        if (!enemiesInRangeList.isEmpty()){
+            Bullet bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX(),enemiesInRangeList.get(0).getPosHeightY());
+            bulletList.add(bullet);
+        }
+    }
+    private void shotUpdate(){
+        shot();
     }
 
     public Ellipse2D initRangeEllipse(){
@@ -45,7 +58,8 @@ public class AllyTower extends Entity {
 
     @Override
     public void update() {
-        super.update();
+
+        shotUpdate();
     }
 
     @Override

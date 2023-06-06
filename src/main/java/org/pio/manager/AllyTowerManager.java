@@ -17,7 +17,9 @@ import java.util.List;
 public class AllyTowerManager {
     private List<AllyTower> allyTowersList;
     private List<AllyTower> allyTowersPlaced=new ArrayList<>();
+    public static List<Bullet> allBullets=new ArrayList<>();
     private BufferedImage spriteAllyTowerAtlas;
+
 
     public AllyTowerManager() {
         loadAllyTowerAtlas();

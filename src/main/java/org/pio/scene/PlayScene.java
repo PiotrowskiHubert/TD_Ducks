@@ -1,5 +1,7 @@
 package org.pio.scene;
 
+import org.pio.Entities.AllyTower;
+import org.pio.Entities.Bullet;
 import org.pio.main.Game;
 import org.pio.ui.SidePanel;
 
