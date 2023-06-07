@@ -5,6 +5,7 @@ import org.pio.Entities.Bullet;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
 import org.pio.ui.SidePanel;
+import org.pio.writers.Helper;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,14 +13,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class AllyTowerManager {
     private List<AllyTower> allyTowersList;
-    private List<AllyTower> allyTowersPlaced=new ArrayList<>();
-    public static List<Bullet> allBullets=new ArrayList<>();
+    private static List<AllyTower> allyTowersPlaced;
     private BufferedImage spriteAllyTowerAtlas;
-
 
     public AllyTowerManager() {
         loadAllyTowerAtlas();
@@ -27,6 +27,7 @@ public class AllyTowerManager {
     }
 
     private void createAllyTowerList(){
+        allyTowersPlaced=new ArrayList<>();
         allyTowersList =new ArrayList<>();
         int id=0;
 
@@ -48,25 +49,23 @@ public class AllyTowerManager {
         allyTowersPlaced.add(allyTower);
     }
 
-    private BufferedImage getSpriteAllyTowerAtlas(){
-        BufferedImage img = null;
+    // ----------- UPDATE ----------- //
 
-        InputStream is = Level.class.getClassLoader().getResourceAsStream("AllyTower.png");
+    public void updateAllyTowerPlaced(){
 
-        try {
-            if (is!=null){
-                img= ImageIO.read(is);
-            }
-        } catch (IOException e) {
-            System.out.println("FailedToLoadAllyTowerAtlas");
+        if (Helper.isAllyTowerListEmpty(allyTowersList)){
+            return;
         }
 
-        return img;
+        for (Iterator<AllyTower> allyTowerIterator = allyTowersPlaced.iterator();allyTowerIterator.hasNext();){
+            AllyTower nextAllyTowerPlaced = allyTowerIterator.next();
+
+            nextAllyTowerPlaced.update();
+
+        }
     }
 
-    private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
-        return spriteAllyTowerAtlas.getSubimage(xCord*32,yCord*32,widthImg,heightImg);
-    }
+    // ----------- RENDER ----------- //
 
     public void render(Graphics g){
 
@@ -85,13 +84,33 @@ public class AllyTowerManager {
 
     }
 
+    // ----------- GET ----------- //
+
+    private BufferedImage getSpriteAllyTowerAtlas(){
+        BufferedImage img = null;
+
+        InputStream is = Level.class.getClassLoader().getResourceAsStream("AllyTower.png");
+
+        try {
+            if (is!=null){
+                img= ImageIO.read(is);
+            }
+        } catch (IOException e) {
+            System.out.println("FailedToLoadAllyTowerAtlas");
+        }
+
+        return img;
+    }
+    private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
+        return spriteAllyTowerAtlas.getSubimage(xCord*32,yCord*32,widthImg,heightImg);
+    }
     public List<AllyTower> getAllyTowersList() {
         return allyTowersList;
     }
     public AllyTower getAllyTower(int id){
         return allyTowersList.get(id);
     }
-    public List<AllyTower> getAllyTowersPlaced() {
+    public static List<AllyTower> getAllyTowersPlaced() {
         return allyTowersPlaced;
     }
 }

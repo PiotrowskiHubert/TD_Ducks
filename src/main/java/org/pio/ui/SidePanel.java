@@ -12,8 +12,8 @@ public class SidePanel {
     private int panelWidth, panelHeight;
     private int posWidthX, posHeightX;
     private static AllyTower selectedTower;
-    Button bTower_0;
-    private List<Button> buttonList = new ArrayList<>();
+    Button bTower_0, startRound;
+    private List<Button> buttonTowerList;
 
     public SidePanel(int posWidthX, int posHeightX, int panelWidth, int panelHeight, PlayScene playScene) {
         this.panelWidth=panelWidth;
@@ -25,7 +25,11 @@ public class SidePanel {
         initButtons();
     }
 
+    // -------- INIT ------- //
+
     public void initButtons(){
+        buttonTowerList = new ArrayList<>();
+
         int id =0;
 
         int posX=750;
@@ -35,75 +39,29 @@ public class SidePanel {
         int posYOffSet=bWidth+10;
 
         bTower_0 =new Button("Turret_1", posX, posY+id*posYOffSet, bWidth, bHeight, id++);
-        buttonList.add(bTower_0);
+        buttonTowerList.add(bTower_0);
         bTower_0 =new Button("Turret_2", posX, posY+id*posYOffSet, bWidth, bHeight, id++);
-        buttonList.add(bTower_0);
+        buttonTowerList.add(bTower_0);
         bTower_0 =new Button("Turret_3", posX, posY+id*posYOffSet, bWidth, bHeight, id++);
-        buttonList.add(bTower_0);
+        buttonTowerList.add(bTower_0);
         bTower_0 =new Button("Turret_4", posX, posY+id*posYOffSet, bWidth, bHeight, id++);
-        buttonList.add(bTower_0);
-    }
-
-    public void drawPanel(Graphics g){
-        g.setColor(Color.pink);
-        g.fillRect(720,0,panelWidth,panelHeight);
-
-        drawButtons(g);
-    }
-
-    public void mouseClicked(int x, int y) {
-
-        for (Button button : buttonList) {
-            if (button.getButtonsBounds().contains(x,y)&&selectedTower==null){
-                selectedTower=playScene.getGame().getAllyTowerManager().getAllyTower(button.id);
-            }
-        }
+        buttonTowerList.add(bTower_0);
+        startRound =new Button("Start Round", posX, posY+id*2*posYOffSet, bWidth, bHeight, id++);
 
     }
 
-    public void mouseMoved(int x, int y) {
-
-        for (Button button : buttonList) {
-            if (button.isMouseOver()){
-                button.setMouseOver(false);
-            }
-        }
-
-        for (Button button : buttonList) {
-            if (button.getButtonsBounds().contains(x,y)){
-                button.setMouseOver(true);
-            }
-        }
-
-    }
-
-    public void mousePressed(int x, int y) {
-
-        for (Button button : buttonList) {
-            if (button.getButtonsBounds().contains(x,y)){
-                button.setMousePressed(true);
-            }
-        }
-
-    }
-
-    public void mouseReleased(int x, int y) {
-
-        for (Button button : buttonList) {
-            button.resetBooleans();
-        }
-
-    }
+    // -------- RENDER ------- //
 
     public void drawButtons(Graphics g){
 
-        for (Button button : buttonList) {
+        for (Button button : buttonTowerList) {
             button.draw(g);
         }
 
+        startRound.draw(g);
+
         drawSelectedTurret(g);
     }
-
     public void drawSelectedTurret(Graphics g){
         if (selectedTower!=null){
             g.setColor(new Color(0f,0f,0f,.5f));
@@ -113,9 +71,82 @@ public class SidePanel {
             g.drawImage(selectedTower.getSprite(), playScene.getMouseX()-20, playScene.getMouseY()-20,40,40,null);
         }
     }
+    public void drawPanel(Graphics g){
+        g.setColor(Color.pink);
+        g.fillRect(720,0,panelWidth,panelHeight);
+
+        drawButtons(g);
+    }
+
+
+    // -------- INPUTS ------- //
+
+    public void mouseClicked(int x, int y) {
+
+        for (Button button : buttonTowerList) {
+            if (button.getButtonsBounds().contains(x,y)&&selectedTower==null){
+                selectedTower=playScene.getGame().getAllyTowerManager().getAllyTower(button.id);
+            }
+        }
+
+        if (startRound.getButtonsBounds().contains(x,y)){
+            playScene.getLvl().startWave();
+        }
+
+    }
+    public void mouseMoved(int x, int y) {
+
+        for (Button button : buttonTowerList) {
+            if (button.isMouseOver()){
+                button.setMouseOver(false);
+            }
+        }
+
+        if (startRound.isMouseOver()){
+            startRound.setMouseOver(false);
+        }
+
+        for (Button button : buttonTowerList) {
+            if (button.getButtonsBounds().contains(x,y)){
+                button.setMouseOver(true);
+            }
+        }
+
+        if (startRound.getButtonsBounds().contains(x,y)){
+            startRound.setMouseOver(true);
+        }
+
+    }
+    public void mousePressed(int x, int y) {
+
+        for (Button button : buttonTowerList) {
+            if (button.getButtonsBounds().contains(x,y)){
+                button.setMousePressed(true);
+            }
+        }
+
+        if (startRound.getButtonsBounds().contains(x,y)){
+            startRound.setMousePressed(true);
+        }
+    }
+    public void mouseReleased(int x, int y) {
+
+        for (Button button : buttonTowerList) {
+            button.resetBooleans();
+        }
+
+        startRound.resetBooleans();
+
+    }
+
+    // -------- GET ------- //
+
     public static AllyTower getSelectedTower() {
         return selectedTower;
     }
+
+    // -------- SET ------- //
+
     public static void setSelectedTower(AllyTower selectedTower) {
         SidePanel.selectedTower = selectedTower;
     }

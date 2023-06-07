@@ -70,7 +70,11 @@ public class Entity {
         return posHeightY;
     }
 
-            // -------SET-------- //
+    public Rectangle getEntityBounds() {
+        return entityBounds;
+    }
+
+    // -------SET-------- //
     public void setPosWidthX(int posWidthX) {
         this.posWidthX = posWidthX;
     }

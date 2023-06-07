@@ -1,30 +1,34 @@
 package org.pio.scene;
 
 import org.pio.Entities.AllyTower;
-import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemy;
 import org.pio.main.Game;
+import org.pio.manager.AllyTowerManager;
 import org.pio.tiles.Tile;
 import org.pio.writers.Helper;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
 public class Level extends GameScene {
     private final int START_ROUND=0;
     private final int NUM_OF_ROUNDS;
-    public int currentRound;
+    private int lvlStartX, lvlStartY, lvlEndX, lvlEndY;
+    public static int currentRound;
     private static int lvlHeight, lvlWidth;
     private static Tile [][] lvlArr;
-    private List<Round> roundsList;
+    private static List<Round> roundsList;
+
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
 
         super(game);
         this.NUM_OF_ROUNDS=numOfRounds;
         Level.lvlWidth =lvlWidth;
         Level.lvlHeight =lvlHeight;
+
 
         lvlArr = new Tile[lvlHeight][lvlWidth];
         currentRound=START_ROUND;
@@ -36,96 +40,18 @@ public class Level extends GameScene {
         getGame().getLvlManager().readLevel();
 
     }
-    private void isCurrentRoundBelowMaxNumOfRounds(){
-        if (!(currentRound<NUM_OF_ROUNDS)) {
-
-            return;
-        }
-    }
-    public void ifEnemyInRangeAddToAvailableTargetList(){
-            isCurrentRoundBelowMaxNumOfRounds();
-
-            if (Helper.isAllyTowerEmpty(getGame().getAllyTowerManager().getAllyTowersPlaced())){
-                return;
-            }
-
-            if (!getGame().getAllyTowerManager().getAllyTowersPlaced().isEmpty()) {
-
-                for (int i = 0; i < getGame().getAllyTowerManager().getAllyTowersPlaced().size(); i++) {
-                    for (Enemy enemy : roundsList.get(currentRound).getEnemies()) {
-
-                        if (getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())) {
-
-                            boolean alreadyExists=false;
-
-                            for (Enemy enemyInRangeList : getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList()) {
-                                if (enemy.getIndex()==enemyInRangeList.getIndex()){
-                                    alreadyExists=true;
-                                }
-                            }
-
-                            if (!alreadyExists){
-                                getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().add(enemy);
-                            } else {
-
-                                int enemyPosOnList =0;
-
-                                for (Enemy enemyPosInRangeList : getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList()) {
-                                    if (enemyPosInRangeList.getIndex() == enemy.getIndex()) {
-                                        break;
-                                    }
-                                    enemyPosOnList++;
-                                }
-
-
-                                getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().get(enemyPosOnList).setPosWidthX(enemy.getPosWidthX());
-                                getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().get(enemyPosOnList).setPosHeightY(enemy.getPosHeightY());
-                            }
-
-                        }
-
-                            if (!getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().isEmpty()){
-                                if (!getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
-                                     if (getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getPosWidthX()<enemy.getPosWidthX()){
-
-                                         getGame().getAllyTowerManager().getAllyTowersPlaced().get(i).getEnemiesInRangeList().remove(0);
-                                     }
-                                }
-
-                            }
-
-
-                    }
-                }
-
-            }
-
-    }
-    public void updateLevel(){
-
-        ifEnemyInRangeAddToAvailableTargetList();
-        if (currentRound<NUM_OF_ROUNDS){
-            if (getRoundsList().get(currentRound).getEnemies().isEmpty()) {
-                if (currentRound<NUM_OF_ROUNDS){
-                    currentRound++;
-                    System.out.println(currentRound);
-                }
-            }
-        }
-
+    public void startWave() {
+        getRoundsList().get(currentRound).getEnemies().get(0).setCanGo(true);
     }
     private void addBasicDuckToList(List<Round> enemyList, int numOfEnemies){
             Round round = new Round();
             for (int j = 0; j < numOfEnemies; j++) {
 
-                Enemy enemy = new Enemy(getGame().getEnemyManager().getEnemyList().get(0).getNameEntity(),
-                        getGame().getEnemyManager().getEnemyList().get(0).getPosWidthX(),
-                        getGame().getEnemyManager().getEnemyList().get(0).getPosHeightY(),
-                        getGame().getEnemyManager().getEnemyList().get(0).getId(),
-                        getGame().getEnemyManager().getEnemyList().get(0).getSprite());
+                Enemy enemy = enemyCreator(0);
 
                 if (round.getEnemies().isEmpty()){
                     enemy.setIndex(1);
+
                 }else {
                     enemy.setIndex(round.getEnemies().get(j-1).getIndex()+1);
                 }
@@ -135,20 +61,89 @@ public class Level extends GameScene {
             }
             enemyList.add(round);
     }
+
+    private Enemy enemyCreator(int idFromEnemyManagerList){
+        return new Enemy(getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
+                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getSpwnPointWidthX(),
+                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getSpwnPointHeightY(),
+                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getId(),
+                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getSprite(),
+                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getMovSpeed(),
+                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getWidth(),
+                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getHeight());
+    }
+
     private void createLevel(){
 
         for (int i = 0; i < NUM_OF_ROUNDS; i++) {
             addBasicDuckToList(roundsList,10);
         }
 
-        for (Round rounds : roundsList) {
-            for (Enemy enemy : rounds.getEnemies()) {
-                System.out.print(enemy.getIndex()+" ");
+    }
+
+    // -------- UPDATE ------- //
+
+    public void updateLevel(){
+
+        if (Helper.isFirstValueSmallerThanSecond(currentRound,NUM_OF_ROUNDS)){
+            if (Helper.isEnemyListEmpty(getRoundsList().get(currentRound).getEnemies())){
+                currentRound++;
             }
-            System.out.println();
         }
 
+        updateEnemiesInRangeForPlacedTower();
+
     }
+
+    private List<Enemy> listOfEnemiesInRangeForPlacedTower(AllyTower allyTowerPlaced){
+
+        for (Enemy enemy: getRoundsList().get(currentRound).getEnemies()){
+
+            if (!isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
+                if (allyTowerPlaced.getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
+                    allyTowerPlaced.getEnemiesInRangeList().add(enemy);
+                }
+            }
+
+            if (isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
+                if (allyTowerPlaced.getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
+                    updateEnemiesPositionInRangeForPlacedTower(allyTowerPlaced, enemy);
+                }
+            }
+
+            if (isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
+                if (!allyTowerPlaced.getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
+                    allyTowerPlaced.getEnemiesInRangeList().remove(enemy);
+                }
+            }
+
+        }
+
+        return allyTowerPlaced.getEnemiesInRangeList();
+    }
+    private void updateEnemiesPositionInRangeForPlacedTower(AllyTower allyTowerPlaced, Enemy enemy) {
+        for (Enemy enemyInRange: allyTowerPlaced.getEnemiesInRangeList()){
+            if (enemyInRange.equals(enemy)){
+                enemyInRange.setPosWidthX(enemy.getPosWidthX());
+                enemyInRange.setPosHeightY(enemy.getPosHeightY());
+            }
+        }
+    }
+    private void updateEnemiesInRangeForPlacedTower(){
+        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
+            return;
+        }
+
+        for (AllyTower allyTowerPlaced: AllyTowerManager.getAllyTowersPlaced()){
+            listOfEnemiesInRangeForPlacedTower(allyTowerPlaced);
+        }
+    }
+    private boolean isEnemyAlreadyInAllyTowerPlacedList(AllyTower allyTowerPlaced, Enemy enemy){
+        return allyTowerPlaced.getEnemiesInRangeList().contains(enemy);
+    }
+
+    // -------- DRAW ------- //
+
     public void drawLevel(Graphics g){
 
         for (int i = 0; i < lvlHeight; i++) {
@@ -165,6 +160,13 @@ public class Level extends GameScene {
             }
         }
     }
+
+    public void drawRoundInfo(Graphics g){
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        g.drawString("Round: " + (currentRound+1) + "/" + NUM_OF_ROUNDS, 10, 20);
+    }
+
     public void drawEnemies(Graphics g){
 
         if (currentRound<NUM_OF_ROUNDS){
@@ -174,8 +176,10 @@ public class Level extends GameScene {
                 }
             }
         }
-
     }
+
+    // -------- GET ------- //
+
     public int getNUM_OF_ROUNDS() {
         return NUM_OF_ROUNDS;
     }
@@ -188,7 +192,13 @@ public class Level extends GameScene {
     public static Tile[][] getLvlArr() {
         return lvlArr;
     }
-    public List<Round> getRoundsList() {
+    public static List<Round> getRoundsList() {
         return roundsList;
     }
+    public static int getCurrentRound() {
+        return currentRound;
+    }
+
+    // -------- SET ------- //
+
 }

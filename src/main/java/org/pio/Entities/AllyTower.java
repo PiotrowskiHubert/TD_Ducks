@@ -1,6 +1,8 @@
 package org.pio.Entities;
 
 import org.pio.manager.AllyTowerManager;
+import org.pio.scene.Level;
+import org.pio.writers.Helper;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -35,15 +37,7 @@ public class AllyTower extends Entity {
         this.id=id;
     }
 
-    public void shot(){
-        if (!enemiesInRangeList.isEmpty()){
-            Bullet bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX(),enemiesInRangeList.get(0).getPosHeightY());
-            bulletList.add(bullet);
-        }
-    }
-    private void shotUpdate(){
-        shot();
-    }
+    // -------- INIT ------- //
 
     public Ellipse2D initRangeEllipse(){
         rangeEllipse = new Ellipse2D.Float(getPosWidthX()-getRange()+20, getPosHeightY()-getRange()+20, getRange()*2, getRange()*2);
@@ -56,17 +50,35 @@ public class AllyTower extends Entity {
         return super.initBounds();
     }
 
+    // -------- UPDATE ------- //
+
     @Override
     public void update() {
-
-        shotUpdate();
+        shot();
     }
+    public void shot(){
+
+        if (Helper.isEnemyListEmpty(Level.getRoundsList().get(Level.currentRound).getEnemies())){
+            return;
+        }
+        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
+            return;
+        }
+
+        double shotOffsetX=5.0;
+        double shotOffsetY=0.0;
+
+        Bullet bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
+        bulletList.add(bullet);
+
+    }
+
+    // -------- RENDER ------- //
 
     @Override
     public void drawEntity(Graphics g) {
         super.drawEntity(g);
     }
-
     public void drawRange(Graphics g){
 
         g.setColor(new Color(0f,0f,0f,.5f));
@@ -79,6 +91,8 @@ public class AllyTower extends Entity {
 
     }
 
+    // -------- GET ------- //
+
     @Override
     public int getPosWidthX() {
         return super.getPosWidthX();
@@ -89,9 +103,6 @@ public class AllyTower extends Entity {
     }
     public int getRange() {
         return range;
-    }
-    public void setRange(int range) {
-        this.range = range;
     }
     public List<Bullet> getBulletList() {
         return bulletList;
@@ -104,4 +115,11 @@ public class AllyTower extends Entity {
     public List<Enemy> getEnemiesInRangeList() {
         return enemiesInRangeList;
     }
+
+    // -------- SET ------- //
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
 }

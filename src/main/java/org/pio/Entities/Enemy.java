@@ -2,93 +2,150 @@ package org.pio.Entities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Enemy extends Entity {
-    private static int spwnPointWidthX, spwnPointHeightY, endPointWidthX, endPointHeightY;
-    private final int movSpeed;
+    private int spwnPointWidthX, spwnPointHeightY, endPointWidthX, endPointHeightY;
+    private int movSpeed;
     private boolean canGo=false;
     private int index;
     private Rectangle enemyHitBox;
+    private int spriteCordX, spriteCordY, spriteWidth, spriteHeight;
+    private int health;
 
+    public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height) {
+        this.nameEntity=nameEnemy;
+        this.posWidthX=posWidthX;
+        this.posHeightY=posHeightY;
+        this.sprite=spriteEnemy;
+        this.id=id;
+        this.width=width;
+        this.height=height;
+        this.movSpeed=movSpeed;
 
-    public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy) {
-    this.nameEntity=nameEnemy;
-    this.posWidthX=posWidthX;
-    this.posHeightY=posHeightY;
-    this.sprite=spriteEnemy;
-    this.id=id;
+        this.enemyHitBox=initBounds();
+    }
 
-    this.width=40;
-    this.height=40;
-    this.movSpeed=1;
-    this.enemyHitBox=initBounds();
-}
+    public Enemy(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int movementSpeed, int health) {
+        this.nameEntity=name;
+        this.id=id;
+        this.spriteCordX=spriteCordX;
+        this.spriteCordY=spriteCordY;
+        this.spriteWidth=spriteWidth;
+        this.spriteHeight=spriteHeight;
+        this.width=40;
+        this.height=40;
+        this.movSpeed=movementSpeed;
+        this.health=health;
+    }
 
+    // ----------- INIT ----------- //
 
     @Override
     public Rectangle initBounds() {
         return super.initBounds();
     }
 
+    // ----------- UPDATE ----------- //
+
     @Override
     public void update() {
-        move();
+        moveUpdate();
         updateHitBox();
     }
-    private Rectangle updateHitBox(){
+    private void updateHitBox(){
         enemyHitBox.setBounds(posWidthX, posHeightY,width,height);
-        return enemyHitBox;
     }
-
-    public void move(){
+    public void moveUpdate(){
         if (canGo){
             setPosWidthX(getPosWidthX()+movSpeed);
         }
     }
+
+    // ----------- RENDER ----------- //
 
     @Override
     public void drawEntity(Graphics g) {
 
     }
 
-    public void setCanGo(boolean canGo) {
-        this.canGo = canGo;
-    }
 
-    public boolean isCanGo() {
-        return canGo;
-    }
+    // ----------- GET ----------- //
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public static int getSpwnPointWidthX() {
-        spwnPointWidthX=-50;
+    public int getSpwnPointWidthX() {
+//        spwnPointWidthX=-50;
         return spwnPointWidthX;
     }
-    public static int getSpwnPointHeightY() {
-        spwnPointHeightY=240;
+    public int getSpwnPointHeightY() {
+//        spwnPointHeightY=240;
         return spwnPointHeightY;
     }
-    public static int getEndPointWidthX() {
-        endPointWidthX=720;
+    public int getEndPointWidthX() {
+//        endPointWidthX=720;
         return endPointWidthX;
     }
-    public static int getEndPointHeightY() {
-        endPointHeightY=245;
+    public int getEndPointHeightY() {
+//        endPointHeightY=245;
         return endPointHeightY;
     }
     public int getIndex() {
         return index;
     }
+    public Rectangle getEnemyHitBox() {
+        return enemyHitBox;
+    }
+    public boolean isCanGo() {
+        return canGo;
+    }
+    public Object getIdEntity() {
+        return id;
+    }
+    public int getSpriteCordX() {
+        return spriteCordX;
+    }
+    public int getSpriteCordY() {
+        return spriteCordY;
+    }
+    public int getSpriteWidth() {
+        return spriteWidth;
+    }
+    public int getSpriteHeight() {
+        return spriteHeight;
+    }
+    public int getMovSpeed() {
+        return movSpeed;
+    }
+    public int getHealth() {
+        return health;
+    }
+
+
+
+
+    // ----------- SET ----------- //
+
     public void setIndex(int index) {
         this.index = index;
     }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public void setCanGo(boolean canGo) {
+        this.canGo = canGo;
+    }
 
-    public Rectangle getEnemyHitBox() {
-        return enemyHitBox;
+    public void setSpwnPointWidthX(int spwnPointWidthX) {
+        this.spwnPointWidthX = spwnPointWidthX;
+    }
+
+    public void setSpwnPointHeightY(int spwnPointHeightY) {
+        this.spwnPointHeightY = spwnPointHeightY;
+    }
+
+    public void setEndPointWidthX(int endPointWidthX) {
+        this.endPointWidthX = endPointWidthX;
+    }
+
+    public void setEndPointHeightY(int endPointHeightY) {
+        this.endPointHeightY = endPointHeightY;
     }
 }

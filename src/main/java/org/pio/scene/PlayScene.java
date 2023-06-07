@@ -1,9 +1,8 @@
 package org.pio.scene;
 
-import org.pio.Entities.AllyTower;
-import org.pio.Entities.Bullet;
 import org.pio.main.Game;
 import org.pio.ui.SidePanel;
+import org.pio.writers.Helper;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,23 +21,36 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
     }
 
+    // -------- INIT ------- //
+
     private void initLevel(){
 
         lvl=new Level(18,12, getGame(),5);
     }
 
-    public void startWave(){
-        getLvl().getRoundsList().get(getLvl().currentRound).getEnemies().get(0).setCanGo(true)  ;
-    }
-
     // -------- UPDATE ------- //
 
     public void update(){
-        if(getLvl().currentRound<getLvl().getNUM_OF_ROUNDS()){
+        updateEnemiesCanGo();
+        getLvl().updateLevel();
+    }
+
+    private void updateEnemiesCanGo() {
+
+        if (Helper.isFirstValueSmallerThanSecond(getLvl().currentRound,getLvl().getNUM_OF_ROUNDS())){
             getLvl().getGame().getEnemyManager().update(getLvl().getRoundsList().get(getLvl().currentRound).getEnemies());
+
+        }
+    }
+
+    public void updateAllyTowersPlaced(){
+
+        if (Helper.isEnemyListEmpty(getLvl().getRoundsList().get(getLvl().currentRound).getEnemies())){
+            return;
         }
 
-        getLvl().updateLevel();
+        getLvl().getGame().getAllyTowerManager().updateAllyTowerPlaced();
+
     }
 
     // -------- RENDER ------- //
@@ -47,6 +59,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
         lvl.drawLevel(g);
         sidePanel.drawPanel(g);
         lvl.drawEnemies(g);
+        lvl.drawRoundInfo(g);
 
         getGame().getAllyTowerManager().render(g);
     }
@@ -102,7 +115,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
     }
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode()==KeyEvent.VK_SPACE){
-            startWave();
+            getLvl().startWave();
         }
     }
 

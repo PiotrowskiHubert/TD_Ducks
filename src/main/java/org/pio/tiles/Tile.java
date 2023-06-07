@@ -15,6 +15,8 @@ public class Tile {
         this.sprite=sprite;
     }
 
+    // --------- GET ---------- //
+
     public int getId() {
         return id;
     }

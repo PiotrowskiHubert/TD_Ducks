@@ -1,5 +1,8 @@
 package org.pio.Entities;
 
+import org.pio.manager.AllyTowerManager;
+import org.pio.writers.Helper;
+
 import java.awt.*;
 
 public class Bullet {
@@ -21,6 +24,15 @@ public class Bullet {
 
     }
 
+    // -------- INIT ------- //
+
+    private Rectangle initHitBox() {
+        bulletHitBox=new Rectangle((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
+        return bulletHitBox;
+    }
+
+    // -------- UPDATE ------- //
+
     public void bulletUpdate(){
 
         setPosWidthX(getPosWidthX()-unitX);
@@ -28,7 +40,29 @@ public class Bullet {
 
         updateHitBox();
     }
+    private Rectangle updateHitBox(){
+        bulletHitBox.setBounds((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
+        return bulletHitBox;
+    }
 
+    // -------- RENDER ------- //
+
+    public void draw(Graphics g){
+        g.setColor(Color.red);
+        g.fillRect(bulletHitBox.x, bulletHitBox.y, bulletHitBox.width, bulletHitBox.height);
+    }
+
+    // -------- GET ------- //
+
+    public double getPosWidthX() {
+        return posWidthX;
+    }
+    public Rectangle getBulletHitBox() {
+        return bulletHitBox;
+    }
+    public double getPosHeightY() {
+        return posHeightY;
+    }
     public double getUnitBulletX(double xBullet, double yBullet, double xEnemy, double yEnemy){
         double x;
         double y;
@@ -58,41 +92,13 @@ public class Bullet {
         return constY;
     }
 
-    private double opositeFindMultiplicationOfTwo(double biggerNum, double lowerNum){
-        return -biggerNum/lowerNum;
-    }
-
-    private Rectangle initHitBox() {
-        bulletHitBox=new Rectangle((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
-        return bulletHitBox;
-    }
-    private Rectangle updateHitBox(){
-        bulletHitBox.setBounds((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
-        return bulletHitBox;
-    }
-
-    public void draw(Graphics g){
-        g.setColor(Color.red);
-        g.fillRect(bulletHitBox.x, bulletHitBox.y, bulletHitBox.width, bulletHitBox.height);
-    }
-
-    public double getPosWidthX() {
-        return posWidthX;
-    }
+    // -------- SET ------- //
 
     public void setPosWidthX(double posWidthX) {
         this.posWidthX = posWidthX;
     }
-
-    public double getPosHeightY() {
-        return posHeightY;
-    }
-
     public void setPosHeightY(double posHeightY) {
         this.posHeightY = posHeightY;
     }
 
-    public Rectangle getBulletHitBox() {
-        return bulletHitBox;
-    }
 }
