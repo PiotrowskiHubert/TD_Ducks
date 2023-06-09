@@ -17,11 +17,9 @@ public class Round {
     public List<Enemy> getEnemies() {
         return enemies;
     }
-
     public int getNumOfEnemies() {
         return numOfEnemies;
     }
-
     public void setNumOfEnemies(int numOfEnemies) {
         this.numOfEnemies = numOfEnemies;
     }

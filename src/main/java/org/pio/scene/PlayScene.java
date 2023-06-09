@@ -1,5 +1,8 @@
 package org.pio.scene;
 
+import org.pio.Entities.AllyTower;
+import org.pio.Entities.Enemy;
+import org.pio.Player;
 import org.pio.main.Game;
 import org.pio.ui.SidePanel;
 import org.pio.writers.Helper;
@@ -10,6 +13,7 @@ import java.awt.event.KeyEvent;
 
 public class PlayScene extends GameScene implements sceneMeethods{
     private Level lvl;
+    private static Player player;
     private SidePanel sidePanel;
     private static int mouseX, mouseY;
 
@@ -17,6 +21,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
         super(game);
 
         initLevel();
+        initPlayer();
 
         sidePanel = new SidePanel(720,0,100,480,this);
 
@@ -24,8 +29,11 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
     // -------- INIT ------- //
 
+    private void initPlayer(){
+        player=new Player(2000,100);
+    }
     private void initLevel(){
-        int numOfRounds=10;
+        int numOfRounds=11;
         WriterMethods.writeRoundsDataToFile("src/main/resources/rounds_data.txt",numOfRounds);
         lvl=new Level(18,12, getGame(),numOfRounds);
     }
@@ -39,15 +47,15 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
     private void updateEnemiesCanGo() {
 
-        if (Helper.isFirstValueSmallerThanSecond(getLvl().currentRound,getLvl().getNUM_OF_ROUNDS())){
-            getLvl().getGame().getEnemyManager().update(getLvl().getRoundsList().get(getLvl().currentRound).getEnemies());
+        if (Helper.isFirstValueSmallerThanSecond(Level.currentRound,getLvl().getNUM_OF_ROUNDS())){
+            getLvl().getGame().getEnemyManager().update(Level.getRoundListTest().get(Level.currentRound).getEnemies());
 
         }
     }
 
     public void updateAllyTowersPlaced(){
 
-        if (Helper.isEnemyListEmpty(getLvl().getRoundsList().get(getLvl().currentRound).getEnemies())){
+        if (Helper.isEnemyListEmpty(Level.getRoundListTest().get(Level.currentRound).getEnemies())){
             return;
         }
 
@@ -55,15 +63,40 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
     }
 
+    public void startWave() {
+        Level.getRoundListTest().get(Level.getCurrentRound()).getEnemies().get(0).setCanGo(true);
+    }
+
     // -------- RENDER ------- //
 
     public void render(Graphics g){
         lvl.drawLevel(g);
         sidePanel.drawPanel(g);
-        lvl.drawEnemies(g);
+        drawEnemies(g);
         lvl.drawRoundInfo(g);
+        drawPlayerInfo(g);
 
         getGame().getAllyTowerManager().render(g);
+    }
+
+    public void drawEnemies(Graphics g){
+
+        if (Level.currentRound < getLvl().getNUM_OF_ROUNDS()){
+            if (!Level.getRoundListTest().get(Level.currentRound).getEnemies().isEmpty()) {
+                for (Enemy enemy : Level.getRoundListTest().get(Level.currentRound).getEnemies()) {
+                    g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
+                }
+            }
+        }
+    }
+
+    public void drawPlayerInfo(Graphics g){
+
+        // DRAW PLAYER INFO ON TOP LEFT CORNER AFTER DRAW ROUND INFO
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        g.drawString("Player Health: " + player.getHealth(), 10, 40);
+        g.drawString("Player Money: " + player.getGold(), 10, 60);
     }
 
     // -------- INPUTS ------- //
@@ -75,18 +108,26 @@ public class PlayScene extends GameScene implements sceneMeethods{
         }
 
         if (x<720){
-            if (SidePanel.getSelectedTower()!=null) {
+            if (SidePanel.getSelectedTowerSidePanel()!=null) {
                 getGame().getAllyTowerManager().addTower(x, y);
-                SidePanel.setSelectedTower(null);
+                getGame().getPlayerManager().updateGold(getPlayer(),SidePanel.getSelectedTowerSidePanel().getCost());
+
+                SidePanel.setSelectedTowerSidePanel(null);
+
+
             }
         }
 
+        getGame().getAllyTowerManager().leftMouseClicked(x,y);
     }
     @Override
     public void rightMouseClicked(int x, int y) {
-        if (SidePanel.getSelectedTower()!=null){
-            SidePanel.setSelectedTower(null);
+        if (SidePanel.getSelectedTowerSidePanel()!=null){
+            SidePanel.setSelectedTowerSidePanel(null);
         }
+
+        getGame().getAllyTowerManager().rightMouseClicked(x,y);
+
     }
     @Override
     public void mouseMoved(int x, int y) {
@@ -94,6 +135,8 @@ public class PlayScene extends GameScene implements sceneMeethods{
         if (x>720){
             sidePanel.mouseMoved(x,y);
         }
+
+        getGame().getAllyTowerManager().mouseMoved(x,y);
 
         mouseX=x;
         mouseY=y;
@@ -105,7 +148,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
             sidePanel.mousePressed(x,y);
         }
 
-
+        getGame().getAllyTowerManager().mousePressed(x,y);
     }
     @Override
     public void mouseReleased(int x, int y) {
@@ -117,7 +160,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
     }
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode()==KeyEvent.VK_SPACE){
-            getLvl().startWave();
+            startWave();
         }
     }
 
@@ -134,5 +177,9 @@ public class PlayScene extends GameScene implements sceneMeethods{
     }
     public static int getMouseY() {
         return mouseY;
+    }
+
+    public static Player getPlayer() {
+        return player;
     }
 }

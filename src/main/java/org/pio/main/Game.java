@@ -3,10 +3,8 @@ package org.pio.main;
 import org.pio.Entities.AllyTower;
 import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemy;
-import org.pio.manager.AllyTowerManager;
-import org.pio.manager.BulletManager;
-import org.pio.manager.EnemyManager;
-import org.pio.manager.LvlManager;
+import org.pio.Player;
+import org.pio.manager.*;
 import org.pio.scene.PlayScene;
 import org.pio.writers.Helper;
 
@@ -19,6 +17,7 @@ public class Game extends JFrame implements Runnable {
     private LvlManager lvlManager;
     private AllyTowerManager allyTowerManager;
     private BulletManager bulletManager;
+    private PlayerManager playerManager;
     private Render render;
     private PlayScene playScene;
     Thread gameThread;
@@ -44,12 +43,11 @@ public class Game extends JFrame implements Runnable {
         gameScreen=new GameScreen(this);
         render=new Render(this);
 
-
-
         allyTowerManager=new AllyTowerManager();
         bulletManager=new BulletManager();
         lvlManager=new LvlManager();
         enemyManager = new EnemyManager();
+        playerManager=new PlayerManager();
 
         playScene=new PlayScene(this);
     }
@@ -98,11 +96,6 @@ public class Game extends JFrame implements Runnable {
                 updates++;
             }
 
-            if (now-lastShot>=timePerShot){
-                getPlayScene().updateAllyTowersPlaced();
-                lastShot=now;
-            }
-
             if (System.currentTimeMillis()-lastTimeChek>=1000){
                 System.out.println("FPS: "+frames+" | UPS: " +updates);
                 frames=0;
@@ -118,6 +111,7 @@ public class Game extends JFrame implements Runnable {
         getPlayScene().update();
         getBulletManager().bulletsUpdatePos();
         getEnemyManager().enemyHitByBullet();
+        getPlayScene().updateAllyTowersPlaced();
 
     }
 
@@ -140,5 +134,8 @@ public class Game extends JFrame implements Runnable {
     }
     public BulletManager getBulletManager() {
         return bulletManager;
+    }
+    public PlayerManager getPlayerManager() {
+        return playerManager;
     }
 }

@@ -13,6 +13,9 @@ public class Creators {
                 EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSprite(),
                 EnemyManager.getEnemyList().get(idFromEnemyManagerList).getMovSpeed(),
                 EnemyManager.getEnemyList().get(idFromEnemyManagerList).getWidth(),
-                EnemyManager.getEnemyList().get(idFromEnemyManagerList).getHeight());
+                EnemyManager.getEnemyList().get(idFromEnemyManagerList).getHeight(),
+                EnemyManager.getEnemyList().get(idFromEnemyManagerList).getHealth(),
+                EnemyManager.getEnemyList().get(idFromEnemyManagerList).getDamage(),
+                EnemyManager.getEnemyList().get(idFromEnemyManagerList).getGold());
     }
 }

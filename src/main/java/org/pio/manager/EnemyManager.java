@@ -4,10 +4,12 @@ import org.pio.Entities.AllyTower;
 import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemy;
 import org.pio.scene.Level;
+import org.pio.scene.PlayScene;
 import org.pio.writers.Helper;
 import org.pio.writers.WriterMethods;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
@@ -17,18 +19,17 @@ import java.util.List;
 
 public class EnemyManager {
     private static List<Enemy> enemyList;
-    private HashMap<Integer,Enemy> enemyHashMap;
     private BufferedImage spriteEnemyAtlas;
 
     public EnemyManager() {
+        enemyList =new ArrayList<>();
+
         loadEnemyAtlas();
         createEnemies();
-
     }
 
     private void createEnemies(){
-
-        enemyList =new ArrayList<>();
+        Level.initKeypoints();
 
         String pathFile = "src/main/resources/";
         String fileName = pathFile+"BasicDuckInfo.txt";
@@ -37,102 +38,21 @@ public class EnemyManager {
 
         setSpwnPoints(enemy);
         enemy.setSprite(setSpriteForEnemy(enemy));
+        System.out.println(enemy.getHealth());
+        System.out.println(enemy.getGold());
+        System.out.println(enemy.getDamage());
 
         enemyList.add(enemy);
-        //enemyList.add(new Enemy("BasicDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
-        //enemyList.add(new Enemy("LeadDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
-        //enemyList.add(new Enemy("CamoDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
 
     }
 
-    private void setSpwnPoints(Enemy enemy){
-        enemy.setSpwnPointWidthX(LvlManager.getLvlStartX());
-        enemy.setSpwnPointHeightY(LvlManager.getLvlStartY());
-    }
-    private BufferedImage setSpriteForEnemy(Enemy enemy){
-        return getSprite(enemy.getSpriteCordX(),enemy.getSpriteCordY(),enemy.getSpriteWidth(),enemy.getSpriteHeight());
-    }
 
-    private HashMap<Integer,Enemy> createEnemyHashMap(){
-        int id=0;
-        int index=0;
-        enemyHashMap =new HashMap<>();
-
-        //enemyHashMap.put(index++,new Enemy("BasicDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
-        //enemyHashMap.put(index++,new Enemy("LeadDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
-        //enemyHashMap.put(index++,new Enemy("CamoDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
-
-        return enemyHashMap;
-    }
     private void loadEnemyAtlas(){
         spriteEnemyAtlas = getSpriteEnemyAtlas();
     }
 
-//    private Enemy readEnemyData(String fileName){
-//
-//        String name = null;
-//        int id = 0;
-//        BufferedImage sprite=null;
-//
-//        try (
-//            var fileReader = new FileReader(fileName);
-//            var reader = new BufferedReader(fileReader);
-//        ){
-//            //READ FILE
-//            String nextLine = null;
-//
-//            while ((nextLine = reader.readLine()) != null) {
-//                //READ NAME FROM FILE
-//                if (nextLine.equals("NAME")){
-//                    name = reader.readLine();
-//                }
-//
-//                //READ ID FROM FILE
-//                if (nextLine.equals("ID")){
-//                    id = Integer.parseInt(reader.readLine());
-//                }
-//
-//                //READ SPRITE FROM FILE
-//                if (nextLine.equals("SPRITE")){
-//                    sprite = getSprite(Integer.parseInt(reader.readLine()),Integer.parseInt(reader.readLine()),Integer.parseInt(reader.readLine()),Integer.parseInt(reader.readLine()));
-//                }
-//
-//            }
-//
-//
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
-//
-//        Enemy enemy = new Enemy(name, Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id,sprite);
-//
-//        return enemy;
-//    }
 
-
-
-    public void readEnemiesFromTextFile(){
-        String fileName = "src/main/resources/enemies_list.txt";
-
-        try (
-                var fileReader = new FileReader(fileName);
-                var reader = new BufferedReader(fileReader);
-        ) {
-            String nextLine = null;
-
-            while ((nextLine = reader.readLine()) != null) {
-
-                if (nextLine.equals("1")){
-
-                }
-
-            }
-
-        } catch (IOException  e) {
-            e.printStackTrace();
-        }
-    }
-
+    // ---------- UPDATE ---------- //
     public void update(List<Enemy> enemies){
 
         if (Helper.isEnemyListEmpty(enemies)){
@@ -148,22 +68,27 @@ public class EnemyManager {
                     enemies.get(i+1).setCanGo(true);
                 }
 
-                if (enemies.get(i).getPosWidthX()>=LvlManager.getLvlEndX()){
+                if (enemies.get(i).getPosWidthX()>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
+                    PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).getHealth());
+                    System.out.println(PlayScene.getPlayer().getHealth());
+                    System.out.println(enemies.get(i).getHealth());
                     enemies.remove(enemies.get(i));
                 }
 
             } else {
-                if (enemies.get(i).getPosWidthX()>=LvlManager.getLvlEndX()){
+                if (enemies.get(i).getPosWidthX()>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
+
+                    PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).getHealth());
                     enemies.remove(enemies.get(i));
+
                 }
             }
         }
 
     }
-
     public void enemyHitByBullet() {
 
-        if (Helper.isEnemyListEmpty(Level.getRoundsList().get(Level.currentRound).getEnemies())) {
+        if (Helper.isEnemyListEmpty(Level.getRoundListTest().get(Level.currentRound).getEnemies())) {
             return;
         }
 
@@ -176,7 +101,7 @@ public class EnemyManager {
         // REMOVE BULLET FROM TOWER BULLET LIST AND REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
 
         // GO THROUGHT ALL ENEMIES FROM CURRENT ROUND
-        for (Iterator<Enemy> enemyIterator = Level.getRoundsList().get(Level.currentRound).getEnemies().iterator(); enemyIterator.hasNext();){
+        for (Iterator<Enemy> enemyIterator = Level.getRoundListTest().get(Level.currentRound).getEnemies().iterator(); enemyIterator.hasNext();){
             Enemy nextEnemy = enemyIterator.next();
 
             // GO THROUGHT ALL PLACED TOWERS
@@ -193,8 +118,13 @@ public class EnemyManager {
                         // CHECK IF ENEMY IS HIT BY BULLET
                         if (nextEnemy.getEnemyHitBox().contains(nextBullet.getBulletHitBox().getX(),nextBullet.getBulletHitBox().getY())){
 
+
+                            // ADD GOLD TO PLAYER
+                            PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(),nextEnemy.getGold());
+
                             // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
                             enemyIterator.remove();
+
 
                             // REMOVE BULLET FROM TOWER BULLET LIST
                             bulletIterator.remove();
@@ -249,4 +179,15 @@ public class EnemyManager {
     public static List<Enemy> getEnemyList() {
         return enemyList;
     }
+
+    // -------- SET ------- //
+
+    private void setSpwnPoints(Enemy enemy){
+        enemy.setSpwnPointWidthX(Level.getKeyPointsList().get(0).getWidthX());
+        enemy.setSpwnPointHeightY(Level.getKeyPointsList().get(0).getHeightY());
+    }
+    private BufferedImage setSpriteForEnemy(Enemy enemy){
+        return getSprite(enemy.getSpriteCordX(),enemy.getSpriteCordY(),enemy.getSpriteWidth(),enemy.getSpriteHeight());
+    }
+
 }

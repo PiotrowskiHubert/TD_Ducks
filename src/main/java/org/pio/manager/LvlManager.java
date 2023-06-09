@@ -13,18 +13,17 @@ import java.util.ArrayList;
 public class LvlManager {
     private BufferedImage spriteTileAtlas;
     public Tile GRASS, ROAD;
-    private static int lvlStartX, lvlStartY, lvlEndX, lvlEndY;
-
+    //private static int lvlStartX, lvlStartY, lvlEndX, lvlEndY;
     public ArrayList<Tile> tiles = new ArrayList<>();
 
     public LvlManager() {
         loadTileAtlas();
         createTiles();
 
-        lvlStartX=-50;
-        lvlStartY=240;
-        lvlEndX=720;
-        lvlEndY=240;
+//        lvlStartX=Level.getKeyPointsList().get(0).getWidthX();
+//        lvlStartY=Level.getKeyPointsList().get(0).getHeightY();
+//        lvlEndX=Level.getKeyPointsList().get(Level.getKeyPointsList().size()).getWidthX();
+//        lvlEndY=Level.getKeyPointsList().get(Level.getKeyPointsList().size()).getHeightY();
     }
 
     private void createTiles(){
@@ -98,19 +97,19 @@ public class LvlManager {
         return spriteTileAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
     }
 
-    public static int getLvlStartX() {
-        return lvlStartX;
-    }
-
-    public static int getLvlStartY() {
-        return lvlStartY;
-    }
-
-    public static int getLvlEndX() {
-        return lvlEndX;
-    }
-
-    public static int getLvlEndY() {
-        return lvlEndY;
-    }
+//    public static int getLvlStartX() {
+//        return lvlStartX;
+//    }
+//
+//    public static int getLvlStartY() {
+//        return lvlStartY;
+//    }
+//
+//    public static int getLvlEndX() {
+//        return lvlEndX;
+//    }
+//
+//    public static int getLvlEndY() {
+//        return lvlEndY;
+//    }
 }

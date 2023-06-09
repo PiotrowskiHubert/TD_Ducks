@@ -142,9 +142,8 @@ public class WriterMethods {
         return round;
 
     }
-    public static void writeEnemyDataToFile(String fileName, String name, String id, String spriteCordX, String spriteCordY, String spriteWidth, String spriteHeight, String movementSpeed, String health) {
+    public static void writeEnemyDataToFile(String fileName, String name, String id, String spriteCordX, String spriteCordY, String spriteWidth, String spriteHeight, String movementSpeed, String health, String damage, String gold) {
 
-        File file = new File(fileName);
         try (
                 var fileWriter = new FileWriter(fileName);
                 var writer = new BufferedWriter(fileWriter);
@@ -191,6 +190,16 @@ public class WriterMethods {
             // WRITE HEALTH AFTER HEALTH TO FILE
             writer.write(health); writer.newLine();
 
+            // WRITE DAMAGE TO FILE
+            writer.write("DAMAGE"); writer.newLine();
+            // WRITE DAMAGE AFTER DAMAGE TO FILE
+            writer.write(damage); writer.newLine();
+
+            // WRITE GOLD TO FILE
+            writer.write("GOLD"); writer.newLine();
+            // WRITE GOLD AFTER GOLD TO FILE
+            writer.write(gold); writer.newLine();
+
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -205,6 +214,8 @@ public class WriterMethods {
         int spriteHeight = 0;
         int movementSpeed = 0;
         int health = 0;
+        int damage = 0;
+        int gold = 0;
 
         try (
                 var fileReader = new FileReader(fileName);
@@ -263,6 +274,18 @@ public class WriterMethods {
                     continue;
                 }
 
+                //READ DAMAGE FROM FILE
+                if (nextLine.equals("DAMAGE")) {
+                    damage = Integer.parseInt(reader.readLine());
+                    continue;
+                }
+
+                //READ GOLD FROM FILE
+                if (nextLine.equals("GOLD")) {
+                    gold = Integer.parseInt(reader.readLine());
+                    continue;
+                }
+
             }
 
 
@@ -270,7 +293,7 @@ public class WriterMethods {
             e.printStackTrace();
         }
 
-        return new Enemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health);
+        return new Enemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
     }
     public static void writeLevel(){
 
@@ -284,11 +307,18 @@ public class WriterMethods {
 
             while (!(i==sizeOfLevel)){
 
-                if (i>=6*18&&i<7*18){
+
+
+
+                if ((i>=6*18&&i<7*17)||i==100||i==82||(i>=64&&i<=67)||i==85||i==103
+                    ||i==121||i==139||i==157||i==158||i==159||i==160||i==161){
                     writer.write("2");
                 }else {
                     writer.write("1");
                 }
+
+
+
                 writer.newLine();
                 i++;
 
@@ -302,26 +332,25 @@ public class WriterMethods {
 
     public static void main(String[] args) {
 
-        //Enemy enemy;
 
         // CREATE FILE
         String pathFile = "src/main/resources/";
-        //String fileName = pathFile+"BasicDuckInfo.txt";
-        //writeEnemyDataToFile(fileName, "BasicDuck", "1", "0", "0", "40", "40", "1", "0");
+        String fileName = pathFile+"BasicDuckInfo.txt";
+        writeEnemyDataToFile(fileName, "BasicDuck", "1", "0", "0", "40", "40", "1", "1","1","5");
         //enemy=readEnemyDataFromFile(fileName);
 
-        String fileName = pathFile+"roundsTest.txt";
-        writeRoundsDataToFile(fileName, 40);
-        Game game= new Game();
-        Level level= new Level(1, 1, game, 40);
-        readRoundDataFromFile(fileName, 40, level);
+        //String fileName = pathFile + "roundsTest.txt";
+        //writeRoundsDataToFile(fileName, 40);
+        //Game game = new Game();
+        //Level level = new Level(1, 1, game, 40);
+        //readRoundDataFromFile(fileName, 40, level);
 
-        for (Round round: level.getRoundListTest()) {
-            for (Enemy enemy: round.getEnemies()) {
-                System.out.println(enemy.getId());
-            }
-            System.out.println("NEXT ROUND");
-        }
+//        for (Round round : level.getRoundListTest()) {
+//            for (Enemy enemy : round.getEnemies()) {
+//                System.out.println(enemy.getId());
+//            }
+//            System.out.println("NEXT ROUND");
+//        }
 
         // DISPLAY ALL READ DATA FROM FILE
 //        System.out.println("NAME: " + enemy.getNameEntity());
@@ -334,6 +363,7 @@ public class WriterMethods {
 //        System.out.println("HEALTH: " + enemy.getHealth());
 //        System.out.println("EnemyHitBox: " + enemy.getEnemyHitBox().getX() + " " + enemy.getEnemyHitBox().getY() + " " + enemy.getEnemyHitBox().getWidth() + " " + enemy.getEnemyHitBox().getHeight());
 
-    }
+
+}
 
 }

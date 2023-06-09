@@ -2,6 +2,7 @@ package org.pio.scene;
 
 import org.pio.Entities.AllyTower;
 import org.pio.Entities.Enemy;
+import org.pio.KeyPoints;
 import org.pio.main.Game;
 import org.pio.manager.AllyTowerManager;
 import org.pio.tiles.Tile;
@@ -10,8 +11,6 @@ import org.pio.writers.WriterMethods;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -21,8 +20,8 @@ public class Level extends GameScene {
     public static int currentRound;
     private static int lvlHeight, lvlWidth;
     private static Tile [][] lvlArr;
-    //private static List<Round> roundsList;
-    private List<Round> roundListTest;
+    private static List<Round> roundListTest;
+    private static List<KeyPoints> keyPointsList;
 
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
 
@@ -33,60 +32,31 @@ public class Level extends GameScene {
 
         lvlArr = new Tile[lvlHeight][lvlWidth];
         currentRound=START_ROUND;
-        //roundsList=new ArrayList<>();
         roundListTest=new ArrayList<>();
 
-        createLevel();
+        //initKeypoints();
+        createLevelRoundsAndAddEnemies();
 
         getGame().getLvlManager().writeLevel();
         getGame().getLvlManager().readLevel();
 
     }
-    public void startWave() {
-        getRoundsList().get(currentRound).getEnemies().get(0).setCanGo(true);
+
+    // -------- INIT ------- //
+
+    public static void initKeypoints(){
+        keyPointsList=new ArrayList<>();
+        keyPointsList.add(new KeyPoints(-50,240));
+        keyPointsList.add(new KeyPoints(720,240));
     }
-    private void addBasicDuckToList(List<Round> enemyList, int numOfEnemies){
-            Round round = new Round();
-            for (int j = 0; j < numOfEnemies; j++) {
-
-                Enemy enemy = enemyCreator(0);
-
-                if (round.getEnemies().isEmpty()){
-                    enemy.setIndex(1);
-
-                }else {
-                    enemy.setIndex(round.getEnemies().get(j-1).getIndex()+1);
-                }
-
-                round.getEnemies().add(enemy);
-
-            }
-            enemyList.add(round);
-    }
-
-    private Enemy enemyCreator(int idFromEnemyManagerList){
-        return new Enemy(getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
-                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getSpwnPointWidthX(),
-                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getSpwnPointHeightY(),
-                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getId(),
-                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getSprite(),
-                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getMovSpeed(),
-                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getWidth(),
-                getGame().getEnemyManager().getEnemyList().get(idFromEnemyManagerList).getHeight());
-    }
-
-    private void createLevel(){
-
-        for (int i = 0; i < NUM_OF_ROUNDS; i++) {
-            addBasicDuckToList(roundsList,10);
-        }
+    private void createLevelRoundsAndAddEnemies(){
 
         String pathFile = "src/main/resources/";
         String fileName = pathFile+"rounds_data.txt";
 
         WriterMethods.readRoundDataFromFile(fileName, NUM_OF_ROUNDS, this);
 
-        for (int i = 0; i < NUM_OF_ROUNDS; i++) {
+        for (int i = 1; i < NUM_OF_ROUNDS; i++) {
             WriterMethods.readEnemyFromRoundDataFile(fileName, i, roundListTest.get(i));
         }
 
@@ -97,7 +67,7 @@ public class Level extends GameScene {
     public void updateLevel(){
 
         if (Helper.isFirstValueSmallerThanSecond(currentRound,NUM_OF_ROUNDS)){
-            if (Helper.isEnemyListEmpty(getRoundsList().get(currentRound).getEnemies())){
+            if (Helper.isEnemyListEmpty(getRoundListTest().get(currentRound).getEnemies())){
                 currentRound++;
             }
         }
@@ -105,10 +75,9 @@ public class Level extends GameScene {
         updateEnemiesInRangeForPlacedTower();
 
     }
-
     private List<Enemy> listOfEnemiesInRangeForPlacedTower(AllyTower allyTowerPlaced){
 
-        for (Enemy enemy: getRoundsList().get(currentRound).getEnemies()){
+        for (Enemy enemy: getRoundListTest().get(currentRound).getEnemies()){
 
             if (!isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
                 if (allyTowerPlaced.getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
@@ -171,22 +140,10 @@ public class Level extends GameScene {
             }
         }
     }
-
     public void drawRoundInfo(Graphics g){
         g.setColor(Color.BLACK);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-        g.drawString("Round: " + (currentRound+1) + "/" + NUM_OF_ROUNDS, 10, 20);
-    }
-
-    public void drawEnemies(Graphics g){
-
-        if (currentRound<NUM_OF_ROUNDS){
-            if (!roundsList.get(currentRound).getEnemies().isEmpty()) {
-                for (Enemy enemy : roundsList.get(currentRound).getEnemies()) {
-                    g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
-                }
-            }
-        }
+        g.drawString("Round: " + (currentRound) + "/" + (NUM_OF_ROUNDS-1), 10, 20);
     }
 
     // -------- GET ------- //
@@ -203,16 +160,16 @@ public class Level extends GameScene {
     public static Tile[][] getLvlArr() {
         return lvlArr;
     }
-//    public static List<Round> getRoundsList() {
-//        return roundsList;
-//    }
     public static int getCurrentRound() {
         return currentRound;
     }
 
-    public List<Round> getRoundListTest() {
+    public static List<Round> getRoundListTest() {
         return roundListTest;
     }
     // -------- SET ------- //
 
+    public static List<KeyPoints> getKeyPointsList() {
+        return keyPointsList;
+    }
 }

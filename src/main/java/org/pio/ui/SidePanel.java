@@ -11,7 +11,7 @@ public class SidePanel {
     private PlayScene playScene;
     private int panelWidth, panelHeight;
     private int posWidthX, posHeightX;
-    private static AllyTower selectedTower;
+    private static AllyTower selectedTowerSidePanel;
     Button bTower_0, startRound;
     private List<Button> buttonTowerList;
 
@@ -63,12 +63,12 @@ public class SidePanel {
         drawSelectedTurret(g);
     }
     public void drawSelectedTurret(Graphics g){
-        if (selectedTower!=null){
+        if (selectedTowerSidePanel !=null){
             g.setColor(new Color(0f,0f,0f,.5f));
             g.fillOval(playScene.getMouseX()-100, playScene.getMouseY()-100, 100*2, 100*2);
             g.setColor(Color.black);
             g.drawOval(playScene.getMouseX()-100, playScene.getMouseY()-100, 100*2, 100*2);
-            g.drawImage(selectedTower.getSprite(), playScene.getMouseX()-20, playScene.getMouseY()-20,40,40,null);
+            g.drawImage(selectedTowerSidePanel.getSprite(), playScene.getMouseX()-20, playScene.getMouseY()-20,40,40,null);
         }
     }
     public void drawPanel(Graphics g){
@@ -84,13 +84,18 @@ public class SidePanel {
     public void mouseClicked(int x, int y) {
 
         for (Button button : buttonTowerList) {
-            if (button.getButtonsBounds().contains(x,y)&&selectedTower==null){
-                selectedTower=playScene.getGame().getAllyTowerManager().getAllyTower(button.id);
+            if (button.getButtonsBounds().contains(x,y)&& selectedTowerSidePanel ==null){
+
+                selectedTowerSidePanel =playScene.getGame().getAllyTowerManager().getAllyTower(button.id);
+                if (selectedTowerSidePanel.getCost()>playScene.getPlayer().getGold()){
+                    selectedTowerSidePanel =null;
+                }
+
             }
         }
 
         if (startRound.getButtonsBounds().contains(x,y)){
-            playScene.getLvl().startWave();
+            playScene.startWave();
         }
 
     }
@@ -141,13 +146,13 @@ public class SidePanel {
 
     // -------- GET ------- //
 
-    public static AllyTower getSelectedTower() {
-        return selectedTower;
+    public static AllyTower getSelectedTowerSidePanel() {
+        return selectedTowerSidePanel;
     }
 
     // -------- SET ------- //
 
-    public static void setSelectedTower(AllyTower selectedTower) {
-        SidePanel.selectedTower = selectedTower;
+    public static void setSelectedTowerSidePanel(AllyTower selectedTowerSidePanel) {
+        SidePanel.selectedTowerSidePanel = selectedTowerSidePanel;
     }
 }

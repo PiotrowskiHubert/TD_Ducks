@@ -10,12 +10,12 @@ public class Enemy extends Entity {
     private int index;
     private Rectangle enemyHitBox;
     private int spriteCordX, spriteCordY, spriteWidth, spriteHeight;
-    private int health;
+    private int health, damage, gold;
 
     public Enemy() {
     }
 
-    public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height) {
+    public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height, int health, int damage, int gold) {
         this.nameEntity=nameEnemy;
         this.posWidthX=posWidthX;
         this.posHeightY=posHeightY;
@@ -24,11 +24,14 @@ public class Enemy extends Entity {
         this.width=width;
         this.height=height;
         this.movSpeed=movSpeed;
+        this.health=health;
+        this.damage=damage;
+        this.gold=gold;
 
         this.enemyHitBox=initBounds();
     }
 
-    public Enemy(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int movementSpeed, int health) {
+    public Enemy(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int movementSpeed, int health, int damage, int gold) {
         this.nameEntity=name;
         this.id=id;
         this.spriteCordX=spriteCordX;
@@ -39,6 +42,8 @@ public class Enemy extends Entity {
         this.height=40;
         this.movSpeed=movementSpeed;
         this.health=health;
+        this.damage=damage;
+        this.gold=gold;
     }
 
     // ----------- INIT ----------- //
@@ -60,7 +65,29 @@ public class Enemy extends Entity {
     }
     public void moveUpdate(){
         if (canGo){
-            setPosWidthX(getPosWidthX()+movSpeed);
+
+            if (getPosWidthX()<10*40){
+                setPosWidthX(getPosWidthX()+movSpeed);
+            }
+
+            if (getPosWidthX()>=10*40&&getPosHeightY()>3*40&&getPosWidthX()<13*40){
+                setPosHeightY(getPosHeightY()-movSpeed);
+            }
+
+            if (getPosWidthX()>=10*40 && getPosHeightY()<=3*40&&getPosWidthX()<13*40){
+                setPosWidthX(getPosWidthX()+movSpeed);
+            }
+
+            if (getPosWidthX()>=13*40&&getPosHeightY()<8*40){
+                setPosHeightY(getPosHeightY()+movSpeed);
+            }
+
+            if (getPosWidthX()>=13*40&&getPosHeightY()>=8*40){
+                setPosWidthX(getPosWidthX()+movSpeed);
+            }
+
+
+
         }
     }
 
@@ -121,9 +148,13 @@ public class Enemy extends Entity {
         return health;
     }
 
+    public int getDamage() {
+        return damage;
+    }
 
-
-
+    public int getGold() {
+        return gold;
+    }
     // ----------- SET ----------- //
 
     public void setIndex(int index) {

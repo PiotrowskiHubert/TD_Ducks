@@ -15,8 +15,14 @@ public class AllyTower extends Entity {
     private Ellipse2D rangeEllipse;
     private List<Bullet> bulletList;
     private List<Enemy> enemiesInRangeList;
+    private Boolean mouseOver, mousePressed;
+    private int cost;
+    private double timePerShot;
+    private long lastShot;
+    private long lastTimeCheck;
+    private long now;
 
-    public AllyTower(int posWidthX, int posHeightY, BufferedImage spriteTower) {
+    public AllyTower(int posWidthX, int posHeightY, BufferedImage spriteTower, long timePerShot) {
         this.posWidthX=posWidthX;
         this.posHeightY=posHeightY;
         this.sprite=spriteTower;
@@ -29,12 +35,21 @@ public class AllyTower extends Entity {
         this.bulletList=new ArrayList<>();
         this.enemiesInRangeList=new ArrayList<>();
 
+        this.timePerShot=timePerShot;
+        this.lastShot=System.nanoTime();
+        this.lastTimeCheck=System.currentTimeMillis();
+        this.now=System.nanoTime();
+
+        this.mouseOver=false;
+        this.mousePressed=false;
     }
 
-    public AllyTower(String nameTower,BufferedImage spriteTower, int id) {
+    public AllyTower(String nameTower,BufferedImage spriteTower, int id, int cost, long timePerShot) {
         this.sprite=spriteTower;
         this.nameEntity=nameTower;
         this.id=id;
+        this.cost=cost;
+        this.timePerShot=timePerShot;
     }
 
     // -------- INIT ------- //
@@ -54,11 +69,22 @@ public class AllyTower extends Entity {
 
     @Override
     public void update() {
-        shot();
+        now=System.nanoTime();
+
+        if (now-lastShot>=timePerShot){
+            lastShot=now;
+            shot();
+        }
+
+        if (System.currentTimeMillis()-lastTimeCheck>=1000){
+            lastTimeCheck=System.currentTimeMillis();
+
+        }
+
     }
     public void shot(){
 
-        if (Helper.isEnemyListEmpty(Level.getRoundsList().get(Level.currentRound).getEnemies())){
+        if (Helper.isEnemyListEmpty(Level.getRoundListTest().get(Level.currentRound).getEnemies())){
             return;
         }
         if(Helper.isEnemyListEmpty(enemiesInRangeList)){
@@ -107,19 +133,45 @@ public class AllyTower extends Entity {
     public List<Bullet> getBulletList() {
         return bulletList;
     }
-
     public Ellipse2D getRangeEllipse() {
         return rangeEllipse;
     }
-
     public List<Enemy> getEnemiesInRangeList() {
         return enemiesInRangeList;
     }
 
-    // -------- SET ------- //
+    public int getCost() {
+        return cost;
+    }
 
+    public double getTimePerShot() {
+        return timePerShot;
+    }
+
+    // -------- SET ------- //
     public void setRange(int range) {
         this.range = range;
     }
 
+    // -------- INPUTS ------- //
+    public Boolean isMouseOver() {
+        return mouseOver;
+    }
+    public void setMouseOver(Boolean mouseOver) {
+        this.mouseOver = mouseOver;
+    }
+    public void setMousePressed(Boolean mousePressed) {
+        this.mousePressed = mousePressed;
+    }
+    public Boolean isMousePressed() {
+        return mousePressed;
+    }
+    public void resetBooleans(){
+        this.mouseOver=false;
+        this.mousePressed=false;
+    }
+
+    public void setTimePerShot(double timePerShot) {
+        this.timePerShot = timePerShot;
+    }
 }
