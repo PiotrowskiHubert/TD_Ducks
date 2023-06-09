@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class EnemyManager {
-    private List<Enemy> enemyList;
+    private static List<Enemy> enemyList;
     private HashMap<Integer,Enemy> enemyHashMap;
     private BufferedImage spriteEnemyAtlas;
 
@@ -246,7 +246,7 @@ public class EnemyManager {
     private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
         return spriteEnemyAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
     }
-    public List<Enemy> getEnemyList() {
+    public static List<Enemy> getEnemyList() {
         return enemyList;
     }
 }

@@ -3,6 +3,7 @@ package org.pio.scene;
 import org.pio.main.Game;
 import org.pio.ui.SidePanel;
 import org.pio.writers.Helper;
+import org.pio.writers.WriterMethods;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -24,8 +25,9 @@ public class PlayScene extends GameScene implements sceneMeethods{
     // -------- INIT ------- //
 
     private void initLevel(){
-
-        lvl=new Level(18,12, getGame(),5);
+        int numOfRounds=10;
+        WriterMethods.writeRoundsDataToFile("src/main/resources/rounds_data.txt",numOfRounds);
+        lvl=new Level(18,12, getGame(),numOfRounds);
     }
 
     // -------- UPDATE ------- //

@@ -6,6 +6,7 @@ import org.pio.main.Game;
 import org.pio.manager.AllyTowerManager;
 import org.pio.tiles.Tile;
 import org.pio.writers.Helper;
+import org.pio.writers.WriterMethods;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class Level extends GameScene {
     public static int currentRound;
     private static int lvlHeight, lvlWidth;
     private static Tile [][] lvlArr;
-    private static List<Round> roundsList;
+    //private static List<Round> roundsList;
     private List<Round> roundListTest;
 
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
@@ -32,7 +33,7 @@ public class Level extends GameScene {
 
         lvlArr = new Tile[lvlHeight][lvlWidth];
         currentRound=START_ROUND;
-        roundsList=new ArrayList<>();
+        //roundsList=new ArrayList<>();
         roundListTest=new ArrayList<>();
 
         createLevel();
@@ -78,6 +79,15 @@ public class Level extends GameScene {
 
         for (int i = 0; i < NUM_OF_ROUNDS; i++) {
             addBasicDuckToList(roundsList,10);
+        }
+
+        String pathFile = "src/main/resources/";
+        String fileName = pathFile+"rounds_data.txt";
+
+        WriterMethods.readRoundDataFromFile(fileName, NUM_OF_ROUNDS, this);
+
+        for (int i = 0; i < NUM_OF_ROUNDS; i++) {
+            WriterMethods.readEnemyFromRoundDataFile(fileName, i, roundListTest.get(i));
         }
 
     }
@@ -193,9 +203,9 @@ public class Level extends GameScene {
     public static Tile[][] getLvlArr() {
         return lvlArr;
     }
-    public static List<Round> getRoundsList() {
-        return roundsList;
-    }
+//    public static List<Round> getRoundsList() {
+//        return roundsList;
+//    }
     public static int getCurrentRound() {
         return currentRound;
     }
