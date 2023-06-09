@@ -43,12 +43,15 @@ public class Game extends JFrame implements Runnable {
     private void initClass(){
         gameScreen=new GameScreen(this);
         render=new Render(this);
-        enemyManager = new EnemyManager();
+
+
+
         allyTowerManager=new AllyTowerManager();
         bulletManager=new BulletManager();
         lvlManager=new LvlManager();
-        playScene=new PlayScene(this);
+        enemyManager = new EnemyManager();
 
+        playScene=new PlayScene(this);
     }
 
     private void initWindow(){

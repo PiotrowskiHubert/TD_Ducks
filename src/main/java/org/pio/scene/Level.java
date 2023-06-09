@@ -9,6 +9,7 @@ import org.pio.writers.Helper;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,11 +17,11 @@ import java.util.List;
 public class Level extends GameScene {
     private final int START_ROUND=0;
     private final int NUM_OF_ROUNDS;
-    private int lvlStartX, lvlStartY, lvlEndX, lvlEndY;
     public static int currentRound;
     private static int lvlHeight, lvlWidth;
     private static Tile [][] lvlArr;
     private static List<Round> roundsList;
+    private List<Round> roundListTest;
 
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
 
@@ -29,10 +30,10 @@ public class Level extends GameScene {
         Level.lvlWidth =lvlWidth;
         Level.lvlHeight =lvlHeight;
 
-
         lvlArr = new Tile[lvlHeight][lvlWidth];
         currentRound=START_ROUND;
         roundsList=new ArrayList<>();
+        roundListTest=new ArrayList<>();
 
         createLevel();
 
@@ -199,6 +200,9 @@ public class Level extends GameScene {
         return currentRound;
     }
 
+    public List<Round> getRoundListTest() {
+        return roundListTest;
+    }
     // -------- SET ------- //
 
 }

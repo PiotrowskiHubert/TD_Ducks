@@ -39,5 +39,12 @@ public class Helper {
             return false;
         }
     }
-
+    public static boolean isInteger(String nextLine) {
+        try {
+            Integer.parseInt(nextLine);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

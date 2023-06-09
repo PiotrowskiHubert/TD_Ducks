@@ -34,15 +34,23 @@ public class EnemyManager {
         String fileName = pathFile+"BasicDuckInfo.txt";
 
         Enemy enemy=WriterMethods.readEnemyDataFromFile(fileName);
-        enemy.setSpwnPointWidthX(-50);
-        enemy.setSpwnPointHeightY(240);
-        enemy.setSprite(getSprite(enemy.getSpriteCordX(),enemy.getSpriteCordY(),enemy.getSpriteWidth(),enemy.getSpriteHeight()));
+
+        setSpwnPoints(enemy);
+        enemy.setSprite(setSpriteForEnemy(enemy));
 
         enemyList.add(enemy);
         //enemyList.add(new Enemy("BasicDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
         //enemyList.add(new Enemy("LeadDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
         //enemyList.add(new Enemy("CamoDuck", Enemy.getSpwnPointWidthX(), Enemy.getSpwnPointHeightY(),id++,getSprite(0,0,40,40)));
 
+    }
+
+    private void setSpwnPoints(Enemy enemy){
+        enemy.setSpwnPointWidthX(LvlManager.getLvlStartX());
+        enemy.setSpwnPointHeightY(LvlManager.getLvlStartY());
+    }
+    private BufferedImage setSpriteForEnemy(Enemy enemy){
+        return getSprite(enemy.getSpriteCordX(),enemy.getSpriteCordY(),enemy.getSpriteWidth(),enemy.getSpriteHeight());
     }
 
     private HashMap<Integer,Enemy> createEnemyHashMap(){
@@ -140,12 +148,12 @@ public class EnemyManager {
                     enemies.get(i+1).setCanGo(true);
                 }
 
-                if (enemies.get(i).getPosWidthX()>=720){
+                if (enemies.get(i).getPosWidthX()>=LvlManager.getLvlEndX()){
                     enemies.remove(enemies.get(i));
                 }
 
             } else {
-                if (enemies.get(i).getPosWidthX()>=720){
+                if (enemies.get(i).getPosWidthX()>=LvlManager.getLvlEndX()){
                     enemies.remove(enemies.get(i));
                 }
             }

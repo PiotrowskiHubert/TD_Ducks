@@ -12,6 +12,9 @@ public class Enemy extends Entity {
     private int spriteCordX, spriteCordY, spriteWidth, spriteHeight;
     private int health;
 
+    public Enemy() {
+    }
+
     public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height) {
         this.nameEntity=nameEnemy;
         this.posWidthX=posWidthX;

@@ -13,11 +13,18 @@ import java.util.ArrayList;
 public class LvlManager {
     private BufferedImage spriteTileAtlas;
     public Tile GRASS, ROAD;
+    private static int lvlStartX, lvlStartY, lvlEndX, lvlEndY;
+
     public ArrayList<Tile> tiles = new ArrayList<>();
 
     public LvlManager() {
         loadTileAtlas();
         createTiles();
+
+        lvlStartX=-50;
+        lvlStartY=240;
+        lvlEndX=720;
+        lvlEndY=240;
     }
 
     private void createTiles(){
@@ -89,5 +96,21 @@ public class LvlManager {
 
     private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
         return spriteTileAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
+    }
+
+    public static int getLvlStartX() {
+        return lvlStartX;
+    }
+
+    public static int getLvlStartY() {
+        return lvlStartY;
+    }
+
+    public static int getLvlEndX() {
+        return lvlEndX;
+    }
+
+    public static int getLvlEndY() {
+        return lvlEndY;
     }
 }
