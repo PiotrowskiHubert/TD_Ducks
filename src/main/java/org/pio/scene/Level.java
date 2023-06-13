@@ -34,7 +34,6 @@ public class Level extends GameScene {
         currentRound=START_ROUND;
         roundListTest=new ArrayList<>();
 
-        //initKeypoints();
         createLevelRoundsAndAddEnemies();
 
         getGame().getLvlManager().writeLevel();
@@ -72,54 +71,6 @@ public class Level extends GameScene {
             }
         }
 
-        updateEnemiesInRangeForPlacedTower();
-
-    }
-    private List<Enemy> listOfEnemiesInRangeForPlacedTower(AllyTower allyTowerPlaced){
-
-        for (Enemy enemy: getRoundListTest().get(currentRound).getEnemies()){
-
-            if (!isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
-                if (allyTowerPlaced.getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
-                    allyTowerPlaced.getEnemiesInRangeList().add(enemy);
-                }
-            }
-
-            if (isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
-                if (allyTowerPlaced.getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
-                    updateEnemiesPositionInRangeForPlacedTower(allyTowerPlaced, enemy);
-                }
-            }
-
-            if (isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
-                if (!allyTowerPlaced.getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
-                    allyTowerPlaced.getEnemiesInRangeList().remove(enemy);
-                }
-            }
-
-        }
-
-        return allyTowerPlaced.getEnemiesInRangeList();
-    }
-    private void updateEnemiesPositionInRangeForPlacedTower(AllyTower allyTowerPlaced, Enemy enemy) {
-        for (Enemy enemyInRange: allyTowerPlaced.getEnemiesInRangeList()){
-            if (enemyInRange.equals(enemy)){
-                enemyInRange.setPosWidthX(enemy.getPosWidthX());
-                enemyInRange.setPosHeightY(enemy.getPosHeightY());
-            }
-        }
-    }
-    private void updateEnemiesInRangeForPlacedTower(){
-        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
-            return;
-        }
-
-        for (AllyTower allyTowerPlaced: AllyTowerManager.getAllyTowersPlaced()){
-            listOfEnemiesInRangeForPlacedTower(allyTowerPlaced);
-        }
-    }
-    private boolean isEnemyAlreadyInAllyTowerPlacedList(AllyTower allyTowerPlaced, Enemy enemy){
-        return allyTowerPlaced.getEnemiesInRangeList().contains(enemy);
     }
 
     // -------- DRAW ------- //

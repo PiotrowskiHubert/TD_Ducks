@@ -74,7 +74,7 @@ public class Game extends JFrame implements Runnable {
         long lastUpdate=System.nanoTime();
         long lastShot=System.nanoTime();
 
-        long lastTimeChek=System.currentTimeMillis();
+        long lastTimeCheck=System.currentTimeMillis();
 
         int frames=0;
         int updates=0;
@@ -96,11 +96,11 @@ public class Game extends JFrame implements Runnable {
                 updates++;
             }
 
-            if (System.currentTimeMillis()-lastTimeChek>=1000){
+            if (System.currentTimeMillis()-lastTimeCheck>=1000){
                 System.out.println("FPS: "+frames+" | UPS: " +updates);
                 frames=0;
                 updates=0;
-                lastTimeChek=System.currentTimeMillis();
+                lastTimeCheck=System.currentTimeMillis();
             }
 
         }

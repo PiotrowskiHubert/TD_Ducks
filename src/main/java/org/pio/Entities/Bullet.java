@@ -17,17 +17,17 @@ public class Bullet {
         this.posWidthX = posWidthX;
         this.posHeightY = posHeightY;
 
-        initHitBox();
+        bulletHitBox=initHitBox();
 
-        unitX=3*getUnitBulletX(posWidthX,posHeightY,xEnemy,yEnemy);
-        unitY=3*getUnitBulletY(posWidthX,posHeightY,xEnemy,yEnemy);
+        unitX=4*getUnitBulletX(posWidthX,posHeightY,xEnemy,yEnemy);
+        unitY=4*getUnitBulletY(posWidthX,posHeightY,xEnemy,yEnemy);
 
     }
 
     // -------- INIT ------- //
 
     private Rectangle initHitBox() {
-        bulletHitBox=new Rectangle((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
+        Rectangle bulletHitBox=new Rectangle((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
         return bulletHitBox;
     }
 
