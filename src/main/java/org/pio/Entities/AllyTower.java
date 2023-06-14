@@ -132,7 +132,7 @@ public class AllyTower extends Entity {
         //this.buttonList.add(upgrade_3_3_Button);
         this.buttonList.add(sell_Button);
     }
-    private void initRangeEllipse(){
+    protected void initRangeEllipse(){
         rangeEllipse = new Ellipse2D.Float(getPosWidthX()-getRange()+20, getPosHeightY()-getRange()+20, getRange()*2, getRange()*2);
     }
     private Button initButtonUpgradeSelectedAllyTower(String name, double startRadius, double radius, int id){
@@ -156,7 +156,7 @@ public class AllyTower extends Entity {
         }
 
     }
-    public void shot(){
+    protected void shot(){
 
         if (Helper.isEnemyListEmpty(Level.getRoundListTest().get(Level.currentRound).getEnemies())){
             return;
@@ -269,6 +269,22 @@ public class AllyTower extends Entity {
         return allyTowerPlaced.getEnemiesInRangeList().contains(enemy);
     }
 
+    // -------- UPGRADE ------- //
+
+    public void upgrade_1_1(){
+        upgrade_1_1=true;
+    }
+    public void upgrade_2_1(){
+
+    }
+    public void upgrade_3_1(){
+        if (upgrade_3_1){
+            return;
+        }
+
+        upgrade_3_1=true;
+    }
+
     // -------- RENDER ------- //
 
     public void draw(Graphics g){
@@ -278,7 +294,6 @@ public class AllyTower extends Entity {
         drawBullet(g);
         drawTower(g);
     }
-
     private void drawBullet(Graphics g) {
         for (Bullet bullet: bulletList) {
             bullet.draw(g);
@@ -307,13 +322,11 @@ public class AllyTower extends Entity {
             drawOutlineRange(g);
         }
     }
-
     private void drawFillRange(Graphics g) {
         g.setColor(new Color(0f,0f,0f,.5f));
         g.fillOval((int) rangeEllipse.getBounds2D().getX(), (int) rangeEllipse.getBounds2D().getY(),
                 (int) rangeEllipse.getBounds2D().getWidth(), (int) rangeEllipse.getBounds2D().getHeight());
     }
-
     private void drawOutlineRange(Graphics g) {
         g.setColor(Color.black);
         g.drawOval((int) rangeEllipse.getBounds2D().getX(), (int) rangeEllipse.getBounds2D().getY(),
@@ -363,6 +376,15 @@ public class AllyTower extends Entity {
     public Boolean getSelected() {
         return selected;
     }
+    public boolean isUpgrade_1_1() {
+        return upgrade_1_1;
+    }
+    public boolean isUpgrade_2_1() {
+        return upgrade_2_1;
+    }
+    public boolean isUpgrade_3_1() {
+        return upgrade_3_1;
+    }
 
     // -------- SET ------- //
     public void setRange(int range) {
@@ -382,6 +404,15 @@ public class AllyTower extends Entity {
     }
     public void setSelected(Boolean selected) {
         this.selected = selected;
+    }
+    public void setUpgrade_1_1(boolean upgrade_1_1) {
+        this.upgrade_1_1 = upgrade_1_1;
+    }
+    public void setUpgrade_2_1(boolean upgrade_2_1) {
+        this.upgrade_2_1 = upgrade_2_1;
+    }
+    public void setUpgrade_3_1(boolean upgrade_3_1) {
+        this.upgrade_3_1 = upgrade_3_1;
     }
 
     // -------- INPUTS ------- //

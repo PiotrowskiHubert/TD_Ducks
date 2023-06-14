@@ -20,6 +20,22 @@ public class SecondTower extends AllyTower{
     }
 
     @Override
+    public void upgrade_1_1() {
+        super.upgrade_1_1();
+        this.timePerShot=timePerShot*0.5;
+    }
+    @Override
+    public void upgrade_2_1() {
+        super.upgrade_2_1();
+        this.range=range*3;
+        initRangeEllipse();
+    }
+    @Override
+    public void upgrade_3_1() {
+        super.upgrade_3_1();
+    }
+
+    @Override
     public void draw(Graphics g) {
         super.draw(g);
     }

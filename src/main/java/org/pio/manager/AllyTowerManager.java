@@ -196,6 +196,22 @@ public class AllyTowerManager {
                                 allyTower.setIndex(allyTower.getIndex()-1);
                             }
 
+                            return;
+                        }
+
+                        if (button.getName().equals("Upgrade_1_1")){
+                            nextAlly.upgrade_1_1();
+                            return;
+                        }
+
+                        if (button.getName().equals("Upgrade_2_1")){
+                            nextAlly.upgrade_2_1();
+                            return;
+                        }
+
+                        if (button.getName().equals("Upgrade_3_1")){
+                            nextAlly.upgrade_3_1();
+                            return;
                         }
 
                     }

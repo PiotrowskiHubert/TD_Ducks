@@ -1,5 +1,8 @@
 package org.pio.Entities;
 
+import org.pio.scene.Level;
+import org.pio.writers.Helper;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -20,6 +23,51 @@ public class FirstTower extends AllyTower{
     }
 
     @Override
+    public void shot() {
+        if (Helper.isEnemyListEmpty(Level.getRoundListTest().get(Level.currentRound).getEnemies())){
+            return;
+        }
+        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
+            return;
+        }
+
+        Bullet bullet;
+
+        double shotOffsetX=5.0;
+        double shotOffsetY=0.0;
+
+        bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
+        bulletList.add(bullet);
+
+
+    }
+
+    @Override
+    public void upgrade_1_1() {
+        if (isUpgrade_1_1()){
+            return;
+        }else{
+            setUpgrade_1_1(true);
+            this.timePerShot=timePerShot*0.75;
+        }
+    }
+    @Override
+    public void upgrade_2_1() {
+        if (isUpgrade_2_1()){
+            return;
+        }else {
+            setUpgrade_2_1(true);
+            this.range=range*2;
+            initRangeEllipse();
+        }
+
+    }
+    @Override
+    public void upgrade_3_1() {
+        super.upgrade_3_1();
+    }
+
+    @Override
     public void draw(Graphics g) {
         super.draw(g);
     }
@@ -32,5 +80,7 @@ public class FirstTower extends AllyTower{
     public Boolean isMousePressed(){
         return super.isMousePressed();
     }
+
+
 
 }
