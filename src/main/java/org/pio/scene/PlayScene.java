@@ -4,6 +4,8 @@ import org.pio.Entities.AllyTower;
 import org.pio.Entities.Enemy;
 import org.pio.Player;
 import org.pio.main.Game;
+import org.pio.manager.AllyTowerManager;
+import org.pio.manager.EnemyManager;
 import org.pio.ui.SidePanel;
 import org.pio.writers.Helper;
 import org.pio.writers.WriterMethods;
@@ -108,17 +110,20 @@ public class PlayScene extends GameScene implements sceneMeethods{
         }
 
         if (x<720){
+
+            getGame().getAllyTowerManager().leftMouseClicked(x,y);
+
             if (SidePanel.getSelectedTowerSidePanel()!=null) {
                 getGame().getAllyTowerManager().addTower(x, y);
                 getGame().getPlayerManager().updateGold(getPlayer(),SidePanel.getSelectedTowerSidePanel().getCost());
 
                 SidePanel.setSelectedTowerSidePanel(null);
 
-
             }
+
+
         }
 
-        getGame().getAllyTowerManager().leftMouseClicked(x,y);
     }
     @Override
     public void rightMouseClicked(int x, int y) {

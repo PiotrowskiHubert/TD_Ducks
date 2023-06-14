@@ -6,80 +6,137 @@ import org.pio.ui.Button;
 import org.pio.writers.Helper;
 
 import java.awt.*;
-import java.awt.geom.Arc2D;
-import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AllyTower extends Entity {
-    private Ellipse2D rangeEllipse;
-    private List<Bullet> bulletList;
-    private List<Enemy> enemiesInRangeList;
-    private Boolean mouseOver, mousePressed;
-    private int cost, index, range;
-    private double timePerShot;
-    private long lastTimeCheck, now, lastShot;
-    boolean upgrade_1_1, upgrade_1_2, upgrade_1_3;
-    private Button upgrade_1_1_button, upgrade_1_2_button, upgrade_1_3_button, delete_button;
-    public AllyTower(int posWidthX, int posHeightY, BufferedImage spriteTower, long timePerShot, int index, int id) {
+
+    protected List<Bullet> bulletList;
+    protected List<Enemy> enemiesInRangeList;
+    private List<Button> buttonList;
+    protected int cost, index, range;
+    protected double timePerShot;
+    protected long lastTimeCheck, now, lastShot;
+    private boolean upgrade_1_1, upgrade_1_2, upgrade_1_3,
+            upgrade_2_1, upgrade_2_2, upgrade_2_3,
+            upgrade_3_1, upgrade_3_2, upgrade_3_3;
+    protected Boolean mouseOver, mousePressed, selected;
+    private Button upgrade_1_1_Button, upgrade_1_2_Button, upgrade_1_3_Button,
+            upgrade_2_1_Button, upgrade_2_2_Button, upgrade_2_3_Button,
+            upgrade_3_1_Button, upgrade_3_2_Button, upgrade_3_3_Button,
+            sell_Button;
+
+    protected Ellipse2D rangeEllipse;
+
+    public AllyTower(String name, int id, BufferedImage sprite, int posWidthX, int posHeightY, int towerWidth, int towerHeight, double timePerShot, int range, int cost, int index){
+        this.nameEntity=name;
+        this.id=id;
+        this.sprite=sprite;
         this.posWidthX=posWidthX;
         this.posHeightY=posHeightY;
-        this.sprite=spriteTower;
-
-        this.width=40;
-        this.height=40;
-        this.range=100;
-        this.entityBounds=initBounds();
-        this.rangeEllipse = initRangeEllipse();
-        this.bulletList=new ArrayList<>();
-        this.enemiesInRangeList=new ArrayList<>();
-
+        this.width=towerWidth;
+        this.height=towerHeight;
         this.timePerShot=timePerShot;
+        this.range=range;
+        this.cost=cost;
+        this.index=index;
+
         this.lastShot=System.nanoTime();
         this.lastTimeCheck=System.currentTimeMillis();
         this.now=System.nanoTime();
-        this.index=index;
-        this.id=id;
-        this.upgrade_1_1 =false;
-        this.upgrade_1_2 =false;
-        this.upgrade_1_3 =false;
-
-        this.upgrade_1_1_button=initButtonUpgradeSelectedAllyTower(0,100);
-        this.upgrade_1_2_button=initButtonUpgradeSelectedAllyTower(100,100);
-        this.upgrade_1_3_button=initButtonUpgradeSelectedAllyTower(200,100);
-
-        this.delete_button=initButtonUpgradeSelectedAllyTower(300,59);
-        delete_button.setDeleteButton(true);
-
-        this.mouseOver=false;
-        this.mousePressed=false;
+        
+        initBooleans();
+        initBooleanUpgrades();
+        initLists();
+        initButtons();
+        initBounds();
+        initRangeEllipse();
     }
 
-    public AllyTower(String nameTower,BufferedImage spriteTower, int id, int cost, long timePerShot) {
-        this.sprite=spriteTower;
-        this.nameEntity=nameTower;
+    // CONSTRUCTOR TO READ FROM FILE
+    public AllyTower(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int towerWidth, int towerHeight, double timePerShot, int range, int cost){
+        this.nameEntity=name;
         this.id=id;
-        this.cost=cost;
+        this.spriteCordX=spriteCordX;
+        this.spriteCordY=spriteCordY;
+        this.spriteWidth=spriteWidth;
+        this.spriteHeight=spriteHeight;
+        this.width=towerWidth;
+        this.height=towerHeight;
         this.timePerShot=timePerShot;
+        this.range=range;
+        this.cost=cost;
     }
 
     // -------- INIT ------- //
-
-    private Button initButtonUpgradeSelectedAllyTower(int starRadius, int radius){
-        return new Button(posWidthX,posHeightY,starRadius,radius);
-    }
-
-    public Ellipse2D initRangeEllipse(){
-        rangeEllipse = new Ellipse2D.Float(getPosWidthX()-getRange()+20, getPosHeightY()-getRange()+20, getRange()*2, getRange()*2);
-        System.out.println("startX: "+rangeEllipse.getX() + " startY: "+rangeEllipse.getY() );
-        System.out.println("endX: "+(rangeEllipse.getX()+getRange()*2) + " endY: "+(rangeEllipse.getY()+getRange()*2));
-        return rangeEllipse;
-    }
     @Override
     public Rectangle initBounds() {
         return super.initBounds();
+    }
+    private void initBooleanUpgrades(){
+        this.upgrade_1_1=false;
+        this.upgrade_1_2=false;
+        this.upgrade_1_3=false;
+
+        this.upgrade_2_1=false;
+        this.upgrade_2_2=false;
+        this.upgrade_2_3=false;
+
+        this.upgrade_3_1=false;
+        this.upgrade_3_2=false;
+        this.upgrade_3_3=false;
+
+    }
+    private void initBooleans(){
+        this.mouseOver=false;
+        this.mousePressed=false;
+        this.selected=false;
+    }
+    private void initLists(){
+        this.enemiesInRangeList=new ArrayList<>();
+        this.bulletList=new ArrayList<>();
+        this.buttonList=new ArrayList<>();
+    }
+    private void initButtons(){
+        int id=0;
+
+        this.upgrade_1_1_Button=initButtonUpgradeSelectedAllyTower("Upgrade_1_1",0,100,id++);
+        //this.upgrade_1_2_Button=initButtonUpgradeSelectedAllyTower(0,100);
+        //this.upgrade_1_3_Button=initButtonUpgradeSelectedAllyTower(0,100);
+
+        this.upgrade_2_1_Button=initButtonUpgradeSelectedAllyTower("Upgrade_2_1",100,100, id++);
+        //this.upgrade_2_2_Button=initButtonUpgradeSelectedAllyTower(100,100);
+        //this.upgrade_2_3_Button=initButtonUpgradeSelectedAllyTower(100,100);
+
+        this.upgrade_3_1_Button=initButtonUpgradeSelectedAllyTower("Upgrade_3_1",200,100, id++);
+        //this.upgrade_3_2_Button=initButtonUpgradeSelectedAllyTower(200, 100);
+        //this.upgrade_3_3_Button=initButtonUpgradeSelectedAllyTower(200, 100);
+
+        this.sell_Button=initButtonUpgradeSelectedAllyTower("SELL",300,59.99, id++);
+        this.sell_Button.setDeleteButton(true);
+
+        addAllButtonsToButtonList();
+
+    }
+    private void addAllButtonsToButtonList(){
+        this.buttonList.add(upgrade_1_1_Button);
+        //this.buttonList.add(upgrade_1_2_Button);
+        //this.buttonList.add(upgrade_1_3_Button);
+        this.buttonList.add(upgrade_2_1_Button);
+        //this.buttonList.add(upgrade_2_2_Button);
+        //this.buttonList.add(upgrade_2_3_Button);
+        this.buttonList.add(upgrade_3_1_Button);
+        //this.buttonList.add(upgrade_3_2_Button);
+        //this.buttonList.add(upgrade_3_3_Button);
+        this.buttonList.add(sell_Button);
+    }
+    private void initRangeEllipse(){
+        rangeEllipse = new Ellipse2D.Float(getPosWidthX()-getRange()+20, getPosHeightY()-getRange()+20, getRange()*2, getRange()*2);
+    }
+    private Button initButtonUpgradeSelectedAllyTower(String name, double startRadius, double radius, int id){
+        return new Button(name, posWidthX, posHeightY, startRadius, radius, id);
     }
 
     // -------- UPDATE ------- //
@@ -96,9 +153,7 @@ public class AllyTower extends Entity {
 
         if (System.currentTimeMillis()-lastTimeCheck>=1000){
             lastTimeCheck=System.currentTimeMillis();
-
         }
-
 
     }
     public void shot(){
@@ -216,27 +271,53 @@ public class AllyTower extends Entity {
 
     // -------- RENDER ------- //
 
-    @Override
-    public void drawEntity(Graphics g) {
-        super.drawEntity(g);
+    public void draw(Graphics g){
+        drawButtons(g);
+        drawRange(g);
+
+        drawBullet(g);
+        drawTower(g);
     }
-    public void drawRange(Graphics g){
 
-        upgrade_1_1_button.drawCircle(g);
-        upgrade_1_2_button.drawCircle(g);
-        upgrade_1_3_button.drawCircle(g);
+    private void drawBullet(Graphics g) {
+        for (Bullet bullet: bulletList) {
+            bullet.draw(g);
+        }
+    }
+    private void drawButtons(Graphics g){
+        if (selected){
+            for (Button button : buttonList) {
+                button.drawCircleButton(g);
+            }
+        }
 
-        delete_button.drawCircle(g);
+    }
+    private void drawTower(Graphics g) {
+        if (mouseOver){
+            g.drawImage(sprite, posWidthX, posHeightY, width, height, null);
+            g.setColor(new Color(0f,0f,0f,.5f));
+            g.fillRect(posWidthX,posHeightY,width,height);
+        }else {
+            g.drawImage(sprite, posWidthX, posHeightY, width, height, null);
+        }
+    }
+    private void drawRange(Graphics g){
+        if (selected){
+            drawFillRange(g);
+            drawOutlineRange(g);
+        }
+    }
 
+    private void drawFillRange(Graphics g) {
         g.setColor(new Color(0f,0f,0f,.5f));
         g.fillOval((int) rangeEllipse.getBounds2D().getX(), (int) rangeEllipse.getBounds2D().getY(),
                 (int) rangeEllipse.getBounds2D().getWidth(), (int) rangeEllipse.getBounds2D().getHeight());
+    }
 
+    private void drawOutlineRange(Graphics g) {
         g.setColor(Color.black);
         g.drawOval((int) rangeEllipse.getBounds2D().getX(), (int) rangeEllipse.getBounds2D().getY(),
                 (int) rangeEllipse.getBounds2D().getWidth(), (int) rangeEllipse.getBounds2D().getHeight());
-
-
     }
 
     // -------- GET ------- //
@@ -276,6 +357,12 @@ public class AllyTower extends Entity {
     public Boolean isMousePressed() {
         return mousePressed;
     }
+    public List<Button> getButtonList() {
+        return buttonList;
+    }
+    public Boolean getSelected() {
+        return selected;
+    }
 
     // -------- SET ------- //
     public void setRange(int range) {
@@ -293,59 +380,13 @@ public class AllyTower extends Entity {
     public void setMousePressed(Boolean mousePressed) {
         this.mousePressed = mousePressed;
     }
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
+    }
 
     // -------- INPUTS ------- //
     public void resetBooleans(){
         this.mouseOver=false;
         this.mousePressed=false;
-    }
-
-    public Button getUpgrade_1_1_button() {
-        return upgrade_1_1_button;
-    }
-
-
-
-    public Button getDelete_button() {
-        return delete_button;
-    }
-
-    public Button getUpgrade_1_2_button() {
-        return upgrade_1_2_button;
-    }
-
-    public Button getUpgrade_1_3_button() {
-        return upgrade_1_3_button;
-    }
-
-    public void upgrade_1_1() {
-        if (upgrade_1_1){
-            return;
-        }
-
-        upgrade_1_1 = true;
-    }
-
-    public void upgrade_1_2() {
-        if (upgrade_1_2){
-            return;
-        }
-
-        upgrade_1_2=true;
-
-        setRange(getRange()+150);
-        initRangeEllipse();
-
-    }
-
-    public void upgrade_1_3() {
-        if (upgrade_1_3){
-            return;
-        }
-
-        upgrade_1_3=true;
-
-        setTimePerShot(getTimePerShot()/2);
-
     }
 }

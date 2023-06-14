@@ -2,11 +2,14 @@ package org.pio.manager;
 
 import org.pio.Entities.AllyTower;
 import org.pio.Entities.Bullet;
+import org.pio.Entities.FirstTower;
+import org.pio.Entities.SecondTower;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
 import org.pio.ui.Button;
 import org.pio.ui.SidePanel;
 import org.pio.writers.Helper;
+import org.pio.writers.WriterMethods;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -18,7 +21,11 @@ import java.util.Iterator;
 import java.util.List;
 
 public class AllyTowerManager {
-    private List<AllyTower> allyTowersList;
+    private List<FirstTower> firstTowersList;
+    private List<SecondTower> secondTowerList;
+    private static List<FirstTower> firstTowersPlaced;
+
+    private static List<AllyTower> allyTowersList;
     private static List<AllyTower> allyTowersPlaced;
     private BufferedImage spriteAllyTowerAtlas;
     private AllyTower selectedAllyTower;
@@ -31,12 +38,20 @@ public class AllyTowerManager {
     private void createAllyTowerList(){
         allyTowersPlaced=new ArrayList<>();
         allyTowersList =new ArrayList<>();
-        int id=0;
 
-        allyTowersList.add(new AllyTower("Tower_1",getSprite(1,0,40,40), id++, 300, (long) (1_000_000_000.0/1.0)));
-        allyTowersList.add(new AllyTower("Tower_2",getSprite(0,0,40,40), id++, 600, (long) (1_000_000_000.0/3.0)));
-        allyTowersList.add(new AllyTower("Tower_3",getSprite(0,0,40,40), id++, 900, (long) (1_000_000_000.0/6.0)));
-        allyTowersList.add(new AllyTower("Tower_4",getSprite(0,0,40,40), id++, 1200, (long) (1_000_000_000.0/12.0)));
+        firstTowersList=new ArrayList<>();
+        firstTowersPlaced=new ArrayList<>();
+
+        secondTowerList=new ArrayList<>();
+
+        FirstTower firstTower = (FirstTower) WriterMethods.readTowerData("src/main/resources/firstTower.txt");
+
+        firstTowersList.add(firstTower);
+        allyTowersList.add(firstTower);
+
+        SecondTower secondTower = (SecondTower) WriterMethods.readTowerData("src/main/resources/secondTower.txt");
+        secondTowerList.add(secondTower);
+        allyTowersList.add(secondTower);
 
     }
 
@@ -55,15 +70,24 @@ public class AllyTowerManager {
             index=allyTowersPlaced.get(allyTowersPlaced.size()-1).getIndex()+1;
         }
 
-        allyTower=new AllyTower(PlayScene.getMouseX()-20, PlayScene.getMouseY()-20, SidePanel.getSelectedTowerSidePanel().getSprite(), (long) SidePanel.getSelectedTowerSidePanel().getTimePerShot(),index, SidePanel.getSelectedTowerSidePanel().getId());
-        allyTowersPlaced.add(allyTower);
+        if (SidePanel.getSelectedTowerSidePanel().getId()==1){
+            allyTower=new FirstTower(firstTowersList.get(0).getNameEntity(), firstTowersList.get(0).getId(), getSprite(firstTowersList.get(0).getSpriteCordX(), firstTowersList.get(0).getSpriteCordY(), firstTowersList.get(0).getSpriteWidth(), firstTowersList.get(0).getHeight()),x-20,y-20,firstTowersList.get(0).getWidth(), firstTowersList.get(0).getHeight(), firstTowersList.get(0).getTimePerShot(), firstTowersList.get(0).getRange(), firstTowersList.get(0).getCost(), index++);
+            allyTowersPlaced.add(allyTower);
+        }
+
+        if (SidePanel.getSelectedTowerSidePanel().getId()==2){
+            allyTower=new SecondTower(secondTowerList.get(0).getNameEntity(), secondTowerList.get(0).getId(), getSprite(secondTowerList.get(0).getSpriteCordX(), secondTowerList.get(0).getSpriteCordY(), secondTowerList.get(0).getSpriteWidth(), secondTowerList.get(0).getHeight()),x-20,y-20,secondTowerList.get(0).getWidth(), secondTowerList.get(0).getHeight(), secondTowerList.get(0).getTimePerShot(), secondTowerList.get(0).getRange(), secondTowerList.get(0).getCost(), index++);
+            allyTowersPlaced.add(allyTower);
+        }
+
+
     }
 
     // ----------- UPDATE ----------- //
 
     public void updateAllyTowerPlaced(){
 
-        if (Helper.isAllyTowerListEmpty(allyTowersList)){
+        if (Helper.isAllyTowerListEmpty(allyTowersPlaced)){
             return;
         }
 
@@ -80,32 +104,10 @@ public class AllyTowerManager {
 
     public void render(Graphics g){
 
-        if (!allyTowersPlaced.isEmpty()){
-
-            if (selectedAllyTower!=null){
-                selectedAllyTower.drawRange(g);
+        if (allyTowersPlaced!=null){
+            for (AllyTower allyTower: allyTowersPlaced){
+                allyTower.draw(g);
             }
-
-            for (AllyTower ally : allyTowersPlaced) {
-
-                if (!ally.isMouseOver()){
-                    g.drawImage(ally.getSprite(),ally.getPosWidthX(),ally.getPosHeightY(),ally.getWidth(),ally.getHeight(),null);
-                }
-
-                if (ally.isMouseOver()){
-                    g.drawImage(ally.getSprite(),ally.getPosWidthX(),ally.getPosHeightY(),ally.getWidth(),ally.getHeight(),null);
-                    g.setColor(new Color(0f,0f,0f,.5f));
-                    g.fillRect(ally.getPosWidthX(),ally.getPosHeightY(),ally.getWidth(),ally.getHeight());
-                }
-
-                if (!ally.getBulletList().isEmpty()){
-                    for (Bullet bullet : ally.getBulletList()) {
-                        bullet.draw(g);
-                    }
-                }
-            }
-
-
         }
 
     }
@@ -130,15 +132,14 @@ public class AllyTowerManager {
     private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
         return spriteAllyTowerAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
     }
-    public List<AllyTower> getAllyTowersList() {
-        return allyTowersList;
-    }
-    public AllyTower getAllyTower(int id){
-        return allyTowersList.get(id);
-    }
     public static List<AllyTower> getAllyTowersPlaced() {
         return allyTowersPlaced;
     }
+
+    public static List<AllyTower> getAllyTowersList() {
+        return allyTowersList;
+    }
+
 
     // ----------- INPUTS ----------- //
 
@@ -149,24 +150,13 @@ public class AllyTowerManager {
                 allyTower.setMouseOver(false);
             }
 
-            if (allyTower.getUpgrade_1_1_button().isMouseOver()){
-                allyTower.getUpgrade_1_1_button().setMouseOver(false);
-            }
-
-            if (allyTower.getUpgrade_1_2_button().isMouseOver()){
-                allyTower.getUpgrade_1_2_button().setMouseOver(false);
-            }
-
-            if (allyTower.getUpgrade_1_3_button().isMouseOver()){
-                allyTower.getUpgrade_1_3_button().setMouseOver(false);
-            }
-
-            if (allyTower.getDelete_button().isMouseOver()){
-                allyTower.getDelete_button().setMouseOver(false);
+            for (Button button: allyTower.getButtonList()){
+                if (button.isMouseOver()){
+                    button.setMouseOver(false);
+                }
             }
 
         }
-
 
         // ----------------------------------------------------- //
 
@@ -176,20 +166,10 @@ public class AllyTowerManager {
                 allyTower.setMouseOver(true);
             }
 
-            if (allyTower.getUpgrade_1_1_button().getPartOfCircleShape().contains(x,y)){
-                allyTower.getUpgrade_1_1_button().setMouseOver(true);
-            }
-
-            if (allyTower.getUpgrade_1_2_button().getPartOfCircleShape().contains(x,y)){
-                allyTower.getUpgrade_1_2_button().setMouseOver(true);
-            }
-
-            if (allyTower.getUpgrade_1_3_button().getPartOfCircleShape().contains(x,y)){
-                allyTower.getUpgrade_1_3_button().setMouseOver(true);
-            }
-
-            if (allyTower.getDelete_button().getPartOfCircleShape().contains(x,y)){
-                allyTower.getDelete_button().setMouseOver(true);
+            for (Button button: allyTower.getButtonList()){
+                if (button.getPartOfCircleShape().contains(x,y)){
+                    button.setMouseOver(true);
+                }
             }
 
         }
@@ -197,54 +177,62 @@ public class AllyTowerManager {
     }
     public void leftMouseClicked(int x, int y) {
 
-        for (AllyTower allyTower : allyTowersPlaced) {
+        if (Helper.isAllyTowerListEmpty(allyTowersPlaced)){
+            return;
+        }
 
-            if (allyTower.getEntityBounds().contains(x,y)){
-                selectedAllyTower=allyTower;
-            }
+        for (Iterator<AllyTower> allyTowerPlacedIterator = allyTowersPlaced.iterator(); allyTowerPlacedIterator.hasNext();){
+            AllyTower nextAlly = allyTowerPlacedIterator.next();
 
-            if (allyTower.getUpgrade_1_1_button().getPartOfCircleShape().contains(x,y)){
-                allyTower.upgrade_1_1();
-            }
+            if (nextAlly.getSelected()){
+                for (Button button : nextAlly.getButtonList()) {
+                    if (button.getPartOfCircleShape().contains(x,y)){
 
-            if (allyTower.getUpgrade_1_2_button().getPartOfCircleShape().contains(x,y)){
-                allyTower.upgrade_1_2();
-            }
+                        if (button.getName().equals("SELL")){
+                            allyTowerPlacedIterator.remove();
 
-            if (allyTower.getUpgrade_1_3_button().getPartOfCircleShape().contains(x,y)){
-                allyTower.upgrade_1_3();
-            }
+                            // THEN ITERATE 1 DOWN INDEXES OF ALLY TOWERS PLACED
+                            for (AllyTower allyTower : allyTowersPlaced) {
+                                allyTower.setIndex(allyTower.getIndex()-1);
+                            }
 
-            if (allyTower.getDelete_button().getPartOfCircleShape().contains(x,y)){
-                allyTowersPlaced.remove(allyTower);
+                        }
 
-                for (AllyTower allyTowerPlaced : allyTowersPlaced) {
-                    // AFTER DELETING AN ALLY TOWER, THE INDEXES OF THE OTHER ALLY TOWERS PLACED ARE UPDATED 1 DOWN
-                    allyTowerPlaced.setIndex(allyTowerPlaced.getIndex()-1);
+                    }
                 }
+            }
 
-                selectedAllyTower=null;
+            if(nextAlly.getEntityBounds().contains(x,y)){
+                nextAlly.setSelected(true);
+            }else {
+                nextAlly.setSelected(false);
             }
 
         }
 
     }
+
     public void rightMouseClicked(int x, int y) {
 
         for (AllyTower allyTower : allyTowersPlaced) {
             allyTower.resetBooleans();
         }
 
-        selectedAllyTower=null;
-
     }
     public void mousePressed(int x, int y) {
 
-        for (AllyTower allyTower : allyTowersPlaced) {
-            if (allyTower.getEntityBounds().contains(x,y)){
-                allyTower.setMousePressed(true);
-            }
-        }
+//        for (AllyTower allyTower: allyTowersPlaced){
+//            if (allyTower.isMousePressed()){
+//                allyTower.setMousePressed(false);
+//            }
+//        }
+//
+//        for (AllyTower allyTower : allyTowersPlaced) {
+//
+//            if (allyTower.getEntityBounds().contains(x,y)){
+//                allyTower.setMousePressed(true);
+//            }
+//        }
 
     }
 }

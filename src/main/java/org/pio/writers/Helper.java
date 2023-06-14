@@ -3,12 +3,20 @@ package org.pio.writers;
 import org.pio.Entities.AllyTower;
 import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemy;
+import org.pio.Entities.FirstTower;
 
 import java.util.List;
 
 public class Helper {
 
     public static boolean isAllyTowerListEmpty(List<AllyTower> passedAllyTowerList){
+        if (passedAllyTowerList.isEmpty()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    public static boolean isFirstAllyTowerListEmpty(List<FirstTower> passedAllyTowerList){
         if (passedAllyTowerList.isEmpty()){
             return true;
         }else {

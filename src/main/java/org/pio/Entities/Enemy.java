@@ -9,7 +9,6 @@ public class Enemy extends Entity {
     private boolean canGo=false;
     private int index;
     private Rectangle enemyHitBox;
-    private int spriteCordX, spriteCordY, spriteWidth, spriteHeight;
     private int health, damage, gold;
 
     public Enemy() {

@@ -15,6 +15,8 @@ public class Entity {
     protected int posWidthX, posHeightY;
     protected int width, height;
     protected int id;
+    protected int spriteCordX, spriteCordY, spriteWidth, spriteHeight;
+
 
     public Rectangle initBounds(){
         entityBounds=new Rectangle(posWidthX, posHeightY, width, height);
@@ -97,5 +99,21 @@ public class Entity {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getSpriteCordX() {
+        return spriteCordX;
+    }
+
+    public int getSpriteCordY() {
+        return spriteCordY;
+    }
+
+    public int getSpriteWidth() {
+        return spriteWidth;
+    }
+
+    public int getSpriteHeight() {
+        return spriteHeight;
     }
 }

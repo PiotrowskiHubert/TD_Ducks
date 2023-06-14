@@ -1,12 +1,13 @@
 package org.pio.writers;
 
 import org.pio.Creators;
+import org.pio.Entities.AllyTower;
 import org.pio.Entities.Enemy;
-import org.pio.main.Game;
+import org.pio.Entities.FirstTower;
+import org.pio.Entities.SecondTower;
 import org.pio.scene.Level;
 import org.pio.scene.Round;
 
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class WriterMethods {
@@ -330,40 +331,187 @@ public class WriterMethods {
 
     }
 
-    public static void main(String[] args) {
+    public static void writeFirstTower(String fileName, String name, String id, String spriteCordX, String spriteCordY, String spriteWidth, String spriteHeight, String towerWidth, String towerHeight, String timePerShot, String range, String cost){
+        try (
+                var fileWriter = new FileWriter(fileName);
+                var writer = new BufferedWriter(fileWriter);
+        ) {
+            // WRITE TOWER DATA TO FILE
+
+            //WRITE NAME
+            writer.write("FIRST_TOWER"); writer.newLine();
+            // WRITE NAME AFTER NAME TO FILE
+            writer.write(name); writer.newLine();
+
+            //WRITE ID
+            writer.write("ID"); writer.newLine();
+            // WRITE ID AFTER ID TO FILE
+            writer.write(id); writer.newLine();
+
+            // WRITE SPRITE CORD X
+            writer.write("SPRITE_CORD_X"); writer.newLine();
+            // WRITE SPRITE CORD X AFTER SPRITE CORD X TO FILE
+            writer.write(spriteCordX); writer.newLine();
+
+            // WRITE SPRITE CORD Y
+            writer.write("SPRITE_CORD_Y"); writer.newLine();
+            // WRITE SPRITE CORD Y AFTER SPRITE CORD Y TO FILE
+            writer.write(spriteCordY); writer.newLine();
+
+            // WRITE SPRITE WIDTH
+            writer.write("SPRITE_WIDTH"); writer.newLine();
+            // WRITE SPRITE WIDTH AFTER SPRITE WIDTH TO FILE
+            writer.write(spriteWidth); writer.newLine();
+
+            // WRITE SPRITE HEIGHT
+            writer.write("SPRITE_HEIGHT"); writer.newLine();
+            // WRITE SPRITE HEIGHT AFTER SPRITE HEIGHT TO FILE
+            writer.write(spriteHeight); writer.newLine();
+
+            // WRITE TOWER WIDTH
+            writer.write("TOWER_WIDTH"); writer.newLine();
+            // WRITE TOWER WIDTH AFTER TOWER WIDTH TO FILE
+            writer.write(towerWidth); writer.newLine();
+
+            // WRITE TOWER HEIGHT
+            writer.write("TOWER_HEIGHT"); writer.newLine();
+            // WRITE TOWER WIDTH AFTER TOWER WIDTH TO FILE
+            writer.write(towerHeight); writer.newLine();
+
+            // WRITE TIME PER SHOT
+            writer.write("TIME_PER_SHOT"); writer.newLine();
+            // WRITE TIME PER SHOT AFTER TIME PER SHOT TO FILE
+            writer.write(timePerShot); writer.newLine();
+
+            // WRITE RANGE
+            writer.write("RANGE"); writer.newLine();
+            // WRITE RANGE AFTER RANGE TO FILE
+            writer.write(range); writer.newLine();
+
+            // WRITE COST
+            writer.write("COST"); writer.newLine();
+            // WRITE COST AFTER COST TO FILE
+            writer.write(cost); writer.newLine();
 
 
-        // CREATE FILE
-        String pathFile = "src/main/resources/";
-        String fileName = pathFile+"BasicDuckInfo.txt";
-        writeEnemyDataToFile(fileName, "BasicDuck", "1", "0", "0", "40", "40", "1", "1","1","5");
-        //enemy=readEnemyDataFromFile(fileName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        //String fileName = pathFile + "roundsTest.txt";
-        //writeRoundsDataToFile(fileName, 40);
-        //Game game = new Game();
-        //Level level = new Level(1, 1, game, 40);
-        //readRoundDataFromFile(fileName, 40, level);
+    public static AllyTower readTowerData(String filename) {
+        String name = null;
+        int id = 0;
+        int spriteCordX = 0;
+        int spriteCordY = 0;
+        int spriteWidth = 0;
+        int spriteHeight = 0;
+        int towerWidth = 0;
+        int towerHeight = 0;
+        double timePerShot = 0;
+        int range = 0;
+        int cost = 0;
 
-//        for (Round round : level.getRoundListTest()) {
-//            for (Enemy enemy : round.getEnemies()) {
-//                System.out.println(enemy.getId());
-//            }
-//            System.out.println("NEXT ROUND");
-//        }
+        try (
+                var fileReader = new FileReader(filename);
+                var reader = new BufferedReader(fileReader);
+        ) {
+            //READ FILE
+            String nextLine = null;
 
-        // DISPLAY ALL READ DATA FROM FILE
-//        System.out.println("NAME: " + enemy.getNameEntity());
-//        System.out.println("ID: " + enemy.getId());
-//        System.out.println("SPRITE X CORD: " + enemy.getSpriteCordX());
-//        System.out.println("SPRITE Y CORD: " + enemy.getSpriteCordY());
-//        System.out.println("SPRITE WIDTH: " + enemy.getSpriteWidth());
-//        System.out.println("SPRITE HEIGHT: " + enemy.getSpriteHeight());
-//        System.out.println("MOVEMENT SPEED: " + enemy.getMovSpeed());
-//        System.out.println("HEALTH: " + enemy.getHealth());
-//        System.out.println("EnemyHitBox: " + enemy.getEnemyHitBox().getX() + " " + enemy.getEnemyHitBox().getY() + " " + enemy.getEnemyHitBox().getWidth() + " " + enemy.getEnemyHitBox().getHeight());
+            while ((nextLine = reader.readLine()) != null) {
+
+                //READ NAME FROM FILE
+                if (nextLine.equals("NAME")) {
+                    name = reader.readLine();
+                    continue;
+                }
+
+                //READ ID FROM FILE
+                if (nextLine.equals("ID")) {
+                    id = Integer.parseInt(reader.readLine());
+                    continue;
+                }
+
+                //READ SPRITEXCORD FROM FILE
+                if (nextLine.equals("SPRITE_CORD_X")) {
+                    spriteCordX = Integer.parseInt(reader.readLine());
+                    continue;
+                }
+
+                //READ SPRITEYCORD FROM FILE
+                if (nextLine.equals("SPRITE_CORD_Y")) {
+                    spriteCordY = Integer.parseInt(reader.readLine());
+                    continue;
+                }
+
+                //READ SPRITEWIDTH FROM FILE
+                if (nextLine.equals("SPRITE_WIDTH")) {
+                    spriteWidth = Integer.parseInt(reader.readLine());
+                    continue;
+                }
+
+                //READ SPRITEHEIGHT FROM FILE
+                if (nextLine.equals("SPRITE_HEIGHT")) {
+                    spriteHeight = Integer.parseInt(reader.readLine());
+                    continue;
+                }
+
+                // READ TOWER WIDTH FROM FILE
+                if (nextLine.equals("TOWER_WIDTH")){
+                    towerWidth=Integer.parseInt(reader.readLine());
+                    continue;
+                }
+
+                // READ TOWER HEIGHT FROM FILE
+                if (nextLine.equals("TOWER_HEIGHT")){
+                    towerHeight=Integer.parseInt(reader.readLine());
+                    continue;
+                }
+
+                //READ TIME PER SHOT FROM FILE
+                if (nextLine.equals("TIME_PER_SHOT")) {
+                    timePerShot = Double.parseDouble(reader.readLine());
+                    continue;
+                }
+
+                //READ RANGE FROM FILE
+                if (nextLine.equals("RANGE")) {
+                    range = Integer.parseInt(reader.readLine());
+                    continue;
+                }
+
+                //READ COST FROM FILE
+                if (nextLine.equals("COST")) {
+                    cost = Integer.parseInt(reader.readLine());
+                    continue;
+                }
+
+            }
 
 
-}
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (id==1){
+            return new FirstTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+        }
+
+        if (id==2){
+            return new SecondTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+        }
+
+        return new FirstTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+
+    }
+
+        public static void main(String[] args) {
+
+            String path="src/main/resources/SecondTower.txt";
+
+            writeFirstTower(path, "SecondTower", "2", "1", "0", "40","40","40","40", "2.0","150","200");
+
+        }
 
 }

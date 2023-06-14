@@ -1,13 +1,20 @@
 package org.pio.ui;
 
 import org.pio.Entities.AllyTower;
+import org.pio.manager.AllyTowerManager;
+import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SidePanel {
+    private BufferedImage spriteAllyTowerAtlas;
     private PlayScene playScene;
     private int panelWidth, panelHeight;
     private int posWidthX, posHeightX;
@@ -22,6 +29,7 @@ public class SidePanel {
         this.posHeightX=posHeightX;
         this.playScene=playScene;
 
+        spriteAllyTowerAtlas=getSpriteAllyTowerAtlas();
         initButtons();
     }
 
@@ -55,10 +63,10 @@ public class SidePanel {
     public void drawButtons(Graphics g){
 
         for (Button button : buttonTowerList) {
-            button.draw(g);
+            button.drawRectangleButton(g);
         }
 
-        startRound.draw(g);
+        startRound.drawRectangleButton(g);
 
         drawSelectedTurret(g);
     }
@@ -68,6 +76,7 @@ public class SidePanel {
             g.fillOval(playScene.getMouseX()-100, playScene.getMouseY()-100, 100*2, 100*2);
             g.setColor(Color.black);
             g.drawOval(playScene.getMouseX()-100, playScene.getMouseY()-100, 100*2, 100*2);
+
             g.drawImage(selectedTowerSidePanel.getSprite(), playScene.getMouseX()-20, playScene.getMouseY()-20,40,40,null);
         }
     }
@@ -84,12 +93,24 @@ public class SidePanel {
     public void mouseClicked(int x, int y) {
 
         for (Button button : buttonTowerList) {
-            if (button.getButtonsBounds().contains(x,y)&& selectedTowerSidePanel ==null){
+            if (button.getButtonsBounds().contains(x,y) && selectedTowerSidePanel ==null){
 
-                selectedTowerSidePanel =playScene.getGame().getAllyTowerManager().getAllyTower(button.id);
-                if (selectedTowerSidePanel.getCost()>playScene.getPlayer().getGold()){
-                    selectedTowerSidePanel =null;
+                if (button.getText().equals("Turret_1")){
+                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(0);
+                    selectedTowerSidePanel.setSprite(getSprite(0,0,40,40));
                 }
+
+                if (button.getText().equals("Turret_2")){
+                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(1);
+                    selectedTowerSidePanel.setSprite(getSprite(1,0,40,40));
+
+
+                }
+
+//                selectedTowerSidePanel = playScene.getGame().getAllyTowerManager().getFirstTower(button.id);
+//                if (selectedTowerSidePanel.getCost()>playScene.getPlayer().getGold()){
+//                    selectedTowerSidePanel =null;
+//                }
 
             }
         }
@@ -148,6 +169,24 @@ public class SidePanel {
 
     public static AllyTower getSelectedTowerSidePanel() {
         return selectedTowerSidePanel;
+    }
+    private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
+        return spriteAllyTowerAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
+    }
+    private BufferedImage getSpriteAllyTowerAtlas(){
+        BufferedImage img = null;
+
+        InputStream is = Level.class.getClassLoader().getResourceAsStream("AllyAtlas.png");
+
+        try {
+            if (is!=null){
+                img= ImageIO.read(is);
+            }
+        } catch (IOException e) {
+            System.out.println("FailedToLoadAllyTowerAtlas");
+        }
+
+        return img;
     }
 
     // -------- SET ------- //
