@@ -1,15 +1,9 @@
 package org.pio.main;
 
-import org.pio.Entities.AllyTower;
-import org.pio.Entities.Bullet;
-import org.pio.Entities.Enemy;
-import org.pio.Player;
 import org.pio.manager.*;
 import org.pio.scene.PlayScene;
-import org.pio.writers.Helper;
 
 import javax.swing.*;
-import java.util.Iterator;
 
 public class Game extends JFrame implements Runnable {
     private GameScreen gameScreen;

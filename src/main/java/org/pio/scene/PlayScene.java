@@ -1,11 +1,8 @@
 package org.pio.scene;
 
-import org.pio.Entities.AllyTower;
-import org.pio.Entities.Enemy;
+import org.pio.Entities.Enemies.Enemy;
 import org.pio.Player;
 import org.pio.main.Game;
-import org.pio.manager.AllyTowerManager;
-import org.pio.manager.EnemyManager;
 import org.pio.ui.SidePanel;
 import org.pio.writers.Helper;
 import org.pio.writers.WriterMethods;
@@ -73,7 +70,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
     public void render(Graphics g){
         lvl.drawLevel(g);
-        sidePanel.drawPanel(g);
+        sidePanel.draw(g);
         drawEnemies(g);
         lvl.drawRoundInfo(g);
         drawPlayerInfo(g);
@@ -86,7 +83,8 @@ public class PlayScene extends GameScene implements sceneMeethods{
         if (Level.currentRound < getLvl().getNUM_OF_ROUNDS()){
             if (!Level.getRoundListTest().get(Level.currentRound).getEnemies().isEmpty()) {
                 for (Enemy enemy : Level.getRoundListTest().get(Level.currentRound).getEnemies()) {
-                    g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
+                    //g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
+                    enemy.drawEntity(g);
                 }
             }
         }
@@ -120,7 +118,6 @@ public class PlayScene extends GameScene implements sceneMeethods{
                 SidePanel.setSelectedTowerSidePanel(null);
 
             }
-
 
         }
 

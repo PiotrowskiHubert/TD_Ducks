@@ -13,20 +13,15 @@ import java.util.ArrayList;
 public class LvlManager {
     private BufferedImage spriteTileAtlas;
     public Tile GRASS, ROAD;
-    //private static int lvlStartX, lvlStartY, lvlEndX, lvlEndY;
-    public ArrayList<Tile> tiles = new ArrayList<>();
+    public ArrayList<Tile> tiles;
 
     public LvlManager() {
         loadTileAtlas();
         createTiles();
-
-//        lvlStartX=Level.getKeyPointsList().get(0).getWidthX();
-//        lvlStartY=Level.getKeyPointsList().get(0).getHeightY();
-//        lvlEndX=Level.getKeyPointsList().get(Level.getKeyPointsList().size()).getWidthX();
-//        lvlEndY=Level.getKeyPointsList().get(Level.getKeyPointsList().size()).getHeightY();
     }
 
     private void createTiles(){
+        tiles = new ArrayList<>();
 
         int id = 0;
         tiles.add(GRASS=new Tile("GRASS", id++, getSprite(0,0,Tile.getWidth(), Tile.getHeight())));
@@ -38,28 +33,13 @@ public class LvlManager {
         spriteTileAtlas = getSpriteTileAtlas();
     }
 
-    private BufferedImage getSpriteTileAtlas(){
-        BufferedImage img = null;
-
-        InputStream is = Level.class.getClassLoader().getResourceAsStream("spriteAtlasDTD.png");
-
-        try {
-            if (is!=null){
-                img= ImageIO.read(is);
-            }
-        } catch (IOException e) {
-            System.out.println("FailedToLoadTileAtlas");
-        }
-
-        return img;
-    }
 
     public void writeLevel(){
         WriterMethods.writeLevel();
     }
 
     public void readLevel(){
-        String fileName = "src/main/resources/lvl.txt";
+        String fileName = "src/main/resources/LevelInfo/lvl.txt";
 
         try (
                 var fileReader = new FileReader(fileName);
@@ -93,23 +73,26 @@ public class LvlManager {
 
     }
 
+    // ----------- GET ---------- //
+
     private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
         return spriteTileAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
     }
+    private BufferedImage getSpriteTileAtlas(){
+        BufferedImage img = null;
 
-//    public static int getLvlStartX() {
-//        return lvlStartX;
-//    }
-//
-//    public static int getLvlStartY() {
-//        return lvlStartY;
-//    }
-//
-//    public static int getLvlEndX() {
-//        return lvlEndX;
-//    }
-//
-//    public static int getLvlEndY() {
-//        return lvlEndY;
-//    }
+        InputStream is = Level.class.getClassLoader().getResourceAsStream("spriteAtlasDTD.png");
+
+        try {
+            if (is!=null){
+                img= ImageIO.read(is);
+            }
+        } catch (IOException e) {
+            System.out.println("FailedToLoadTileAtlas");
+        }
+
+        return img;
+    }
+
+
 }

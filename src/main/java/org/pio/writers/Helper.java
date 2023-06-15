@@ -1,9 +1,9 @@
 package org.pio.writers;
 
-import org.pio.Entities.AllyTower;
+import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.Entities.Bullet;
-import org.pio.Entities.Enemy;
-import org.pio.Entities.FirstTower;
+import org.pio.Entities.Enemies.Enemy;
+import org.pio.Entities.AllyTowers.FirstTower;
 
 import java.util.List;
 

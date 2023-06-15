@@ -1,41 +1,15 @@
 package org.pio.writers;
 
 import org.pio.Creators;
-import org.pio.Entities.AllyTower;
-import org.pio.Entities.Enemy;
-import org.pio.Entities.FirstTower;
-import org.pio.Entities.SecondTower;
+import org.pio.Entities.AllyTowers.*;
+import org.pio.Entities.Enemies.Enemy;
+import org.pio.Entities.Enemies.FirstEnemy;
 import org.pio.scene.Level;
 import org.pio.scene.Round;
 
 import java.io.*;
 
 public class WriterMethods {
-
-    public static void writeEnemiesToTextFile(int numOfEnemies) {
-
-        String fileName = "src/main/resources/enemies_list.txt";
-        File file = new File(fileName);
-        try (
-                var fileWriter = new FileWriter(fileName);
-                var writer = new BufferedWriter(fileWriter);
-        ) {
-
-            int i = 0;
-
-            while (!(i == numOfEnemies)) {
-
-
-                writer.write("1");
-                writer.newLine();
-                i++;
-
-            }
-
-        } catch (IOException e) {
-            System.err.println("Nie udało się zapisać pliku " + fileName);
-        }
-    }
 
     public static void writeRoundsDataToFile(String fileName, int numOfRounds){
 
@@ -62,7 +36,6 @@ public class WriterMethods {
         }
 
     }
-
     public static Level readRoundDataFromFile(String filename, int numOfRounds, Level level){
 
         Level lvl = level;
@@ -294,6 +267,26 @@ public class WriterMethods {
             e.printStackTrace();
         }
 
+        if (id==1){
+            return new FirstEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
+        }
+
+        if (id==2){
+
+        }
+
+        if (id==3){
+
+        }
+
+        if (id==4){
+
+        }
+
+        if (id==5){
+
+        }
+
         return new Enemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
     }
     public static void writeLevel(){
@@ -330,8 +323,7 @@ public class WriterMethods {
         }
 
     }
-
-    public static void writeFirstTower(String fileName, String name, String id, String spriteCordX, String spriteCordY, String spriteWidth, String spriteHeight, String towerWidth, String towerHeight, String timePerShot, String range, String cost){
+    public static void writeTower(String fileName, String name, String id, String spriteCordX, String spriteCordY, String spriteWidth, String spriteHeight, String towerWidth, String towerHeight, String timePerShot, String range, String cost){
         try (
                 var fileWriter = new FileWriter(fileName);
                 var writer = new BufferedWriter(fileWriter);
@@ -398,7 +390,6 @@ public class WriterMethods {
             throw new RuntimeException(e);
         }
     }
-
     public static AllyTower readTowerData(String filename) {
         String name = null;
         int id = 0;
@@ -502,15 +493,31 @@ public class WriterMethods {
             return new SecondTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
         }
 
-        return new FirstTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+        if (id==3){
+            return new ThirdTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+        }
+
+        if (id==4){
+            return new FourthTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+        }
+
+        if (id==5){
+            return new FifthTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+        }
+
+        return new AllyTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
 
     }
 
         public static void main(String[] args) {
 
-            String path="src/main/resources/SecondTower.txt";
+            String path="src/main/resources/AllyTowerInfo/fourthTower.txt";
 
-            writeFirstTower(path, "SecondTower", "2", "1", "0", "40","40","40","40", "2.0","150","200");
+            writeTower(path, "fourthTower", "4", "0", "0", "40","40","40","40", "250000000.0","100","400");
+
+            path="src/main/resources/AllyTowerInfo/fifthTower.txt";
+
+            writeTower(path, "fifthTower", "5", "0", "0", "40","40","40","40", "250000000.0","100","500");
 
         }
 

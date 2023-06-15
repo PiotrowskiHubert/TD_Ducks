@@ -1,4 +1,6 @@
-package org.pio.Entities;
+package org.pio.Entities.Enemies;
+
+import org.pio.Entities.Entity;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,9 +12,6 @@ public class Enemy extends Entity {
     private int index;
     private Rectangle enemyHitBox;
     private int health, damage, gold;
-
-    public Enemy() {
-    }
 
     public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height, int health, int damage, int gold) {
         this.nameEntity=nameEnemy;
@@ -37,8 +36,8 @@ public class Enemy extends Entity {
         this.spriteCordY=spriteCordY;
         this.spriteWidth=spriteWidth;
         this.spriteHeight=spriteHeight;
-        this.width=40;
-        this.height=40;
+        this.width=35;
+        this.height=35;
         this.movSpeed=movementSpeed;
         this.health=health;
         this.damage=damage;
@@ -95,6 +94,8 @@ public class Enemy extends Entity {
     @Override
     public void drawEntity(Graphics g) {
 
+        g.drawImage(sprite, getPosWidthX(),getPosHeightY(),getWidth(),getHeight(),null);
+        //g.fillRect(entityBounds.x, entityBounds.y, (int) entityBounds.getWidth(), (int) entityBounds.getWidth());
     }
 
 

@@ -1,10 +1,7 @@
 package org.pio.scene;
 
-import org.pio.Entities.AllyTower;
-import org.pio.Entities.Enemy;
 import org.pio.KeyPoints;
 import org.pio.main.Game;
-import org.pio.manager.AllyTowerManager;
 import org.pio.tiles.Tile;
 import org.pio.writers.Helper;
 import org.pio.writers.WriterMethods;
@@ -36,7 +33,7 @@ public class Level extends GameScene {
 
         createLevelRoundsAndAddEnemies();
 
-        getGame().getLvlManager().writeLevel();
+        //getGame().getLvlManager().writeLevel();
         getGame().getLvlManager().readLevel();
 
     }
@@ -51,7 +48,7 @@ public class Level extends GameScene {
     private void createLevelRoundsAndAddEnemies(){
 
         String pathFile = "src/main/resources/";
-        String fileName = pathFile+"rounds_data.txt";
+        String fileName = pathFile+ "RoundsInfo/rounds_data.txt";
 
         WriterMethods.readRoundDataFromFile(fileName, NUM_OF_ROUNDS, this);
 

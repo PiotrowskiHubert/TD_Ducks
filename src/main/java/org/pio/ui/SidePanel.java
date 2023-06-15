@@ -1,6 +1,6 @@
 package org.pio.ui;
 
-import org.pio.Entities.AllyTower;
+import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.manager.AllyTowerManager;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SidePanel {
+    private BufferedImage spriteSidePanel;
+    private BufferedImage spriteButtonAtlas;
     private BufferedImage spriteAllyTowerAtlas;
     private PlayScene playScene;
     private int panelWidth, panelHeight;
@@ -30,31 +32,52 @@ public class SidePanel {
         this.playScene=playScene;
 
         spriteAllyTowerAtlas=getSpriteAllyTowerAtlas();
+        spriteButtonAtlas=getSpriteButtonAtlas();
+        spriteSidePanel=getSpriteSidePanel();
+
         initButtons();
     }
 
     // -------- INIT ------- //
+
+    private BufferedImage getSpriteSidePanel() {
+            BufferedImage img = null;
+
+            InputStream is = Level.class.getClassLoader().getResourceAsStream("SidePanel.png");
+
+            try {
+                if (is!=null){
+                    img= ImageIO.read(is);
+                }
+            } catch (IOException e) {
+                System.out.println("FailedToLoadSidePanelSprite");
+            }
+
+            return img;
+    }
 
     public void initButtons(){
         buttonTowerList = new ArrayList<>();
 
         int id =0;
 
-        int posX=750;
+        int posX=730;
         int posY=20;
-        int bWidth=40;
+        int bWidth=80;
         int bHeight=40;
-        int posYOffSet=bWidth+10;
+        int posYOffSet=bHeight+5;
 
-        bTower_0 =new Button("Turret_1", posX, posY+id*posYOffSet, bWidth, bHeight, id++);
+        bTower_0 =new Button("Turret_1", posX, posY+id*posYOffSet, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
         buttonTowerList.add(bTower_0);
-        bTower_0 =new Button("Turret_2", posX, posY+id*posYOffSet, bWidth, bHeight, id++);
+        bTower_0 =new Button("Turret_2", posX, posY+id*posYOffSet, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
         buttonTowerList.add(bTower_0);
-        bTower_0 =new Button("Turret_3", posX, posY+id*posYOffSet, bWidth, bHeight, id++);
+        bTower_0 =new Button("Turret_3", posX, posY+id*posYOffSet, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
         buttonTowerList.add(bTower_0);
-        bTower_0 =new Button("Turret_4", posX, posY+id*posYOffSet, bWidth, bHeight, id++);
+        bTower_0 =new Button("Turret_4", posX, posY+id*posYOffSet, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
         buttonTowerList.add(bTower_0);
-        startRound =new Button("Start Round", posX, posY+id*2*posYOffSet, bWidth, bHeight, id++);
+        bTower_0 =new Button("Turret_5", posX, posY+id*posYOffSet, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+        buttonTowerList.add(bTower_0);
+        startRound =new Button("Start_Round", posX, panelHeight-50, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
 
     }
 
@@ -65,26 +88,28 @@ public class SidePanel {
         for (Button button : buttonTowerList) {
             button.drawRectangleButton(g);
         }
-
         startRound.drawRectangleButton(g);
 
-        drawSelectedTurret(g);
     }
     public void drawSelectedTurret(Graphics g){
         if (selectedTowerSidePanel !=null){
             g.setColor(new Color(0f,0f,0f,.5f));
-            g.fillOval(playScene.getMouseX()-100, playScene.getMouseY()-100, 100*2, 100*2);
+            g.fillOval(playScene.getMouseX() - selectedTowerSidePanel.getRange(), PlayScene.getMouseY()- selectedTowerSidePanel.getRange(), selectedTowerSidePanel.getRange()*2, selectedTowerSidePanel.getRange()*2);
             g.setColor(Color.black);
-            g.drawOval(playScene.getMouseX()-100, playScene.getMouseY()-100, 100*2, 100*2);
+            g.drawOval(playScene.getMouseX() - selectedTowerSidePanel.getRange(), PlayScene.getMouseY()- selectedTowerSidePanel.getRange(), selectedTowerSidePanel.getRange()*2, selectedTowerSidePanel.getRange()*2);
 
-            g.drawImage(selectedTowerSidePanel.getSprite(), playScene.getMouseX()-20, playScene.getMouseY()-20,40,40,null);
+            g.drawImage(selectedTowerSidePanel.getSprite(), PlayScene.getMouseX()-20, PlayScene.getMouseY()-20,40,40,null);
         }
     }
-    public void drawPanel(Graphics g){
-        g.setColor(Color.pink);
-        g.fillRect(720,0,panelWidth,panelHeight);
-
+    public void draw(Graphics g){
+        drawPanel(g);
         drawButtons(g);
+        drawSelectedTurret(g);
+
+    }
+
+    private void drawPanel(Graphics g) {
+        g.drawImage(spriteSidePanel,720,0, panelWidth, panelHeight,null);
     }
 
 
@@ -96,15 +121,38 @@ public class SidePanel {
             if (button.getButtonsBounds().contains(x,y) && selectedTowerSidePanel ==null){
 
                 if (button.getText().equals("Turret_1")){
-                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(0);
-                    selectedTowerSidePanel.setSprite(getSprite(0,0,40,40));
+                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(button.getId());
+
+                    selectedTowerSidePanel.setSprite(getSprite(selectedTowerSidePanel.getSpriteCordX(),selectedTowerSidePanel.getSpriteCordY(),
+                                                            selectedTowerSidePanel.getSpriteWidth(),selectedTowerSidePanel.getSpriteHeight()));
                 }
 
                 if (button.getText().equals("Turret_2")){
-                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(1);
-                    selectedTowerSidePanel.setSprite(getSprite(1,0,40,40));
+                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(button.getId());
 
+                    selectedTowerSidePanel.setSprite(getSprite(selectedTowerSidePanel.getSpriteCordX(),selectedTowerSidePanel.getSpriteCordY(),
+                                                            selectedTowerSidePanel.getSpriteWidth(),selectedTowerSidePanel.getSpriteHeight()));
+                }
 
+                if (button.getText().equals("Turret_3")){
+                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(button.getId());
+
+                    selectedTowerSidePanel.setSprite(getSprite(selectedTowerSidePanel.getSpriteCordX(),selectedTowerSidePanel.getSpriteCordY(),
+                                                            selectedTowerSidePanel.getSpriteWidth(),selectedTowerSidePanel.getSpriteHeight()));
+                }
+
+                if (button.getText().equals("Turret_4")){
+                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(button.getId());
+
+                    selectedTowerSidePanel.setSprite(getSprite(selectedTowerSidePanel.getSpriteCordX(),selectedTowerSidePanel.getSpriteCordY(),
+                                                                selectedTowerSidePanel.getSpriteWidth(),selectedTowerSidePanel.getSpriteHeight()));
+                }
+
+                if (button.getText().equals("Turret_5")){
+                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(button.getId());
+
+                    selectedTowerSidePanel.setSprite(getSprite(selectedTowerSidePanel.getSpriteCordX(),selectedTowerSidePanel.getSpriteCordY(),
+                                                                selectedTowerSidePanel.getSpriteWidth(),selectedTowerSidePanel.getSpriteHeight()));
                 }
 
 //                selectedTowerSidePanel = playScene.getGame().getAllyTowerManager().getFirstTower(button.id);
@@ -173,6 +221,12 @@ public class SidePanel {
     private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
         return spriteAllyTowerAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
     }
+
+    private BufferedImage getButtonSprite(int xCord, int yCord, int widthImg,int heightImg){
+        return spriteButtonAtlas.getSubimage(xCord*160,yCord*80,widthImg,heightImg);
+    }
+
+
     private BufferedImage getSpriteAllyTowerAtlas(){
         BufferedImage img = null;
 
@@ -184,6 +238,21 @@ public class SidePanel {
             }
         } catch (IOException e) {
             System.out.println("FailedToLoadAllyTowerAtlas");
+        }
+
+        return img;
+    }
+    private BufferedImage getSpriteButtonAtlas(){
+        BufferedImage img = null;
+
+        InputStream is = Level.class.getClassLoader().getResourceAsStream("BUTTON_1_ATLAS.png");
+
+        try {
+            if (is!=null){
+                img= ImageIO.read(is);
+            }
+        } catch (IOException e) {
+            System.out.println("FailedToLoadButtonAtlas");
         }
 
         return img;

@@ -1,5 +1,8 @@
-package org.pio.Entities;
+package org.pio.Entities.AllyTowers;
 
+import org.pio.Entities.Bullet;
+import org.pio.Entities.Enemies.Enemy;
+import org.pio.Entities.Entity;
 import org.pio.manager.AllyTowerManager;
 import org.pio.scene.Level;
 import org.pio.ui.Button;
@@ -12,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllyTower extends Entity {
-
     protected List<Bullet> bulletList;
     protected List<Enemy> enemiesInRangeList;
     private List<Button> buttonList;
@@ -27,7 +29,6 @@ public class AllyTower extends Entity {
             upgrade_2_1_Button, upgrade_2_2_Button, upgrade_2_3_Button,
             upgrade_3_1_Button, upgrade_3_2_Button, upgrade_3_3_Button,
             sell_Button;
-
     protected Ellipse2D rangeEllipse;
 
     public AllyTower(String name, int id, BufferedImage sprite, int posWidthX, int posHeightY, int towerWidth, int towerHeight, double timePerShot, int range, int cost, int index){
@@ -168,29 +169,8 @@ public class AllyTower extends Entity {
         Bullet bullet;
 
 
-
         if (id==0){
 
-            // IF ID IS 0, ALLY TOWER CREATE 4 BULLETS IN 4 DIFFRENT DIRECTIONS (UP, DOWN, LEFT, RIGHT)
-            // DO NOT MAKE SHOT OFFSETS
-
-            // SHOT BULLET UP, START FROM POSITION OF ALLY TOWER AND GO UP
-            bullet = new Bullet(posWidthX,posHeightY,posWidthX,posHeightY-range);
-            bulletList.add(bullet);
-
-            // SHOT BULLET DOWN, START FROM POSITION OF ALLY TOWER AND GO DOWN
-            bullet = new Bullet(posWidthX,posHeightY,posWidthX,posHeightY+range);
-            bulletList.add(bullet);
-
-            // SHOT BULLET LEFT, START FROM POSITION OF ALLY TOWER AND GO LEFT
-            bullet = new Bullet(posWidthX,posHeightY,posWidthX-range,posHeightY);
-            bulletList.add(bullet);
-
-            // SHOT BULLET RIGHT, START FROM POSITION OF ALLY TOWER AND GO RIGHT
-            bullet = new Bullet(posWidthX,posHeightY,posWidthX+range,posHeightY);
-            bulletList.add(bullet);
-
-            if (upgrade_1_1){
                 // ADD 4 ADDITIONAL BULLETS IN SLANT DIRECTIONS (UP-LEFT, UP-RIGHT, DOWN-LEFT, DOWN-RIGHT)
                 // DO NOT MAKE SHOT OFFSETS
 
@@ -210,7 +190,6 @@ public class AllyTower extends Entity {
                 bullet = new Bullet(posWidthX,posHeightY,posWidthX+range,posHeightY+range);
                 bulletList.add(bullet);
 
-            }
 
         }else {
             double shotOffsetX=5.0;
@@ -222,7 +201,7 @@ public class AllyTower extends Entity {
 
     }
 
-    private List<Enemy> listOfEnemiesInRangeForPlacedTower(AllyTower allyTowerPlaced){
+    private void updateListOfEnemiesInRangeForPlacedTower(AllyTower allyTowerPlaced){
 
         for (Enemy enemy: Level.getRoundListTest().get(Level.currentRound).getEnemies()){
 
@@ -246,7 +225,6 @@ public class AllyTower extends Entity {
 
         }
 
-        return allyTowerPlaced.getEnemiesInRangeList();
     }
     private void updateEnemiesPositionInRangeForPlacedTower(AllyTower allyTowerPlaced, Enemy enemy) {
         for (Enemy enemyInRange: allyTowerPlaced.getEnemiesInRangeList()){
@@ -262,7 +240,7 @@ public class AllyTower extends Entity {
         }
 
         for (AllyTower allyTowerPlaced: AllyTowerManager.getAllyTowersPlaced()){
-            listOfEnemiesInRangeForPlacedTower(allyTowerPlaced);
+            updateListOfEnemiesInRangeForPlacedTower(allyTowerPlaced);
         }
     }
     private boolean isEnemyAlreadyInAllyTowerPlacedList(AllyTower allyTowerPlaced, Enemy enemy){

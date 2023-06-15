@@ -1,6 +1,6 @@
 package org.pio.manager;
 
-import org.pio.Entities.AllyTower;
+import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.Entities.Bullet;
 import org.pio.writers.Helper;
 

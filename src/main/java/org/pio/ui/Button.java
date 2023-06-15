@@ -3,11 +3,12 @@ package org.pio.ui;
 import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Area;
+import java.awt.image.BufferedImage;
 
 public class Button {
+    private BufferedImage spriteButtonIdle, spriteButtonHover, spriteButtonPressed;
     int posWidthX, posHeightY, width, height, id;
-    private String text;
-    private String name;
+    private String text, name, cost;
     private Rectangle buttonsBounds;
     private Boolean mouseOver, mousePressed;
     private Shape partOfCircleShape;
@@ -31,13 +32,17 @@ public class Button {
     }
 
     // RECTANGLE
-    public Button(String text, int posWidthX, int posHeightY, int width, int height, int id) {
+    public Button(String text, int posWidthX, int posHeightY, int width, int height, int id, String cost, BufferedImage spriteButtonIdle, BufferedImage spriteButtonHover, BufferedImage spriteButtonPressed) {
         this.text=text;
         this.posWidthX = posWidthX;
         this.posHeightY = posHeightY;
         this.width = width;
         this.height = height;
         this.id = id;
+        this.cost=cost;
+        this.spriteButtonIdle =spriteButtonIdle;
+        this.spriteButtonHover =spriteButtonHover;
+        this.spriteButtonPressed =spriteButtonPressed;
 
         this.mouseOver=false;
         this.mousePressed=false;
@@ -66,9 +71,44 @@ public class Button {
 
                 // RECTANGLE //
     public void drawRectangleButton(Graphics g){
-        drawRectangleBody(g);
-        drawRectangleBorder(g);
+
+        drawRectangleButtonImage(g);
+
+        // SET COLOR BLACK WITH 50% TRANSPARENT
+
+        g.setColor(new Color(0f,0f,0f,.5f));
+
+        int offsetLength = 3;
+        int offsetStart = 2;
+
+        g.fillRect(buttonsBounds.x+ buttonsBounds.width/2+offsetStart,buttonsBounds.y+ buttonsBounds.height/2, buttonsBounds.width- buttonsBounds.width/2-offsetLength, buttonsBounds.height-buttonsBounds.height/2-offsetLength);
+        drawButtonInfo(g);
     }
+
+    private void drawButtonInfo(Graphics g){
+
+        int offsetStart = 5;
+
+        g.setColor(Color.white);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
+        g.drawString(cost, buttonsBounds.x+ buttonsBounds.width/2+offsetStart, buttonsBounds.y+buttonsBounds.height- buttonsBounds.height/5);
+
+    }
+
+    private void drawRectangleButtonImage(Graphics g) {
+        if (mouseOver){
+            g.drawImage(spriteButtonHover,posWidthX,posHeightY,width,height,null);
+        }
+
+        if (mousePressed){
+            g.drawImage(spriteButtonPressed,posWidthX,posHeightY,width,height,null);
+        }
+
+        if (!mouseOver && !mousePressed){
+            g.drawImage(spriteButtonIdle,posWidthX,posHeightY,width,height,null);
+        }
+    }
+
     private void drawRectangleBody(Graphics g) {
         if (mouseOver){
             g.setColor(Color.BLACK);
@@ -101,20 +141,22 @@ public class Button {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         if (mouseOver) {
-            g2d.setColor(Color.GREEN);
+            // SET COLOR TRANSPARENT GREEN
+            g2d.setColor(new Color(0, 255, 0, 150));
         }
         else {
-            g2d.setColor(Color.WHITE);
+            // SET COLOR TRANSPARENT GREY
+            g2d.setColor(new Color(128, 128, 128, 150));
         }
 
         if (deleteButton){
-            g2d.setColor(Color.RED);
+            // SET COLOR TRANSPARENT RED
+            g2d.setColor(new Color(255, 0, 0, 150));
         }
 
         if (deleteButton&& mouseOver){
-            g2d.setColor(Color.RED);
             // GET A LITTLE BIT DARKER
-            g2d.setColor(new Color(255, 0, 0, 150));
+            g2d.setColor(Color.RED);
         }
 
         g2d.fill(partOfCircleShape);

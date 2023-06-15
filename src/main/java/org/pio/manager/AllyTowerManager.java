@@ -1,11 +1,7 @@
 package org.pio.manager;
 
-import org.pio.Entities.AllyTower;
-import org.pio.Entities.Bullet;
-import org.pio.Entities.FirstTower;
-import org.pio.Entities.SecondTower;
+import org.pio.Entities.AllyTowers.*;
 import org.pio.scene.Level;
-import org.pio.scene.PlayScene;
 import org.pio.ui.Button;
 import org.pio.ui.SidePanel;
 import org.pio.writers.Helper;
@@ -23,12 +19,12 @@ import java.util.List;
 public class AllyTowerManager {
     private List<FirstTower> firstTowersList;
     private List<SecondTower> secondTowerList;
-    private static List<FirstTower> firstTowersPlaced;
-
+    private List<ThirdTower> thirdTowerList;
+    private List<FourthTower> fourthTowerList;
+    private List<FifthTower> fifthTowerList;
     private static List<AllyTower> allyTowersList;
     private static List<AllyTower> allyTowersPlaced;
     private BufferedImage spriteAllyTowerAtlas;
-    private AllyTower selectedAllyTower;
 
     public AllyTowerManager() {
         loadAllyTowerAtlas();
@@ -36,22 +32,35 @@ public class AllyTowerManager {
     }
 
     private void createAllyTowerList(){
+        firstTowersList=new ArrayList<>();
+        secondTowerList=new ArrayList<>();
+        thirdTowerList=new ArrayList<>();
+        fourthTowerList=new ArrayList<>();
+        fifthTowerList=new ArrayList<>();
+
         allyTowersPlaced=new ArrayList<>();
         allyTowersList =new ArrayList<>();
 
-        firstTowersList=new ArrayList<>();
-        firstTowersPlaced=new ArrayList<>();
-
-        secondTowerList=new ArrayList<>();
-
-        FirstTower firstTower = (FirstTower) WriterMethods.readTowerData("src/main/resources/firstTower.txt");
+        FirstTower firstTower = (FirstTower) WriterMethods.readTowerData("src/main/resources/AllyTowerInfo/firstTower.txt");
 
         firstTowersList.add(firstTower);
         allyTowersList.add(firstTower);
 
-        SecondTower secondTower = (SecondTower) WriterMethods.readTowerData("src/main/resources/secondTower.txt");
+        SecondTower secondTower = (SecondTower) WriterMethods.readTowerData("src/main/resources/AllyTowerInfo/secondTower.txt");
         secondTowerList.add(secondTower);
         allyTowersList.add(secondTower);
+
+        ThirdTower thirdTower = (ThirdTower) WriterMethods.readTowerData("src/main/resources/AllyTowerInfo/thirdTower.txt");
+        thirdTowerList.add(thirdTower);
+        allyTowersList.add(thirdTower);
+
+        FourthTower fourthTower= (FourthTower) WriterMethods.readTowerData("src/main/resources/AllyTowerInfo/fourthTower.txt");
+        fourthTowerList.add(fourthTower);
+        allyTowersList.add(fourthTower);
+
+        FifthTower fifthTower = (FifthTower) WriterMethods.readTowerData("src/main/resources/AllyTowerInfo/fifthTower.txt");
+        fifthTowerList.add(fifthTower);
+        allyTowersList.add(fifthTower);
 
     }
 
@@ -77,6 +86,21 @@ public class AllyTowerManager {
 
         if (SidePanel.getSelectedTowerSidePanel().getId()==2){
             allyTower=new SecondTower(secondTowerList.get(0).getNameEntity(), secondTowerList.get(0).getId(), getSprite(secondTowerList.get(0).getSpriteCordX(), secondTowerList.get(0).getSpriteCordY(), secondTowerList.get(0).getSpriteWidth(), secondTowerList.get(0).getHeight()),x-20,y-20,secondTowerList.get(0).getWidth(), secondTowerList.get(0).getHeight(), secondTowerList.get(0).getTimePerShot(), secondTowerList.get(0).getRange(), secondTowerList.get(0).getCost(), index++);
+            allyTowersPlaced.add(allyTower);
+        }
+
+        if (SidePanel.getSelectedTowerSidePanel().getId()==3){
+            allyTower=new ThirdTower(thirdTowerList.get(0).getNameEntity(), thirdTowerList.get(0).getId(), getSprite(thirdTowerList.get(0).getSpriteCordX(), thirdTowerList.get(0).getSpriteCordY(), thirdTowerList.get(0).getSpriteWidth(), thirdTowerList.get(0).getHeight()),x-20,y-20,thirdTowerList.get(0).getWidth(), thirdTowerList.get(0).getHeight(), thirdTowerList.get(0).getTimePerShot(), thirdTowerList.get(0).getRange(), thirdTowerList.get(0).getCost(), index++);
+            allyTowersPlaced.add(allyTower);
+        }
+
+        if (SidePanel.getSelectedTowerSidePanel().getId()==4){
+            allyTower=new FourthTower(fourthTowerList.get(0).getNameEntity(), fourthTowerList.get(0).getId(), getSprite(fourthTowerList.get(0).getSpriteCordX(), fourthTowerList.get(0).getSpriteCordY(), fourthTowerList.get(0).getSpriteWidth(), fourthTowerList.get(0).getHeight()),x-20,y-20,fourthTowerList.get(0).getWidth(), fourthTowerList.get(0).getHeight(), fourthTowerList.get(0).getTimePerShot(), fourthTowerList.get(0).getRange(), fourthTowerList.get(0).getCost(), index++);
+            allyTowersPlaced.add(allyTower);
+        }
+
+        if (SidePanel.getSelectedTowerSidePanel().getId()==5){
+            allyTower=new FifthTower(fifthTowerList.get(0).getNameEntity(), fifthTowerList.get(0).getId(), getSprite(fifthTowerList.get(0).getSpriteCordX(), fifthTowerList.get(0).getSpriteCordY(), fifthTowerList.get(0).getSpriteWidth(), fifthTowerList.get(0).getHeight()),x-20,y-20,fifthTowerList.get(0).getWidth(), fifthTowerList.get(0).getHeight(), fifthTowerList.get(0).getTimePerShot(), fifthTowerList.get(0).getRange(), fifthTowerList.get(0).getCost(), index++);
             allyTowersPlaced.add(allyTower);
         }
 
@@ -232,6 +256,7 @@ public class AllyTowerManager {
 
         for (AllyTower allyTower : allyTowersPlaced) {
             allyTower.resetBooleans();
+            allyTower.setSelected(false);
         }
 
     }

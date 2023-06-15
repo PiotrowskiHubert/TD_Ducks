@@ -1,6 +1,6 @@
 package org.pio;
 
-import org.pio.Entities.Enemy;
+import org.pio.Entities.Enemies.Enemy;
 import org.pio.manager.EnemyManager;
 
 public class Creators {

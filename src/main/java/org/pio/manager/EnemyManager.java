@@ -1,19 +1,18 @@
 package org.pio.manager;
 
-import org.pio.Entities.AllyTower;
+import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.Entities.Bullet;
-import org.pio.Entities.Enemy;
+import org.pio.Entities.Enemies.Enemy;
+import org.pio.Entities.Enemies.FirstEnemy;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
 import org.pio.writers.Helper;
 import org.pio.writers.WriterMethods;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,16 +31,10 @@ public class EnemyManager {
         Level.initKeypoints();
 
         String pathFile = "src/main/resources/";
-        String fileName = pathFile+"BasicDuckInfo.txt";
-
-        Enemy enemy=WriterMethods.readEnemyDataFromFile(fileName);
-
+        String fileName = pathFile+ "EnemiesInfo/BasicDuckInfo.txt";
+        FirstEnemy enemy= (FirstEnemy) WriterMethods.readEnemyDataFromFile(fileName);
         setSpwnPoints(enemy);
         enemy.setSprite(setSpriteForEnemy(enemy));
-        System.out.println(enemy.getHealth());
-        System.out.println(enemy.getGold());
-        System.out.println(enemy.getDamage());
-
         enemyList.add(enemy);
 
     }
@@ -161,7 +154,7 @@ public class EnemyManager {
     private BufferedImage getSpriteEnemyAtlas(){
         BufferedImage img = null;
 
-        InputStream is = Level.class.getClassLoader().getResourceAsStream("DuckEnemy.png");
+        InputStream is = Level.class.getClassLoader().getResourceAsStream("FoxDuckEnemy.png");
 
         try {
             if (is!=null){
@@ -174,7 +167,7 @@ public class EnemyManager {
         return img;
     }
     private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
-        return spriteEnemyAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
+        return spriteEnemyAtlas.getSubimage(xCord*74,yCord*77,widthImg,heightImg);
     }
     public static List<Enemy> getEnemyList() {
         return enemyList;
@@ -187,7 +180,7 @@ public class EnemyManager {
         enemy.setSpwnPointHeightY(Level.getKeyPointsList().get(0).getHeightY());
     }
     private BufferedImage setSpriteForEnemy(Enemy enemy){
-        return getSprite(enemy.getSpriteCordX(),enemy.getSpriteCordY(),enemy.getSpriteWidth(),enemy.getSpriteHeight());
+        return getSprite(0,0,74,77);
     }
 
 }
