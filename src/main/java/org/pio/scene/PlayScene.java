@@ -157,9 +157,11 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
                                         // REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
                                         enemyIterator1.remove();
+
                                     }
                                 }
                             }
+                            return;
 
 
                         }
@@ -175,7 +177,6 @@ public class PlayScene extends GameScene implements sceneMeethods{
     public void startWave() {
         Level.getRoundList().get(Level.getCurrentRound()).getEnemies().get(0).setCanGo(true);
     }
-
     public void changeGameSpeed(){
 
         double timePerUpdateRegular=1_000_000_000.0/120.0;
