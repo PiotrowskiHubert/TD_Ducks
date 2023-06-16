@@ -92,26 +92,29 @@ public class Button {
     public void drawRectangleButton(Graphics g){
 
         drawRectangleButtonImage(g);
-
-        // SET COLOR BLACK WITH 50% TRANSPARENT
-
-        g.setColor(new Color(0f,0f,0f,.5f));
-
-        int offsetLength = 3;
-        int offsetStart = 2;
-
-        g.fillRect(buttonsBounds.x+ buttonsBounds.width/2+offsetStart,buttonsBounds.y+ buttonsBounds.height/2, buttonsBounds.width- buttonsBounds.width/2-offsetLength, buttonsBounds.height-buttonsBounds.height/2-offsetLength);
         drawButtonInfo(g);
+
     }
 
     private void drawButtonInfo(Graphics g){
 
-        int offsetStart = 5;
+        if (cost>0){
+            g.setColor(new Color(0f,0f,0f,.5f));
 
-        g.setColor(Color.white);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
+            int offsetLength = 3;
+            int offsetStart = 2;
 
-        g.drawString(""+cost, buttonsBounds.x+ buttonsBounds.width/2+offsetStart, buttonsBounds.y+buttonsBounds.height- buttonsBounds.height/5);
+            g.fillRect(buttonsBounds.x+ buttonsBounds.width/2+offsetStart,buttonsBounds.y+ buttonsBounds.height/2, buttonsBounds.width- buttonsBounds.width/2-offsetLength, buttonsBounds.height-buttonsBounds.height/2-offsetLength);
+
+            offsetStart = 5;
+
+            g.setColor(Color.white);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
+
+            g.drawString(""+cost, buttonsBounds.x+ buttonsBounds.width/2+offsetStart, buttonsBounds.y+buttonsBounds.height- buttonsBounds.height/5);
+        }
+
+
 
     }
 

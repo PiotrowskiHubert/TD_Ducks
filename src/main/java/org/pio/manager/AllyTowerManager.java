@@ -22,6 +22,7 @@ public class AllyTowerManager {
     private List<ThirdTower> thirdTowerList;
     private List<FourthTower> fourthTowerList;
     private List<FifthTower> fifthTowerList;
+
     private static List<AllyTower> allyTowersList;
     private static List<AllyTower> allyTowersPlaced;
     private BufferedImage spriteAllyTowerAtlas;
