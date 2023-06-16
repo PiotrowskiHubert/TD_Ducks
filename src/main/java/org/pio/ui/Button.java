@@ -73,7 +73,7 @@ public class Button {
     public void initBoundsRectangleShape(){
         this.buttonsBounds=new Rectangle(posWidthX,posHeightY,width,height);
     }
-    public Shape initBoundsCircleShape(){
+    private Shape initBoundsCircleShape(){
             // SHAPE OF HALF CIRCLE
 
             int x = posWidthX+20;

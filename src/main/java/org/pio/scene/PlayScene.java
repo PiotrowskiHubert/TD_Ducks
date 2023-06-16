@@ -58,7 +58,6 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
         }
     }
-
     public void updateAllyTowersPlaced(){
 
         if (Helper.isEnemyListEmpty(Level.getRoundList().get(Level.currentRound).getEnemies())){
@@ -68,7 +67,6 @@ public class PlayScene extends GameScene implements sceneMeethods{
         getLvl().getGame().getAllyTowerManager().updateAllyTowerPlaced();
 
     }
-
     private void updateEnemiesCanGo(List<Enemy> enemies){
 
         if (Helper.isEnemyListEmpty(enemies)){
@@ -173,6 +171,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
         }
     }
 
+    // -------- INPUT ACTIONS ------- //
 
     public void startWave() {
         Level.getRoundList().get(Level.getCurrentRound()).getEnemies().get(0).setCanGo(true);
@@ -210,6 +209,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
         if (Level.currentRound < getLvl().getNUM_OF_ROUNDS()){
             if (!Level.getRoundList().get(Level.currentRound).getEnemies().isEmpty()) {
                 for (Enemy enemy : Level.getRoundList().get(Level.currentRound).getEnemies()) {
+                    //g.drawRect(enemy.getEntityBounds().x, enemy.getEntityBounds().y, enemy.getEntityBounds().width, enemy.getEntityBounds().height);
                     //g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
                     enemy.drawEntity(g);
                 }

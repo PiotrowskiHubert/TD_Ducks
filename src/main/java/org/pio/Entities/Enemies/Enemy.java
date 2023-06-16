@@ -3,6 +3,7 @@ package org.pio.Entities.Enemies;
 import org.pio.Entities.Entity;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 public class Enemy extends Entity {
@@ -11,6 +12,7 @@ public class Enemy extends Entity {
     private boolean canGo=false;
     private int index;
     private Rectangle enemyHitBox;
+    private Shape enemyDetectionRange;
     private int health, damage, gold;
 
     public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height, int health, int damage, int gold) {
@@ -27,6 +29,7 @@ public class Enemy extends Entity {
         this.gold=gold;
 
         this.enemyHitBox=initBounds();
+        this.enemyDetectionRange=initBoundsCircle();
     }
 
     public Enemy(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int movementSpeed, int health, int damage, int gold) {
@@ -51,13 +54,38 @@ public class Enemy extends Entity {
         return super.initBounds();
     }
 
+    private Shape initBoundsCircle(){
+
+        double offsetHeight=2.0;
+        double width=getPosWidthX()+getWidth()/2;
+        double height=getPosHeightY()+getHeight()/2+offsetHeight;
+        double radius=10;
+
+        return new Ellipse2D.Double(width-radius,height-radius,radius*2,radius*2);
+    }
+
     // ----------- UPDATE ----------- //
 
     @Override
     public void update() {
         moveUpdate();
         updateHitBox();
+        updateDetectionRange();
     }
+
+    private void updateDetectionRange() {
+
+        double offsetHeight=2.0;
+
+        double width=getPosWidthX()+getWidth()/2;
+        double height=getPosHeightY()+getHeight()/2+offsetHeight;
+        double radius=8;
+
+        enemyDetectionRange=null;
+        enemyDetectionRange=new Ellipse2D.Double(width-radius,height-radius,radius*2,radius*2);
+
+    }
+
     private void updateHitBox(){
         enemyHitBox.setBounds(posWidthX, posHeightY,width,height);
     }
@@ -93,28 +121,27 @@ public class Enemy extends Entity {
 
     @Override
     public void drawEntity(Graphics g) {
+        //g.drawImage(sprite, getPosWidthX(),getPosHeightY(),getWidth(),getHeight(),null);
+        g.drawRect(entityBounds.x, entityBounds.y, (int) entityBounds.getWidth(), (int) entityBounds.getWidth());
 
-        g.drawImage(sprite, getPosWidthX(),getPosHeightY(),getWidth(),getHeight(),null);
-        //g.fillRect(entityBounds.x, entityBounds.y, (int) entityBounds.getWidth(), (int) entityBounds.getWidth());
+        Graphics2D g2d=(Graphics2D) g;
+        g2d.setColor(Color.RED);
+        g2d.draw(enemyDetectionRange);
     }
 
 
     // ----------- GET ----------- //
 
     public int getSpwnPointWidthX() {
-//        spwnPointWidthX=-50;
         return spwnPointWidthX;
     }
     public int getSpwnPointHeightY() {
-//        spwnPointHeightY=240;
         return spwnPointHeightY;
     }
     public int getEndPointWidthX() {
-//        endPointWidthX=720;
         return endPointWidthX;
     }
     public int getEndPointHeightY() {
-//        endPointHeightY=245;
         return endPointHeightY;
     }
     public int getIndex() {
