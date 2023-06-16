@@ -32,14 +32,15 @@ public class Button {
     }
 
     // RECTANGLE
-    public Button(String text, int posWidthX, int posHeightY, int width, int height, int id, int cost, BufferedImage spriteButtonIdle, BufferedImage spriteButtonHover, BufferedImage spriteButtonPressed) {
-        this.text=text;
+    public Button(String name, int posWidthX, int posHeightY, int width, int height, int id, int cost, BufferedImage spriteButtonIdle, BufferedImage spriteButtonHover, BufferedImage spriteButtonPressed) {
+        this.name=name;
         this.posWidthX = posWidthX;
         this.posHeightY = posHeightY;
         this.width = width;
         this.height = height;
         this.id = id;
         this.cost=cost;
+
         this.spriteButtonIdle =spriteButtonIdle;
         this.spriteButtonHover =spriteButtonHover;
         this.spriteButtonPressed =spriteButtonPressed;
@@ -50,8 +51,8 @@ public class Button {
         initBoundsRectangleShape();
     }
 
-    public Button(String text, int posWidthX, int posHeightY, int width, int height, int id, BufferedImage spriteButtonIdle, BufferedImage spriteButtonHover, BufferedImage spriteButtonPressed) {
-        this.text=text;
+    public Button(String name, int posWidthX, int posHeightY, int width, int height, int id, BufferedImage spriteButtonIdle, BufferedImage spriteButtonHover, BufferedImage spriteButtonPressed) {
+        this.name=name;
         this.posWidthX = posWidthX;
         this.posHeightY = posHeightY;
         this.width = width;

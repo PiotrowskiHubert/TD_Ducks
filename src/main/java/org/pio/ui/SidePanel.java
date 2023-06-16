@@ -67,16 +67,23 @@ public class SidePanel {
         int bHeight=40;
         int posYOffSet=bHeight+5;
 
-        bTower_0 =new Button("Turret_1", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
-        buttonTowerList.add(bTower_0);
-        bTower_0 =new Button("Turret_2", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
-        buttonTowerList.add(bTower_0);
-        bTower_0 =new Button("Turret_3", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
-        buttonTowerList.add(bTower_0);
-        bTower_0 =new Button("Turret_4", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
-        buttonTowerList.add(bTower_0);
-        bTower_0 =new Button("Turret_5", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
-        buttonTowerList.add(bTower_0);
+        for (AllyTower allyTowerList : AllyTowerManager.getAllyTowersList()) {
+            bTower_0 =new Button(allyTowerList.getNameEntity(), posX, posY+id*posYOffSet, bWidth, bHeight, id++,allyTowerList.getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+//            System.out.println(bTower_0.getName());
+//            System.out.println(allyTowerList.getNameEntity());
+            buttonTowerList.add(bTower_0);
+        }
+
+//        bTower_0 =new Button("Turret_1", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+//        buttonTowerList.add(bTower_0);
+//        bTower_0 =new Button("Turret_2", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+//        buttonTowerList.add(bTower_0);
+//        bTower_0 =new Button("Turret_3", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+//        buttonTowerList.add(bTower_0);
+//        bTower_0 =new Button("Turret_4", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+//        buttonTowerList.add(bTower_0);
+//        bTower_0 =new Button("Turret_5", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+//        buttonTowerList.add(bTower_0);
 
         startRound =new Button("Start_Round", posX, panelHeight-50, bWidth, bHeight, id++, getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
 
@@ -121,45 +128,20 @@ public class SidePanel {
         for (Button button : buttonTowerList) {
             if (button.getButtonsBounds().contains(x,y) && selectedTowerSidePanel ==null){
 
-                if (button.getText().equals("Turret_1")){
-                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(button.getId());
+                for (AllyTower allyTower : AllyTowerManager.getAllyTowersList()) {
 
-                    selectedTowerSidePanel.setSprite(getSprite(selectedTowerSidePanel.getSpriteCordX(),selectedTowerSidePanel.getSpriteCordY(),
-                                                            selectedTowerSidePanel.getSpriteWidth(),selectedTowerSidePanel.getSpriteHeight()));
+                    if (button.getName().equals(allyTower.getNameEntity())){
+                        selectedTowerSidePanel=allyTower;
+
+                        selectedTowerSidePanel.setSprite(getSprite(allyTower.getSpriteCordX(),allyTower.getSpriteCordY(), allyTower.getSpriteWidth(),allyTower.getSpriteHeight()));
+
+                        if (allyTower.getCost()> PlayScene.getPlayer().getGold()){
+                            selectedTowerSidePanel =null;
+                        }
+
+                    }
+
                 }
-
-                if (button.getText().equals("Turret_2")){
-                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(button.getId());
-
-                    selectedTowerSidePanel.setSprite(getSprite(selectedTowerSidePanel.getSpriteCordX(),selectedTowerSidePanel.getSpriteCordY(),
-                                                            selectedTowerSidePanel.getSpriteWidth(),selectedTowerSidePanel.getSpriteHeight()));
-                }
-
-                if (button.getText().equals("Turret_3")){
-                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(button.getId());
-
-                    selectedTowerSidePanel.setSprite(getSprite(selectedTowerSidePanel.getSpriteCordX(),selectedTowerSidePanel.getSpriteCordY(),
-                                                            selectedTowerSidePanel.getSpriteWidth(),selectedTowerSidePanel.getSpriteHeight()));
-                }
-
-                if (button.getText().equals("Turret_4")){
-                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(button.getId());
-
-                    selectedTowerSidePanel.setSprite(getSprite(selectedTowerSidePanel.getSpriteCordX(),selectedTowerSidePanel.getSpriteCordY(),
-                                                                selectedTowerSidePanel.getSpriteWidth(),selectedTowerSidePanel.getSpriteHeight()));
-                }
-
-                if (button.getText().equals("Turret_5")){
-                    selectedTowerSidePanel= AllyTowerManager.getAllyTowersList().get(button.getId());
-
-                    selectedTowerSidePanel.setSprite(getSprite(selectedTowerSidePanel.getSpriteCordX(),selectedTowerSidePanel.getSpriteCordY(),
-                                                                selectedTowerSidePanel.getSpriteWidth(),selectedTowerSidePanel.getSpriteHeight()));
-                }
-
-//                selectedTowerSidePanel = playScene.getGame().getAllyTowerManager().getFirstTower(button.id);
-//                if (selectedTowerSidePanel.getCost()>playScene.getPlayer().getGold()){
-//                    selectedTowerSidePanel =null;
-//                }
 
             }
         }

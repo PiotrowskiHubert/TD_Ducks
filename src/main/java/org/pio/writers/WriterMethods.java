@@ -329,9 +329,10 @@ public class WriterMethods {
                 var writer = new BufferedWriter(fileWriter);
         ) {
             // WRITE TOWER DATA TO FILE
+            writer.write(fileName); writer.newLine();
 
             //WRITE NAME
-            writer.write("FIRST_TOWER"); writer.newLine();
+            writer.write("NAME"); writer.newLine();
             // WRITE NAME AFTER NAME TO FILE
             writer.write(name); writer.newLine();
 
@@ -486,6 +487,7 @@ public class WriterMethods {
         }
 
         if (id==1){
+            System.out.println(name);
             return new FirstTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
         }
 
