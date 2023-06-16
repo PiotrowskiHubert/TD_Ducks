@@ -21,7 +21,7 @@ public class SidePanel {
     private int panelWidth, panelHeight;
     private int posWidthX, posHeightX;
     private static AllyTower selectedTowerSidePanel;
-    Button bTower_0, startRound;
+    Button bTower_0, startRound, speedUp;
     private List<Button> buttonTowerList;
 
     public SidePanel(int posWidthX, int posHeightX, int panelWidth, int panelHeight, PlayScene playScene) {
@@ -72,6 +72,7 @@ public class SidePanel {
             buttonTowerList.add(bTower_0);
         }
 
+        speedUp=new Button("Speed_Up", posX, panelHeight-95, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
         startRound =new Button("Start_Round", posX, panelHeight-50, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
 
     }
@@ -84,6 +85,7 @@ public class SidePanel {
             button.drawRectangleButton(g);
         }
 
+        speedUp.drawRectangleButton(g);
         startRound.drawRectangleButton(g);
 
     }
@@ -138,6 +140,11 @@ public class SidePanel {
             playScene.startWave();
         }
 
+        if (speedUp.getButtonsBounds().contains(x,y)){
+            System.out.println("a");
+            playScene.changeGameSpeed();
+        }
+
     }
     public void mouseMoved(int x, int y) {
 
@@ -151,6 +158,10 @@ public class SidePanel {
             startRound.setMouseOver(false);
         }
 
+        if (speedUp.isMouseOver()){
+            speedUp.setMouseOver(false);
+        }
+
         for (Button button : buttonTowerList) {
             if (button.getButtonsBounds().contains(x,y)){
                 button.setMouseOver(true);
@@ -159,6 +170,10 @@ public class SidePanel {
 
         if (startRound.getButtonsBounds().contains(x,y)){
             startRound.setMouseOver(true);
+        }
+
+        if (speedUp.getButtonsBounds().contains(x,y)){
+            speedUp.setMouseOver(true);
         }
 
     }
@@ -173,6 +188,10 @@ public class SidePanel {
         if (startRound.getButtonsBounds().contains(x,y)){
             startRound.setMousePressed(true);
         }
+
+        if (speedUp.getButtonsBounds().contains(x,y)){
+            speedUp.setMousePressed(true);
+        }
     }
     public void mouseReleased(int x, int y) {
 
@@ -181,6 +200,7 @@ public class SidePanel {
         }
 
         startRound.resetBooleans();
+        speedUp.resetBooleans();
 
     }
 

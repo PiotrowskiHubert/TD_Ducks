@@ -176,6 +176,22 @@ public class PlayScene extends GameScene implements sceneMeethods{
         Level.getRoundList().get(Level.getCurrentRound()).getEnemies().get(0).setCanGo(true);
     }
 
+    public void changeGameSpeed(){
+
+        double timePerUpdateRegular=1_000_000_000.0/120.0;
+        double timePerUpdateFast=1_000_000_000.0/180.0;
+
+        if (getGame().getTimePerUpdate()==timePerUpdateRegular){
+            getGame().setTimePerUpdate(timePerUpdateFast);
+            return;
+        }
+
+        if (getGame().getTimePerUpdate()==timePerUpdateFast){
+            getGame().setTimePerUpdate(timePerUpdateRegular);
+            return;
+        }
+    }
+
     // -------- RENDER ------- //
 
     public void render(Graphics g){

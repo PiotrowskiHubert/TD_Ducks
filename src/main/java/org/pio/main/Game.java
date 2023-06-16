@@ -16,6 +16,8 @@ public class Game extends JFrame implements Runnable {
     private PlayScene playScene;
     Thread gameThread;
 
+    private double timePerUpdate;
+
     public static void main(String[] args) {
         Game game=new Game();
         game.gameScreen.initInputs();
@@ -61,12 +63,10 @@ public class Game extends JFrame implements Runnable {
     public void run() {
 
         double timePerFrame=1_000_000_000.0/60.0;
-        double timePerUpdate=1_000_000_000.0/120.0;
-        double timePerShot=1_000_000_000.0/1.0;
+        timePerUpdate=1_000_000_000.0/120.0;
 
         long lastFrame=System.nanoTime();
         long lastUpdate=System.nanoTime();
-        long lastShot=System.nanoTime();
 
         long lastTimeCheck=System.currentTimeMillis();
 
@@ -130,5 +130,12 @@ public class Game extends JFrame implements Runnable {
     }
     public PlayerManager getPlayerManager() {
         return playerManager;
+    }
+
+    public double getTimePerUpdate() {
+        return timePerUpdate;
+    }
+    public void setTimePerUpdate(double timePerUpdate) {
+        this.timePerUpdate = timePerUpdate;
     }
 }
