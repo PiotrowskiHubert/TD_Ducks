@@ -67,17 +67,18 @@ public class SidePanel {
         int bHeight=40;
         int posYOffSet=bHeight+5;
 
-        bTower_0 =new Button("Turret_1", posX, posY+id*posYOffSet, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+        bTower_0 =new Button("Turret_1", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
         buttonTowerList.add(bTower_0);
-        bTower_0 =new Button("Turret_2", posX, posY+id*posYOffSet, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+        bTower_0 =new Button("Turret_2", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
         buttonTowerList.add(bTower_0);
-        bTower_0 =new Button("Turret_3", posX, posY+id*posYOffSet, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+        bTower_0 =new Button("Turret_3", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
         buttonTowerList.add(bTower_0);
-        bTower_0 =new Button("Turret_4", posX, posY+id*posYOffSet, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+        bTower_0 =new Button("Turret_4", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
         buttonTowerList.add(bTower_0);
-        bTower_0 =new Button("Turret_5", posX, posY+id*posYOffSet, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+        bTower_0 =new Button("Turret_5", posX, posY+id*posYOffSet, bWidth, bHeight, id++,AllyTowerManager.getAllyTowersList().get(id-1).getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
         buttonTowerList.add(bTower_0);
-        startRound =new Button("Start_Round", posX, panelHeight-50, bWidth, bHeight, id++,"100", getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+
+        startRound =new Button("Start_Round", posX, panelHeight-50, bWidth, bHeight, id++, getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
 
     }
 

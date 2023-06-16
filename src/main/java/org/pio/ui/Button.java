@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
 
 public class Button {
     private BufferedImage spriteButtonIdle, spriteButtonHover, spriteButtonPressed;
-    int posWidthX, posHeightY, width, height, id;
-    private String text, name, cost;
+    int posWidthX, posHeightY, width, height, id, cost;
+    private String text, name;
     private Rectangle buttonsBounds;
     private Boolean mouseOver, mousePressed;
     private Shape partOfCircleShape;
@@ -32,7 +32,7 @@ public class Button {
     }
 
     // RECTANGLE
-    public Button(String text, int posWidthX, int posHeightY, int width, int height, int id, String cost, BufferedImage spriteButtonIdle, BufferedImage spriteButtonHover, BufferedImage spriteButtonPressed) {
+    public Button(String text, int posWidthX, int posHeightY, int width, int height, int id, int cost, BufferedImage spriteButtonIdle, BufferedImage spriteButtonHover, BufferedImage spriteButtonPressed) {
         this.text=text;
         this.posWidthX = posWidthX;
         this.posHeightY = posHeightY;
@@ -40,6 +40,24 @@ public class Button {
         this.height = height;
         this.id = id;
         this.cost=cost;
+        this.spriteButtonIdle =spriteButtonIdle;
+        this.spriteButtonHover =spriteButtonHover;
+        this.spriteButtonPressed =spriteButtonPressed;
+
+        this.mouseOver=false;
+        this.mousePressed=false;
+
+        initBoundsRectangleShape();
+    }
+
+    public Button(String text, int posWidthX, int posHeightY, int width, int height, int id, BufferedImage spriteButtonIdle, BufferedImage spriteButtonHover, BufferedImage spriteButtonPressed) {
+        this.text=text;
+        this.posWidthX = posWidthX;
+        this.posHeightY = posHeightY;
+        this.width = width;
+        this.height = height;
+        this.id = id;
+
         this.spriteButtonIdle =spriteButtonIdle;
         this.spriteButtonHover =spriteButtonHover;
         this.spriteButtonPressed =spriteButtonPressed;
@@ -91,7 +109,8 @@ public class Button {
 
         g.setColor(Color.white);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
-        g.drawString(cost, buttonsBounds.x+ buttonsBounds.width/2+offsetStart, buttonsBounds.y+buttonsBounds.height- buttonsBounds.height/5);
+
+        g.drawString(""+cost, buttonsBounds.x+ buttonsBounds.width/2+offsetStart, buttonsBounds.y+buttonsBounds.height- buttonsBounds.height/5);
 
     }
 
