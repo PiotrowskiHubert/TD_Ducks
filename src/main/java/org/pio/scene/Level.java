@@ -17,7 +17,7 @@ public class Level extends GameScene {
     public static int currentRound;
     private static int lvlHeight, lvlWidth;
     private static Tile [][] lvlArr;
-    private static List<Round> roundListTest;
+    private static List<Round> roundList;
     private static List<KeyPoints> keyPointsList;
 
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
@@ -29,7 +29,7 @@ public class Level extends GameScene {
 
         lvlArr = new Tile[lvlHeight][lvlWidth];
         currentRound=START_ROUND;
-        roundListTest=new ArrayList<>();
+        roundList =new ArrayList<>();
 
         createLevelRoundsAndAddEnemies();
 
@@ -53,7 +53,7 @@ public class Level extends GameScene {
         WriterMethods.readRoundDataFromFile(fileName, NUM_OF_ROUNDS, this);
 
         for (int i = 1; i < NUM_OF_ROUNDS; i++) {
-            WriterMethods.readEnemyFromRoundDataFile(fileName, i, roundListTest.get(i));
+            WriterMethods.readEnemyFromRoundDataFile(fileName, i, roundList.get(i));
         }
 
     }
@@ -63,7 +63,7 @@ public class Level extends GameScene {
     public void updateLevel(){
 
         if (Helper.isFirstValueSmallerThanSecond(currentRound,NUM_OF_ROUNDS)){
-            if (Helper.isEnemyListEmpty(getRoundListTest().get(currentRound).getEnemies())){
+            if (Helper.isEnemyListEmpty(getRoundList().get(currentRound).getEnemies())){
                 currentRound++;
             }
         }
@@ -112,8 +112,8 @@ public class Level extends GameScene {
         return currentRound;
     }
 
-    public static List<Round> getRoundListTest() {
-        return roundListTest;
+    public static List<Round> getRoundList() {
+        return roundList;
     }
     // -------- SET ------- //
 

@@ -1,14 +1,20 @@
 package org.pio.scene;
 
+import org.pio.Entities.AllyTowers.AllyTower;
+import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemies.Enemy;
 import org.pio.Player;
 import org.pio.main.Game;
+import org.pio.manager.AllyTowerManager;
+import org.pio.manager.PlayerManager;
 import org.pio.ui.SidePanel;
 import org.pio.writers.Helper;
 import org.pio.writers.WriterMethods;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Iterator;
+import java.util.List;
 
 public class PlayScene extends GameScene implements sceneMeethods{
     private Level lvl;
@@ -41,20 +47,21 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
     public void update(){
         updateEnemiesCanGo();
+        enemyHitByBullet();
         getLvl().updateLevel();
     }
 
     private void updateEnemiesCanGo() {
 
         if (Helper.isFirstValueSmallerThanSecond(Level.currentRound,getLvl().getNUM_OF_ROUNDS())){
-            getLvl().getGame().getEnemyManager().update(Level.getRoundListTest().get(Level.currentRound).getEnemies());
+            updateEnemiesCanGo(Level.getRoundList().get(Level.currentRound).getEnemies());
 
         }
     }
 
     public void updateAllyTowersPlaced(){
 
-        if (Helper.isEnemyListEmpty(Level.getRoundListTest().get(Level.currentRound).getEnemies())){
+        if (Helper.isEnemyListEmpty(Level.getRoundList().get(Level.currentRound).getEnemies())){
             return;
         }
 
@@ -62,8 +69,111 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
     }
 
+    private void updateEnemiesCanGo(List<Enemy> enemies){
+
+        if (Helper.isEnemyListEmpty(enemies)){
+            return;
+        }
+
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).update();
+
+            if (i < enemies.size() - 1) {
+
+                if (enemies.get(i).getPosWidthX()- enemies.get(i+1).getPosWidthX()>=50){
+                    enemies.get(i+1).setCanGo(true);
+                }
+
+                if (enemies.get(i).getPosWidthX()>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
+                    PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).getHealth());
+                    System.out.println(PlayScene.getPlayer().getHealth());
+                    System.out.println(enemies.get(i).getHealth());
+                    enemies.remove(enemies.get(i));
+                }
+
+            } else {
+                if (enemies.get(i).getPosWidthX()>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
+
+                    PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).getHealth());
+                    enemies.remove(enemies.get(i));
+
+                }
+            }
+        }
+
+    }
+    public void enemyHitByBullet() {
+
+        if (Helper.isEnemyListEmpty(Level.getRoundList().get(Level.currentRound).getEnemies())) {
+            return;
+        }
+
+        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())) {
+            return;
+        }
+
+        // CHECK IF ANY ENEMY FROM CURRENT ROUND IS HIT BY ANY BULLET FROM ANY TOWER
+        // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
+        // REMOVE BULLET FROM TOWER BULLET LIST AND REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
+
+        // GO THROUGHT ALL ENEMIES FROM CURRENT ROUND
+        for (Iterator<Enemy> enemyIterator = Level.getRoundList().get(Level.currentRound).getEnemies().iterator(); enemyIterator.hasNext();){
+            Enemy nextEnemy = enemyIterator.next();
+
+            // GO THROUGHT ALL PLACED TOWERS
+            for (Iterator<AllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();){
+                AllyTower nextAllyTower= allyTowerIterator.next();
+
+                // CHECK IF TOWER HAS ANY BULLETS
+                if (!nextAllyTower.getBulletList().isEmpty()){
+
+                    // GO THROUGHT ALL BULLETS FROM TOWER
+                    for (Iterator<Bullet> bulletIterator = nextAllyTower.getBulletList().iterator(); bulletIterator.hasNext();){
+                        Bullet nextBullet = bulletIterator.next();
+
+                        // CHECK IF ENEMY IS HIT BY BULLET
+                        if (nextEnemy.getEnemyHitBox().contains(nextBullet.getBulletHitBox().getX(),nextBullet.getBulletHitBox().getY())){
+
+
+                            // ADD GOLD TO PLAYER
+                            PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(),nextEnemy.getGold());
+
+                            // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
+                            enemyIterator.remove();
+
+                            // REMOVE BULLET FROM TOWER BULLET LIST
+                            bulletIterator.remove();
+
+                            // GO THROUGH ALL PLAYERS TOWERS
+                            for (Iterator<AllyTower> allyTowerIterator1 = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator1.hasNext();){
+                                AllyTower nextAllyTower1 = allyTowerIterator1.next();
+
+                                // GO THROUGH ALL ENEMIES IN RANGE LIST
+                                for (Iterator<Enemy> enemyIterator1 = nextAllyTower1.getEnemiesInRangeList().iterator(); enemyIterator1.hasNext();){
+                                    Enemy nextEnemy1 = enemyIterator1.next();
+
+                                    // CHECK IF ENEMY IS IN RANGE LIST
+                                    if (nextEnemy1.getId()==nextEnemy.getId()){
+
+                                        // REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
+                                        enemyIterator1.remove();
+                                    }
+                                }
+                            }
+
+
+                        }
+
+                    }
+                }
+            }
+
+        }
+    }
+
+
     public void startWave() {
-        Level.getRoundListTest().get(Level.getCurrentRound()).getEnemies().get(0).setCanGo(true);
+        Level.getRoundList().get(Level.getCurrentRound()).getEnemies().get(0).setCanGo(true);
     }
 
     // -------- RENDER ------- //
@@ -81,8 +191,8 @@ public class PlayScene extends GameScene implements sceneMeethods{
     public void drawEnemies(Graphics g){
 
         if (Level.currentRound < getLvl().getNUM_OF_ROUNDS()){
-            if (!Level.getRoundListTest().get(Level.currentRound).getEnemies().isEmpty()) {
-                for (Enemy enemy : Level.getRoundListTest().get(Level.currentRound).getEnemies()) {
+            if (!Level.getRoundList().get(Level.currentRound).getEnemies().isEmpty()) {
+                for (Enemy enemy : Level.getRoundList().get(Level.currentRound).getEnemies()) {
                     //g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
                     enemy.drawEntity(g);
                 }

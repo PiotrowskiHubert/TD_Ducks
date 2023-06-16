@@ -64,7 +64,7 @@ public class WriterMethods {
                         }
                         round.setNumOfEnemies(numOfEnemies);
                     }
-                    lvl.getRoundListTest().add(round);
+                    lvl.getRoundList().add(round);
                 }
 
             }

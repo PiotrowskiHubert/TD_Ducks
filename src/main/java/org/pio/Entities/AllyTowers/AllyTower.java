@@ -159,7 +159,7 @@ public class AllyTower extends Entity {
     }
     protected void shot(){
 
-        if (Helper.isEnemyListEmpty(Level.getRoundListTest().get(Level.currentRound).getEnemies())){
+        if (Helper.isEnemyListEmpty(Level.getRoundList().get(Level.currentRound).getEnemies())){
             return;
         }
         if(Helper.isEnemyListEmpty(enemiesInRangeList)){
@@ -203,7 +203,7 @@ public class AllyTower extends Entity {
 
     private void updateListOfEnemiesInRangeForPlacedTower(AllyTower allyTowerPlaced){
 
-        for (Enemy enemy: Level.getRoundListTest().get(Level.currentRound).getEnemies()){
+        for (Enemy enemy: Level.getRoundList().get(Level.currentRound).getEnemies()){
 
             if (!isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
                 if (allyTowerPlaced.getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){

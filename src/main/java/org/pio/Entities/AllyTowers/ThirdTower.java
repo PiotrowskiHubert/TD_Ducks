@@ -25,7 +25,7 @@ public class ThirdTower extends AllyTower {
 
     @Override
     public void shot() {
-        if (Helper.isEnemyListEmpty(Level.getRoundListTest().get(Level.currentRound).getEnemies())){
+        if (Helper.isEnemyListEmpty(Level.getRoundList().get(Level.currentRound).getEnemies())){
             return;
         }
         if(Helper.isEnemyListEmpty(enemiesInRangeList)){

@@ -104,7 +104,6 @@ public class Game extends JFrame implements Runnable {
 
         getPlayScene().update();
         getBulletManager().bulletsUpdatePos();
-        getEnemyManager().enemyHitByBullet();
         getPlayScene().updateAllyTowersPlaced();
 
     }
