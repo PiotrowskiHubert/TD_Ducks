@@ -236,7 +236,7 @@ public class SidePanel {
     private BufferedImage getSpriteButtonAtlas(){
         BufferedImage img = null;
 
-        InputStream is = Level.class.getClassLoader().getResourceAsStream("BUTTON_ATLAS.png");
+        InputStream is = Level.class.getClassLoader().getResourceAsStream("AtlasButtons.png");
 
         try {
             if (is!=null){
