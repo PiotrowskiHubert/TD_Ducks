@@ -104,7 +104,7 @@ public class Button {
             int offsetLength = 3;
             int offsetStart = 2;
 
-            g.fillRect(buttonsBounds.x+ buttonsBounds.width/2+offsetStart,buttonsBounds.y+ buttonsBounds.height/2, buttonsBounds.width- buttonsBounds.width/2-offsetLength, buttonsBounds.height-buttonsBounds.height/2-offsetLength);
+            g.fillRect(buttonsBounds.x+ buttonsBounds.width/2+offsetStart,buttonsBounds.y+ buttonsBounds.height/2, buttonsBounds.width- buttonsBounds.width/2-offsetLength-2, buttonsBounds.height-buttonsBounds.height/2-offsetLength);
 
             offsetStart = 5;
 
@@ -112,6 +112,10 @@ public class Button {
             g.setFont(new Font("TimesRoman", Font.PLAIN, 10));
 
             g.drawString(""+cost, buttonsBounds.x+ buttonsBounds.width/2+offsetStart, buttonsBounds.y+buttonsBounds.height- buttonsBounds.height/5);
+        }else {
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("TimesRoman", Font.BOLD, 12));
+            g.drawString(getName(), buttonsBounds.x+5, buttonsBounds.y+ buttonsBounds.height/2+5);
         }
 
 

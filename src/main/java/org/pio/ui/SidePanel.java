@@ -72,7 +72,7 @@ public class SidePanel {
             buttonTowerList.add(bTower_0);
         }
 
-        startRound =new Button("Start_Round", posX, panelHeight-50, bWidth, bHeight, id++, getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+        startRound =new Button("Start_Round", posX, panelHeight-50, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
 
     }
 
@@ -216,7 +216,7 @@ public class SidePanel {
     private BufferedImage getSpriteButtonAtlas(){
         BufferedImage img = null;
 
-        InputStream is = Level.class.getClassLoader().getResourceAsStream("BUTTON_1_ATLAS.png");
+        InputStream is = Level.class.getClassLoader().getResourceAsStream("BUTTON_ATLAS.png");
 
         try {
             if (is!=null){

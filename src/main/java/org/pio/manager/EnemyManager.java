@@ -118,7 +118,6 @@ public class EnemyManager {
                             // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
                             enemyIterator.remove();
 
-
                             // REMOVE BULLET FROM TOWER BULLET LIST
                             bulletIterator.remove();
 
