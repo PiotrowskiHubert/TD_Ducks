@@ -145,10 +145,10 @@ public class AllyTower extends Entity {
     @Override
     public void update() {
         now=System.nanoTime();
+        updateEnemiesInRangeForPlacedTower();
 
         if (now-lastShot>=timePerShot){
             lastShot=now;
-            updateEnemiesInRangeForPlacedTower();
             shot();
         }
 
@@ -169,35 +169,12 @@ public class AllyTower extends Entity {
         Bullet bullet;
 
 
-        if (id==0){
+        double shotOffsetX=5.0;
+        double shotOffsetY=0.0;
 
-                // ADD 4 ADDITIONAL BULLETS IN SLANT DIRECTIONS (UP-LEFT, UP-RIGHT, DOWN-LEFT, DOWN-RIGHT)
-                // DO NOT MAKE SHOT OFFSETS
+        bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
+        bulletList.add(bullet);
 
-                // SHOT BULLET UP-LEFT, START FROM POSITION OF ALLY TOWER AND GO UP-LEFT
-                bullet = new Bullet(posWidthX,posHeightY,posWidthX-range,posHeightY-range);
-                bulletList.add(bullet);
-
-                // SHOT BULLET UP-RIGHT, START FROM POSITION OF ALLY TOWER AND GO UP-RIGHT
-                bullet = new Bullet(posWidthX,posHeightY,posWidthX+range,posHeightY-range);
-                bulletList.add(bullet);
-
-                // SHOT BULLET DOWN-LEFT, START FROM POSITION OF ALLY TOWER AND GO DOWN-LEFT
-                bullet = new Bullet(posWidthX,posHeightY,posWidthX-range,posHeightY+range);
-                bulletList.add(bullet);
-
-                // SHOT BULLET DOWN-RIGHT, START FROM POSITION OF ALLY TOWER AND GO DOWN-RIGHT
-                bullet = new Bullet(posWidthX,posHeightY,posWidthX+range,posHeightY+range);
-                bulletList.add(bullet);
-
-
-        }else {
-            double shotOffsetX=5.0;
-            double shotOffsetY=0.0;
-
-            bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
-            bulletList.add(bullet);
-        }
 
     }
 
@@ -206,19 +183,34 @@ public class AllyTower extends Entity {
         for (Enemy enemy: Level.getRoundList().get(Level.currentRound).getEnemies()){
 
             if (!isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
-                if (allyTowerPlaced.getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
+                if (allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_DOWN().getBounds().getX(), enemy.getEnemyDetectionHitBox_DOWN().getBounds().getY())||
+                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_UP().getBounds().getY())||
+                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_LEFT().getBounds().getY())||
+                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_RIGHT().getBounds().getY())){
+
+                    enemy.setDetected(true);
                     allyTowerPlaced.getEnemiesInRangeList().add(enemy);
+
                 }
             }
 
             if (isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
-                if (allyTowerPlaced.getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
+                if (allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_DOWN().getBounds().getX(), enemy.getEnemyDetectionHitBox_DOWN().getBounds().getY())||
+                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_UP().getBounds().getY())||
+                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_LEFT().getBounds().getY())||
+                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_RIGHT().getBounds().getY())){
+
                     updateEnemiesPositionInRangeForPlacedTower(allyTowerPlaced, enemy);
                 }
             }
 
             if (isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
-                if (!allyTowerPlaced.getRangeEllipse().contains(enemy.getPosWidthX(), enemy.getPosHeightY())){
+                if (!allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_DOWN().getBounds().getX(), enemy.getEnemyDetectionHitBox_DOWN().getBounds().getY())&&
+                        !allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_UP().getBounds().getY())&&
+                        !allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_LEFT().getBounds().getX(), enemy.getEnemyDetectionHitBox_UP().getBounds().getY())&&
+                        !allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_RIGHT().getBounds().getX(), enemy.getEnemyDetectionHitBox_UP().getBounds().getY())){
+
+                    enemy.setDetected(false);
                     allyTowerPlaced.getEnemiesInRangeList().remove(enemy);
                 }
             }

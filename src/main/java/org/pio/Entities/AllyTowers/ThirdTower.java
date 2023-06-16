@@ -50,7 +50,6 @@ public class ThirdTower extends AllyTower {
         bullet = new Bullet(posWidthX,posHeightY,posWidthX+range,posHeightY);
         bulletList.add(bullet);
 
-
     }
 
     @Override

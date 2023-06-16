@@ -12,8 +12,9 @@ public class Enemy extends Entity {
     private boolean canGo=false;
     private int index;
     private Rectangle enemyHitBox;
-    private Shape enemyDetectionRange;
+    private Shape enemyDetectionHitBox_UP, enemyDetectionHitBox_DOWN, enemyDetectionHitBox_LEFT, enemyDetectionHitBox_RIGHT;
     private int health, damage, gold;
+    private boolean detected;
 
     public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height, int health, int damage, int gold) {
         this.nameEntity=nameEnemy;
@@ -27,9 +28,13 @@ public class Enemy extends Entity {
         this.health=health;
         this.damage=damage;
         this.gold=gold;
+        this.detected=false;
 
         this.enemyHitBox=initBounds();
-        this.enemyDetectionRange=initBoundsCircle();
+        this.enemyDetectionHitBox_UP =initBoundsCircle(-8.0,0.0);
+        this.enemyDetectionHitBox_DOWN =initBoundsCircle(+8.0,0.0);
+        this.enemyDetectionHitBox_LEFT =initBoundsCircle(0.0,-8.0);
+        this.enemyDetectionHitBox_RIGHT =initBoundsCircle(0.0,+8.0);
     }
 
     public Enemy(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int movementSpeed, int health, int damage, int gold) {
@@ -54,12 +59,11 @@ public class Enemy extends Entity {
         return super.initBounds();
     }
 
-    private Shape initBoundsCircle(){
+    private Shape initBoundsCircle(double offsetHeight, double offsetWidth) {
 
-        double offsetHeight=2.0;
-        double width=getPosWidthX()+getWidth()/2;
+        double width=getPosWidthX()+getWidth()/2+offsetWidth;
         double height=getPosHeightY()+getHeight()/2+offsetHeight;
-        double radius=10;
+        double radius=5;
 
         return new Ellipse2D.Double(width-radius,height-radius,radius*2,radius*2);
     }
@@ -70,20 +74,25 @@ public class Enemy extends Entity {
     public void update() {
         moveUpdate();
         updateHitBox();
-        updateDetectionRange();
+        updateDetectionHitBox();
     }
 
-    private void updateDetectionRange() {
+    private void updateDetectionHitBox() {
+        enemyDetectionHitBox_UP =updateDetectionRange(enemyDetectionHitBox_UP,-8.0,0.0);
+        enemyDetectionHitBox_DOWN =updateDetectionRange(enemyDetectionHitBox_DOWN,+8.0,0.0);
+        enemyDetectionHitBox_LEFT =updateDetectionRange(enemyDetectionHitBox_LEFT,0.0,-8.0);
+        enemyDetectionHitBox_RIGHT =updateDetectionRange(enemyDetectionHitBox_RIGHT,0.0,+8.0);
+    }
 
-        double offsetHeight=2.0;
+    private Shape updateDetectionRange(Shape enemyDetectionHitBox, double offsetHeight, double offsetWidth) {
 
-        double width=getPosWidthX()+getWidth()/2;
+        double width=getPosWidthX()+getWidth()/2+offsetWidth;
         double height=getPosHeightY()+getHeight()/2+offsetHeight;
-        double radius=8;
+        double radius=5;
 
-        enemyDetectionRange=null;
-        enemyDetectionRange=new Ellipse2D.Double(width-radius,height-radius,radius*2,radius*2);
+        enemyDetectionHitBox =null;
 
+        return enemyDetectionHitBox =new Ellipse2D.Double(width-radius,height-radius,radius*2,radius*2);
     }
 
     private void updateHitBox(){
@@ -125,8 +134,17 @@ public class Enemy extends Entity {
         g.drawRect(entityBounds.x, entityBounds.y, (int) entityBounds.getWidth(), (int) entityBounds.getWidth());
 
         Graphics2D g2d=(Graphics2D) g;
-        g2d.setColor(Color.RED);
-        g2d.draw(enemyDetectionRange);
+
+        if (isDetected()){
+            g2d.setColor(Color.GREEN);
+        }else {
+            g2d.setColor(Color.RED);
+        }
+
+        g2d.draw(enemyDetectionHitBox_UP);
+        g2d.draw(enemyDetectionHitBox_DOWN);
+        g2d.draw(enemyDetectionHitBox_LEFT);
+        g2d.draw(enemyDetectionHitBox_RIGHT);
     }
 
 
@@ -174,14 +192,28 @@ public class Enemy extends Entity {
     public int getHealth() {
         return health;
     }
-
     public int getDamage() {
         return damage;
     }
-
     public int getGold() {
         return gold;
     }
+    public Shape getEnemyDetectionHitBox_UP() {
+        return enemyDetectionHitBox_UP;
+    }
+    public Shape getEnemyDetectionHitBox_DOWN() {
+        return enemyDetectionHitBox_DOWN;
+    }
+    public Shape getEnemyDetectionHitBox_LEFT() {
+        return enemyDetectionHitBox_LEFT;
+    }
+    public Shape getEnemyDetectionHitBox_RIGHT() {
+        return enemyDetectionHitBox_RIGHT;
+    }
+    public boolean isDetected() {
+        return detected;
+    }
+
     // ----------- SET ----------- //
 
     public void setIndex(int index) {
@@ -193,20 +225,19 @@ public class Enemy extends Entity {
     public void setCanGo(boolean canGo) {
         this.canGo = canGo;
     }
-
     public void setSpwnPointWidthX(int spwnPointWidthX) {
         this.spwnPointWidthX = spwnPointWidthX;
     }
-
     public void setSpwnPointHeightY(int spwnPointHeightY) {
         this.spwnPointHeightY = spwnPointHeightY;
     }
-
     public void setEndPointWidthX(int endPointWidthX) {
         this.endPointWidthX = endPointWidthX;
     }
-
     public void setEndPointHeightY(int endPointHeightY) {
         this.endPointHeightY = endPointHeightY;
+    }
+    public void setDetected(boolean detected) {
+        this.detected = detected;
     }
 }
