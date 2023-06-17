@@ -52,6 +52,8 @@ public class PlayScene extends GameScene implements sceneMeethods{
         enemyHitByBullet();
         getLvl().updateLevel();
 
+        updateAllyTowerPlaced();
+
         if (SidePanel.getSelectedTowerSidePanel()!=null){
             sidePanel.updateSelectedTowerHitBox();
         }
@@ -61,16 +63,24 @@ public class PlayScene extends GameScene implements sceneMeethods{
 
         if (Helper.isFirstValueSmallerThanSecond(Level.currentRound,getLvl().getNUM_OF_ROUNDS())){
             updateEnemiesCanGo(Level.getRoundList().get(Level.currentRound).getEnemies());
-
         }
     }
-    public void updateAllyTowersPlaced(){
+
+    public void updateAllyTowerPlaced(){
+
+        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
+            return;
+        }
 
         if (Helper.isEnemyListEmpty(Level.getRoundList().get(Level.currentRound).getEnemies())){
             return;
         }
 
-        getLvl().getGame().getAllyTowerManager().updateAllyTowerPlaced();
+        for (Iterator<AllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();){
+            AllyTower nextAllyTowerPlaced = allyTowerIterator.next();
+
+            nextAllyTowerPlaced.update();
+        }
 
     }
     private void updateEnemiesCanGo(List<Enemy> enemies){

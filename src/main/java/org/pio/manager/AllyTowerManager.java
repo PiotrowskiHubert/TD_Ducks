@@ -86,8 +86,6 @@ public class AllyTowerManager {
             index=allyTowersPlaced.get(allyTowersPlaced.size()-1).getIndex()+1;
         }
 
-
-
         if (SidePanel.getSelectedTowerSidePanel().getId()==1){
             allyTower=new FirstTower(firstTowersList.get(0).getNameEntity(), firstTowersList.get(0).getId(), getSprite(firstTowersList.get(0).getSpriteCordX(), firstTowersList.get(0).getSpriteCordY(), firstTowersList.get(0).getSpriteWidth(), firstTowersList.get(0).getHeight()),x-20,y-20,firstTowersList.get(0).getWidth(), firstTowersList.get(0).getHeight(), firstTowersList.get(0).getTimePerShot(), firstTowersList.get(0).getRange(), firstTowersList.get(0).getCost(), index++);
             allyTowersPlaced.add(allyTower);
@@ -117,19 +115,7 @@ public class AllyTowerManager {
 
     // ----------- UPDATE ----------- //
 
-    public void updateAllyTowerPlaced(){
 
-        if (Helper.isAllyTowerListEmpty(allyTowersPlaced)){
-            return;
-        }
-
-        for (Iterator<AllyTower> allyTowerIterator = allyTowersPlaced.iterator();allyTowerIterator.hasNext();){
-            AllyTower nextAllyTowerPlaced = allyTowerIterator.next();
-
-            nextAllyTowerPlaced.update();
-        }
-
-    }
 
     // ----------- RENDER ----------- //
 
@@ -179,7 +165,6 @@ public class AllyTowerManager {
     public static List<AllyTower> getAllyTowersPlaced() {
         return allyTowersPlaced;
     }
-
     public static List<AllyTower> getAllyTowersList() {
         return allyTowersList;
     }
@@ -271,7 +256,6 @@ public class AllyTowerManager {
         }
 
     }
-
     public void rightMouseClicked(int x, int y) {
 
         for (AllyTower allyTower : allyTowersPlaced) {
