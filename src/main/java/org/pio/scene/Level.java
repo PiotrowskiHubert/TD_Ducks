@@ -2,6 +2,7 @@ package org.pio.scene;
 
 import org.pio.KeyPoints;
 import org.pio.main.Game;
+import org.pio.readers.ReadFromFile;
 import org.pio.tiles.Tile;
 import org.pio.writers.Helper;
 import org.pio.writers.WriterMethods;
@@ -49,23 +50,10 @@ public class Level extends GameScene {
         String pathFile = "src/main/resources/";
         String fileName = pathFile+ "RoundsInfo/rounds_data.txt";
 
-        //WriterMethods.readRoundDataFromFile(fileName, NUM_OF_ROUNDS, this);
-
         for (int i = 0; i <= NUM_OF_ROUNDS; i++) {
-            Round round;
-            round=WriterMethods.readEnemyFromRoundDataFile(fileName,i);
+            Round round= ReadFromFile.readEnemyFromRoundDataFile(fileName,i);
             roundList.add(round);
-//            System.out.println(roundList.size());
-//             Round round = WriterMethods.readEnemyFromRoundDataFile(pathFile,i);
-//             roundList.add(round);
         }
-
-        System.out.println(roundList.size());
-
-        for (Round round : roundList) {
-            System.out.println(round.getEnemies().size());
-        }
-
     }
 
     // -------- UPDATE ------- //

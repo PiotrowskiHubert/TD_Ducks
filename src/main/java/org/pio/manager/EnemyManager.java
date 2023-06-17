@@ -1,6 +1,7 @@
 package org.pio.manager;
 
 import org.pio.Entities.Enemies.*;
+import org.pio.readers.ReadFromFile;
 import org.pio.scene.Level;
 import org.pio.writers.WriterMethods;
 
@@ -27,31 +28,31 @@ public class EnemyManager {
         String pathFile = "src/main/resources/";
         String fileName = pathFile+ "EnemiesInfo/FirstEnemy.txt";
 
-        FirstEnemy firstEnemy= (FirstEnemy) WriterMethods.readEnemyDataFromFile(fileName);
+        FirstEnemy firstEnemy= (FirstEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
         setSpwnPoints(firstEnemy);
         firstEnemy.setSprite(setSpriteForEnemy(firstEnemy));
         enemyList.add(firstEnemy);
 
         fileName = pathFile+ "EnemiesInfo/secondEnemy.txt";
-        SecondEnemy secondEnemy= (SecondEnemy) WriterMethods.readEnemyDataFromFile(fileName);
+        SecondEnemy secondEnemy= (SecondEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
         setSpwnPoints(secondEnemy);
         secondEnemy.setSprite(setSpriteForEnemy(secondEnemy));
         enemyList.add(secondEnemy);
 
         fileName = pathFile+ "EnemiesInfo/thirdEnemy.txt";
-        ThirdEnemy thirdEnemy= (ThirdEnemy) WriterMethods.readEnemyDataFromFile(fileName);
+        ThirdEnemy thirdEnemy= (ThirdEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
         setSpwnPoints(thirdEnemy);
         thirdEnemy.setSprite(setSpriteForEnemy(thirdEnemy));
         enemyList.add(thirdEnemy);
 
         fileName = pathFile+ "EnemiesInfo/fourthEnemy.txt";
-        FourthEnemy fourthEnemy= (FourthEnemy) WriterMethods.readEnemyDataFromFile(fileName);
+        FourthEnemy fourthEnemy= (FourthEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
         setSpwnPoints(fourthEnemy);
         fourthEnemy.setSprite(setSpriteForEnemy(fourthEnemy));
         enemyList.add(fourthEnemy);
 
         fileName = pathFile+ "EnemiesInfo/fifthEnemy.txt";
-        FifthEnemy fifthEnemy= (FifthEnemy) WriterMethods.readEnemyDataFromFile(fileName);
+        FifthEnemy fifthEnemy= (FifthEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
         setSpwnPoints(fifthEnemy);
         fifthEnemy.setSprite(setSpriteForEnemy(fifthEnemy));
         enemyList.add(fifthEnemy);

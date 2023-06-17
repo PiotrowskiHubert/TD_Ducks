@@ -1,6 +1,7 @@
 package org.pio.manager;
 
 import org.pio.Entities.AllyTowers.*;
+import org.pio.readers.ReadFromFile;
 import org.pio.scene.Level;
 import org.pio.ui.Button;
 import org.pio.ui.SidePanel;
@@ -42,24 +43,24 @@ public class AllyTowerManager {
         allyTowersPlaced=new ArrayList<>();
         allyTowersList =new ArrayList<>();
 
-        FirstTower firstTower = (FirstTower) WriterMethods.readTowerData("src/main/resources/AllyTowerInfo/firstTower.txt");
+        FirstTower firstTower = (FirstTower) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/firstTower.txt");
 
         firstTowersList.add(firstTower);
         allyTowersList.add(firstTower);
 
-        SecondTower secondTower = (SecondTower) WriterMethods.readTowerData("src/main/resources/AllyTowerInfo/secondTower.txt");
+        SecondTower secondTower = (SecondTower) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/secondTower.txt");
         secondTowerList.add(secondTower);
         allyTowersList.add(secondTower);
 
-        ThirdTower thirdTower = (ThirdTower) WriterMethods.readTowerData("src/main/resources/AllyTowerInfo/thirdTower.txt");
+        ThirdTower thirdTower = (ThirdTower) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/thirdTower.txt");
         thirdTowerList.add(thirdTower);
         allyTowersList.add(thirdTower);
 
-        FourthTower fourthTower= (FourthTower) WriterMethods.readTowerData("src/main/resources/AllyTowerInfo/fourthTower.txt");
+        FourthTower fourthTower= (FourthTower) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/fourthTower.txt");
         fourthTowerList.add(fourthTower);
         allyTowersList.add(fourthTower);
 
-        FifthTower fifthTower = (FifthTower) WriterMethods.readTowerData("src/main/resources/AllyTowerInfo/fifthTower.txt");
+        FifthTower fifthTower = (FifthTower) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/fifthTower.txt");
         fifthTowerList.add(fifthTower);
         allyTowersList.add(fifthTower);
 
