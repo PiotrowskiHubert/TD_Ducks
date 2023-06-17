@@ -113,21 +113,6 @@ public class AllyTowerManager {
 
     }
 
-    // ----------- UPDATE ----------- //
-
-
-
-    // ----------- RENDER ----------- //
-
-    public void render(Graphics g){
-
-        if (allyTowersPlaced!=null){
-            for (AllyTower allyTower: allyTowersPlaced){
-                allyTower.draw(g);
-            }
-        }
-
-    }
 
     // ----------- GET ----------- //
     private Boolean containsOtherTower(AllyTower allyTower){
