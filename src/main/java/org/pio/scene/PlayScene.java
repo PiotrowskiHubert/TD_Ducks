@@ -49,6 +49,10 @@ public class PlayScene extends GameScene implements sceneMeethods{
         updateEnemiesCanGo();
         enemyHitByBullet();
         getLvl().updateLevel();
+
+        if (SidePanel.getSelectedTowerSidePanel()!=null){
+            sidePanel.updateSelectedTowerHitBox();
+        }
     }
 
     private void updateEnemiesCanGo() {

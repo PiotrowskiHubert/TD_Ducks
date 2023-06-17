@@ -69,6 +69,8 @@ public class AllyTower extends Entity {
         this.timePerShot=timePerShot;
         this.range=range;
         this.cost=cost;
+
+        initBounds();
     }
 
     // -------- INIT ------- //
@@ -279,10 +281,13 @@ public class AllyTower extends Entity {
     }
     private void drawTower(Graphics g) {
         if (mouseOver){
+            //g.drawRect(posWidthX, posHeightY, width, height);
+
             g.drawImage(sprite, posWidthX, posHeightY, width, height, null);
             g.setColor(new Color(0f,0f,0f,.5f));
             g.fillRect(posWidthX,posHeightY,width,height);
         }else {
+            //g.drawRect(posWidthX, posHeightY, width, height);
             g.drawImage(sprite, posWidthX, posHeightY, width, height, null);
         }
     }
@@ -384,6 +389,7 @@ public class AllyTower extends Entity {
     public void setUpgrade_3_1(boolean upgrade_3_1) {
         this.upgrade_3_1 = upgrade_3_1;
     }
+
 
     // -------- INPUTS ------- //
     public void resetBooleans(){

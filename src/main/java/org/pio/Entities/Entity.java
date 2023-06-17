@@ -59,19 +59,15 @@ public class Entity {
     public String getNameEntity() {
         return nameEntity;
     }
-
     public BufferedImage getSprite() {
         return sprite;
     }
-
     public int getPosWidthX() {
         return posWidthX;
     }
-
     public int getPosHeightY() {
         return posHeightY;
     }
-
     public Rectangle getEntityBounds() {
         return entityBounds;
     }
@@ -80,40 +76,37 @@ public class Entity {
     public void setPosWidthX(int posWidthX) {
         this.posWidthX = posWidthX;
     }
-
     public void setPosHeightY(int posHeightY) {
         this.posHeightY = posHeightY;
     }
-
     public int getId() {
         return id;
     }
-
     public void setSprite(BufferedImage sprite) {
         this.sprite = sprite;
     }
-
     public int getWidth() {
         return width;
     }
-
     public int getHeight() {
         return height;
     }
-
     public int getSpriteCordX() {
         return spriteCordX;
     }
-
     public int getSpriteCordY() {
         return spriteCordY;
     }
-
     public int getSpriteWidth() {
         return spriteWidth;
     }
-
     public int getSpriteHeight() {
         return spriteHeight;
+    }
+    public void setEntityBounds(int x, int y, int w, int h) {
+        this.entityBounds = new Rectangle(x, y, w, h);
+    }
+    public void setEntityBounds(Rectangle entityBounds) {
+        this.entityBounds = entityBounds;
     }
 }

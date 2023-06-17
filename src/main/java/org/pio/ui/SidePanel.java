@@ -77,6 +77,14 @@ public class SidePanel {
 
     }
 
+    // -------- UPDATE -------- //
+
+    public void updateSelectedTowerHitBox(){
+        if (selectedTowerSidePanel !=null){
+            selectedTowerSidePanel.setEntityBounds(PlayScene.getMouseX()-20, PlayScene.getMouseY()-20, selectedTowerSidePanel.getWidth(), selectedTowerSidePanel.getHeight());
+        }
+    }
+
     // -------- RENDER ------- //
 
     public void drawButtons(Graphics g){
@@ -89,15 +97,26 @@ public class SidePanel {
         startRound.drawRectangleButton(g);
 
     }
-    public void drawSelectedTurret(Graphics g){
+    private void drawSelectedTurret(Graphics g){
         if (selectedTowerSidePanel !=null){
-            g.setColor(new Color(0f,0f,0f,.5f));
-            g.fillOval(playScene.getMouseX() - selectedTowerSidePanel.getRange(), PlayScene.getMouseY()- selectedTowerSidePanel.getRange(), selectedTowerSidePanel.getRange()*2, selectedTowerSidePanel.getRange()*2);
-            g.setColor(Color.black);
-            g.drawOval(playScene.getMouseX() - selectedTowerSidePanel.getRange(), PlayScene.getMouseY()- selectedTowerSidePanel.getRange(), selectedTowerSidePanel.getRange()*2, selectedTowerSidePanel.getRange()*2);
-
-            g.drawImage(selectedTowerSidePanel.getSprite(), PlayScene.getMouseX()-20, PlayScene.getMouseY()-20,40,40,null);
+            drawSelectedTowerRange(g);
+            drawSelectedTowerSprite(g);
         }
+    }
+
+    private void drawSelectedTowerSprite(Graphics g) {
+
+        // RECTANGE HITBOX
+        //g.drawRect(PlayScene.getMouseX()-20, PlayScene.getMouseY()-20, selectedTowerSidePanel.getWidth(), selectedTowerSidePanel.getHeight());
+
+        g.drawImage(selectedTowerSidePanel.getSprite(), PlayScene.getMouseX()-20, PlayScene.getMouseY()-20,40,40,null);
+    }
+
+    private void drawSelectedTowerRange(Graphics g){
+        g.setColor(new Color(0f,0f,0f,.5f));
+        g.fillOval(playScene.getMouseX() - selectedTowerSidePanel.getRange(), PlayScene.getMouseY()- selectedTowerSidePanel.getRange(), selectedTowerSidePanel.getRange()*2, selectedTowerSidePanel.getRange()*2);
+        g.setColor(Color.black);
+        g.drawOval(playScene.getMouseX() - selectedTowerSidePanel.getRange(), PlayScene.getMouseY()- selectedTowerSidePanel.getRange(), selectedTowerSidePanel.getRange()*2, selectedTowerSidePanel.getRange()*2);
     }
     public void draw(Graphics g){
         drawPanel(g);
@@ -254,4 +273,6 @@ public class SidePanel {
     public static void setSelectedTowerSidePanel(AllyTower selectedTowerSidePanel) {
         SidePanel.selectedTowerSidePanel = selectedTowerSidePanel;
     }
+
+
 }

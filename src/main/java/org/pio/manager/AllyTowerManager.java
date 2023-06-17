@@ -74,11 +74,17 @@ public class AllyTowerManager {
 
         int index;
 
+        if (containsOtherTower(SidePanel.getSelectedTowerSidePanel())){
+            return;
+        }
+
         if (Helper.isAllyTowerListEmpty(allyTowersPlaced)){
             index=0;
         }else {
             index=allyTowersPlaced.get(allyTowersPlaced.size()-1).getIndex()+1;
         }
+
+
 
         if (SidePanel.getSelectedTowerSidePanel().getId()==1){
             allyTower=new FirstTower(firstTowersList.get(0).getNameEntity(), firstTowersList.get(0).getId(), getSprite(firstTowersList.get(0).getSpriteCordX(), firstTowersList.get(0).getSpriteCordY(), firstTowersList.get(0).getSpriteWidth(), firstTowersList.get(0).getHeight()),x-20,y-20,firstTowersList.get(0).getWidth(), firstTowersList.get(0).getHeight(), firstTowersList.get(0).getTimePerShot(), firstTowersList.get(0).getRange(), firstTowersList.get(0).getCost(), index++);
@@ -105,7 +111,6 @@ public class AllyTowerManager {
             allyTowersPlaced.add(allyTower);
         }
 
-
     }
 
     // ----------- UPDATE ----------- //
@@ -120,7 +125,6 @@ public class AllyTowerManager {
             AllyTower nextAllyTowerPlaced = allyTowerIterator.next();
 
             nextAllyTowerPlaced.update();
-
         }
 
     }
@@ -138,7 +142,20 @@ public class AllyTowerManager {
     }
 
     // ----------- GET ----------- //
+    private Boolean containsOtherTower(AllyTower allyTower){
+        // CHECK IF PASSED TOWER IS NOT OVER OTHER TOWER
+        for (AllyTower allyTowerPlaced: allyTowersPlaced){
 
+            // CHECK IF PASSED TOWER BOUNDS ARE NOT OVER OTHER TOWER BOUNDS
+            if (allyTower.getEntityBounds().intersects(allyTowerPlaced.getEntityBounds())){
+                return true;
+            }
+
+        }
+
+
+        return false;
+    }
     private BufferedImage getSpriteAllyTowerAtlas(){
         BufferedImage img = null;
 

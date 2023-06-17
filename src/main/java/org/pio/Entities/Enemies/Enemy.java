@@ -131,20 +131,20 @@ public class Enemy extends Entity {
     @Override
     public void drawEntity(Graphics g) {
         //g.drawImage(sprite, getPosWidthX(),getPosHeightY(),getWidth(),getHeight(),null);
-        g.drawRect(entityBounds.x, entityBounds.y, (int) entityBounds.getWidth(), (int) entityBounds.getWidth());
-
-        Graphics2D g2d=(Graphics2D) g;
-
-        if (isDetected()){
-            g2d.setColor(Color.GREEN);
-        }else {
-            g2d.setColor(Color.RED);
-        }
-
-        g2d.draw(enemyDetectionHitBox_UP);
-        g2d.draw(enemyDetectionHitBox_DOWN);
-        g2d.draw(enemyDetectionHitBox_LEFT);
-        g2d.draw(enemyDetectionHitBox_RIGHT);
+        //g.drawRect(entityBounds.x, entityBounds.y, (int) entityBounds.getWidth(), (int) entityBounds.getWidth());
+//
+//        Graphics2D g2d=(Graphics2D) g;
+//
+//        if (isDetected()){
+//            g2d.setColor(Color.GREEN);
+//        }else {
+//            g2d.setColor(Color.RED);
+//        }
+//
+//        g2d.draw(enemyDetectionHitBox_UP);
+//        g2d.draw(enemyDetectionHitBox_DOWN);
+//        g2d.draw(enemyDetectionHitBox_LEFT);
+//        g2d.draw(enemyDetectionHitBox_RIGHT);
     }
 
 
