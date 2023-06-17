@@ -187,51 +187,21 @@ public class AllyTower extends Entity {
         for (Enemy enemy: Level.getRoundList().get(Level.currentRound).getEnemies()){
 
             if (!isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
-//                if (allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_DOWN().getBounds().getX(), enemy.getEnemyDetectionHitBox_DOWN().getBounds().getY())||
-//                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_UP().getBounds().getY())||
-//                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_LEFT().getBounds().getY())||
-//                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_RIGHT().getBounds().getY())){
-//
-//                    enemy.setDetected(true);
-//                    allyTowerPlaced.getEnemiesInRangeList().add(enemy);
-//
-//                }
-
                 if (allyTowerPlaced.getRangeEllipse().intersects(enemy.getEntityBounds())){
-                    enemy.setDetected(true);
                     allyTowerPlaced.getEnemiesInRangeList().add(enemy);
-                    continue;
                 }
             }
 
             if (isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
-//                if (allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_DOWN().getBounds().getX(), enemy.getEnemyDetectionHitBox_DOWN().getBounds().getY())||
-//                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_UP().getBounds().getY())||
-//                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_LEFT().getBounds().getY())||
-//                        allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_RIGHT().getBounds().getY())){
-//
-//                    updateEnemiesPositionInRangeForPlacedTower(allyTowerPlaced, enemy);
-//                }
                 if (allyTowerPlaced.getRangeEllipse().intersects(enemy.getEntityBounds())){
                     updateEnemiesPositionInRangeForPlacedTower(allyTowerPlaced, enemy);
-                    continue;
                 }
             }
 
             if (isEnemyAlreadyInAllyTowerPlacedList(allyTowerPlaced, enemy)){
-//                if (!allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_DOWN().getBounds().getX(), enemy.getEnemyDetectionHitBox_DOWN().getBounds().getY())&&
-//                        !allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_UP().getBounds().getX(), enemy.getEnemyDetectionHitBox_UP().getBounds().getY())&&
-//                        !allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_LEFT().getBounds().getX(), enemy.getEnemyDetectionHitBox_UP().getBounds().getY())&&
-//                        !allyTowerPlaced.getRangeEllipse().contains(enemy.getEnemyDetectionHitBox_RIGHT().getBounds().getX(), enemy.getEnemyDetectionHitBox_UP().getBounds().getY())){
-//
-//                    enemy.setDetected(false);
-//                    allyTowerPlaced.getEnemiesInRangeList().remove(enemy);
-//                }
 
                 if (!allyTowerPlaced.getRangeEllipse().intersects(enemy.getEntityBounds())){
-                    enemy.setDetected(false);
                     allyTowerPlaced.getEnemiesInRangeList().remove(enemy);
-                    continue;
                 }
             }
 
