@@ -22,6 +22,10 @@ public class ThirdEnemy extends Enemy{
     @Override
     public void drawEntity(Graphics g) {
         super.drawEntity(g);
+
+        g.setColor(new Color(0f,1f, 0f, 0.5f));
+        g.fillRect(getPosWidthX(),getPosHeightY(),getWidth(),getHeight());
+
     }
 
 }

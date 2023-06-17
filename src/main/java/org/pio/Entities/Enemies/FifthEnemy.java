@@ -22,6 +22,11 @@ public class FifthEnemy extends Enemy{
     @Override
     public void drawEntity(Graphics g) {
         super.drawEntity(g);
+
+        // SET COLOR TRANSPARENT BLUE
+        g.setColor(new Color(0.5f,0.5f, 0.5f, 0.5f));
+        g.fillRect(getPosWidthX(),getPosHeightY(),getWidth(),getHeight());
+
     }
 
 }

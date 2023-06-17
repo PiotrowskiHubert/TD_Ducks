@@ -291,22 +291,18 @@ public class WriterMethods {
 
         if (id==2){
             return new SecondEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
-
         }
 
         if (id==3){
             return new ThirdEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
-
         }
 
         if (id==4){
             return new FourthEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
-
         }
 
         if (id==5){
             return new FifthEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
-
         }
 
         return new Enemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);

@@ -3,6 +3,8 @@ package org.pio.scene;
 import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemies.Enemy;
+import org.pio.Entities.Enemies.FirstEnemy;
+import org.pio.Entities.Enemies.SecondEnemy;
 import org.pio.Player;
 import org.pio.main.Game;
 import org.pio.manager.AllyTowerManager;
@@ -215,7 +217,9 @@ public class PlayScene extends GameScene implements sceneMeethods{
                 for (Enemy enemy : Level.getRoundList().get(Level.currentRound).getEnemies()) {
                     //g.drawRect(enemy.getEntityBounds().x, enemy.getEntityBounds().y, enemy.getEntityBounds().width, enemy.getEntityBounds().height);
                     //g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
+
                     enemy.drawEntity(g);
+
                 }
             }
         }
