@@ -68,8 +68,6 @@ public class AllyTowerManager {
         allyTowersList.add(fifthTower);
     }
 
-
-
     // ----------- INPUT METHODS ----------- //
     public void addTower(int x, int y){
         AllyTower allyTower;
@@ -112,7 +110,6 @@ public class AllyTowerManager {
         }
 
     }
-
 
     // ----------- RENDER ----------- //
     public void render(Graphics g){

@@ -234,7 +234,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
         lvl.drawRoundInfo(g);
         drawPlayerInfo(g);
 
-        drawAllyTowersPlaced(g);
+        getGame().getAllyTowerManager().render(g);
     }
 
     private void drawEnemies(Graphics g){
@@ -248,13 +248,6 @@ public class PlayScene extends GameScene implements sceneMeethods{
                     enemy.drawEntity(g);
 
                 }
-            }
-        }
-    }
-    private void drawAllyTowersPlaced(Graphics g){
-        if (AllyTowerManager.getAllyTowersPlaced() !=null){
-            for (AllyTower allyTower: AllyTowerManager.getAllyTowersList()){
-                allyTower.draw(g);
             }
         }
     }
