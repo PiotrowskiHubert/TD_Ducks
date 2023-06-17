@@ -71,14 +71,6 @@ public class FirstTower extends AllyTower implements AllyTowerInterFace{
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-
-        if (mousePressed){
-            g.setColor(new Color(0f,1f,0f,.8f));
-        }else {
-            g.setColor(new Color(1f,0f,0f,.5f));
-        }
-
-        g.drawRect(getPosWidthX(),getPosHeightY(),getWidth(),getHeight());
     }
 
     @Override

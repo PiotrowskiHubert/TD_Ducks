@@ -34,10 +34,6 @@ public class LvlManager {
     }
 
 
-    public void writeLevel(){
-        WriterMethods.writeLevel();
-    }
-
     public void readLevel(){
         String fileName = "src/main/resources/LevelInfo/lvl.txt";
 
