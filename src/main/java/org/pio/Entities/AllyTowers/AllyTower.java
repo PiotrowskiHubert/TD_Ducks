@@ -181,7 +181,6 @@ public class AllyTower extends Entity {
 
 
     }
-
     private void updateListOfEnemiesInRangeForPlacedTower(AllyTower allyTowerPlaced){
 
         for (Enemy enemy: Level.getRoundList().get(Level.currentRound).getEnemies()){

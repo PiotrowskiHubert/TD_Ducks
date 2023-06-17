@@ -55,12 +55,10 @@ public class Enemy extends Entity {
     }
 
     // ----------- INIT ----------- //
-
     @Override
     public Rectangle initBounds() {
         return super.initBounds();
     }
-
     private Shape initBoundsCircle(double offsetHeight, double offsetWidth) {
 
         double width=getPosWidthX()+getWidth()/2+offsetWidth;
@@ -71,21 +69,18 @@ public class Enemy extends Entity {
     }
 
     // ----------- UPDATE ----------- //
-
     @Override
     public void update() {
         moveUpdate();
         updateHitBox();
         updateDetectionHitBox();
     }
-
     private void updateDetectionHitBox() {
         enemyDetectionHitBox_UP =updateDetectionRange(enemyDetectionHitBox_UP,-8.0,0.0);
         enemyDetectionHitBox_DOWN =updateDetectionRange(enemyDetectionHitBox_DOWN,+8.0,0.0);
         enemyDetectionHitBox_LEFT =updateDetectionRange(enemyDetectionHitBox_LEFT,0.0,-8.0);
         enemyDetectionHitBox_RIGHT =updateDetectionRange(enemyDetectionHitBox_RIGHT,0.0,+8.0);
     }
-
     private Shape updateDetectionRange(Shape enemyDetectionHitBox, double offsetHeight, double offsetWidth) {
 
         double width=getPosWidthX()+getWidth()/2+offsetWidth;
@@ -93,10 +88,8 @@ public class Enemy extends Entity {
         double radius=5;
 
         enemyDetectionHitBox =null;
-
         return enemyDetectionHitBox =new Ellipse2D.Double(width-radius,height-radius,radius*2,radius*2);
     }
-
     private void updateHitBox(){
         enemyHitBox.setBounds(posWidthX, posHeightY,width,height);
     }
@@ -129,24 +122,23 @@ public class Enemy extends Entity {
     }
 
     // ----------- RENDER ----------- //
-
     @Override
     public void drawEntity(Graphics g) {
         g.drawImage(sprite, getPosWidthX(),getPosHeightY(),getWidth(),getHeight(),null);
-        //g.drawRect(entityBounds.x, entityBounds.y, (int) entityBounds.getWidth(), (int) entityBounds.getWidth());
-//
-//        Graphics2D g2d=(Graphics2D) g;
-//
-//        if (isDetected()){
-//            g2d.setColor(Color.GREEN);
-//        }else {
-//            g2d.setColor(Color.RED);
-//        }
-//
-//        g2d.draw(enemyDetectionHitBox_UP);
-//        g2d.draw(enemyDetectionHitBox_DOWN);
-//        g2d.draw(enemyDetectionHitBox_LEFT);
-//        g2d.draw(enemyDetectionHitBox_RIGHT);
+    }
+    private void drawDetectionHitBoxes(Graphics g){
+        Graphics2D g2d=(Graphics2D) g;
+
+        if (isDetected()){
+            g2d.setColor(Color.GREEN);
+        }else {
+            g2d.setColor(Color.RED);
+        }
+
+        g2d.draw(enemyDetectionHitBox_UP);
+        g2d.draw(enemyDetectionHitBox_DOWN);
+        g2d.draw(enemyDetectionHitBox_LEFT);
+        g2d.draw(enemyDetectionHitBox_RIGHT);
     }
 
 
@@ -218,8 +210,8 @@ public class Enemy extends Entity {
     //public Boolean getLead() {
       //  return lead;
     //}
-    // ----------- SET ----------- //
 
+    // ----------- SET ----------- //
     public void setIndex(int index) {
         this.index = index;
     }

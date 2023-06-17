@@ -55,4 +55,9 @@ public class Helper {
             return false;
         }
     }
+
+    public static double distanceBetweenTwoPoints(double posWidthX_1, double posHeightY_1, double posWidthX_2, double posHeightY1_2) {
+        double distance = Math.sqrt(Math.pow(posWidthX_1 - posWidthX_2, 2) + Math.pow(posHeightY_1 - posHeightY1_2, 2));
+        return distance;
+    }
 }
