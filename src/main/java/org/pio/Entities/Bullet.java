@@ -19,8 +19,8 @@ public class Bullet {
 
         bulletHitBox=initHitBox();
 
-        unitX=4*getUnitBulletX(posWidthX,posHeightY,xEnemy,yEnemy);
-        unitY=4*getUnitBulletY(posWidthX,posHeightY,xEnemy,yEnemy);
+        unitX=6*getUnitBulletX(posWidthX,posHeightY,xEnemy,yEnemy);
+        unitY=6*getUnitBulletY(posWidthX,posHeightY,xEnemy,yEnemy);
 
     }
 

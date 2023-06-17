@@ -2,8 +2,7 @@ package org.pio.writers;
 
 import org.pio.Creators;
 import org.pio.Entities.AllyTowers.*;
-import org.pio.Entities.Enemies.Enemy;
-import org.pio.Entities.Enemies.FirstEnemy;
+import org.pio.Entities.Enemies.*;
 import org.pio.scene.Level;
 import org.pio.scene.Round;
 
@@ -101,6 +100,25 @@ public class WriterMethods {
                             round.getEnemies().add(enemy);
                         }
 
+                        if (nextLine.equals("2")) {
+                            Enemy enemy = Creators.enemyCreator(1);
+                            round.getEnemies().add(enemy);
+                        }
+
+                        if (nextLine.equals("3")) {
+                            Enemy enemy = Creators.enemyCreator(2);
+                            round.getEnemies().add(enemy);
+                        }
+
+                        if (nextLine.equals("4")) {
+                            Enemy enemy = Creators.enemyCreator(3);
+                            round.getEnemies().add(enemy);
+                        }
+
+                        if (nextLine.equals("5")) {
+                            Enemy enemy = Creators.enemyCreator(4);
+                            round.getEnemies().add(enemy);
+                        }
 
                     }
                 }
@@ -272,18 +290,22 @@ public class WriterMethods {
         }
 
         if (id==2){
+            return new SecondEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
 
         }
 
         if (id==3){
+            return new ThirdEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
 
         }
 
         if (id==4){
+            return new FourthEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
 
         }
 
         if (id==5){
+            return new FifthEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
 
         }
 

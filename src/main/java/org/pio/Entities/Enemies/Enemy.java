@@ -130,7 +130,7 @@ public class Enemy extends Entity {
 
     @Override
     public void drawEntity(Graphics g) {
-        //g.drawImage(sprite, getPosWidthX(),getPosHeightY(),getWidth(),getHeight(),null);
+        g.drawImage(sprite, getPosWidthX(),getPosHeightY(),getWidth(),getHeight(),null);
         //g.drawRect(entityBounds.x, entityBounds.y, (int) entityBounds.getWidth(), (int) entityBounds.getWidth());
 //
 //        Graphics2D g2d=(Graphics2D) g;
