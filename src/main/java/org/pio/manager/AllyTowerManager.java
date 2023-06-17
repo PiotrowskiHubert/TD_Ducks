@@ -6,7 +6,6 @@ import org.pio.scene.Level;
 import org.pio.ui.Button;
 import org.pio.ui.SidePanel;
 import org.pio.writers.Helper;
-import org.pio.writers.WriterMethods;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -29,12 +28,15 @@ public class AllyTowerManager {
     private BufferedImage spriteAllyTowerAtlas;
 
     public AllyTowerManager() {
-        loadAllyTowerAtlas();
-        createAllyTowerList();
-        addTowersToLists();
+        initAllyTowerAtlas();
+        initAllyTowerList();
+        initTowersToLists();
     }
 
-    private void createAllyTowerList(){
+    private void initAllyTowerAtlas(){
+        spriteAllyTowerAtlas = getSpriteAllyTowerAtlas();
+    }
+    private void initAllyTowerList(){
         firstTowersList=new ArrayList<>();
         secondTowerList=new ArrayList<>();
         thirdTowerList=new ArrayList<>();
@@ -44,8 +46,7 @@ public class AllyTowerManager {
         allyTowersPlaced=new ArrayList<>();
         allyTowersList =new ArrayList<>();
     }
-
-    private void addTowersToLists() {
+    private void initTowersToLists() {
         FirstTower firstTower = (FirstTower) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/firstTower.txt");
         firstTowersList.add(firstTower);
         allyTowersList.add(firstTower);
@@ -67,10 +68,9 @@ public class AllyTowerManager {
         allyTowersList.add(fifthTower);
     }
 
-    private void loadAllyTowerAtlas(){
-        spriteAllyTowerAtlas = getSpriteAllyTowerAtlas();
-    }
 
+
+    // ----------- INPUT METHODS ----------- //
     public void addTower(int x, int y){
         AllyTower allyTower;
 
@@ -114,6 +114,17 @@ public class AllyTowerManager {
     }
 
 
+    // ----------- RENDER ----------- //
+    public void render(Graphics g){
+
+        if (allyTowersPlaced!=null){
+            for (AllyTower allyTower: allyTowersPlaced){
+                allyTower.draw(g);
+            }
+        }
+
+    }
+
     // ----------- GET ----------- //
     private Boolean containsOtherTower(AllyTower allyTower){
         // CHECK IF PASSED TOWER IS NOT OVER OTHER TOWER
@@ -156,7 +167,6 @@ public class AllyTowerManager {
 
 
     // ----------- INPUTS ----------- //
-
     public void mouseMoved(int x, int y) {
 
         for (AllyTower allyTower : allyTowersPlaced) {
@@ -235,7 +245,6 @@ public class AllyTowerManager {
 
             if(nextAlly.getEntityBounds().contains(x,y)){
                 nextAlly.setSelected(true);
-                nextAlly.setMousePressed(true);
             }else {
                 nextAlly.setSelected(false);
                 nextAlly.setMousePressed(false);

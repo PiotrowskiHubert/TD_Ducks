@@ -1,8 +1,5 @@
 package org.pio.Entities;
 
-import org.pio.manager.AllyTowerManager;
-import org.pio.writers.Helper;
-
 import java.awt.*;
 
 public class Bullet {
@@ -19,41 +16,37 @@ public class Bullet {
 
         bulletHitBox=initHitBox();
 
-        unitX=6*getUnitBulletX(posWidthX,posHeightY,xEnemy,yEnemy);
-        unitY=6*getUnitBulletY(posWidthX,posHeightY,xEnemy,yEnemy);
+        unitX=8*getUnitBulletX(posWidthX,posHeightY,xEnemy,yEnemy);
+        unitY=8*getUnitBulletY(posWidthX,posHeightY,xEnemy,yEnemy);
 
     }
 
     // -------- INIT ------- //
-
     private Rectangle initHitBox() {
-        Rectangle bulletHitBox=new Rectangle((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
-        return bulletHitBox;
+        return new Rectangle((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
     }
 
     // -------- UPDATE ------- //
-
     public void bulletUpdate(){
 
-        setPosWidthX(getPosWidthX()-unitX);
-        setPosHeightY(getPosHeightY()-unitY);
-
+        updatePos();
         updateHitBox();
     }
-    private Rectangle updateHitBox(){
+    private void updatePos() {
+        setPosWidthX(getPosWidthX()-unitX);
+        setPosHeightY(getPosHeightY()-unitY);
+    }
+    private void updateHitBox(){
         bulletHitBox.setBounds((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
-        return bulletHitBox;
     }
 
     // -------- RENDER ------- //
-
     public void draw(Graphics g){
         g.setColor(Color.red);
         g.fillRect(bulletHitBox.x, bulletHitBox.y, bulletHitBox.width, bulletHitBox.height);
     }
 
     // -------- GET ------- //
-
     public double getPosWidthX() {
         return posWidthX;
     }
@@ -93,7 +86,6 @@ public class Bullet {
     }
 
     // -------- SET ------- //
-
     public void setPosWidthX(double posWidthX) {
         this.posWidthX = posWidthX;
     }

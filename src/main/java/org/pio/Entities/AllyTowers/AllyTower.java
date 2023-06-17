@@ -173,8 +173,7 @@ public class AllyTower extends Entity {
 
         Bullet bullet;
 
-
-        double shotOffsetX=5.0;
+        double shotOffsetX=0.0;
         double shotOffsetY=0.0;
 
         bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
@@ -294,6 +293,7 @@ public class AllyTower extends Entity {
         }else {
             //g.drawRect(posWidthX, posHeightY, width, height);
             g.drawImage(sprite, posWidthX, posHeightY, width, height, null);
+
         }
     }
     private void drawRange(Graphics g){
