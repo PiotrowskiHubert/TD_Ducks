@@ -37,7 +37,7 @@ public class FirstTower extends AllyTower implements AllyTowerInterFace{
         double shotOffsetX=5.0;
         double shotOffsetY=0.0;
 
-        bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
+        bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY,range);
         bulletList.add(bullet);
 
 

@@ -36,6 +36,7 @@ public class BulletManager {
                 nextBullet.bulletUpdate();
 
                 // CHECK IF BULLET IS OUT OF RANGE OF ALLY TOWER
+                // CANT USE THIS, NEED MORE THREADS
 //                if (limitBulletRange(nextAlly, nextBullet)){
 //                    bulletIterator.remove();
 //                }

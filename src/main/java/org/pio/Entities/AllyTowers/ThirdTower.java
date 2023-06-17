@@ -35,19 +35,19 @@ public class ThirdTower extends AllyTower {
         Bullet bullet;
 
         // SHOT BULLET UP, START FROM POSITION OF ALLY TOWER AND GO UP
-        bullet = new Bullet(posWidthX,posHeightY,posWidthX,posHeightY-range);
+        bullet = new Bullet(posWidthX,posHeightY,posWidthX,posHeightY-range, range);
         bulletList.add(bullet);
 
         // SHOT BULLET DOWN, START FROM POSITION OF ALLY TOWER AND GO DOWN
-        bullet = new Bullet(posWidthX,posHeightY,posWidthX,posHeightY+range);
+        bullet = new Bullet(posWidthX,posHeightY,posWidthX,posHeightY+range, range);
         bulletList.add(bullet);
 
         // SHOT BULLET LEFT, START FROM POSITION OF ALLY TOWER AND GO LEFT
-        bullet = new Bullet(posWidthX,posHeightY,posWidthX-range,posHeightY);
+        bullet = new Bullet(posWidthX,posHeightY,posWidthX-range,posHeightY, range);
         bulletList.add(bullet);
 
         // SHOT BULLET RIGHT, START FROM POSITION OF ALLY TOWER AND GO RIGHT
-        bullet = new Bullet(posWidthX,posHeightY,posWidthX+range,posHeightY);
+        bullet = new Bullet(posWidthX,posHeightY,posWidthX+range,posHeightY, range);
         bulletList.add(bullet);
 
     }
