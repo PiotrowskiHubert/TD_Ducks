@@ -289,6 +289,8 @@ public class AllyTower extends Entity {
             g.drawImage(sprite, posWidthX, posHeightY, width, height, null);
             g.setColor(new Color(0f,0f,0f,.5f));
             g.fillRect(posWidthX,posHeightY,width,height);
+
+
         }else {
             //g.drawRect(posWidthX, posHeightY, width, height);
             g.drawImage(sprite, posWidthX, posHeightY, width, height, null);
