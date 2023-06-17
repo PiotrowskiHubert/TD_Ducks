@@ -36,9 +36,9 @@ public class BulletManager {
                 nextBullet.bulletUpdate();
 
                 // CHECK IF BULLET IS OUT OF RANGE OF ALLY TOWER
-                if (limitBulletRange(nextAlly, nextBullet)){
-                    bulletIterator.remove();
-                }
+//                if (limitBulletRange(nextAlly, nextBullet)){
+//                    bulletIterator.remove();
+//                }
 
 
 
@@ -49,7 +49,7 @@ public class BulletManager {
     }
 
     private Boolean limitBulletRange(AllyTower allyTower, Bullet bullet){
-        if (distanceBetweenTwoPoints(allyTower.getPosWidthX(), allyTower.getPosHeightY(), bullet.getPosWidthX(), bullet.getPosHeightY()) > (allyTower.getRange()+50)){
+        if (distanceBetweenTwoPoints(allyTower.getPosWidthX(), allyTower.getPosHeightY(), bullet.getPosWidthX(), bullet.getPosHeightY()) > (allyTower.getRange()+40)){
             return true;
         }else {
             return false;
