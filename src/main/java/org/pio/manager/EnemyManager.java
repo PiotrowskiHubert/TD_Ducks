@@ -58,7 +58,6 @@ public class EnemyManager {
 
     }
 
-
     private void loadEnemyAtlas(){
         spriteEnemyAtlas = getSpriteEnemyAtlas();
     }

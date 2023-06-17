@@ -23,7 +23,10 @@ public class FirstEnemy extends Enemy{
     public void drawEntity(Graphics g) {
         super.drawEntity(g);
 
-        g.setColor(new Color(0f,0f,1f,0.5f));
+        if (getHealth()==1){
+            g.setColor(new Color(1,0,0,0.5f));
+        }
+
         g.fillRect(getPosWidthX(),getPosHeightY(),getWidth(),getHeight());
     }
 

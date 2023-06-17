@@ -240,4 +240,7 @@ public class Enemy extends Entity {
     public void setDetected(boolean detected) {
         this.detected = detected;
     }
+    public void setHealth(int health) {
+        this.health = health;
+    }
 }

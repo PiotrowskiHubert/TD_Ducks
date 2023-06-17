@@ -138,33 +138,39 @@ public class PlayScene extends GameScene implements sceneMeethods{
                         // CHECK IF ENEMY IS HIT BY BULLET
                         if (nextEnemy.getEnemyHitBox().contains(nextBullet.getBulletHitBox().getX(),nextBullet.getBulletHitBox().getY())){
 
-
-                            // ADD GOLD TO PLAYER
-                            PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(),nextEnemy.getGold());
-
-                            // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
-                            enemyIterator.remove();
+                            nextEnemy.setHealth(nextEnemy.getHealth()-1);
 
                             // REMOVE BULLET FROM TOWER BULLET LIST
                             bulletIterator.remove();
 
-                            // GO THROUGH ALL PLAYERS TOWERS
-                            for (Iterator<AllyTower> allyTowerIterator1 = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator1.hasNext();){
-                                AllyTower nextAllyTower1 = allyTowerIterator1.next();
+                            if (nextEnemy.getHealth()<=0){
+                                // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
+                                enemyIterator.remove();
 
-                                // GO THROUGH ALL ENEMIES IN RANGE LIST
-                                for (Iterator<Enemy> enemyIterator1 = nextAllyTower1.getEnemiesInRangeList().iterator(); enemyIterator1.hasNext();){
-                                    Enemy nextEnemy1 = enemyIterator1.next();
+                                // ADD GOLD TO PLAYER
+                                PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(),nextEnemy.getGold());
 
-                                    // CHECK IF ENEMY IS IN RANGE LIST
-                                    if (nextEnemy1.getId()==nextEnemy.getId()){
+                                // GO THROUGH ALL PLAYERS TOWERS
+                                for (Iterator<AllyTower> allyTowerIterator1 = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator1.hasNext();){
+                                    AllyTower nextAllyTower1 = allyTowerIterator1.next();
 
-                                        // REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
-                                        enemyIterator1.remove();
+                                    // GO THROUGH ALL ENEMIES IN RANGE LIST
+                                    for (Iterator<Enemy> enemyIterator1 = nextAllyTower1.getEnemiesInRangeList().iterator(); enemyIterator1.hasNext();){
+                                        Enemy nextEnemy1 = enemyIterator1.next();
 
+                                        // CHECK IF ENEMY IS IN RANGE LIST
+                                        if (nextEnemy1.getId()==nextEnemy.getId()){
+
+                                            // REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
+                                            enemyIterator1.remove();
+
+                                        }
                                     }
                                 }
+
                             }
+
+
                             return;
 
 

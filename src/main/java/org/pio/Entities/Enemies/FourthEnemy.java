@@ -23,8 +23,22 @@ public class FourthEnemy extends Enemy{
     public void drawEntity(Graphics g) {
         super.drawEntity(g);
 
-        // SET COLOR TRANSPARENT RED
-        g.setColor(new Color(0.8f,0.5f, 0f, 0.5f));
+        if (getHealth()==1){
+            g.setColor(new Color(1,0,0,0.5f));
+        }
+
+        if (getHealth()==2){
+            g.setColor(new Color(0,0,1,0.5f));
+        }
+
+        if (getHealth()==3){
+            g.setColor(new Color(0,1,0,0.5f));
+        }
+
+        if (getHealth()==4){
+            g.setColor(new Color(1,1,0,0.5f));
+        }
+
         g.fillRect(getPosWidthX(),getPosHeightY(),getWidth(),getHeight());
     }
 
