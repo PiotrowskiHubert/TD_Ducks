@@ -21,15 +21,14 @@ public class Level extends GameScene {
     private static List<KeyPoints> keyPointsList;
 
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
-
         super(game);
         this.NUM_OF_ROUNDS=numOfRounds;
-        Level.lvlWidth =lvlWidth;
-        Level.lvlHeight =lvlHeight;
+        Level.lvlWidth = lvlWidth;
+        Level.lvlHeight = lvlHeight;
 
         lvlArr = new Tile[lvlHeight][lvlWidth];
         currentRound=START_ROUND;
-        roundList =new ArrayList<>();
+        roundList = new ArrayList<>();
 
         createLevelRoundsAndAddEnemies();
 
@@ -50,10 +49,21 @@ public class Level extends GameScene {
         String pathFile = "src/main/resources/";
         String fileName = pathFile+ "RoundsInfo/rounds_data.txt";
 
-        WriterMethods.readRoundDataFromFile(fileName, NUM_OF_ROUNDS, this);
+        //WriterMethods.readRoundDataFromFile(fileName, NUM_OF_ROUNDS, this);
 
-        for (int i = 1; i < NUM_OF_ROUNDS; i++) {
-            WriterMethods.readEnemyFromRoundDataFile(fileName, i, roundList.get(i));
+        for (int i = 0; i <= NUM_OF_ROUNDS; i++) {
+            Round round;
+            round=WriterMethods.readEnemyFromRoundDataFile(fileName,i);
+            roundList.add(round);
+//            System.out.println(roundList.size());
+//             Round round = WriterMethods.readEnemyFromRoundDataFile(pathFile,i);
+//             roundList.add(round);
+        }
+
+        System.out.println(roundList.size());
+
+        for (Round round : roundList) {
+            System.out.println(round.getEnemies().size());
         }
 
     }
@@ -111,10 +121,10 @@ public class Level extends GameScene {
     public static int getCurrentRound() {
         return currentRound;
     }
-
     public static List<Round> getRoundList() {
         return roundList;
     }
+
     // -------- SET ------- //
 
     public static List<KeyPoints> getKeyPointsList() {

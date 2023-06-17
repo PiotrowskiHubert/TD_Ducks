@@ -15,6 +15,7 @@ public class Enemy extends Entity {
     private Shape enemyDetectionHitBox_UP, enemyDetectionHitBox_DOWN, enemyDetectionHitBox_LEFT, enemyDetectionHitBox_RIGHT;
     private int health, damage, gold;
     private boolean detected;
+    //protected Boolean lead;
 
     public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height, int health, int damage, int gold) {
         this.nameEntity=nameEnemy;
@@ -29,6 +30,7 @@ public class Enemy extends Entity {
         this.damage=damage;
         this.gold=gold;
         this.detected=false;
+        //this.lead=false;
 
         this.enemyHitBox=initBounds();
         this.enemyDetectionHitBox_UP =initBoundsCircle(-8.0,0.0);
@@ -213,7 +215,9 @@ public class Enemy extends Entity {
     public boolean isDetected() {
         return detected;
     }
-
+    //public Boolean getLead() {
+      //  return lead;
+    //}
     // ----------- SET ----------- //
 
     public void setIndex(int index) {

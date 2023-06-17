@@ -41,7 +41,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
     }
     private void initLevel(){
         int numOfRounds=11;
-        WriterMethods.writeRoundsDataToFile("src/main/resources/rounds_data.txt",numOfRounds);
+        //WriterMethods.writeRoundsDataToFile("src/main/resources/rounds_data.txt",numOfRounds);
         lvl=new Level(18,12, getGame(),numOfRounds);
     }
 
@@ -138,7 +138,18 @@ public class PlayScene extends GameScene implements sceneMeethods{
                         // CHECK IF ENEMY IS HIT BY BULLET
                         if (nextEnemy.getEnemyHitBox().contains(nextBullet.getBulletHitBox().getX(),nextBullet.getBulletHitBox().getY())){
 
+
+                            // FUTURE UPGRADE SPECIAL
+//                            if (nextEnemy.getLead()){
+//                                if (nextAllyTower.getCanShotLead()){
+//                                    nextEnemy.setHealth(nextEnemy.getHealth()-1);
+//                                }
+//                            }else {
+//                                nextEnemy.setHealth(nextEnemy.getHealth()-1);
+//                            }
+
                             nextEnemy.setHealth(nextEnemy.getHealth()-1);
+
 
                             // REMOVE BULLET FROM TOWER BULLET LIST
                             bulletIterator.remove();

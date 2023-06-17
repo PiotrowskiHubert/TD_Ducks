@@ -7,6 +7,7 @@ public class SecondEnemy extends Enemy{
 
     public SecondEnemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height, int health, int damage, int gold) {
         super(nameEnemy, posWidthX, posHeightY, id, spriteEnemy, movSpeed, width, height, health, damage, gold);
+        //this.lead=true;
     }
 
     // CONSTRUCTOR TO READ FROM FILE

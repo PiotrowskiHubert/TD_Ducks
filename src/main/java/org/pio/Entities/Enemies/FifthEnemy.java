@@ -43,7 +43,6 @@ public class FifthEnemy extends Enemy{
             g.setColor(new Color(1,1,1,0.5f));
         }
 
-
         g.fillRect(getPosWidthX(),getPosHeightY(),getWidth(),getHeight());
 
     }

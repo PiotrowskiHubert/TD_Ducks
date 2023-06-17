@@ -35,47 +35,47 @@ public class WriterMethods {
         }
 
     }
-    public static Level readRoundDataFromFile(String filename, int numOfRounds, Level level){
-
-        Level lvl = level;
-
-        try (
-                var fileReader = new FileReader(filename);
-                var reader = new BufferedReader(fileReader);
-        ){
-            // READ FILE
-            String nextLine = null;
-
-            while ((nextLine = reader.readLine()) != null){
-
-                // READ ROUND FROM FILE
-                for (int i = 0; i < numOfRounds; i++) {
-                    Round round = new Round();
-
-                    if (nextLine.equals("ROUND"+(i+1))){
-
-                        // READ ID NUMBER OF ENEMIES FROM FILE
-
-                        int numOfEnemies = 0;
-
-                        while ((nextLine = reader.readLine()) != null && Helper.isInteger(nextLine)){
-                            numOfEnemies++;
-                        }
-                        round.setNumOfEnemies(numOfEnemies);
-                    }
-                    lvl.getRoundList().add(round);
-                }
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return lvl;
-
-    }
-    public static Round readEnemyFromRoundDataFile(String fileName, int numOfRound, Round round){
+//    public static Level readRoundDataFromFile(String filename, int numOfRounds, Level level){
+//
+//        try (
+//                var fileReader = new FileReader(filename);
+//                var reader = new BufferedReader(fileReader);
+//        ){
+//            // READ FILE
+//            String nextLine = null;
+//
+//            while ((nextLine = reader.readLine()) != null){
+//
+//                // READ ROUND FROM FILE
+//                for (int i = 0; i < numOfRounds; i++) {
+//                    Round round = new Round();
+//
+//                    System.out.println("ROUND NR: "+ (i+1));
+//                    if (nextLine.equals("ROUND"+(i+1))){
+//
+//                        // READ ID NUMBER OF ENEMIES FROM FILE
+//
+//                        int numOfEnemies = 0;
+//
+//                        while ((nextLine = reader.readLine()) != null && Helper.isInteger(nextLine)){
+//                            numOfEnemies++;
+//                        }
+//
+//                        round.setNumOfEnemies(numOfEnemies);
+//                        System.out.println("numOfEnemies: "+numOfEnemies);
+//                    }
+//                }
+//
+//            }
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return level;
+//    }
+    public static Round readEnemyFromRoundDataFile(String fileName, int numOfRound){
+        Round round = new Round();
 
         try (
                 var fileReader = new FileReader(fileName);
@@ -84,16 +84,18 @@ public class WriterMethods {
 
             String nextLine = null;
 
-            while ((nextLine = reader.readLine()) != null) {
+            // GO THROUGH PASSED FILE
+            // UNTIL REACHES PASSED ROUND
+            // THEN READ ENEMIES FROM PASSED ROUND
+            // BREAK IF REACHES NEXT ROUND
 
-                if (nextLine.equals("ROUND"+numOfRound)){
+            while ((nextLine = reader.readLine()) != null){
 
-                    for (int i = 0; i < round.getNumOfEnemies(); i++) {
-                        nextLine = reader.readLine();
+                // FIND PASSED ROUND
+                if (nextLine.equals("ROUND"+(numOfRound))){
 
-                        if(nextLine.equals("ROUND"+(numOfRound+1))){
-                            break;
-                        }
+                    // READ ENEMIES FROM PASSED ROUND
+                    while ((nextLine = reader.readLine()) != null && Helper.isInteger(nextLine)){
 
                         if (nextLine.equals("1")) {
                             Enemy enemy = Creators.enemyCreator(0);
@@ -119,20 +121,16 @@ public class WriterMethods {
                             Enemy enemy = Creators.enemyCreator(4);
                             round.getEnemies().add(enemy);
                         }
-
                     }
+
                 }
-
-
             }
-
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return round;
-
     }
     public static void writeEnemyDataToFile(String fileName, String name, String id, String spriteCordX, String spriteCordY, String spriteWidth, String spriteHeight, String movementSpeed, String health, String damage, String gold) {
 

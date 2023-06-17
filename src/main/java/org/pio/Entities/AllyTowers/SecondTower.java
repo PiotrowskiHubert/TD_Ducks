@@ -7,6 +7,7 @@ public class SecondTower extends AllyTower implements AllyTowerInterFace{
 
     public SecondTower(String name, int id, BufferedImage sprite, int posWidthX, int posHeightY, int towerWidth, int towerHeight, double timePerShot, int range, int cost, int index) {
         super(name, id, sprite, posWidthX, posHeightY, towerWidth, towerHeight, timePerShot, range, cost, index);
+        //this.canShotLead=true;
     }
 
     // CONSTRUCTOR TO READ FROM FILE

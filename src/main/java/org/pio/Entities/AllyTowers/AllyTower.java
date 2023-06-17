@@ -30,6 +30,7 @@ public class AllyTower extends Entity {
             upgrade_3_1_Button, upgrade_3_2_Button, upgrade_3_3_Button,
             sell_Button;
     protected Ellipse2D rangeEllipse;
+    //protected Boolean canShotLead;
 
     public AllyTower(String name, int id, BufferedImage sprite, int posWidthX, int posHeightY, int towerWidth, int towerHeight, double timePerShot, int range, int cost, int index){
         this.nameEntity=name;
@@ -90,6 +91,8 @@ public class AllyTower extends Entity {
         this.upgrade_3_1=false;
         this.upgrade_3_2=false;
         this.upgrade_3_3=false;
+
+        //this.canShotLead=false;
 
     }
     private void initBooleans(){
@@ -360,6 +363,9 @@ public class AllyTower extends Entity {
     public boolean isUpgrade_3_1() {
         return upgrade_3_1;
     }
+   // public Boolean getCanShotLead() {
+     //   return canShotLead;
+    //}
 
     // -------- SET ------- //
     public void setRange(int range) {
