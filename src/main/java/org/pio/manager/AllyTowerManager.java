@@ -31,6 +31,7 @@ public class AllyTowerManager {
     public AllyTowerManager() {
         loadAllyTowerAtlas();
         createAllyTowerList();
+        addTowersToLists();
     }
 
     private void createAllyTowerList(){
@@ -42,9 +43,10 @@ public class AllyTowerManager {
 
         allyTowersPlaced=new ArrayList<>();
         allyTowersList =new ArrayList<>();
+    }
 
+    private void addTowersToLists() {
         FirstTower firstTower = (FirstTower) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/firstTower.txt");
-
         firstTowersList.add(firstTower);
         allyTowersList.add(firstTower);
 
@@ -63,7 +65,6 @@ public class AllyTowerManager {
         FifthTower fifthTower = (FifthTower) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/fifthTower.txt");
         fifthTowerList.add(fifthTower);
         allyTowersList.add(fifthTower);
-
     }
 
     private void loadAllyTowerAtlas(){
