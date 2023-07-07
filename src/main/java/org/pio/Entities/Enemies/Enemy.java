@@ -92,9 +92,6 @@ public class Enemy extends Entity {
             if (getPosWidthX()>=13*40&&getPosHeightY()>=8*40){
                 setPosWidthX(getPosWidthX()+movSpeed);
             }
-
-
-
         }
     }
 

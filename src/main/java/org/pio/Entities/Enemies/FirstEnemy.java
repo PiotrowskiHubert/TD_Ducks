@@ -1,5 +1,7 @@
 package org.pio.Entities.Enemies;
 
+import org.pio.manager.EnemyManager;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -23,9 +25,7 @@ public class FirstEnemy extends Enemy{
     public void drawEntity(Graphics g) {
         super.drawEntity(g);
 
-        if (getHealth()==1){
-            g.setColor(new Color(1,0,0,0.5f));
-        }
+        g.setColor(EnemyManager.colorMap.get(getHealth()));
 
         g.fillRect(getPosWidthX(),getPosHeightY(),getWidth(),getHeight());
     }

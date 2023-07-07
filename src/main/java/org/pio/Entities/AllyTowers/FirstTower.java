@@ -37,9 +37,8 @@ public class FirstTower extends AllyTower implements AllyTowerInterFace{
         double shotOffsetX=5.0;
         double shotOffsetY=0.0;
 
-        bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY,range);
+        bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
         bulletList.add(bullet);
-
 
     }
 
@@ -67,12 +66,10 @@ public class FirstTower extends AllyTower implements AllyTowerInterFace{
     public void upgrade_3_1() {
         super.upgrade_3_1();
     }
-
     @Override
     public void draw(Graphics g) {
         super.draw(g);
     }
-
     @Override
     public Boolean isMouseOver() {
         return super.isMouseOver();
@@ -81,7 +78,5 @@ public class FirstTower extends AllyTower implements AllyTowerInterFace{
     public Boolean isMousePressed(){
         return super.isMousePressed();
     }
-
-
 
 }

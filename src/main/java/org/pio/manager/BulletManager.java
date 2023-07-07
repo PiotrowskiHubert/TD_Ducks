@@ -2,12 +2,12 @@ package org.pio.manager;
 
 import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.Entities.Bullet;
+import org.pio.main.GameScreen;
 import org.pio.writers.Helper;
 
 import java.util.Iterator;
 
 import static org.pio.writers.Helper.distanceBetweenTwoPoints;
-
 
 public class BulletManager {
 
@@ -17,32 +17,27 @@ public class BulletManager {
             return;
         }
 
-
         // ITERATE THROUGH ALLY TOWER PLACED
 
         for (Iterator<AllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();) {
             AllyTower nextAlly = allyTowerIterator.next();
 
-            if (Helper.isBulletListEmpty(nextAlly.getBulletList())){
-                return;
-            }
+            if (!Helper.isBulletListEmpty(nextAlly.getBulletList())){
+                // ITERATE THROUGH BULLET LIST OF EACH ALLY TOWER
 
-            // ITERATE THROUGH BULLET LIST OF EACH ALLY TOWER
+                for (Iterator<Bullet> bulletIterator = nextAlly.getBulletList().iterator(); bulletIterator.hasNext();) {
+                    Bullet nextBullet = bulletIterator.next();
 
-            for (Iterator<Bullet> bulletIterator = nextAlly.getBulletList().iterator(); bulletIterator.hasNext();) {
-                Bullet nextBullet = bulletIterator.next();
+                    // UPDATE BULLET
+                    nextBullet.bulletUpdate();
 
-                // UPDATE BULLET
-                nextBullet.bulletUpdate();
+                    // CHECK IF BULLET IS OUT OF RANGE OF ALLY TOWER
+                    // CANT USE THIS, NEED MORE THREADS
+                    if (limitBulletRange(nextAlly, nextBullet)){
+                        bulletIterator.remove();
+                    }
 
-                // CHECK IF BULLET IS OUT OF RANGE OF ALLY TOWER
-                // CANT USE THIS, NEED MORE THREADS
-//                if (limitBulletRange(nextAlly, nextBullet)){
-//                    bulletIterator.remove();
-//                }
-
-
-
+                }
             }
 
         }

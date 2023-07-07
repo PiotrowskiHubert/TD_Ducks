@@ -12,6 +12,9 @@ public class GameScreen extends JPanel {
     private MyMouseListener myMouseListener;
     private KeyboardListener keyboardListener;
 
+    public static int screenWidth;
+    public static int screenHeight;
+
     public GameScreen(Game game){
         this.game=game;
         windowConfig();
@@ -19,8 +22,8 @@ public class GameScreen extends JPanel {
 
     private void windowConfig(){
         int rightSidePanelSize=100;
-        int screenWidth=720+rightSidePanelSize;
-        int screenHeight=480;
+        this.screenWidth=720+rightSidePanelSize;
+        this.screenHeight=480;
         dimensionSize=new Dimension(screenWidth,screenHeight);
 
         setMinimumSize(dimensionSize);

@@ -177,7 +177,7 @@ public class AllyTower extends Entity {
         double shotOffsetX=0.0;
         double shotOffsetY=0.0;
 
-        bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY, range);
+        bullet = new Bullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
         bulletList.add(bullet);
 
 
@@ -265,7 +265,6 @@ public class AllyTower extends Entity {
                 button.drawCircleButton(g);
             }
         }
-
     }
     private void drawTower(Graphics g) {
         if (mouseOver){

@@ -14,8 +14,7 @@ public class Game extends JFrame implements Runnable {
     private PlayerManager playerManager;
     private Render render;
     private PlayScene playScene;
-    Thread gameThread;
-
+    Thread gameThread_1;
     private double timePerUpdate;
 
     public static void main(String[] args) {
@@ -55,23 +54,51 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void startThread(){
-        gameThread=new Thread(this){};
-        gameThread.start();
+        gameThread_1 =new Thread(this){};
+        gameThread_1.start();
+
+        new Thread(() -> {
+
+            timePerUpdate=1_000_000_000.0/120.0;
+
+            long lastUpdate=System.nanoTime();
+
+            long lastTimeCheck=System.currentTimeMillis();
+
+            int updates=0;
+
+            long now;
+
+            while (true){
+                now = System.nanoTime();
+
+                if (now-lastUpdate>=timePerUpdate){
+                    updateGame();
+                    lastUpdate=now;
+                    updates++;
+                }
+
+                if (System.currentTimeMillis()-lastTimeCheck>=1000){
+                    System.out.println("T2, UPS: " +updates);
+                    updates=0;
+                    lastTimeCheck=System.currentTimeMillis();
+                }
+
+            }
+        }).start();
+
     }
 
     @Override
     public void run() {
 
         double timePerFrame=1_000_000_000.0/60.0;
-        timePerUpdate=1_000_000_000.0/120.0;
 
         long lastFrame=System.nanoTime();
-        long lastUpdate=System.nanoTime();
 
         long lastTimeCheck=System.currentTimeMillis();
 
         int frames=0;
-        int updates=0;
 
         long now;
 
@@ -84,16 +111,9 @@ public class Game extends JFrame implements Runnable {
                 frames++;
             }
 
-            if (now-lastUpdate>=timePerUpdate){
-                updateGame();
-                lastUpdate=now;
-                updates++;
-            }
-
             if (System.currentTimeMillis()-lastTimeCheck>=1000){
-                System.out.println("FPS: "+frames+" | UPS: " +updates);
+                System.out.println("T1, FPS: "+frames);
                 frames=0;
-                updates=0;
                 lastTimeCheck=System.currentTimeMillis();
             }
 
@@ -101,9 +121,8 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void updateGame() {
-        getPlayScene().update();
         getBulletManager().bulletsUpdatePos();
-
+        getPlayScene().update();
     }
 
     // ----------- GET ----------- //
@@ -129,11 +148,11 @@ public class Game extends JFrame implements Runnable {
     public PlayerManager getPlayerManager() {
         return playerManager;
     }
-
     public double getTimePerUpdate() {
         return timePerUpdate;
     }
     public void setTimePerUpdate(double timePerUpdate) {
         this.timePerUpdate = timePerUpdate;
     }
+
 }

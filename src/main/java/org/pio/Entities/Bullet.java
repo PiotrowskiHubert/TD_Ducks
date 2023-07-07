@@ -9,9 +9,8 @@ public class Bullet {
     private double posHeightY;
     private Rectangle bulletHitBox;
     private double unitX, unitY;
-    private double maxRangeWidthX, maxRangeHeightY;
 
-    public Bullet(double posWidthX, double posHeightY, double xEnemy, double yEnemy, double range) {
+    public Bullet(double posWidthX, double posHeightY, double xEnemy, double yEnemy) {
         this.posWidthX = posWidthX;
         this.posHeightY = posHeightY;
 
@@ -36,7 +35,6 @@ public class Bullet {
     private void updatePos() {
         setPosWidthX(getPosWidthX()-unitX);
         setPosHeightY(getPosHeightY()-unitY);
-
     }
     private void updateHitBox(){
         bulletHitBox.setBounds((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
