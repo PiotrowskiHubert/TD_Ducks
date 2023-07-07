@@ -13,6 +13,14 @@ public class bRectangleUpgrade extends bRectangle{
         this.progressStatus = 0;
     }
 
+    public int addProgressStatus(){
+        if (progressStatus >= numOfProgressBars) {
+            return progressStatus;
+        }
+
+        return progressStatus++;
+    }
+
     @Override
     public void draw(Graphics g) {
         super.draw(g);

@@ -269,13 +269,6 @@ public class AllyTowerManager {
             return;
         }
 
-        for (AllyTower allyTower : allyTowersPlaced) {
-
-            if(allyTower.getSelected()){
-                allyTower.getSidePanelUpgrade().mouseClicked(x,y);
-            }
-        }
-
     }
     public void mousePressed(int x, int y) {
 
@@ -287,10 +280,15 @@ public class AllyTowerManager {
 
             if (allyTower.getEntityBounds().contains(x,y)){
                 allyTower.setMousePressed(true);
+                return;
             }
+        }
+
+        for (AllyTower allyTower : allyTowersPlaced) {
 
             if (allyTower.getSelected()){
                 allyTower.getSidePanelUpgrade().mousePressed(x,y);
+                return;
             }
         }
 
