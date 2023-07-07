@@ -22,15 +22,15 @@ public class bRectangleUpgrade extends bRectangle{
     private void drawProgressBars(Graphics g) {
 
         int offsetWidth = 20;
-        int offsetHeight= 10;
+        int offsetHeight= 20;
         int barWidth = (width-offsetWidth)/numOfProgressBars;
         int barHeight = 15;
 
         for (int i=0; i<numOfProgressBars; i++){
             g.setColor(Color.DARK_GRAY);
-            g.fillRect(posX+barWidth*i, posY+offsetHeight, barWidth, barHeight);
+            g.fillRect(posX+(barWidth*i)+offsetWidth/2, posY+height-offsetHeight, barWidth, barHeight);
             g.setColor(Color.GRAY);
-            g.drawRect(posX+(barWidth*i), posY+offsetHeight, barWidth, barHeight);
+            g.drawRect(posX+(barWidth*i)+offsetWidth/2, posY+height-offsetHeight, barWidth, barHeight);
         }
 
         for (int i=0; i<progressStatus; i++){

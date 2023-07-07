@@ -1,8 +1,9 @@
 package org.pio.ui.buttons;
 
 import java.awt.*;
+import java.util.Collection;
 
-abstract class aButton implements buttonMethods {
+public abstract class aButton implements buttonMethods {
     protected int posX, posY, width, height;
     protected String text, name;
     protected int id;
@@ -30,4 +31,18 @@ abstract class aButton implements buttonMethods {
         mousePressed = false;
     }
     public abstract void initBounds();
+
+    public boolean isMouseOver() {
+        return mouseOver;
+    }
+    public boolean isMousePressed() {
+        return mousePressed;
+    }
+    public Shape getButtonBounds() {
+        return buttonBounds;
+    }
+
+    public void setMouseOver(boolean mouseOver) {
+        this.mouseOver = mouseOver;
+    }
 }

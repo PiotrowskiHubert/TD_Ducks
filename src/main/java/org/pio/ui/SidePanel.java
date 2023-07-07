@@ -4,6 +4,8 @@ import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.manager.AllyTowerManager;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
+import org.pio.ui.buttons.bRectangleUpgrade;
+import org.pio.ui.sidePanel.sidePanelMethods;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class SidePanel implements sidePanelMethods{
+public class SidePanel implements sidePanelMethods {
     private BufferedImage spriteSidePanel;
     private BufferedImage spriteButtonAtlas;
     private BufferedImage spriteAllyTowerAtlas;
@@ -128,7 +130,7 @@ public class SidePanel implements sidePanelMethods{
     }
 
     @Override
-    public LinkedHashMap<Integer, Button> initButtonsHashMap() {
+    public LinkedHashMap<Integer, bRectangleUpgrade> initButtonsHashMap() {
         return null;
     }
 
