@@ -206,6 +206,12 @@ public class AllyTowerManager {
             return;
         }
 
+        for (AllyTower allyTower : allyTowersPlaced) {
+            if(allyTower.getSelected()){
+                allyTower.getSidePanelUpgrade().mouseClicked(x,y);
+            }
+        }
+
 
         for (Iterator<AllyTower> allyTowerPlacedIterator = allyTowersPlaced.iterator(); allyTowerPlacedIterator.hasNext();){
             AllyTower nextAlly = allyTowerPlacedIterator.next();
@@ -247,8 +253,11 @@ public class AllyTowerManager {
             if(nextAlly.getEntityBounds().contains(x,y)){
                 nextAlly.setSelected(true);
             }else {
-                nextAlly.setSelected(false);
-                nextAlly.setMousePressed(false);
+                if (!nextAlly.getSidePanelUpgrade().getSidePanelBounds().contains(x,y)){
+                    nextAlly.setSelected(false);
+                    nextAlly.setMousePressed(false);
+                }
+
             }
 
         }
@@ -261,8 +270,10 @@ public class AllyTowerManager {
         }
 
         for (AllyTower allyTower : allyTowersPlaced) {
-            allyTower.resetBooleans();
-            allyTower.setSelected(false);
+
+            if(allyTower.getSelected()){
+                allyTower.getSidePanelUpgrade().mouseClicked(x,y);
+            }
         }
 
     }
@@ -277,7 +288,27 @@ public class AllyTowerManager {
             if (allyTower.getEntityBounds().contains(x,y)){
                 allyTower.setMousePressed(true);
             }
+
+            if (allyTower.getSelected()){
+                allyTower.getSidePanelUpgrade().mousePressed(x,y);
+            }
         }
 
     }
+
+    public void mouseReleased(int x, int y) {
+
+        if (Helper.isAllyTowerListEmpty(allyTowersPlaced)){
+            return;
+        }
+
+        for (AllyTower allyTower : allyTowersPlaced) {
+
+            if (allyTower.getEntityBounds().contains(x,y)){
+                allyTower.setMousePressed(false);
+            }
+        }
+
+    }
+
 }

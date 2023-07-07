@@ -3,8 +3,8 @@ package org.pio.ui.buttons;
 import java.awt.*;
 
 public class bRectangleUpgrade extends bRectangle{
-    private int numOfProgressBars;
-    private int progressStatus;
+    public int numOfProgressBars;
+    public int progressStatus;
 
     public bRectangleUpgrade(int posX, int posY, int width, int height, String name, int id, int numOfProgressBars) {
         super(posX, posY, width, height, name, id);
@@ -34,8 +34,12 @@ public class bRectangleUpgrade extends bRectangle{
         }
 
         for (int i=0; i<progressStatus; i++){
+
             g.setColor(Color.YELLOW);
-            g.fillRect(posX+(barWidth*i), posY+offsetHeight, barWidth, barHeight);
+            g.fillRect(posX+(barWidth*i)+offsetWidth/2, posY+height-offsetHeight, barWidth, barHeight);
+            g.setColor(Color.GRAY);
+            g.drawRect(posX+(barWidth*i)+offsetWidth/2, posY+height-offsetHeight, barWidth, barHeight);
+
         }
     }
 }

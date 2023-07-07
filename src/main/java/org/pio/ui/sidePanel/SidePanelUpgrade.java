@@ -39,18 +39,48 @@ public class SidePanelUpgrade extends aSidePanel implements sidePanelMethods {
 
     @Override
     public void mouseClicked(int x, int y) {
+        if (buttonLinkedMap!=null){
 
+            for (bRectangleUpgrade button: buttonLinkedMap.values()){
+                if (button.getButtonBounds().contains(x,y)){
+                    if (button.isMousePressed()){
+                        System.out.println("pressed");
+                        button.progressStatus++;
+                    }
+
+
+                }
+            }
+
+        }
 
     }
 
     @Override
     public void mousePressed(int x, int y) {
+        if (buttonLinkedMap!=null){
 
+            for (bRectangleUpgrade button: buttonLinkedMap.values()){
+                if (button.getButtonBounds().contains(x,y)){
+                    button.setMousePressed(true);
+                }
+            }
+
+        }
     }
 
     @Override
     public void mouseReleased(int x, int y) {
+        if (buttonLinkedMap!=null){
 
+            for (bRectangleUpgrade button: buttonLinkedMap.values()){
+                if (button.getButtonBounds().contains(x,y)){
+
+                    button.setMousePressed(false);
+                }
+            }
+
+        }
     }
 
     @Override

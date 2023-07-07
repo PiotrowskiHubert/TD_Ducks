@@ -45,4 +45,7 @@ public abstract class aButton implements buttonMethods {
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;
     }
+    public void setMousePressed(boolean mousePressed) {
+        this.mousePressed = mousePressed;
+    }
 }

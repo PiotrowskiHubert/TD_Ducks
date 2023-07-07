@@ -317,6 +317,7 @@ public class PlayScene extends GameScene implements sceneMeethods{
     @Override
     public void mouseReleased(int x, int y) {
         sidePanel.mouseReleased(x,y);
+        getGame().getAllyTowerManager().mouseReleased(x,y);
     }
     @Override
     public void mouseDragged(int x, int y) {
