@@ -193,6 +193,10 @@ public class AllyTowerManager {
                 }
             }
 
+            if (allyTower.getSelected()){
+                allyTower.getSidePanelUpgrade().mouseMoved(x,y);
+            }
+
         }
 
     }

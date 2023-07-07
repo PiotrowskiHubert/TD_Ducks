@@ -69,6 +69,19 @@ public class Button {
         initBoundsRectangleShape();
     }
 
+    public Button(int posWidthX, int posHeightY, int width, int height, int id) {
+        this.posWidthX = posWidthX;
+        this.posHeightY = posHeightY;
+        this.width = width;
+        this.height = height;
+        this.id = id;
+
+        this.mouseOver=false;
+        this.mousePressed=false;
+
+        initBoundsRectangleShape();
+    }
+
     // -------- INIT -------- //
     public void initBoundsRectangleShape(){
         this.buttonsBounds=new Rectangle(posWidthX,posHeightY,width,height);
@@ -134,6 +147,11 @@ public class Button {
         if (!mouseOver && !mousePressed){
             g.drawImage(spriteButtonIdle,posWidthX,posHeightY,width,height,null);
         }
+    }
+
+    public void drawBasicButtonNoSprite(Graphics g){
+        drawRectangleBody(g);
+        drawRectangleBorder(g);
     }
 
     private void drawRectangleBody(Graphics g) {

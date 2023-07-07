@@ -3,9 +3,12 @@ package org.pio.Entities.AllyTowers;
 import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemies.Enemy;
 import org.pio.Entities.Entity;
+import org.pio.main.GameScreen;
 import org.pio.manager.AllyTowerManager;
 import org.pio.scene.Level;
 import org.pio.ui.Button;
+import org.pio.ui.SidePanel;
+import org.pio.ui.SidePanelUpgrade;
 import org.pio.writers.Helper;
 
 import java.awt.*;
@@ -31,6 +34,7 @@ public class AllyTower extends Entity {
             upgrade_3_1_Button, upgrade_3_2_Button, upgrade_3_3_Button,
             sell_Button;
     protected Ellipse2D rangeEllipse;
+    protected SidePanelUpgrade sidePanelUpgrade;
     //protected Boolean canShotLead;
 
     public AllyTower(String name, int id, BufferedImage sprite, int posWidthX, int posHeightY, int towerWidth, int towerHeight, double timePerShot, int range, int cost, int index){
@@ -45,6 +49,7 @@ public class AllyTower extends Entity {
         this.range=range;
         this.cost=cost;
         this.index=index;
+        sidePanelUpgrade=new SidePanelUpgrade(150,GameScreen.screenHeight, GameScreen.screenWidth-250,0);
 
         this.lastShot=System.nanoTime();
         this.lastTimeCheck=System.currentTimeMillis();
@@ -253,7 +258,15 @@ public class AllyTower extends Entity {
 
         drawBullet(g);
         drawTower(g);
+        drawSidePanelUpgrade(g);
     }
+
+    private void drawSidePanelUpgrade(Graphics g) {
+        if (selected){
+            sidePanelUpgrade.draw(g);
+        }
+    }
+
     private void drawBullet(Graphics g) {
         for (Bullet bullet: bulletList) {
             bullet.draw(g);
@@ -350,7 +363,11 @@ public class AllyTower extends Entity {
     public boolean isUpgrade_3_1() {
         return upgrade_3_1;
     }
-   // public Boolean getCanShotLead() {
+
+    public SidePanelUpgrade getSidePanelUpgrade() {
+        return sidePanelUpgrade;
+    }
+    // public Boolean getCanShotLead() {
      //   return canShotLead;
     //}
 

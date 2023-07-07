@@ -11,13 +11,15 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
-public class SidePanel {
+public class SidePanel implements sidePanelMethods{
     private BufferedImage spriteSidePanel;
     private BufferedImage spriteButtonAtlas;
     private BufferedImage spriteAllyTowerAtlas;
     private PlayScene playScene;
+
     private int panelWidth, panelHeight;
     private int posWidthX, posHeightX;
     private static AllyTower selectedTowerSidePanel;
@@ -123,6 +125,11 @@ public class SidePanel {
         drawButtons(g);
         drawSelectedTurret(g);
 
+    }
+
+    @Override
+    public LinkedHashMap<Integer, Button> initButtonsHashMap() {
+        return null;
     }
 
     private void drawPanel(Graphics g) {
