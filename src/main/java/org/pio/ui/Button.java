@@ -1,5 +1,7 @@
 package org.pio.ui;
 
+import org.pio.ui.buttons.bRectangle;
+
 import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Area;
