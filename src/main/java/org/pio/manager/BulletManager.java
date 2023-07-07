@@ -45,7 +45,7 @@ public class BulletManager {
     }
 
     private Boolean limitBulletRange(AllyTower allyTower, Bullet bullet){
-        if (distanceBetweenTwoPoints(allyTower.getPosWidthX(), allyTower.getPosHeightY(), bullet.getPosWidthX(), bullet.getPosHeightY()) >= allyTower.getRange()){
+        if (distanceBetweenTwoPoints(allyTower.getPosWidthX(), allyTower.getPosHeightY(), bullet.getPosWidthX(), bullet.getPosHeightY()) >= allyTower.getRange()+10){
             return true;
         }else {
             return false;

@@ -213,6 +213,7 @@ public class AllyTowerManager {
         }
 
 
+
         for (Iterator<AllyTower> allyTowerPlacedIterator = allyTowersPlaced.iterator(); allyTowerPlacedIterator.hasNext();){
             AllyTower nextAlly = allyTowerPlacedIterator.next();
 
