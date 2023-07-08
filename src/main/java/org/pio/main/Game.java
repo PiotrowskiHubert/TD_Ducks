@@ -2,10 +2,12 @@ package org.pio.main;
 
 import org.pio.manager.*;
 import org.pio.scene.PlayScene;
+import org.pio.scene.PreGameScene;
 
 import javax.swing.*;
 
 public class Game extends JFrame implements Runnable {
+    private PreGameScene preGameScene;
     private GameStates gameStates;
     private Update update;
     private GameScreen gameScreen;
@@ -50,6 +52,7 @@ public class Game extends JFrame implements Runnable {
         playerManager=new PlayerManager();
 
         playScene=new PlayScene(this);
+        preGameScene=new PreGameScene(this);
     }
 
     private void initWindow(){
@@ -157,6 +160,10 @@ public class Game extends JFrame implements Runnable {
     }
     public GameStates getGameStates() {
         return gameStates;
+    }
+
+    public PreGameScene getPreGameScene() {
+        return preGameScene;
     }
     // ----------- SET ----------- //
 

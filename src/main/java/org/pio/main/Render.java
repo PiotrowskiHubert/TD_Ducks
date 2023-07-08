@@ -14,7 +14,7 @@ public class Render {
     public void render(Graphics g){
 
         if (game.getGameStates() == GameStates.PREGAME){
-
+            game.getPreGameScene().render(g);
         }
 
         if (game.getGameStates() == GameStates.GAME) {
