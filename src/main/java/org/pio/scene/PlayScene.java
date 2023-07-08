@@ -4,6 +4,7 @@ import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemies.Enemy;
 import org.pio.Player;
+import org.pio.inputs.mouseMethods;
 import org.pio.main.Game;
 import org.pio.manager.AllyTowerManager;
 import org.pio.manager.PlayerManager;
@@ -16,7 +17,7 @@ import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.List;
 
-public class PlayScene extends GameScene implements sceneMeethods{
+public class PlayScene extends GameScene implements sceneMeethods, mouseMethods {
     private Level lvl;
     private static Player player;
     private SidePanel sidePanel;
