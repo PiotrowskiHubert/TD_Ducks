@@ -6,6 +6,7 @@ import org.pio.scene.PlayScene;
 import javax.swing.*;
 
 public class Game extends JFrame implements Runnable {
+    private GameStates gameStates;
     private Update update;
     private GameScreen gameScreen;
     private EnemyManager enemyManager;
@@ -37,6 +38,8 @@ public class Game extends JFrame implements Runnable {
 
     private void initClass(){
         gameScreen=new GameScreen(this);
+        gameStates=GameStates.PREGAME;
+
         render=new Render(this);
         update=new Update(this);
 
@@ -152,6 +155,11 @@ public class Game extends JFrame implements Runnable {
     public double getTimePerUpdate() {
         return timePerUpdate;
     }
+    public GameStates getGameStates() {
+        return gameStates;
+    }
+    // ----------- SET ----------- //
+
     public void setTimePerUpdate(double timePerUpdate) {
         this.timePerUpdate = timePerUpdate;
     }
