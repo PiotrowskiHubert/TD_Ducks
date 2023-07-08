@@ -3,8 +3,6 @@ package org.pio.scene;
 import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemies.Enemy;
-import org.pio.Entities.Enemies.FirstEnemy;
-import org.pio.Entities.Enemies.SecondEnemy;
 import org.pio.Player;
 import org.pio.main.Game;
 import org.pio.manager.AllyTowerManager;
@@ -48,6 +46,8 @@ public class PlayScene extends GameScene implements sceneMeethods{
     // -------- UPDATE ------- //
 
     public void update(){
+        getGame().getBulletManager().bulletsUpdatePos();
+
         updateEnemiesCanGo();
         enemyHitByBullet();
         getLvl().updateLevel();

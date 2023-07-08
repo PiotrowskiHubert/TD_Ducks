@@ -6,6 +6,7 @@ import org.pio.scene.PlayScene;
 import javax.swing.*;
 
 public class Game extends JFrame implements Runnable {
+    private Update update;
     private GameScreen gameScreen;
     private EnemyManager enemyManager;
     private LvlManager lvlManager;
@@ -37,6 +38,7 @@ public class Game extends JFrame implements Runnable {
     private void initClass(){
         gameScreen=new GameScreen(this);
         render=new Render(this);
+        update=new Update(this);
 
         allyTowerManager=new AllyTowerManager();
         bulletManager=new BulletManager();
@@ -73,7 +75,7 @@ public class Game extends JFrame implements Runnable {
                 now = System.nanoTime();
 
                 if (now-lastUpdate>=timePerUpdate){
-                    updateGame();
+                    update();
                     lastUpdate=now;
                     updates++;
                 }
@@ -120,9 +122,8 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
-    private void updateGame() {
-        getBulletManager().bulletsUpdatePos();
-        getPlayScene().update();
+    private void update() {
+        update.update();
     }
 
     // ----------- GET ----------- //
