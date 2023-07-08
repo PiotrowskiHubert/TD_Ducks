@@ -12,6 +12,13 @@ public class Render {
     }
 
     public void render(Graphics g){
-        game.getPlayScene().render(g);
+
+        if (game.getGameStates() == GameStates.PREGAME){
+
+        }
+
+        if (game.getGameStates() == GameStates.GAME) {
+            game.getPlayScene().render(g);
+        }
     }
 }
