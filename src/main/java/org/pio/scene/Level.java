@@ -1,11 +1,10 @@
 package org.pio.scene;
 
-import org.pio.KeyPoints;
+import org.pio.writers.KeyPoints;
 import org.pio.main.Game;
 import org.pio.readers.ReadFromFile;
 import org.pio.tiles.Tile;
 import org.pio.writers.Helper;
-import org.pio.writers.WriterMethods;
 
 import java.awt.*;
 import java.util.ArrayList;

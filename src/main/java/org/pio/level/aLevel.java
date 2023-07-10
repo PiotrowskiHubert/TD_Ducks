@@ -1,11 +1,10 @@
-package org.pio.scene.level;
+package org.pio.level;
 
 import java.awt.*;
 
 abstract class aLevel implements iLevel {
     protected int posX, posY, width, height;
     protected int[][] level;
-
     aLevel(int width, int height) {
         this.width = width;
         this.height = height;

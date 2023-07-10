@@ -1,4 +1,4 @@
-package org.pio;
+package org.pio.writers;
 
 public class KeyPoints {
     private int widthX, heightY;

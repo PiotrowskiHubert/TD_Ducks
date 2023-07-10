@@ -3,14 +3,13 @@ package org.pio.scene;
 import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemies.Enemy;
-import org.pio.Player;
+import org.pio.player.Player;
 import org.pio.inputs.mouseMethods;
 import org.pio.main.Game;
 import org.pio.manager.AllyTowerManager;
 import org.pio.manager.PlayerManager;
 import org.pio.ui.SidePanel;
 import org.pio.writers.Helper;
-import org.pio.writers.WriterMethods;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -209,19 +208,20 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     public void startWave() {
         Level.getRoundList().get(Level.getCurrentRound()).getEnemies().get(0).setCanGo(true);
+        System.out.println( "START WAVE" );
     }
     public void changeGameSpeed(){
 
         double timePerUpdateRegular=1_000_000_000.0/120.0;
         double timePerUpdateFast=1_000_000_000.0/180.0;
 
-        if (getGame().getTimePerUpdate()==timePerUpdateRegular){
-            getGame().setTimePerUpdate(timePerUpdateFast);
+        if (getGame().getTimePerUpdatePlayerAnimation()==timePerUpdateRegular){
+            getGame().setTimePerUpdatePlayerAnimation(timePerUpdateFast);
             return;
         }
 
-        if (getGame().getTimePerUpdate()==timePerUpdateFast){
-            getGame().setTimePerUpdate(timePerUpdateRegular);
+        if (getGame().getTimePerUpdatePlayerAnimation()==timePerUpdateFast){
+            getGame().setTimePerUpdatePlayerAnimation(timePerUpdateRegular);
             return;
         }
     }

@@ -1,4 +1,4 @@
-package org.pio;
+package org.pio.player;
 
 public class Player {
     int gold;

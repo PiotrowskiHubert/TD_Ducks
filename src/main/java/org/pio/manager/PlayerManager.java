@@ -1,6 +1,6 @@
 package org.pio.manager;
 
-import org.pio.Player;
+import org.pio.player.Player;
 
 public class PlayerManager {
 

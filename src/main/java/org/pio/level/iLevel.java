@@ -1,4 +1,4 @@
-package org.pio.scene.level;
+package org.pio.level;
 
 import org.pio.inputs.keyboardMethods;
 

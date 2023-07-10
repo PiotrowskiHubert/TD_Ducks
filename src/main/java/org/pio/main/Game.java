@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Game extends JFrame implements Runnable {
     private PreGameScene preGameScene;
-    private GameStates gameStates;
+    public static GameStates gameStates;
     private Update update;
     private GameScreen gameScreen;
     private EnemyManager enemyManager;
@@ -20,6 +20,7 @@ public class Game extends JFrame implements Runnable {
     private PlayScene playScene;
     Thread gameThread_1;
     private double timePerUpdate;
+    private double timePerUpdatePlayerAnimation;
 
     public static void main(String[] args) {
         Game game=new Game();
@@ -28,14 +29,9 @@ public class Game extends JFrame implements Runnable {
     }
 
     public Game() {
-
         initClass();
         initWindow();
 
-        add(gameScreen);
-        pack();
-
-        setVisible(true);
     }
 
     private void initClass(){
@@ -56,9 +52,12 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void initWindow(){
+        add(gameScreen);
+        pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
         setResizable(false);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     private void startThread(){
@@ -67,20 +66,16 @@ public class Game extends JFrame implements Runnable {
 
         new Thread(() -> {
 
-            timePerUpdate=1_000_000_000.0/120.0;
-
+            timePerUpdate =1_000_000_000.0/120.0;
             long lastUpdate=System.nanoTime();
-
             long lastTimeCheck=System.currentTimeMillis();
-
             int updates=0;
-
             long now;
 
             while (true){
                 now = System.nanoTime();
 
-                if (now-lastUpdate>=timePerUpdate){
+                if (now-lastUpdate>= timePerUpdate){
                     update();
                     lastUpdate=now;
                     updates++;
@@ -95,6 +90,25 @@ public class Game extends JFrame implements Runnable {
             }
         }).start();
 
+        new Thread(() -> {
+
+            timePerUpdatePlayerAnimation =1_000_000_000.0/11.0;
+            long lastUpdate=System.nanoTime();
+            long now;
+            while (true){
+                now = System.nanoTime();
+
+                if (now-lastUpdate>= timePerUpdatePlayerAnimation){
+                    updateAnimations();
+                    lastUpdate=now;
+                }
+            }
+        }).start();
+
+    }
+
+    private void updateAnimations() {
+        update.updateAnimations();
     }
 
     @Override
@@ -155,10 +169,11 @@ public class Game extends JFrame implements Runnable {
     public PlayerManager getPlayerManager() {
         return playerManager;
     }
-    public double getTimePerUpdate() {
-        return timePerUpdate;
+    public double getTimePerUpdatePlayerAnimation() {
+        return timePerUpdatePlayerAnimation;
     }
-    public GameStates getGameStates() {
+
+    public static GameStates getGameStates() {
         return gameStates;
     }
 
@@ -167,8 +182,13 @@ public class Game extends JFrame implements Runnable {
     }
     // ----------- SET ----------- //
 
-    public void setTimePerUpdate(double timePerUpdate) {
-        this.timePerUpdate = timePerUpdate;
+
+    public static void setGameStates(GameStates gameStates) {
+        Game.gameStates = gameStates;
+    }
+
+    public void setTimePerUpdatePlayerAnimation(double timePerUpdatePlayerAnimation) {
+        this.timePerUpdatePlayerAnimation = timePerUpdatePlayerAnimation;
     }
 
 }

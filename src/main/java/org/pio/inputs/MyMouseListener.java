@@ -2,6 +2,7 @@ package org.pio.inputs;
 
 
 import org.pio.main.Game;
+import org.pio.main.GameStates;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -16,13 +17,22 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getButton()==MouseEvent.BUTTON1){
-            game.getPlayScene().leftMouseClicked(e.getX(), e.getY());
+        if(game.getGameStates()== GameStates.PREGAME){
+
         }
 
-        if (e.getButton()==MouseEvent.BUTTON3){
-            game.getPlayScene().rightMouseClicked(e.getX(), e.getY());
+        if (game.getGameStates()==GameStates.GAME){
+
+            if (e.getButton()==MouseEvent.BUTTON1){
+                game.getPlayScene().leftMouseClicked(e.getX(), e.getY());
+            }
+
+            if (e.getButton()==MouseEvent.BUTTON3){
+                game.getPlayScene().rightMouseClicked(e.getX(), e.getY());
+            }
         }
+
+
 
 
     }

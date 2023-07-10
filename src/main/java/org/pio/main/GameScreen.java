@@ -14,6 +14,7 @@ public class GameScreen extends JPanel {
 
     public static int screenWidth;
     public static int screenHeight;
+    public static final int UNIT_SIZE =32;
 
     public GameScreen(Game game){
         this.game=game;
@@ -21,16 +22,21 @@ public class GameScreen extends JPanel {
     }
 
     private void windowConfig(){
-        int rightSidePanelSize=100;
-        this.screenWidth=720+rightSidePanelSize;
-        this.screenHeight=480;
+        int rightSidePanelSize=3* UNIT_SIZE;
+
+        this.screenWidth=29* UNIT_SIZE +rightSidePanelSize;
+
+        this.screenHeight=22* UNIT_SIZE;
+
         dimensionSize=new Dimension(screenWidth,screenHeight);
 
         setMinimumSize(dimensionSize);
         setMaximumSize(dimensionSize);
         setPreferredSize(dimensionSize);
 
-        setBackground(Color.white);
+        //set location of the window on the middle of the screen
+
+        setBackground(Color.black);
     }
 
     public void initInputs(){
