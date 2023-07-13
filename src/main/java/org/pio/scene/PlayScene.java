@@ -215,15 +215,13 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         double timePerUpdateRegular=1_000_000_000.0/120.0;
         double timePerUpdateFast=1_000_000_000.0/180.0;
 
-        if (getGame().getTimePerUpdatePlayerAnimation()==timePerUpdateRegular){
-            getGame().setTimePerUpdatePlayerAnimation(timePerUpdateFast);
-            return;
+        if (getGame().getTimePerUpdate()==timePerUpdateRegular){
+            getGame().setTimePerUpdate(timePerUpdateFast);
+        } else if (getGame().getTimePerUpdate()==timePerUpdateFast){
+            getGame().setTimePerUpdate(timePerUpdateRegular);
         }
 
-        if (getGame().getTimePerUpdatePlayerAnimation()==timePerUpdateFast){
-            getGame().setTimePerUpdatePlayerAnimation(timePerUpdateRegular);
-            return;
-        }
+
     }
 
     // -------- RENDER ------- //

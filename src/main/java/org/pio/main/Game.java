@@ -36,7 +36,7 @@ public class Game extends JFrame implements Runnable {
 
     private void initClass(){
         gameScreen=new GameScreen(this);
-        gameStates=GameStates.PREGAME;
+        gameStates=GameStates.GAME;
 
         render=new Render(this);
         update=new Update(this);
@@ -169,9 +169,6 @@ public class Game extends JFrame implements Runnable {
     public PlayerManager getPlayerManager() {
         return playerManager;
     }
-    public double getTimePerUpdatePlayerAnimation() {
-        return timePerUpdatePlayerAnimation;
-    }
 
     public static GameStates getGameStates() {
         return gameStates;
@@ -180,6 +177,11 @@ public class Game extends JFrame implements Runnable {
     public PreGameScene getPreGameScene() {
         return preGameScene;
     }
+
+    public double getTimePerUpdate() {
+        return timePerUpdate;
+    }
+
     // ----------- SET ----------- //
 
 
@@ -187,8 +189,7 @@ public class Game extends JFrame implements Runnable {
         Game.gameStates = gameStates;
     }
 
-    public void setTimePerUpdatePlayerAnimation(double timePerUpdatePlayerAnimation) {
-        this.timePerUpdatePlayerAnimation = timePerUpdatePlayerAnimation;
+    public void setTimePerUpdate(double timePerUpdate) {
+        this.timePerUpdate = timePerUpdate;
     }
-
 }
