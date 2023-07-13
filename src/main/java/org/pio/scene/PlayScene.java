@@ -220,8 +220,6 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         } else if (getGame().getTimePerUpdate()==timePerUpdateFast){
             getGame().setTimePerUpdate(timePerUpdateRegular);
         }
-
-
     }
 
     // -------- RENDER ------- //
