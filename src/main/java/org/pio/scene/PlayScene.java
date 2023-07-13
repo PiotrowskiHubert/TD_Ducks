@@ -10,6 +10,8 @@ import org.pio.main.Game;
 import org.pio.manager.AllyTowerManager;
 import org.pio.manager.PlayerManager;
 import org.pio.ui.SidePanel;
+import org.pio.ui.sidePanel.SidePanelEditMap;
+import org.pio.ui.sidePanel.aSidePanel;
 import org.pio.writers.Helper;
 
 import java.awt.*;
@@ -21,6 +23,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     private Level lvl;
     private static Player player;
     private SidePanel sidePanel;
+    private aSidePanel editSidePanel;
     private boolean mapEditMode;
     private static int mouseX, mouseY;
 
@@ -33,25 +36,26 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
         sidePanel = new SidePanel(29*GameScreen.UNIT_SIZE,0*GameScreen.UNIT_SIZE,3*GameScreen.UNIT_SIZE,22*GameScreen.UNIT_SIZE,this);
 
+        initMapEditSidePanel();
     }
 
     // -------- INIT ------- //
+    private void initMapEditSidePanel(){
+        editSidePanel = new SidePanelEditMap(29*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, 3*GameScreen.UNIT_SIZE, 22*GameScreen.UNIT_SIZE);
 
+    }
     private void initPlayer(){
         player=new Player(2000,100);
     }
     private void initLevel(){
-        int numOfRounds=11;
-        //WriterMethods.writeRoundsDataToFile("src/main/resources/rounds_data.txt",numOfRounds);
-        lvl=new Level(29,22, getGame(),numOfRounds);
+        lvl=new Level(29,22, getGame(),11);
     }
 
     // -------- UPDATE ------- //
 
     public void update(){
-        getGame().getBulletManager().bulletsUpdatePos();
 
-        updateEnemiesCanGo();
+        getGame().getBulletManager().bulletsUpdatePos();
         enemyHitByBullet();
         getLvl().updateLevel();
 
@@ -59,13 +63,6 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
         if (SidePanel.getSelectedTowerSidePanel()!=null){
             sidePanel.updateSelectedTowerHitBox();
-        }
-    }
-
-    private void updateEnemiesCanGo() {
-
-        if (Helper.isFirstValueSmallerThanSecond(Level.currentRound,getLvl().getNUM_OF_ROUNDS())){
-            updateEnemiesCanGo(Level.getRoundList().get(Level.currentRound).getEnemies());
         }
     }
 
@@ -83,39 +80,6 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
             AllyTower nextAllyTowerPlaced = allyTowerIterator.next();
 
             nextAllyTowerPlaced.update();
-        }
-
-    }
-    private void updateEnemiesCanGo(List<Enemy> enemies){
-
-        if (Helper.isEnemyListEmpty(enemies)){
-            return;
-        }
-
-        for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).update();
-
-            if (i < enemies.size() - 1) {
-
-                if (enemies.get(i).getPosWidthX()- enemies.get(i+1).getPosWidthX()>=50){
-                    enemies.get(i+1).setCanGo(true);
-                }
-
-                if (enemies.get(i).getPosWidthX()>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
-                    PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).getHealth());
-                    System.out.println(PlayScene.getPlayer().getHealth());
-                    System.out.println(enemies.get(i).getHealth());
-                    enemies.remove(enemies.get(i));
-                }
-
-            } else {
-                if (enemies.get(i).getPosWidthX()>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
-
-                    PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).getHealth());
-                    enemies.remove(enemies.get(i));
-
-                }
-            }
         }
 
     }
@@ -229,13 +193,22 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     public void render(Graphics g){
         lvl.drawLevel(g);
-        sidePanel.draw(g);
 
-        drawEditModeTileHighlight(g);
+        if (!mapEditMode){
+            sidePanel.draw(g);
+        }else{
+            drawEditModeSidePanel(g);
+            drawEditModeTileHighlight(g);
+        }
+
+    }
+
+    private void drawEditModeSidePanel(Graphics g) {
+        editSidePanel.draw(g);
     }
 
     private void drawEditModeTileHighlight(Graphics g) {
-        if (mapEditMode){
+        if (mouseX<29*GameScreen.UNIT_SIZE){
             g.setColor(Color.black);
             g.drawRect((mouseX/GameScreen.UNIT_SIZE)*GameScreen.UNIT_SIZE,(mouseY/GameScreen.UNIT_SIZE)*GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE);
         }
@@ -258,9 +231,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
                 getGame().getPlayerManager().updateGold(getPlayer(),SidePanel.getSelectedTowerSidePanel().getCost());
 
                 SidePanel.setSelectedTowerSidePanel(null);
-
             }
-
         }
 
     }
@@ -275,16 +246,16 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     }
     @Override
     public void mouseMoved(int x, int y) {
+        mouseX=x;
+        mouseY=y;
 
         if (x>29*GameScreen.UNIT_SIZE){
             sidePanel.mouseMoved(x,y);
         }
 
-        getGame().getAllyTowerManager().mouseMoved(x,y);
-
-        mouseX=x;
-        mouseY=y;
-
+        if (x<29*GameScreen.UNIT_SIZE){
+            getGame().getAllyTowerManager().mouseMoved(x,y);
+        }
     }
     @Override
     public void mousePressed(int x, int y) {
@@ -292,7 +263,9 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
             sidePanel.mousePressed(x,y);
         }
 
-        getGame().getAllyTowerManager().mousePressed(x,y);
+        if (x<29*GameScreen.UNIT_SIZE){
+            getGame().getAllyTowerManager().mousePressed(x,y);
+        }
     }
     @Override
     public void mouseReleased(int x, int y) {
@@ -313,9 +286,6 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     public Level getLvl() {
         return lvl;
-    }
-    public SidePanel getSidePanel() {
-        return sidePanel;
     }
     public static int getMouseX() {
         return mouseX;

@@ -6,7 +6,7 @@ import org.pio.ui.buttons.bRectangleUpgrade;
 import java.awt.*;
 import java.util.LinkedHashMap;
 
-abstract class aSidePanel implements sidePanelMethods {
+public abstract class aSidePanel implements sidePanelMethods {
     protected int width, height, posWidth, posHeight;
     protected LinkedHashMap<Integer, bRectangleUpgrade> buttonLinkedMap;
     protected Shape sidePanelBounds;
@@ -22,12 +22,19 @@ abstract class aSidePanel implements sidePanelMethods {
     private void init(){
         initBounds();
     }
-
     private void initBounds() {
         sidePanelBounds = new Rectangle(posWidth, posHeight, width, height);
     }
-
     public Shape getSidePanelBounds() {
         return sidePanelBounds;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        drawBody(g);
+    }
+    private void drawBody(Graphics g) {
+        g.setColor(Color.black);
+        g.fillRect(posWidth, posHeight, width, height);
     }
 }

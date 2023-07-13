@@ -4,6 +4,7 @@ import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.Entities.Enemies.Enemy;
 import org.pio.main.GameScreen;
 import org.pio.manager.AllyTowerManager;
+import org.pio.manager.PlayerManager;
 import org.pio.player.Player;
 import org.pio.writers.KeyPoints;
 import org.pio.main.Game;
@@ -62,10 +63,53 @@ public class Level extends GameScene {
     // -------- UPDATE ------- //
 
     public void updateLevel(){
+        updateRoundCounter();
+        updateMoveEnemies();
+    }
 
+    private void updateRoundCounter() {
         if (Helper.isFirstValueSmallerThanSecond(currentRound,NUM_OF_ROUNDS)){
             if (Helper.isEnemyListEmpty(getRoundList().get(currentRound).getEnemies())){
                 currentRound++;
+            }
+        }
+    }
+    private void updateMoveEnemies() {
+
+        if (Helper.isFirstValueSmallerThanSecond(Level.currentRound,getNUM_OF_ROUNDS())){
+            updateStartMoveEnemies(roundList.get(currentRound).getEnemies());
+        }
+
+    }
+    private void updateStartMoveEnemies(List<Enemy> enemies){
+
+        if (Helper.isEnemyListEmpty(enemies)){
+            return;
+        }
+
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).update();
+
+            if (i < enemies.size() - 1) {
+
+                if (enemies.get(i).getPosWidthX()- enemies.get(i+1).getPosWidthX()>=50){
+                    enemies.get(i+1).setCanGo(true);
+                }
+
+                if (enemies.get(i).getPosWidthX()>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
+                    PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).getHealth());
+                    System.out.println(Player.getHealth());
+                    System.out.println(enemies.get(i).getHealth());
+                    enemies.remove(enemies.get(i));
+                }
+
+            } else {
+                if (enemies.get(i).getPosWidthX()>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
+
+                    PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).getHealth());
+                    enemies.remove(enemies.get(i));
+
+                }
             }
         }
 
@@ -124,8 +168,6 @@ public class Level extends GameScene {
         }
 
     }
-
-
 
     // -------- GET ------- //
 

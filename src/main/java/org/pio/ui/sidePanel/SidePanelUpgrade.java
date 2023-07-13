@@ -5,7 +5,7 @@ import org.pio.ui.buttons.bRectangleUpgrade;
 import java.awt.*;
 import java.util.LinkedHashMap;
 
-public class SidePanelUpgrade extends aSidePanel implements sidePanelMethods {
+public class SidePanelUpgrade extends aSidePanel{
     public SidePanelUpgrade(int width, int height, int posWidth, int posHeight) {
         super(width, height, posWidth, posHeight);
 
@@ -35,9 +35,8 @@ public class SidePanelUpgrade extends aSidePanel implements sidePanelMethods {
     }
     @Override
     public void mouseClicked(int x, int y) {
-        System.out.println("mousePressed_33333");
         if (buttonLinkedMap!=null){
-            System.out.println("mousepressed_222222");
+
             for (bRectangleUpgrade button: buttonLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
                     if (button.isMousePressed()){
@@ -48,7 +47,6 @@ public class SidePanelUpgrade extends aSidePanel implements sidePanelMethods {
                     }
                 }
             }
-
         }
 
     }
@@ -81,9 +79,10 @@ public class SidePanelUpgrade extends aSidePanel implements sidePanelMethods {
     }
     @Override
     public void draw(Graphics g) {
-        drawBody(g);
+        super.draw(g);
         drawButtons(g);
     }
+
     private void drawButtons(Graphics g) {
         if (buttonLinkedMap!=null){
 
@@ -94,10 +93,8 @@ public class SidePanelUpgrade extends aSidePanel implements sidePanelMethods {
 
         }
     }
-    private void drawBody(Graphics g) {
-        g.setColor(Color.black);
-        g.fillRect(posWidth, posHeight, width, height);
-    }
+
+
     @Override
     public LinkedHashMap<Integer, bRectangleUpgrade> initButtonsHashMap() {
         LinkedHashMap<Integer, bRectangleUpgrade> linkedMapButtons = new LinkedHashMap<>();
