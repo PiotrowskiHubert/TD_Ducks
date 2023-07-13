@@ -1,6 +1,7 @@
 package org.pio.Entities.Enemies;
 
 import org.pio.Entities.Entity;
+import org.pio.main.GameScreen;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -73,23 +74,23 @@ public class Enemy extends Entity {
     public void moveUpdate(){
         if (canGo){
 
-            if (getPosWidthX()<10*40){
+            if (getPosWidthX()<10* GameScreen.UNIT_SIZE){
                 setPosWidthX(getPosWidthX()+movSpeed);
             }
 
-            if (getPosWidthX()>=10*40&&getPosHeightY()>3*40&&getPosWidthX()<13*40){
+            if (getPosWidthX()>=10*GameScreen.UNIT_SIZE&&getPosHeightY()>3*GameScreen.UNIT_SIZE&&getPosWidthX()<13*GameScreen.UNIT_SIZE){
                 setPosHeightY(getPosHeightY()-movSpeed);
             }
 
-            if (getPosWidthX()>=10*40 && getPosHeightY()<=3*40&&getPosWidthX()<13*40){
+            if (getPosWidthX()>=10*GameScreen.UNIT_SIZE && getPosHeightY()<=3*GameScreen.UNIT_SIZE&&getPosWidthX()<13*GameScreen.UNIT_SIZE){
                 setPosWidthX(getPosWidthX()+movSpeed);
             }
 
-            if (getPosWidthX()>=13*40&&getPosHeightY()<8*40){
+            if (getPosWidthX()>=13*GameScreen.UNIT_SIZE&&getPosHeightY()<8*GameScreen.UNIT_SIZE){
                 setPosHeightY(getPosHeightY()+movSpeed);
             }
 
-            if (getPosWidthX()>=13*40&&getPosHeightY()>=8*40){
+            if (getPosWidthX()>=13*GameScreen.UNIT_SIZE&&getPosHeightY()>=8*GameScreen.UNIT_SIZE){
                 setPosWidthX(getPosWidthX()+movSpeed);
             }
         }

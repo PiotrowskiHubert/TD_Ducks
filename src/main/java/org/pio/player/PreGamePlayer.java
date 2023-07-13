@@ -2,6 +2,7 @@ package org.pio.player;
 
 import org.pio.inputs.KeyStates;
 import org.pio.inputs.keyboardMethods;
+import org.pio.main.GameScreen;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -24,35 +25,67 @@ public class PreGamePlayer extends aPreGamePlayer implements keyboardMethods {
     public void move() {
 
 
-        if (KeyStates.shiftPressed) {
-            double acceleration = 2.0;
-            double moveSpeedWithAcceleration = moveSpeed*acceleration;
+            if (KeyStates.shiftPressed) {
+                double acceleration = 2.0;
+                double moveSpeedWithAcceleration = moveSpeed*acceleration;
 
-            if (KeyStates.wPressed){
-                posY -= moveSpeedWithAcceleration;
-            }else if (KeyStates.aPressed){
-                posX -= moveSpeedWithAcceleration;
-            }else if (KeyStates.sPressed){
-                posY += moveSpeedWithAcceleration;
-            }else if (KeyStates.dPressed){
-                posX += moveSpeedWithAcceleration;
+                if (KeyStates.wPressed){
+
+                    if((playerBounds.getBounds().getY()-moveSpeedWithAcceleration)>=1*GameScreen.UNIT_SIZE) {
+                        posY -= moveSpeedWithAcceleration;
+                    }
+
+                }else if (KeyStates.aPressed){
+
+                    if((playerBounds.getBounds().getX()-moveSpeedWithAcceleration)>=1*GameScreen.UNIT_SIZE) {
+                        posX -= moveSpeedWithAcceleration;
+                    }
+
+                }else if (KeyStates.sPressed){
+
+                    if(((playerBounds.getBounds().getY()-playerBounds.getBounds().getHeight()/2)+moveSpeedWithAcceleration)<=20*GameScreen.UNIT_SIZE) {
+                        posY += moveSpeedWithAcceleration;
+                    }
+
+                }else if (KeyStates.dPressed){
+
+                    if (((playerBounds.getBounds().getX()+playerBounds.getBounds().getWidth()/2)+moveSpeedWithAcceleration)<=30*GameScreen.UNIT_SIZE) {
+                        posX += moveSpeedWithAcceleration;
+                    }
+
+                }
             }
-        }
 
-        if (!KeyStates.shiftPressed) {
-            if (KeyStates.wPressed){
-                posY -= moveSpeed;
-            }else if (KeyStates.aPressed){
-                posX -= moveSpeed;
-            }else if (KeyStates.sPressed){
-                posY += moveSpeed;
-            }else if (KeyStates.dPressed){
-                posX += moveSpeed;
+            if (!KeyStates.shiftPressed) {
+                if (KeyStates.wPressed){
+
+                    if((playerBounds.getBounds().getY()-moveSpeed)>=1*GameScreen.UNIT_SIZE){
+                        posY-= moveSpeed;
+                    }
+
+                }else if (KeyStates.aPressed){
+
+                    if((playerBounds.getBounds().getX()-moveSpeed)>=1*GameScreen.UNIT_SIZE){
+                        posX-= moveSpeed;
+                    }
+
+                }else if (KeyStates.sPressed){
+
+                    if(((playerBounds.getBounds().getY()-playerBounds.getBounds().getHeight()/2)+moveSpeed)<=20*GameScreen.UNIT_SIZE){
+                        posY+= moveSpeed;
+                    }
+
+                }else if (KeyStates.dPressed){
+
+                    if (((playerBounds.getBounds().getX()+playerBounds.getBounds().getWidth()/2)+moveSpeed)<=30*GameScreen.UNIT_SIZE){
+                        posX+= moveSpeed;
+                    }
+
+                }
             }
-        }
 
-        lastDirection=direction;
-        updateBounds();
+            lastDirection=direction;
+            updateBounds();
 
     }
 
@@ -199,11 +232,15 @@ public class PreGamePlayer extends aPreGamePlayer implements keyboardMethods {
             }
         }
 
-        if (e.getKeyCode()==KeyEvent.VK_SHIFT){
-            running=true;
-            KeyStates.shiftPressed=true;
-            move();
+
+        if ((KeyStates.wPressed||KeyStates.aPressed||KeyStates.sPressed||KeyStates.dPressed)){
+            if (e.getKeyCode()==KeyEvent.VK_SHIFT){
+                running=true;
+                KeyStates.shiftPressed=true;
+                move();
+            }
         }
+
 
 
     }

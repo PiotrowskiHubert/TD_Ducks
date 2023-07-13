@@ -1,5 +1,6 @@
 package org.pio.scene;
 
+import org.pio.main.GameScreen;
 import org.pio.writers.KeyPoints;
 import org.pio.main.Game;
 import org.pio.readers.ReadFromFile;
@@ -41,8 +42,8 @@ public class Level extends GameScene {
 
     public static void initKeypoints(){
         keyPointsList=new ArrayList<>();
-        keyPointsList.add(new KeyPoints(-50,240));
-        keyPointsList.add(new KeyPoints(720,240));
+        keyPointsList.add(new KeyPoints(-50,6*GameScreen.UNIT_SIZE));
+        keyPointsList.add(new KeyPoints(18*GameScreen.UNIT_SIZE,6*GameScreen.UNIT_SIZE));
     }
     private void createLevelRoundsAndAddEnemies(){
 
@@ -75,11 +76,11 @@ public class Level extends GameScene {
             for (int j = 0; j < lvlWidth; j++) {
 
                 if (lvlArr[i][j].getTileName().equals("GRASS")){
-                    g.drawImage(getGame().getLvlManager().GRASS.getSprite(), j*40, i*40, null);
+                    g.drawImage(getGame().getLvlManager().GRASS.getSprite(), j* GameScreen.UNIT_SIZE, i*GameScreen.UNIT_SIZE, null);
                 }
 
                 if (lvlArr[i][j].getTileName().equals("ROAD")){
-                    g.drawImage(getGame().getLvlManager().ROAD.getSprite(), j*40, i*40, null);
+                    g.drawImage(getGame().getLvlManager().ROAD.getSprite(), j*GameScreen.UNIT_SIZE, i*GameScreen.UNIT_SIZE, null);
                 }
 
             }

@@ -7,6 +7,7 @@ public class Tile {
     private String tileName;
     private static int width, height;
     private int posX, posY;
+    private boolean isSolid;
     int id;
 
     public Tile(String tileName, int id, BufferedImage sprite){
