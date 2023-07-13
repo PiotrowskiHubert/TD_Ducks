@@ -170,13 +170,6 @@ public class AllyTowerManager {
             if (allyTower.isMouseOver()) {
                 allyTower.setMouseOver(false);
             }
-
-            for (Button button: allyTower.getButtonList()){
-                if (button.isMouseOver()){
-                    button.setMouseOver(false);
-                }
-            }
-
         }
 
         // ----------------------------------------------------- //
@@ -185,12 +178,6 @@ public class AllyTowerManager {
 
             if (allyTower.getEntityBounds().contains(x,y)){
                 allyTower.setMouseOver(true);
-            }
-
-            for (Button button: allyTower.getButtonList()){
-                if (button.getPartOfCircleShape().contains(x,y)){
-                    button.setMouseOver(true);
-                }
             }
 
             if (allyTower.getSelected()){
@@ -216,40 +203,6 @@ public class AllyTowerManager {
 
         for (Iterator<AllyTower> allyTowerPlacedIterator = allyTowersPlaced.iterator(); allyTowerPlacedIterator.hasNext();){
             AllyTower nextAlly = allyTowerPlacedIterator.next();
-
-            if (nextAlly.getSelected()&&nextAlly.isMousePressed()){
-                for (Button button : nextAlly.getButtonList()) {
-                    if (button.getPartOfCircleShape().contains(x,y)){
-
-                        if (button.getName().equals("SELL")){
-                            allyTowerPlacedIterator.remove();
-
-                            // THEN ITERATE 1 DOWN INDEXES OF ALLY TOWERS PLACED
-                            for (AllyTower allyTower : allyTowersPlaced) {
-                                allyTower.setIndex(allyTower.getIndex()-1);
-                            }
-
-                            return;
-                        }
-
-                        if (button.getName().equals("Upgrade_1_1")){
-                            nextAlly.upgrade_1_1();
-                            return;
-                        }
-
-                        if (button.getName().equals("Upgrade_2_1")){
-                            nextAlly.upgrade_2_1();
-                            return;
-                        }
-
-                        if (button.getName().equals("Upgrade_3_1")){
-                            nextAlly.upgrade_3_1();
-                            return;
-                        }
-
-                    }
-                }
-            }
 
             if(nextAlly.getEntityBounds().contains(x,y)){
                 nextAlly.setSelected(true);

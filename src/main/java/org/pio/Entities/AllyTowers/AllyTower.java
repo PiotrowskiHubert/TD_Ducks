@@ -19,21 +19,12 @@ import java.util.List;
 public class AllyTower extends Entity {
     protected List<Bullet> bulletList;
     protected List<Enemy> enemiesInRangeList;
-    private List<Button> buttonList;
     protected int cost, index, range;
     protected double timePerShot;
     protected long lastTimeCheck, now, lastShot;
-    private boolean upgrade_1_1, upgrade_1_2, upgrade_1_3,
-            upgrade_2_1, upgrade_2_2, upgrade_2_3,
-            upgrade_3_1, upgrade_3_2, upgrade_3_3;
     protected Boolean mouseOver, mousePressed, selected;
-    private Button upgrade_1_1_Button, upgrade_1_2_Button, upgrade_1_3_Button,
-            upgrade_2_1_Button, upgrade_2_2_Button, upgrade_2_3_Button,
-            upgrade_3_1_Button, upgrade_3_2_Button, upgrade_3_3_Button,
-            sell_Button;
     protected Ellipse2D rangeEllipse;
     protected SidePanelUpgrade sidePanelUpgrade;
-    //protected Boolean canShotLead;
 
     public AllyTower(String name, int id, BufferedImage sprite, int posWidthX, int posHeightY, int towerWidth, int towerHeight, double timePerShot, int range, int cost, int index){
         this.nameEntity=name;
@@ -54,9 +45,7 @@ public class AllyTower extends Entity {
         this.now=System.nanoTime();
         
         initBooleans();
-        initBooleanUpgrades();
         initLists();
-        initButtons();
         initBounds();
         initRangeEllipse();
     }
@@ -83,22 +72,7 @@ public class AllyTower extends Entity {
     public Rectangle initBounds() {
         return super.initBounds();
     }
-    private void initBooleanUpgrades(){
-        this.upgrade_1_1=false;
-        this.upgrade_1_2=false;
-        this.upgrade_1_3=false;
 
-        this.upgrade_2_1=false;
-        this.upgrade_2_2=false;
-        this.upgrade_2_3=false;
-
-        this.upgrade_3_1=false;
-        this.upgrade_3_2=false;
-        this.upgrade_3_3=false;
-
-        //this.canShotLead=false;
-
-    }
     private void initBooleans(){
         this.mouseOver=false;
         this.mousePressed=false;
@@ -107,41 +81,8 @@ public class AllyTower extends Entity {
     private void initLists(){
         this.enemiesInRangeList=new ArrayList<>();
         this.bulletList=new ArrayList<>();
-        this.buttonList=new ArrayList<>();
     }
-    private void initButtons(){
-        int id=0;
 
-        this.upgrade_1_1_Button=initButtonUpgradeSelectedAllyTower("Upgrade_1_1",0,100,id++);
-        //this.upgrade_1_2_Button=initButtonUpgradeSelectedAllyTower(0,100);
-        //this.upgrade_1_3_Button=initButtonUpgradeSelectedAllyTower(0,100);
-
-        this.upgrade_2_1_Button=initButtonUpgradeSelectedAllyTower("Upgrade_2_1",100,100, id++);
-        //this.upgrade_2_2_Button=initButtonUpgradeSelectedAllyTower(100,100);
-        //this.upgrade_2_3_Button=initButtonUpgradeSelectedAllyTower(100,100);
-
-        this.upgrade_3_1_Button=initButtonUpgradeSelectedAllyTower("Upgrade_3_1",200,100, id++);
-        //this.upgrade_3_2_Button=initButtonUpgradeSelectedAllyTower(200, 100);
-        //this.upgrade_3_3_Button=initButtonUpgradeSelectedAllyTower(200, 100);
-
-        this.sell_Button=initButtonUpgradeSelectedAllyTower("SELL",300,59.99, id++);
-        this.sell_Button.setDeleteButton(true);
-
-        addAllButtonsToButtonList();
-
-    }
-    private void addAllButtonsToButtonList(){
-        this.buttonList.add(upgrade_1_1_Button);
-        //this.buttonList.add(upgrade_1_2_Button);
-        //this.buttonList.add(upgrade_1_3_Button);
-        this.buttonList.add(upgrade_2_1_Button);
-        //this.buttonList.add(upgrade_2_2_Button);
-        //this.buttonList.add(upgrade_2_3_Button);
-        this.buttonList.add(upgrade_3_1_Button);
-        //this.buttonList.add(upgrade_3_2_Button);
-        //this.buttonList.add(upgrade_3_3_Button);
-        this.buttonList.add(sell_Button);
-    }
     protected void initRangeEllipse(){
         rangeEllipse = new Ellipse2D.Float(getPosWidthX()-getRange()+20, getPosHeightY()-getRange()+20, getRange()*2, getRange()*2);
     }
@@ -234,24 +175,10 @@ public class AllyTower extends Entity {
 
     // -------- UPGRADE ------- //
 
-    public void upgrade_1_1(){
-        upgrade_1_1=true;
-    }
-    public void upgrade_2_1(){
-
-    }
-    public void upgrade_3_1(){
-        if (upgrade_3_1){
-            return;
-        }
-
-        upgrade_3_1=true;
-    }
 
     // -------- RENDER ------- //
 
     public void draw(Graphics g){
-        drawButtons(g);
         drawRange(g);
 
         drawBullet(g);
@@ -270,13 +197,7 @@ public class AllyTower extends Entity {
             bullet.draw(g);
         }
     }
-    private void drawButtons(Graphics g){
-        if (selected){
-            for (Button button : buttonList) {
-                button.drawCircleButton(g);
-            }
-        }
-    }
+
     private void drawTower(Graphics g) {
         if (mouseOver){
             //g.drawRect(posWidthX, posHeightY, width, height);
@@ -346,28 +267,13 @@ public class AllyTower extends Entity {
     public Boolean isMousePressed() {
         return mousePressed;
     }
-    public List<Button> getButtonList() {
-        return buttonList;
-    }
     public Boolean getSelected() {
         return selected;
     }
-    public boolean isUpgrade_1_1() {
-        return upgrade_1_1;
-    }
-    public boolean isUpgrade_2_1() {
-        return upgrade_2_1;
-    }
-    public boolean isUpgrade_3_1() {
-        return upgrade_3_1;
-    }
-
     public SidePanelUpgrade getSidePanelUpgrade() {
         return sidePanelUpgrade;
     }
-    // public Boolean getCanShotLead() {
-     //   return canShotLead;
-    //}
+
 
     // -------- SET ------- //
     public void setRange(int range) {
@@ -387,15 +293,6 @@ public class AllyTower extends Entity {
     }
     public void setSelected(Boolean selected) {
         this.selected = selected;
-    }
-    public void setUpgrade_1_1(boolean upgrade_1_1) {
-        this.upgrade_1_1 = upgrade_1_1;
-    }
-    public void setUpgrade_2_1(boolean upgrade_2_1) {
-        this.upgrade_2_1 = upgrade_2_1;
-    }
-    public void setUpgrade_3_1(boolean upgrade_3_1) {
-        this.upgrade_3_1 = upgrade_3_1;
     }
 
 

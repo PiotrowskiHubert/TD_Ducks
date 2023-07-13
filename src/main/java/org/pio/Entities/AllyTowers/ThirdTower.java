@@ -53,33 +53,6 @@ public class ThirdTower extends AllyTower {
     }
 
     @Override
-    public void upgrade_1_1() {
-
-        if (isUpgrade_1_1()){
-            return;
-        }else{
-            setUpgrade_1_1(true);
-            this.timePerShot=timePerShot*0.75;
-        }
-    }
-    @Override
-    public void upgrade_2_1() {
-
-        if (isUpgrade_2_1()){
-            return;
-        }else {
-            setUpgrade_2_1(true);
-            this.range=range*2;
-            initRangeEllipse();
-        }
-
-    }
-    @Override
-    public void upgrade_3_1() {
-        super.upgrade_3_1();
-    }
-
-    @Override
     public void draw(Graphics g) {
         super.draw(g);
         g.setColor(new Color(1f,0.5f,0f,.5f));

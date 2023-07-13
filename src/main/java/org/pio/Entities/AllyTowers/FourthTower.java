@@ -22,18 +22,6 @@ public class FourthTower extends AllyTower implements AllyTowerInterFace{
         super.shot();
     }
     @Override
-    public void upgrade_1_1() {
-        super.upgrade_1_1();
-    }
-    @Override
-    public void upgrade_2_1() {
-        super.upgrade_2_1();
-    }
-    @Override
-    public void upgrade_3_1() {
-        super.upgrade_3_1();
-    }
-    @Override
     public void draw(Graphics g) {
         super.draw(g);
     }
