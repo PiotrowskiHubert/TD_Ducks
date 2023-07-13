@@ -25,7 +25,6 @@ public class SidePanelUpgrade extends aSidePanel implements sidePanelMethods {
 
             for (bRectangleUpgrade button: buttonLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
-
                     button.setMouseOver(true);
                     return;
                 }
@@ -36,11 +35,13 @@ public class SidePanelUpgrade extends aSidePanel implements sidePanelMethods {
     }
     @Override
     public void mouseClicked(int x, int y) {
+        System.out.println("mousePressed_33333");
         if (buttonLinkedMap!=null){
-
+            System.out.println("mousepressed_222222");
             for (bRectangleUpgrade button: buttonLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
                     if (button.isMousePressed()){
+                        System.out.println("mousePressed");
                         button.addProgressStatus();
                         button.setMousePressed(false);
                         return;
@@ -57,6 +58,7 @@ public class SidePanelUpgrade extends aSidePanel implements sidePanelMethods {
 
             for (bRectangleUpgrade button: buttonLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
+                    System.out.println("mousePressed_1111");
                     button.setMousePressed(true);
                     return;
                 }

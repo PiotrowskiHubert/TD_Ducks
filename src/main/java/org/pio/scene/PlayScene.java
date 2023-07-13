@@ -264,6 +264,8 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     public void leftMouseClicked(int x, int y) {
         if (x>720){
             sidePanel.mouseClicked(x,y);
+            getGame().getAllyTowerManager().leftMouseClicked(x,y);
+
         }
 
         if (x<720){
