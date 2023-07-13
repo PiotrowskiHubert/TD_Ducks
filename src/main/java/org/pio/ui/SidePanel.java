@@ -25,7 +25,7 @@ public class SidePanel implements sidePanelMethods {
     private int panelWidth, panelHeight;
     private int posWidthX, posHeightX;
     private static AllyTower selectedTowerSidePanel;
-    Button bTower_0, startRound, speedUp;
+    Button bTower_0, editMode, startRound, speedUp;
     private List<Button> buttonTowerList;
 
     public SidePanel(int posWidthX, int posHeightX, int panelWidth, int panelHeight, PlayScene playScene) {
@@ -76,6 +76,7 @@ public class SidePanel implements sidePanelMethods {
             buttonTowerList.add(bTower_0);
         }
 
+        editMode=new Button("Edit_Mode", posX, panelHeight-4*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
         speedUp=new Button("Speed_Up", posX, panelHeight-3*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
         startRound =new Button("Start_Round", posX, panelHeight-2*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
 
@@ -97,6 +98,7 @@ public class SidePanel implements sidePanelMethods {
             button.drawRectangleButton(g);
         }
 
+        editMode.drawRectangleButton(g);
         speedUp.drawRectangleButton(g);
         startRound.drawRectangleButton(g);
 
@@ -164,12 +166,15 @@ public class SidePanel implements sidePanelMethods {
             }
         }
 
+        if (editMode.getButtonsBounds().contains(x,y)){
+
+        }
+
         if (startRound.getButtonsBounds().contains(x,y)){
             playScene.startWave();
         }
 
         if (speedUp.getButtonsBounds().contains(x,y)){
-            System.out.println("a");
             playScene.changeGameSpeed();
         }
 
@@ -190,10 +195,18 @@ public class SidePanel implements sidePanelMethods {
             speedUp.setMouseOver(false);
         }
 
+        if (editMode.isMouseOver()){
+            editMode.setMouseOver(false);
+        }
+
         for (Button button : buttonTowerList) {
             if (button.getButtonsBounds().contains(x,y)){
                 button.setMouseOver(true);
             }
+        }
+
+        if (editMode.getButtonsBounds().contains(x,y)){
+            editMode.setMouseOver(true);
         }
 
         if (startRound.getButtonsBounds().contains(x,y)){
@@ -213,6 +226,10 @@ public class SidePanel implements sidePanelMethods {
             }
         }
 
+        if (editMode.getButtonsBounds().contains(x,y)){
+            editMode.setMousePressed(true);
+        }
+
         if (startRound.getButtonsBounds().contains(x,y)){
             startRound.setMousePressed(true);
         }
@@ -227,6 +244,7 @@ public class SidePanel implements sidePanelMethods {
             button.resetBooleans();
         }
 
+        editMode.resetBooleans();
         startRound.resetBooleans();
         speedUp.resetBooleans();
 

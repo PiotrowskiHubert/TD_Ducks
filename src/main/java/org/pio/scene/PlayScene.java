@@ -21,10 +21,12 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     private Level lvl;
     private static Player player;
     private SidePanel sidePanel;
+    private boolean mapEditMode;
     private static int mouseX, mouseY;
 
     public PlayScene(Game game) {
         super(game);
+        mapEditMode=false;
 
         initLevel();
         initPlayer();
@@ -263,13 +265,11 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     @Override
     public void leftMouseClicked(int x, int y) {
-        if (x>720){
+        if (x>29*GameScreen.UNIT_SIZE){
             sidePanel.mouseClicked(x,y);
-            getGame().getAllyTowerManager().leftMouseClicked(x,y);
-
         }
 
-        if (x<720){
+        if (x<29*GameScreen.UNIT_SIZE){
 
             getGame().getAllyTowerManager().leftMouseClicked(x,y);
 
@@ -296,7 +296,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     @Override
     public void mouseMoved(int x, int y) {
 
-        if (x>720){
+        if (x>29*GameScreen.UNIT_SIZE){
             sidePanel.mouseMoved(x,y);
         }
 
@@ -308,7 +308,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     }
     @Override
     public void mousePressed(int x, int y) {
-        if (x>720){
+        if (x>29*GameScreen.UNIT_SIZE){
             sidePanel.mousePressed(x,y);
         }
 
