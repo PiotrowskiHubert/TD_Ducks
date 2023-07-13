@@ -5,9 +5,9 @@ import org.pio.scene.Level;
 import java.io.*;
 
 public class WriterMethods {
-    public static void writeLevel(){
+    public static void writeEmptyLevel(){
 
-        String fileName = "src/main/resources/lvl.txt";
+        String fileName = "src/main/resources/LevelInfo/lvl.txt";
         try (
                 var fileWriter = new FileWriter(fileName);
                 var writer = new BufferedWriter(fileWriter);
@@ -18,17 +18,7 @@ public class WriterMethods {
             while (!(i==sizeOfLevel)){
 
 
-
-
-                if ((i>=6*18&&i<7*17)||i==100||i==82||(i>=64&&i<=67)||i==85||i==103
-                        ||i==121||i==139||i==157||i==158||i==159||i==160||i==161){
-                    writer.write("2");
-                }else {
-                    writer.write("1");
-                }
-
-
-
+                writer.write("1");
                 writer.newLine();
                 i++;
 
@@ -197,6 +187,7 @@ public class WriterMethods {
     }
 
         public static void main(String[] args) {
+
 
 //            String path="src/main/resources/AllyTowerInfo/fourthTower.txt";
 //

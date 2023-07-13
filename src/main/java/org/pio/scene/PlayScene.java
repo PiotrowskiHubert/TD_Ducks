@@ -3,6 +3,7 @@ package org.pio.scene;
 import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.Entities.Bullet;
 import org.pio.Entities.Enemies.Enemy;
+import org.pio.main.GameScreen;
 import org.pio.player.Player;
 import org.pio.inputs.mouseMethods;
 import org.pio.main.Game;
@@ -28,7 +29,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         initLevel();
         initPlayer();
 
-        sidePanel = new SidePanel(720,0,100,480,this);
+        sidePanel = new SidePanel(29*GameScreen.UNIT_SIZE,0*GameScreen.UNIT_SIZE,3*GameScreen.UNIT_SIZE,22*GameScreen.UNIT_SIZE,this);
 
     }
 
@@ -40,7 +41,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     private void initLevel(){
         int numOfRounds=11;
         //WriterMethods.writeRoundsDataToFile("src/main/resources/rounds_data.txt",numOfRounds);
-        lvl=new Level(18,12, getGame(),numOfRounds);
+        lvl=new Level(29,22, getGame(),numOfRounds);
     }
 
     // -------- UPDATE ------- //

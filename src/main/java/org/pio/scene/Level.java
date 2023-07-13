@@ -6,6 +6,7 @@ import org.pio.main.Game;
 import org.pio.readers.ReadFromFile;
 import org.pio.tiles.Tile;
 import org.pio.writers.Helper;
+import org.pio.writers.WriterMethods;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,8 +25,8 @@ public class Level extends GameScene {
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
         this.NUM_OF_ROUNDS=numOfRounds;
-        Level.lvlWidth = lvlWidth;
-        Level.lvlHeight = lvlHeight;
+        this.lvlWidth = lvlWidth;
+        this.lvlHeight = lvlHeight;
 
         lvlArr = new Tile[lvlHeight][lvlWidth];
         currentRound=START_ROUND;
@@ -33,7 +34,7 @@ public class Level extends GameScene {
 
         createLevelRoundsAndAddEnemies();
 
-        //getGame().getLvlManager().writeLevel();
+        WriterMethods.writeEmptyLevel();
         getGame().getLvlManager().readLevel();
 
     }
