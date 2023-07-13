@@ -235,6 +235,12 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         drawPlayerInfo(g);
 
         getGame().getAllyTowerManager().render(g);
+
+        if (mapEditMode){
+            g.setColor(Color.black);
+            g.drawRect((mouseX/32)*32,(mouseY/32)*32,32,32);
+        }
+
     }
 
     private void drawEnemies(Graphics g){
@@ -343,8 +349,16 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     public static int getMouseY() {
         return mouseY;
     }
-
     public static Player getPlayer() {
         return player;
+    }
+    public boolean isMapEditMode() {
+        return mapEditMode;
+    }
+
+    // -------- SET ------- //
+
+    public void setMapEditMode(boolean mapEditMode) {
+        this.mapEditMode = mapEditMode;
     }
 }

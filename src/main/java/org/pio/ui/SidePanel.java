@@ -168,6 +168,12 @@ public class SidePanel implements sidePanelMethods {
 
         if (editMode.getButtonsBounds().contains(x,y)){
 
+            if (!playScene.isMapEditMode()){
+                playScene.setMapEditMode(true);
+            }else {
+                playScene.setMapEditMode(false);
+            }
+
         }
 
         if (startRound.getButtonsBounds().contains(x,y)){
