@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class SidePanel implements sidePanelMethods {
+public class SidePanel {
     private BufferedImage spriteSidePanel;
     private BufferedImage spriteButtonAtlas;
     private BufferedImage spriteAllyTowerAtlas;
@@ -129,11 +129,6 @@ public class SidePanel implements sidePanelMethods {
         drawButtons(g);
         drawSelectedTurret(g);
 
-    }
-
-    @Override
-    public LinkedHashMap<Integer, bRectangleUpgrade> initButtonsHashMap() {
-        return null;
     }
 
     private void drawPanel(Graphics g) {

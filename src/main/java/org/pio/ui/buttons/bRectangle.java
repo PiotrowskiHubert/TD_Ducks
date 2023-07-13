@@ -27,4 +27,8 @@ public class bRectangle extends aButton implements buttonMethods {
         g.fillRect(posX, posY, width, height);
 
     }
+
+    public int addProgressStatus(){
+        return 0;
+    }
 }

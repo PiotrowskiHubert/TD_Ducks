@@ -12,7 +12,7 @@ public class bRectangleUpgrade extends bRectangle{
         this.numOfProgressBars = numOfProgressBars;
         this.progressStatus = 0;
     }
-
+    @Override
     public int addProgressStatus(){
         if (progressStatus >= numOfProgressBars) {
             return progressStatus;

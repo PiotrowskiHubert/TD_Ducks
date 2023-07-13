@@ -1,14 +1,13 @@
 package org.pio.ui.sidePanel;
 
-import org.pio.ui.buttons.aButton;
-import org.pio.ui.buttons.bRectangleUpgrade;
+import org.pio.ui.buttons.bRectangle;
 
 import java.awt.*;
 import java.util.LinkedHashMap;
 
 public abstract class aSidePanel implements sidePanelMethods {
     protected int width, height, posWidth, posHeight;
-    protected LinkedHashMap<Integer, bRectangleUpgrade> buttonLinkedMap;
+    protected LinkedHashMap<Integer, bRectangle> dataLinkedMap;
     protected Shape sidePanelBounds;
     public aSidePanel(int width, int height, int posWidth, int posHeight) {
         this.width = width;
@@ -32,9 +31,19 @@ public abstract class aSidePanel implements sidePanelMethods {
     @Override
     public void draw(Graphics g) {
         drawBody(g);
+        drawButtons(g);
     }
-    private void drawBody(Graphics g) {
+    protected void drawBody(Graphics g) {
         g.setColor(Color.black);
         g.fillRect(posWidth, posHeight, width, height);
+    }
+    private void drawButtons(Graphics g) {
+        if (dataLinkedMap !=null){
+
+            for (bRectangle button: dataLinkedMap.values()){
+                button.draw(g);
+            }
+
+        }
     }
 }

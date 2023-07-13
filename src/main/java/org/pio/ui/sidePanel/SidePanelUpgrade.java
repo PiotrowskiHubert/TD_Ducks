@@ -1,5 +1,6 @@
 package org.pio.ui.sidePanel;
 
+import org.pio.ui.buttons.bRectangle;
 import org.pio.ui.buttons.bRectangleUpgrade;
 
 import java.awt.*;
@@ -9,21 +10,20 @@ public class SidePanelUpgrade extends aSidePanel{
     public SidePanelUpgrade(int width, int height, int posWidth, int posHeight) {
         super(width, height, posWidth, posHeight);
 
-        buttonLinkedMap = initButtonsHashMap();
+        dataLinkedMap = initButtonsHashMap();
     }
     @Override
     public void mouseMoved(int x, int y) {
-        if (buttonLinkedMap!=null){
+        if (dataLinkedMap !=null){
 
-            for (bRectangleUpgrade button: buttonLinkedMap.values()){
+            for (bRectangle button: dataLinkedMap.values()){
                 if (button.isMouseOver()&&!button.getButtonBounds().contains(x,y)){
-
                     button.setMouseOver(false);
                     return;
                 }
             }
 
-            for (bRectangleUpgrade button: buttonLinkedMap.values()){
+            for (bRectangle button: dataLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
                     button.setMouseOver(true);
                     return;
@@ -35,12 +35,11 @@ public class SidePanelUpgrade extends aSidePanel{
     }
     @Override
     public void mouseClicked(int x, int y) {
-        if (buttonLinkedMap!=null){
+        if (dataLinkedMap !=null){
 
-            for (bRectangleUpgrade button: buttonLinkedMap.values()){
+            for (bRectangle button: dataLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
                     if (button.isMousePressed()){
-                        System.out.println("mousePressed");
                         button.addProgressStatus();
                         button.setMousePressed(false);
                         return;
@@ -52,11 +51,10 @@ public class SidePanelUpgrade extends aSidePanel{
     }
     @Override
     public void mousePressed(int x, int y) {
-        if (buttonLinkedMap!=null){
+        if (dataLinkedMap !=null){
 
-            for (bRectangleUpgrade button: buttonLinkedMap.values()){
+            for (bRectangle button: dataLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
-                    System.out.println("mousePressed_1111");
                     button.setMousePressed(true);
                     return;
                 }
@@ -66,9 +64,9 @@ public class SidePanelUpgrade extends aSidePanel{
     }
     @Override
     public void mouseReleased(int x, int y) {
-        if (buttonLinkedMap!=null){
+        if (dataLinkedMap !=null){
 
-            for (bRectangleUpgrade button: buttonLinkedMap.values()){
+            for (bRectangle button: dataLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
                     button.setMousePressed(false);
                 }
@@ -80,24 +78,11 @@ public class SidePanelUpgrade extends aSidePanel{
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        drawButtons(g);
     }
-
-    private void drawButtons(Graphics g) {
-        if (buttonLinkedMap!=null){
-
-            for (bRectangleUpgrade button: buttonLinkedMap.values()){
-
-                button.draw(g);
-            }
-
-        }
-    }
-
 
     @Override
-    public LinkedHashMap<Integer, bRectangleUpgrade> initButtonsHashMap() {
-        LinkedHashMap<Integer, bRectangleUpgrade> linkedMapButtons = new LinkedHashMap<>();
+    public LinkedHashMap<Integer, bRectangle> initButtonsHashMap() {
+        LinkedHashMap<Integer, bRectangle> linkedMapButtons = new LinkedHashMap<>();
 
         bRectangleUpgrade button_1 = new bRectangleUpgrade(posWidth+20, posHeight+20, 110, 110,"1" ,(linkedMapButtons.size()+1),5);
         linkedMapButtons.put( (linkedMapButtons.size()+1) ,button_1);

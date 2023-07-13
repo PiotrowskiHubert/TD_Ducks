@@ -25,7 +25,6 @@ public abstract class aButton implements buttonMethods {
         initBooleans();
         initBounds();
     }
-
     private void initBooleans() {
         mouseOver = false;
         mousePressed = false;
