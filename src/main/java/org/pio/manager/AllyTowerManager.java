@@ -22,9 +22,8 @@ public class AllyTowerManager {
     private List<ThirdTower> thirdTowerList;
     private List<FourthTower> fourthTowerList;
     private List<FifthTower> fifthTowerList;
-
     private static List<AllyTower> allyTowersList;
-    private static List<AllyTower> allyTowersPlaced;
+    public static List<AllyTower> allyTowersPlaced;
     private BufferedImage spriteAllyTowerAtlas;
 
     public AllyTowerManager() {
@@ -112,15 +111,7 @@ public class AllyTowerManager {
     }
 
     // ----------- RENDER ----------- //
-    public void render(Graphics g){
 
-        if (allyTowersPlaced!=null){
-            for (AllyTower allyTower: allyTowersPlaced){
-                allyTower.draw(g);
-            }
-        }
-
-    }
 
     // ----------- GET ----------- //
     private Boolean containsOtherTower(AllyTower allyTower){

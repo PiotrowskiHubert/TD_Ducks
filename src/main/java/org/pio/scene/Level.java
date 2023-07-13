@@ -1,6 +1,10 @@
 package org.pio.scene;
 
+import org.pio.Entities.AllyTowers.AllyTower;
+import org.pio.Entities.Enemies.Enemy;
 import org.pio.main.GameScreen;
+import org.pio.manager.AllyTowerManager;
+import org.pio.player.Player;
 import org.pio.writers.KeyPoints;
 import org.pio.main.Game;
 import org.pio.readers.ReadFromFile;
@@ -11,8 +15,6 @@ import org.pio.writers.WriterMethods;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-
 public class Level extends GameScene {
     private final int START_ROUND=0;
     private final int NUM_OF_ROUNDS;
@@ -72,7 +74,12 @@ public class Level extends GameScene {
     // -------- DRAW ------- //
 
     public void drawLevel(Graphics g){
-
+        drawTiles(g);
+        drawEnemies(g);
+        drawAllyTowerPlaced(g);
+        drawRoundInfo(g);
+    }
+    private void drawTiles(Graphics g) {
         for (int i = 0; i < lvlHeight; i++) {
             for (int j = 0; j < lvlWidth; j++) {
 
@@ -87,11 +94,38 @@ public class Level extends GameScene {
             }
         }
     }
-    public void drawRoundInfo(Graphics g){
+    private void drawRoundInfo(Graphics g){
         g.setColor(Color.BLACK);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         g.drawString("Round: " + (currentRound) + "/" + (NUM_OF_ROUNDS-1), 10, 20);
+
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        g.drawString("Player Health: " + Player.getHealth(), 10, 40);
+        g.drawString("Player Money: " + Player.getGold(), 10, 60);
     }
+    private void drawEnemies(Graphics g){
+        if (currentRound < NUM_OF_ROUNDS){
+            if (!roundList.get(currentRound).getEnemies().isEmpty()) {
+                for (Enemy enemy : getRoundList().get(currentRound).getEnemies()) {
+                    //g.drawRect(enemy.getEntityBounds().x, enemy.getEntityBounds().y, enemy.getEntityBounds().width, enemy.getEntityBounds().height);
+                    //g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
+                    enemy.drawEntity(g);
+                }
+            }
+        }
+    }
+    private void drawAllyTowerPlaced(Graphics g){
+
+        if (AllyTowerManager.allyTowersPlaced!=null){
+            for (AllyTower allyTower: AllyTowerManager.allyTowersPlaced){
+                allyTower.draw(g);
+            }
+        }
+
+    }
+
+
 
     // -------- GET ------- //
 

@@ -1,27 +1,27 @@
 package org.pio.player;
 
 public class Player {
-    int gold;
-    int health;
+    static int gold;
+    static int health;
 
     public Player(int gold, int health) {
-        this.gold = gold;
-        this.health = health;
+        Player.gold = gold;
+        Player.health = health;
     }
 
-    public int getGold() {
+    public static int getGold() {
         return gold;
     }
 
-    public int getHealth() {
+    public static int getHealth() {
         return health;
     }
 
     public void setGold(int gold) {
-        this.gold = gold;
+        Player.gold = gold;
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        Player.health = health;
     }
 }

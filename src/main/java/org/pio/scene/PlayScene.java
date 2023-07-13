@@ -230,41 +230,15 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     public void render(Graphics g){
         lvl.drawLevel(g);
         sidePanel.draw(g);
-        drawEnemies(g);
-        lvl.drawRoundInfo(g);
-        drawPlayerInfo(g);
 
-        getGame().getAllyTowerManager().render(g);
+        drawEditModeTileHighlight(g);
+    }
 
+    private void drawEditModeTileHighlight(Graphics g) {
         if (mapEditMode){
             g.setColor(Color.black);
-            g.drawRect((mouseX/32)*32,(mouseY/32)*32,32,32);
+            g.drawRect((mouseX/GameScreen.UNIT_SIZE)*GameScreen.UNIT_SIZE,(mouseY/GameScreen.UNIT_SIZE)*GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE);
         }
-
-    }
-
-    private void drawEnemies(Graphics g){
-
-        if (Level.currentRound < getLvl().getNUM_OF_ROUNDS()){
-            if (!Level.getRoundList().get(Level.currentRound).getEnemies().isEmpty()) {
-                for (Enemy enemy : Level.getRoundList().get(Level.currentRound).getEnemies()) {
-                    //g.drawRect(enemy.getEntityBounds().x, enemy.getEntityBounds().y, enemy.getEntityBounds().width, enemy.getEntityBounds().height);
-                    //g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
-
-                    enemy.drawEntity(g);
-
-                }
-            }
-        }
-    }
-
-    public void drawPlayerInfo(Graphics g){
-
-        // DRAW PLAYER INFO ON TOP LEFT CORNER AFTER DRAW ROUND INFO
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-        g.drawString("Player Health: " + player.getHealth(), 10, 40);
-        g.drawString("Player Money: " + player.getGold(), 10, 60);
     }
 
     // -------- INPUTS ------- //
