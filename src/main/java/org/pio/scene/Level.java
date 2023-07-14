@@ -21,7 +21,7 @@ public class Level extends GameScene {
     private final int NUM_OF_ROUNDS;
     public static int currentRound;
     private static int lvlHeight, lvlWidth;
-    private static Tile [][] lvlArr;
+    public static Tile [][] lvlArr;
     private static List<Round> roundList;
     private static List<KeyPoints> keyPointsList;
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class LvlManager {
     private BufferedImage spriteTileAtlas;
-    public Tile GRASS, ROAD;
+    public static Tile GRASS, ROAD;
     public ArrayList<Tile> tiles;
 
     public LvlManager() {

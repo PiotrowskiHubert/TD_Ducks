@@ -1,6 +1,8 @@
 package org.pio.ui.sidePanel;
 
 import org.pio.main.GameScreen;
+import org.pio.manager.LvlManager;
+import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
 import org.pio.tiles.Tile;
 import org.pio.ui.buttons.bRectangle;
@@ -44,39 +46,50 @@ public class SidePanelEditMap extends aSidePanel{
 
     @Override
     public void mouseClicked(int x, int y) {
-        if (dataLinkedMap !=null){
+        if (x>29*GameScreen.UNIT_SIZE) {
 
-            for (bRectangle button: dataLinkedMap.values()){
+            if (dataLinkedMap != null) {
 
-                if (button.isMousePressed()&&button.equals(dataLinkedMap.get(1))){
-                    selectedTile=sidePanelEditMapMethods.selectTile(dataLinkedMap.get(1).id);
-                    button.setMousePressed(false);
-                    return;
-                }
+                for (bRectangle button : dataLinkedMap.values()) {
+
+                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(1))) {
+                        selectedTile = sidePanelEditMapMethods.selectTile(dataLinkedMap.get(1).id);
+                        button.setMousePressed(false);
+                        return;
+                    }
 
 
-                if (button.isMousePressed()&&button.equals(dataLinkedMap.get(21))){
-                    sidePanelEditMapMethods.closeEditMapMode();
-                    button.setMousePressed(false);
-                    return;
+                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(21))) {
+                        sidePanelEditMapMethods.closeEditMapMode();
+                        button.setMousePressed(false);
+                        return;
+                    }
                 }
             }
+
+        } else if (x<29*GameScreen.UNIT_SIZE&&selectedTile!=null){
+
+            Level.lvlArr[PlayScene.getMouseY()/32][PlayScene.getMouseX()/32]=new Tile("ROAD", LvlManager.ROAD.getId(),LvlManager.ROAD.getSprite());
+
         }
+
+
     }
 
     @Override
     public void mousePressed(int x, int y) {
-        if (dataLinkedMap !=null){
+            if (dataLinkedMap !=null){
 
-            for (bRectangle button: dataLinkedMap.values()){
-                if (button.getButtonBounds().contains(x,y)){
-                    button.setMousePressed(true);
-                    return;
+                for (bRectangle button: dataLinkedMap.values()){
+                    if (button.getButtonBounds().contains(x,y)){
+                        button.setMousePressed(true);
+                        return;
+                    }
+
                 }
 
             }
 
-        }
     }
 
     @Override

@@ -221,7 +221,10 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
             sidePanel.mouseClicked(x,y);
         }else if (x>29*GameScreen.UNIT_SIZE&&mapEditMode){
             editSidePanel.mouseClicked(x,y);
+        }else if (x<29*GameScreen.UNIT_SIZE&&mapEditMode) {
+            editSidePanel.mouseClicked(x, y);
         }
+
 
         if (x<29*GameScreen.UNIT_SIZE){
 
