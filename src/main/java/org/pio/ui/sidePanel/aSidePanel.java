@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 
 public abstract class aSidePanel implements sidePanelMethods {
     protected int width, height, posWidth, posHeight;
-    protected LinkedHashMap<Integer, bRectangle> dataLinkedMap;
+    public static LinkedHashMap<Integer, bRectangle> dataLinkedMap;
     protected Shape sidePanelBounds;
     public aSidePanel(int width, int height, int posWidth, int posHeight) {
         this.width = width;
@@ -33,11 +33,11 @@ public abstract class aSidePanel implements sidePanelMethods {
         drawBody(g);
         drawButtons(g);
     }
-    protected void drawBody(Graphics g) {
+    private void drawBody(Graphics g) {
         g.setColor(Color.black);
         g.fillRect(posWidth, posHeight, width, height);
     }
-    private void drawButtons(Graphics g) {
+    protected void drawButtons(Graphics g) {
         if (dataLinkedMap !=null){
 
             for (bRectangle button: dataLinkedMap.values()){

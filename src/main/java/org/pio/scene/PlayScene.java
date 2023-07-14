@@ -24,7 +24,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     private static Player player;
     private SidePanel sidePanel;
     private SidePanelEditMap editSidePanel;
-    private boolean mapEditMode;
+    private static boolean mapEditMode;
     private static int mouseX, mouseY;
 
     public PlayScene(Game game) {
@@ -41,7 +41,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     // -------- INIT ------- //
     private void initMapEditSidePanel(){
-        editSidePanel = new SidePanelEditMap(3*GameScreen.UNIT_SIZE, 22*GameScreen.UNIT_SIZE, 29*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE);
+        editSidePanel = new SidePanelEditMap(3*GameScreen.UNIT_SIZE, 22*GameScreen.UNIT_SIZE, 29*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, this);
     }
     private void initPlayer(){
         player=new Player(2000,100);
@@ -197,7 +197,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
             sidePanel.draw(g);
         }else if(mapEditMode){
             drawEditModeSidePanel(g);
-            drawEditModeTileHighlight(g);
+            //drawEditModeTileHighlight(g);
         }
 
     }
@@ -219,9 +219,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     public void leftMouseClicked(int x, int y) {
         if (x>29*GameScreen.UNIT_SIZE&&!mapEditMode){
             sidePanel.mouseClicked(x,y);
-        }
-
-        if (x>29*GameScreen.UNIT_SIZE&&mapEditMode){
+        }else if (x>29*GameScreen.UNIT_SIZE&&mapEditMode){
             editSidePanel.mouseClicked(x,y);
         }
 
@@ -254,9 +252,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
         if (x>29*GameScreen.UNIT_SIZE&&!mapEditMode){
             sidePanel.mouseMoved(x,y);
-        }
-
-        if (x>29*GameScreen.UNIT_SIZE&&mapEditMode){
+        }else if (x>29*GameScreen.UNIT_SIZE&&mapEditMode){
             editSidePanel.mouseMoved(x,y);
         }
 
@@ -268,6 +264,8 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     public void mousePressed(int x, int y) {
         if (x>29*GameScreen.UNIT_SIZE&&!mapEditMode){
             sidePanel.mousePressed(x,y);
+        }else if (x>29*GameScreen.UNIT_SIZE&&mapEditMode){
+            editSidePanel.mousePressed(x,y);
         }
 
         if (x<29*GameScreen.UNIT_SIZE){
@@ -305,13 +303,13 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     public static Player getPlayer() {
         return player;
     }
-    public boolean isMapEditMode() {
+    public static boolean isMapEditMode() {
         return mapEditMode;
     }
 
     // -------- SET ------- //
 
-    public void setMapEditMode(boolean mapEditMode) {
-        this.mapEditMode = mapEditMode;
+    public static void setMapEditMode(boolean mapEditMode) {
+        PlayScene.mapEditMode = mapEditMode;
     }
 }

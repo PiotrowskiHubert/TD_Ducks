@@ -1,5 +1,6 @@
 package org.pio.tiles;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Tile {
@@ -8,7 +9,15 @@ public class Tile {
     private static int width, height;
     private int posX, posY;
     private boolean isSolid;
+    public Color color;
     int id;
+
+    public Tile(int width, int height, String tileName, int id) {
+        this.width = width;
+        this.height = height;
+        this.tileName = tileName;
+        this.id = id;
+    }
 
     public Tile(String tileName, int id, BufferedImage sprite){
         this.tileName=tileName;
