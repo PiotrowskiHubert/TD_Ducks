@@ -36,7 +36,7 @@ public class Game extends JFrame implements Runnable {
 
     private void initClass(){
         gameScreen=new GameScreen(this);
-        gameStates=GameStates.GAME;
+        gameStates=GameStates.PREGAME;
 
         render=new Render(this);
         update=new Update(this);

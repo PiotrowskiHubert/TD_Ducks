@@ -120,8 +120,6 @@ abstract class aPreGamePlayer implements iPreGamePlayer {
             System.out.println("FailedToLoadPlayerAtlas");
         }
 
-        System.out.println("done");
-
         return img;
     }
 
