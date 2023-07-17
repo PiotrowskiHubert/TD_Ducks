@@ -4,11 +4,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class tTile extends aTile{
+    private TileManager tileManager;
     private int posX, posY;
     private String tileName;
     private Shape tileBounds;
     private BufferedImage sprite;
-
 
     public tTile(int width, int height, int posX, int posY, String tileName, int id, BufferedImage sprite) {
         super(width, height, id);
@@ -18,11 +18,11 @@ public class tTile extends aTile{
         this.sprite = sprite;
         this.tileBounds = TileBounds();
 
+        tileManager=new TileManager();
     }
 
     private Shape TileBounds() {
         return new Rectangle(posX, posY, getWidth(), getHeight());
     }
-
 
 }

@@ -35,9 +35,6 @@ public class PreGameScene implements sceneMeethods, keyboardMethods {
     public void update() {
         player.update();
 
-
-
-
     }
 
     public void updateAnimations(){

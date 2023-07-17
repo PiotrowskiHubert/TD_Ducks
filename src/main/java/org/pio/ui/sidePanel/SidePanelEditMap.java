@@ -69,7 +69,7 @@ public class SidePanelEditMap extends aSidePanel{
 
         } else if (x<29*GameScreen.UNIT_SIZE&&selectedTile!=null){
 
-            Level.lvlArr[PlayScene.getMouseY()/32][PlayScene.getMouseX()/32]=new Tile("ROAD", LvlManager.ROAD.getId(),LvlManager.ROAD.getSprite());
+//            Level.lvlArr[PlayScene.getMouseY()/32][PlayScene.getMouseX()/32]=new Tile("ROAD", LvlManager.ROAD.getId(),LvlManager.ROAD.getSprite());
 
         }
 

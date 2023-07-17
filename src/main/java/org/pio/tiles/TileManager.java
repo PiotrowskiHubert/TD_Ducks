@@ -47,11 +47,7 @@ public class TileManager {
     private BufferedImage setTile(int xCord, int yCord, int widthTile,int heightTile,BufferedImage spriteAtlas){
         return spriteAtlas.getSubimage(xCord*widthTile, yCord*heightTile, widthTile, heightTile);
     }
-
-    public BufferedImage getSpriteAtlas() {
-        return spriteAtlas;
-    }
-    public LinkedHashMap<String, BufferedImage> getGrassTileSet() {
-        return grassTileSet;
+    public BufferedImage getTile(String tileName){
+        return grassTileSet.get(tileName);
     }
 }

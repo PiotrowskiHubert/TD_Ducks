@@ -130,11 +130,7 @@ public class Level extends GameScene {
                 if (lvlArr[i][j].getTileName().equals("GRASS")){
                     g.drawImage(getGame().getLvlManager().GRASS.getSprite(), j* GameScreen.UNIT_SIZE, i*GameScreen.UNIT_SIZE, null);
                 }
-
-                if (lvlArr[i][j].getTileName().equals("ROAD")){
-                    g.drawImage(getGame().getLvlManager().ROAD.getSprite(), j*GameScreen.UNIT_SIZE, i*GameScreen.UNIT_SIZE, null);
-                }
-
+                
             }
         }
     }

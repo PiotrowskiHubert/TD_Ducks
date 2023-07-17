@@ -3,6 +3,7 @@ package org.pio.manager;
 import org.pio.scene.GameScene;
 import org.pio.scene.Level;
 import org.pio.tiles.Tile;
+import org.pio.tiles.TileManager;
 import org.pio.writers.WriterMethods;
 
 import javax.imageio.ImageIO;
@@ -11,11 +12,13 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class LvlManager {
+    private TileManager tileManager;
     private BufferedImage spriteTileAtlas;
-    public static Tile GRASS, ROAD;
+    public static Tile GRASS;
     public ArrayList<Tile> tiles;
 
     public LvlManager() {
+        tileManager = new TileManager();
         loadTileAtlas();
         createTiles();
     }
@@ -24,8 +27,8 @@ public class LvlManager {
         tiles = new ArrayList<>();
 
         int id = 0;
-        tiles.add(GRASS=new Tile("GRASS", id++, getSprite(0,0,Tile.getWidth(), Tile.getHeight())));
-        tiles.add(ROAD=new Tile("ROAD", id++, getSprite(1,0,Tile.getWidth(),Tile.getHeight())));
+        tiles.add(GRASS=new Tile("GRASS", id++, tileManager.getTile("GRASS_TILE_0_6")));
+        //tiles.add(GRASS=new Tile("GRASS", id++, tileManager.getTile("asd"),Tile.getWidth(), Tile.getHeight()));
 
     }
 
@@ -54,10 +57,6 @@ public class LvlManager {
 
                 if (nextLine.equals("1")){
                     Level.getLvlArr()[i][j]=new Tile("GRASS", GRASS.getId(),GRASS.getSprite());
-                }
-
-                if (nextLine.equals("2")){
-                    Level.getLvlArr()[i][j]=new Tile("ROAD", ROAD.getId(),ROAD.getSprite());
                 }
 
                 j++;
