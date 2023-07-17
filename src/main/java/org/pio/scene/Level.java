@@ -6,14 +6,17 @@ import org.pio.main.GameScreen;
 import org.pio.manager.AllyTowerManager;
 import org.pio.manager.PlayerManager;
 import org.pio.player.Player;
-import org.pio.writers.KeyPoints;
+import org.pio.tiles.TileManager;
+import org.pio.tiles.tTile;
+import org.pio.helpz.KeyPoints;
 import org.pio.main.Game;
 import org.pio.readers.ReadFromFile;
-import org.pio.tiles.Tile;
-import org.pio.writers.Helper;
-import org.pio.writers.WriterMethods;
+import org.pio.helpz.Helper;
+import org.pio.helpz.Readers;
+import org.pio.helpz.Writers;
 
 import java.awt.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 public class Level extends GameScene {
@@ -21,7 +24,7 @@ public class Level extends GameScene {
     private final int NUM_OF_ROUNDS;
     public static int currentRound;
     private static int lvlHeight, lvlWidth;
-    public static Tile [][] lvlArr;
+    private static tTile [][] lvlArr;
     private static List<Round> roundList;
     private static List<KeyPoints> keyPointsList;
 
@@ -31,15 +34,15 @@ public class Level extends GameScene {
         this.lvlWidth = lvlWidth;
         this.lvlHeight = lvlHeight;
 
-        lvlArr = new Tile[lvlHeight][lvlWidth];
+        lvlArr = new tTile[lvlHeight][lvlWidth];
+
         currentRound=START_ROUND;
         roundList = new ArrayList<>();
 
         createLevelRoundsAndAddEnemies();
 
-        WriterMethods.writeEmptyLevel();
-        getGame().getLvlManager().readLevel();
-
+        Writers.writeEmptyLevel();
+        Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl.txt"));
     }
 
     // -------- INIT ------- //
@@ -126,11 +129,7 @@ public class Level extends GameScene {
     private void drawTiles(Graphics g) {
         for (int i = 0; i < lvlHeight; i++) {
             for (int j = 0; j < lvlWidth; j++) {
-
-                if (lvlArr[i][j].getTileName().equals("GRASS")){
-                    g.drawImage(getGame().getLvlManager().GRASS.getSprite(), j* GameScreen.UNIT_SIZE, i*GameScreen.UNIT_SIZE, null);
-                }
-                
+                lvlArr[i][j].draw(g);
             }
         }
     }
@@ -158,6 +157,7 @@ public class Level extends GameScene {
     private void drawAllyTowerPlaced(Graphics g){
 
         if (AllyTowerManager.allyTowersPlaced!=null){
+
             for (AllyTower allyTower: AllyTowerManager.allyTowersPlaced){
                 allyTower.draw(g);
             }
@@ -176,7 +176,7 @@ public class Level extends GameScene {
     public static int getLvlWidth() {
         return lvlWidth;
     }
-    public static Tile[][] getLvlArr() {
+    public static tTile[][] getLvlArr() {
         return lvlArr;
     }
     public static int getCurrentRound() {

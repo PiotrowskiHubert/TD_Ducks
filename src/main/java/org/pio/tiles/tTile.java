@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class tTile extends aTile{
-    private TileManager tileManager;
     private int posX, posY;
     private String tileName;
     private Shape tileBounds;
@@ -16,13 +15,27 @@ public class tTile extends aTile{
         this.posY = posY;
         this.tileName = tileName;
         this.sprite = sprite;
-        this.tileBounds = TileBounds();
-
-        tileManager=new TileManager();
+        this.tileBounds = tileBounds();
     }
 
-    private Shape TileBounds() {
+    public tTile(String tileName, int width, int height, int id, BufferedImage sprite){
+        super(width, height, id);
+        this.tileName=tileName;
+        this.sprite=sprite;
+    }
+
+    public void draw(Graphics g){
+        g.drawImage(sprite, posX, posY, null);
+    }
+
+    private Shape tileBounds() {
         return new Rectangle(posX, posY, getWidth(), getHeight());
+    }
+    public String getTileName() {
+        return tileName;
+    }
+    public BufferedImage getSprite() {
+        return sprite;
     }
 
 }

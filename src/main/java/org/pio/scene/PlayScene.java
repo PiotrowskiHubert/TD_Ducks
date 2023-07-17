@@ -11,13 +11,11 @@ import org.pio.manager.AllyTowerManager;
 import org.pio.manager.PlayerManager;
 import org.pio.ui.SidePanel;
 import org.pio.ui.sidePanel.SidePanelEditMap;
-import org.pio.ui.sidePanel.aSidePanel;
-import org.pio.writers.Helper;
+import org.pio.helpz.Helper;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
-import java.util.List;
 
 public class PlayScene extends GameScene implements sceneMeethods, mouseMethods {
     private Level lvl;

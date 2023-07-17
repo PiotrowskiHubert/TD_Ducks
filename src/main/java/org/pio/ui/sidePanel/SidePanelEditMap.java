@@ -1,8 +1,6 @@
 package org.pio.ui.sidePanel;
 
 import org.pio.main.GameScreen;
-import org.pio.manager.LvlManager;
-import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
 import org.pio.tiles.Tile;
 import org.pio.ui.buttons.bRectangle;

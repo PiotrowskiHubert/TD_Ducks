@@ -2,12 +2,11 @@ package org.pio.manager;
 
 import org.pio.Entities.AllyTowers.AllyTower;
 import org.pio.Entities.Bullet;
-import org.pio.main.GameScreen;
-import org.pio.writers.Helper;
+import org.pio.helpz.Helper;
 
 import java.util.Iterator;
 
-import static org.pio.writers.Helper.distanceBetweenTwoPoints;
+import static org.pio.helpz.Helper.distanceBetweenTwoPoints;
 
 public class BulletManager {
 

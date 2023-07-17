@@ -1,10 +1,10 @@
-package org.pio.writers;
+package org.pio.helpz;
 
 import org.pio.scene.Level;
 
 import java.io.*;
 
-public class WriterMethods {
+public class Writers {
     public static void writeEmptyLevel(){
 
         String fileName = "src/main/resources/LevelInfo/lvl.txt";
