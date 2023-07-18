@@ -1,6 +1,5 @@
 package org.pio.scene;
 
-import org.pio.inputs.KeyStates;
 import org.pio.inputs.keyboardMethods;
 import org.pio.level.mapObjects.MapObject;
 import org.pio.main.Game;
@@ -22,7 +21,7 @@ public class PreGameScene implements sceneMeethods, keyboardMethods {
         double scale = 2.0;
 
         level = new preGameLevel(30, 20);
-        player = new PreGamePlayer(GameScreen.screenWidth/2,GameScreen.screenHeight/2, GameScreen.UNIT_SIZE*scale, GameScreen.UNIT_SIZE*2*scale, 3, "player");
+        player = new PreGamePlayer(GameScreen.screenWidth/2,GameScreen.UNIT_SIZE /2, GameScreen.UNIT_SIZE*scale, GameScreen.UNIT_SIZE*2*scale, 3, "player");
     }
 
     @Override

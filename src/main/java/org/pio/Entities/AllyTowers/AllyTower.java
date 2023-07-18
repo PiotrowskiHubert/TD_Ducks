@@ -38,7 +38,7 @@ public class AllyTower extends Entity {
         this.range=range;
         this.cost=cost;
         this.index=index;
-        sidePanelUpgrade=new SidePanelUpgrade(150,GameScreen.screenHeight, GameScreen.screenWidth-250,0);
+        sidePanelUpgrade=new SidePanelUpgrade(150,GameScreen.UNIT_SIZE, GameScreen.screenWidth-250,0);
 
         this.lastShot=System.nanoTime();
         this.lastTimeCheck=System.currentTimeMillis();

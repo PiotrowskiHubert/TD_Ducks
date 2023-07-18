@@ -7,6 +7,10 @@ public class bRectangle extends aButton implements buttonMethods {
         super(posX, posY, width, height, name, id);
     }
 
+    public bRectangle() {
+        super();
+    }
+
     @Override
     public void initBounds() {
         buttonBounds = new Rectangle(posX, posY, width, height);

@@ -4,11 +4,9 @@ package org.pio.inputs;
 import org.pio.main.Game;
 import org.pio.main.GameStates;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
-public class MyMouseListener implements MouseListener, MouseMotionListener {
+public class MyMouseListener implements MouseListener, MouseMotionListener, MouseWheelListener {
     private Game game;
 
     public MyMouseListener(Game game) {
@@ -64,6 +62,11 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
 
     }
 }

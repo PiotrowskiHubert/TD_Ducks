@@ -21,6 +21,9 @@ public abstract class aButton implements buttonMethods {
         init();
     }
 
+    public aButton() {
+    }
+
     private void init(){
         initBooleans();
         initBounds();
@@ -39,6 +42,9 @@ public abstract class aButton implements buttonMethods {
     }
     public Shape getButtonBounds() {
         return buttonBounds;
+    }
+    public int getId() {
+        return id;
     }
 
     public void setMouseOver(boolean mouseOver) {

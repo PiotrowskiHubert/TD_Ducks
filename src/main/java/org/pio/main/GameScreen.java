@@ -12,8 +12,7 @@ public class GameScreen extends JPanel {
     private MyMouseListener myMouseListener;
     private KeyboardListener keyboardListener;
 
-    public static int screenWidth;
-    public static int screenHeight;
+    public static int screenWidth,screenHeight;
     public static final int UNIT_SIZE =32;
 
     public GameScreen(Game game){
@@ -25,10 +24,9 @@ public class GameScreen extends JPanel {
         int rightSidePanelSize=3* UNIT_SIZE;
 
         this.screenWidth=29* UNIT_SIZE +rightSidePanelSize;
-
         this.screenHeight=22* UNIT_SIZE;
 
-        dimensionSize=new Dimension(screenWidth,screenHeight);
+        dimensionSize=new Dimension(screenWidth, screenHeight);
 
         setMinimumSize(dimensionSize);
         setMaximumSize(dimensionSize);

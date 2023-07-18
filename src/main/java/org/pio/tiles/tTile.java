@@ -15,6 +15,7 @@ public class tTile extends aTile{
         this.posY = posY;
         this.tileName = tileName;
         this.sprite = sprite;
+
         this.tileBounds = tileBounds();
     }
 
@@ -37,5 +38,15 @@ public class tTile extends aTile{
     public BufferedImage getSprite() {
         return sprite;
     }
+    public Shape getTileBounds() {
+        return tileBounds;
+    }
 
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
 }

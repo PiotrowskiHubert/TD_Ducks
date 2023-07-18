@@ -7,6 +7,10 @@ public class bRectangleTile extends bRectangle{
         super(posX, posY, width, height, name, id);
     }
 
+    public bRectangleTile() {
+        super();
+    }
+
     @Override
     public void draw(Graphics g) {
         super.draw(g);
