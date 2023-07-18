@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 
 public class TileManager {
     private final BufferedImage spriteAtlas;
-    private static LinkedHashMap<String, aTile> grassTileSet;
+    private static LinkedHashMap<Integer, aTile> grassTileSet;
 
     public TileManager(){
         spriteAtlas= setSpriteAtlas();
@@ -34,14 +34,15 @@ public class TileManager {
 
         return img;
     }
-    private LinkedHashMap<String, aTile> setGrassTileSet(){
-        LinkedHashMap<String, aTile> grassTileSet=new LinkedHashMap<>();
+    private LinkedHashMap<Integer, aTile> setGrassTileSet(){
+        LinkedHashMap<Integer, aTile> grassTileSet=new LinkedHashMap<>();
         int index=0;
 
         for (int height = 0; height < 8; height++) {
             for (int width = 0; width < 8; width++) {
-                tTile tile=new tTile("GRASS_TILE_"+height+"_"+width, 32, 32, index++, setTile(width, height, 32, 32, spriteAtlas));
-                grassTileSet.put(tile.getTileName(), tile);
+                tTile tile=new tTile("GRASS_TILE_"+height+"_"+width, 32, 32, ++index, setTile(width, height, 32, 32, spriteAtlas));
+                System.out.println(tile.getId());
+                grassTileSet.put(tile.getId(), tile);
             }
         }
 
@@ -50,10 +51,10 @@ public class TileManager {
     private BufferedImage setTile(int xCord, int yCord, int widthTile,int heightTile,BufferedImage spriteAtlas){
         return spriteAtlas.getSubimage(xCord*widthTile, yCord*heightTile, widthTile, heightTile);
     }
-    public static aTile getTile(String tileName){
-        return grassTileSet.get(tileName);
+    public static aTile getTile(int id){
+        return grassTileSet.get(id);
     }
-    public static LinkedHashMap<String, aTile> getGrassTileSet() {
+    public static LinkedHashMap<Integer, aTile> getGrassTileSet() {
         return grassTileSet;
     }
 }

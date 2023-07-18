@@ -7,7 +7,8 @@ import java.util.LinkedHashMap;
 
 public abstract class aSidePanel implements sidePanelMethods {
     protected int width, height, posWidth, posHeight;
-    public static LinkedHashMap<Integer, bRectangle> dataLinkedMap;
+    public static LinkedHashMap<Integer, bRectangle> currentDataLinkedMap;
+    public static LinkedHashMap<Integer, bRectangle> allDataLinkedMap;
     protected Shape sidePanelBounds;
     public aSidePanel(int width, int height, int posWidth, int posHeight) {
         this.width = width;
@@ -38,14 +39,16 @@ public abstract class aSidePanel implements sidePanelMethods {
         g.fillRect(posWidth, posHeight, width, height);
     }
     protected void drawButtons(Graphics g) {
-        if (dataLinkedMap !=null){
+        if (currentDataLinkedMap !=null){
 
             // DISPLAY FROM X TO Y
 
             int x = 0;
             int y = 10;
 
-            dataLinkedMap.values().stream().skip(x).limit(y).forEach(button -> button.draw(g));
+            currentDataLinkedMap.values().stream().forEach(button -> button.draw(g));
+
+//            currentDataLinkedMap.values().stream().skip(x).limit(y).forEach(button -> button.draw(g));
 
             //dataLinkedMap.values().forEach(button -> button.draw(g));
 

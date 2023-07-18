@@ -10,20 +10,20 @@ public class SidePanelUpgrade extends aSidePanel{
     public SidePanelUpgrade(int width, int height, int posWidth, int posHeight) {
         super(width, height, posWidth, posHeight);
 
-        dataLinkedMap = initButtonsHashMap();
+        currentDataLinkedMap = initButtonsHashMap();
     }
     @Override
     public void mouseMoved(int x, int y) {
-        if (dataLinkedMap !=null){
+        if (currentDataLinkedMap !=null){
 
-            for (bRectangle button: dataLinkedMap.values()){
+            for (bRectangle button: currentDataLinkedMap.values()){
                 if (button.isMouseOver()&&!button.getButtonBounds().contains(x,y)){
                     button.setMouseOver(false);
                     return;
                 }
             }
 
-            for (bRectangle button: dataLinkedMap.values()){
+            for (bRectangle button: currentDataLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
                     button.setMouseOver(true);
                     return;
@@ -35,9 +35,9 @@ public class SidePanelUpgrade extends aSidePanel{
     }
     @Override
     public void mouseClicked(int x, int y) {
-        if (dataLinkedMap !=null){
+        if (currentDataLinkedMap !=null){
 
-            for (bRectangle button: dataLinkedMap.values()){
+            for (bRectangle button: currentDataLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
                     if (button.isMousePressed()){
                         button.addProgressStatus();
@@ -51,9 +51,9 @@ public class SidePanelUpgrade extends aSidePanel{
     }
     @Override
     public void mousePressed(int x, int y) {
-        if (dataLinkedMap !=null){
+        if (currentDataLinkedMap !=null){
 
-            for (bRectangle button: dataLinkedMap.values()){
+            for (bRectangle button: currentDataLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
                     button.setMousePressed(true);
                     return;
@@ -64,9 +64,9 @@ public class SidePanelUpgrade extends aSidePanel{
     }
     @Override
     public void mouseReleased(int x, int y) {
-        if (dataLinkedMap !=null){
+        if (currentDataLinkedMap !=null){
 
-            for (bRectangle button: dataLinkedMap.values()){
+            for (bRectangle button: currentDataLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
                     button.setMousePressed(false);
                 }

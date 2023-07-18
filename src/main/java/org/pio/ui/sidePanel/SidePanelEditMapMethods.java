@@ -14,7 +14,7 @@ public class SidePanelEditMapMethods{
     public Tile selectTile(int id){
 
         if (id==1){
-            Tile tile = new Tile(SidePanelEditMap.dataLinkedMap.get(id).width, SidePanelEditMap.dataLinkedMap.get(id).height, SidePanelEditMap.dataLinkedMap.get(id).name, SidePanelEditMap.dataLinkedMap.get(id).id);
+            Tile tile = new Tile(SidePanelEditMap.currentDataLinkedMap.get(id).width, SidePanelEditMap.currentDataLinkedMap.get(id).height, SidePanelEditMap.currentDataLinkedMap.get(id).name, SidePanelEditMap.currentDataLinkedMap.get(id).id);
             tile.color=new Color(0xFFA1106E, true);
             return tile;
         }

@@ -6,10 +6,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class bRectangleTileWImage extends bRectangleTile {
-    BufferedImage sprite;
+    private BufferedImage sprite;
 
     public bRectangleTileWImage(int posX, int posY, int width, int height, String name, int id, BufferedImage sprite) {
         super(posX, posY, width, height, name, id);
+        initBounds();
+        this.sprite = sprite;
+    }
+
+    public bRectangleTileWImage(int width, int height, String name, int id, BufferedImage sprite) {
+        super(width, height, name, id);
         this.sprite = sprite;
     }
 
@@ -26,5 +32,8 @@ public class bRectangleTileWImage extends bRectangleTile {
             g.fillRect(posX, posY, width, height);
         }
 
+    }
+    public BufferedImage getSprite() {
+        return sprite;
     }
 }

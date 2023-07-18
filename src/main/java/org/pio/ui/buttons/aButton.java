@@ -1,6 +1,7 @@
 package org.pio.ui.buttons;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Collection;
 
 public abstract class aButton implements buttonMethods {
@@ -9,6 +10,14 @@ public abstract class aButton implements buttonMethods {
     public int id;
     public boolean mouseOver, mousePressed;
     public Shape buttonBounds;
+
+    public aButton(int width, int height, String name, int id) {
+        this.width = width;
+        this.height = height;
+        this.name = name;
+        this.id = id;
+        initBooleans();
+    }
 
     public aButton(int posX, int posY, int width, int height, String name, int id) {
         this.posX = posX;
@@ -53,4 +62,6 @@ public abstract class aButton implements buttonMethods {
     public void setMousePressed(boolean mousePressed) {
         this.mousePressed = mousePressed;
     }
+    public abstract BufferedImage getSprite();
+
 }

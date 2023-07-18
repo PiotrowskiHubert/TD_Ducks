@@ -29,13 +29,13 @@ public class Readers {
                 }
 
                 if (nextLine.equals("1")){
-                    Level.getLvlArr()[i][j]=new tTile(TileManager.getTile("GRASS_TILE_0_6").getWidth(),
-                            TileManager.getTile("GRASS_TILE_0_6").getHeight(),
+                    Level.getLvlArr()[i][j]=new tTile(TileManager.getTile(1).getWidth(),
+                            TileManager.getTile(1).getHeight(),
                             j*GameScreen.UNIT_SIZE,
                             i*GameScreen.UNIT_SIZE,
                             "GRASS_TILE_0_6",
-                            TileManager.getTile("GRASS_TILE_0_6").getId(),
-                            TileManager.getTile("GRASS_TILE_0_6").getSprite());
+                            TileManager.getTile(1).getId(),
+                            TileManager.getTile(1).getSprite());
                 }
 
                 j++;

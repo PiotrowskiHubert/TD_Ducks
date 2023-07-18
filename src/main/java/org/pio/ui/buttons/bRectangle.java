@@ -1,8 +1,12 @@
 package org.pio.ui.buttons;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class bRectangle extends aButton implements buttonMethods {
+    public bRectangle(int width, int height, String name, int id) {
+        super(width, height, name, id);
+    }
     public bRectangle(int posX, int posY, int width, int height, String name, int id) {
         super(posX, posY, width, height, name, id);
     }
@@ -13,7 +17,12 @@ public class bRectangle extends aButton implements buttonMethods {
 
     @Override
     public void initBounds() {
-        buttonBounds = new Rectangle(posX, posY, width, height);
+            buttonBounds = new Rectangle(posX, posY, width, height);
+    }
+
+    @Override
+    public BufferedImage getSprite() {
+        return null;
     }
 
     @Override
@@ -35,4 +44,5 @@ public class bRectangle extends aButton implements buttonMethods {
     public int addProgressStatus(){
         return 0;
     }
+
 }

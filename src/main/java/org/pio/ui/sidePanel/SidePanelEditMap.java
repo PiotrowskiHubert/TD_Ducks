@@ -1,9 +1,8 @@
-package org.pio.ui.sidePanel;
+ package org.pio.ui.sidePanel;
 
 import org.pio.main.GameScreen;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
-import org.pio.tiles.Tile;
 import org.pio.tiles.TileManager;
 import org.pio.tiles.tTile;
 import org.pio.ui.buttons.bRectangle;
@@ -22,7 +21,8 @@ public class SidePanelEditMap extends aSidePanel{
         super(width, height, posWidth, posHeight);
 
         this.playScene=playScene;
-        dataLinkedMap = initButtonsHashMap();
+        allDataLinkedMap = initButtonsHashMap();
+        currentDataLinkedMap = getPartOfData(0);
         sidePanelEditMapMethods = new SidePanelEditMapMethods();
         closeEditMap = new bRectangleTile(GameScreen.screenWidth-GameScreen.UNIT_SIZE*2,GameScreen.screenHeight-(2*GameScreen.UNIT_SIZE/6),GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE/4,"GO_BACK_BUTTON",-1);
         scrollUp = new bRectangleTile(GameScreen.screenWidth-GameScreen.UNIT_SIZE*3+2,(2*GameScreen.UNIT_SIZE/6),GameScreen.UNIT_SIZE/3,GameScreen.UNIT_SIZE,"SCROLL_UP_BUTTON",-2);
@@ -33,31 +33,49 @@ public class SidePanelEditMap extends aSidePanel{
 
     @Override
     public void mouseMoved(int x, int y) {
-        if (dataLinkedMap !=null){
+        if (currentDataLinkedMap !=null){
 
-            for (bRectangle button: dataLinkedMap.values()){
+            for (bRectangle button: currentDataLinkedMap.values()){
                 if (button.isMouseOver()&&!button.getButtonBounds().contains(x,y)){
                     button.setMouseOver(false);
                     return;
                 }
             }
 
-            for (bRectangle button: dataLinkedMap.values()){
+            for (bRectangle button: currentDataLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
                     button.setMouseOver(true);
                     return;
                 }
             }
 
+        }
+
+        if (closeEditMap!=null){
             if (closeEditMap.isMouseOver()&&!closeEditMap.getButtonBounds().contains(x,y)){
                 closeEditMap.setMouseOver(false);
             }
-
-
             if (closeEditMap.getButtonBounds().contains(x,y)){
                 closeEditMap.setMouseOver(true);
             }
+        }
 
+        if (scrollUp!=null){
+            if (scrollUp.isMouseOver()&&!scrollUp.getButtonBounds().contains(x,y)){
+                scrollUp.setMouseOver(false);
+            }
+            if (scrollUp.getButtonBounds().contains(x,y)){
+                scrollUp.setMouseOver(true);
+            }
+        }
+
+        if (scrollDown!=null){
+            if (scrollDown.isMouseOver()&&!scrollDown.getButtonBounds().contains(x,y)){
+                scrollDown.setMouseOver(false);
+            }
+            if (scrollDown.getButtonBounds().contains(x,y)){
+                scrollDown.setMouseOver(true);
+            }
         }
     }
 
@@ -65,80 +83,40 @@ public class SidePanelEditMap extends aSidePanel{
     public void mouseClicked(int x, int y) {
         if (x>29*GameScreen.UNIT_SIZE) {
 
-            if (dataLinkedMap != null) {
+            if (currentDataLinkedMap != null) {
 
-                for (bRectangle button : dataLinkedMap.values()) {
+                for (bRectangle button : currentDataLinkedMap.values()) {
 
-                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(1))) {
-//                        selectedTile = sidePanelEditMapMethods.selectTile(dataLinkedMap.get(1).id);
-                        selectedTile = (tTile) TileManager.getTile("GRASS_TILE_0_0");
+                    if (button.isMousePressed()){
+                        selectedTile= (tTile) TileManager.getTile(button.id);
                         button.setMousePressed(false);
                         return;
                     }
-
-                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(2))) {
-                        selectedTile= (tTile) TileManager.getTile("GRASS_TILE_0_1");
-                        button.setMousePressed(false);
-                        return;
-                    }
-
-                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(3))) {
-                        selectedTile= (tTile) TileManager.getTile("GRASS_TILE_0_2");
-                        button.setMousePressed(false);
-                        return;
-                    }
-
-                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(4))) {
-                        selectedTile= (tTile) TileManager.getTile("GRASS_TILE_0_3");
-                        button.setMousePressed(false);
-                        return;
-                    }
-
-                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(5))) {
-                        selectedTile= (tTile) TileManager.getTile("GRASS_TILE_0_4");
-                        button.setMousePressed(false);
-                        return;
-                    }
-
-                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(6))) {
-                        selectedTile= (tTile) TileManager.getTile("GRASS_TILE_0_5");
-                        button.setMousePressed(false);
-                        return;
-                    }
-
-                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(7))) {
-                        selectedTile= (tTile) TileManager.getTile("GRASS_TILE_0_6");
-                        button.setMousePressed(false);
-                        return;
-                    }
-
-                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(8))) {
-                        selectedTile= (tTile) TileManager.getTile("GRASS_TILE_0_7");
-                        button.setMousePressed(false);
-                        return;
-                    }
-
-                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(9))) {
-                        selectedTile= (tTile) TileManager.getTile("GRASS_TILE_1_0");
-                        button.setMousePressed(false);
-                        return;
-                    }
-
-                    if (button.isMousePressed() && button.equals(dataLinkedMap.get(10))) {
-                        selectedTile= (tTile) TileManager.getTile("GRASS_TILE_1_1");
-
-                        button.setMousePressed(false);
-                        return;
-                    }
-
                 }
+            }
 
+            if (closeEditMap!=null){
                 if (closeEditMap.isMousePressed()&&closeEditMap.isMouseOver()){
                     sidePanelEditMapMethods.closeEditMapMode();
                     closeEditMap.setMousePressed(false);
                     closeEditMap.setMouseOver(false);
                 }
+            }
 
+            if (scrollUp!=null){
+                if (scrollUp.isMousePressed()&&scrollUp.isMouseOver()){
+                    currentDataLinkedMap=getPartOfData(-1);
+                    scrollUp.setMousePressed(false);
+                    scrollUp.setMouseOver(false);
+                }
+            }
+
+            if (scrollDown!=null){
+                if (scrollDown.isMousePressed()&&scrollDown.isMouseOver()){
+                    currentDataLinkedMap=getPartOfData(1);
+                    scrollDown.setMousePressed(false);
+                    scrollDown.setMouseOver(false);
+                }
             }
 
         } else if (x<29*GameScreen.UNIT_SIZE&&selectedTile!=null){
@@ -154,34 +132,47 @@ public class SidePanelEditMap extends aSidePanel{
 
         }
 
-
     }
 
     @Override
     public void mousePressed(int x, int y) {
-            if (dataLinkedMap !=null){
+        if (currentDataLinkedMap !=null){
 
-                for (bRectangle button: dataLinkedMap.values()){
-                    if (button.getButtonBounds().contains(x,y)){
-                        button.setMousePressed(true);
-                        return;
-                    }
+            for (bRectangle button: currentDataLinkedMap.values()){
+                if (button.getButtonBounds().contains(x,y)){
+                    button.setMousePressed(true);
+                    return;
                 }
-
-                closeEditMap.getButtonBounds().contains(x,y);
-                closeEditMap.setMousePressed(true);
-
             }
+        }
+
+        if (closeEditMap!=null){
+            if(closeEditMap.getButtonBounds().contains(x,y)){
+                closeEditMap.setMousePressed(true);
+            }
+        }
+
+        if (scrollUp!=null){
+            if(scrollUp.getButtonBounds().contains(x,y)){
+                scrollUp.setMousePressed(true);
+            }
+        }
+
+        if (scrollDown!=null){
+            if(scrollDown.getButtonBounds().contains(x,y)){
+                scrollDown.setMousePressed(true);
+            }
+        }
 
     }
 
     @Override
     public void mouseReleased(int x, int y) {
-        if (dataLinkedMap !=null){
+        if (currentDataLinkedMap !=null){
 
-            for (bRectangle button: dataLinkedMap.values()){
+            for (bRectangle button: currentDataLinkedMap.values()){
                 if (button.getButtonBounds().contains(x,y)){
-                    //button.setMousePressed(false);
+//                    button.setMousePressed(false);
                 }
 
             }
@@ -218,8 +209,6 @@ public class SidePanelEditMap extends aSidePanel{
         LinkedHashMap<Integer, bRectangle> linkedMap = new LinkedHashMap<>();
 
         int index=0;
-        int offsetX=GameScreen.UNIT_SIZE/2;
-        int offsetY=GameScreen.UNIT_SIZE*2+5;
         double scale=2.0;
 
         bRectangle x1;
@@ -229,7 +218,8 @@ public class SidePanelEditMap extends aSidePanel{
 
         while (!(index==TileManager.getGrassTileSet().size())){
 
-            x1 = new bRectangleTileWImage(posWidth+(offsetX),posHeight+(offsetY*index)+5, (int) (GameScreen.UNIT_SIZE*scale), (int) (GameScreen.UNIT_SIZE*scale),"BUTTON", ++index, TileManager.getTile("GRASS_TILE_"+j+"_"+i).getSprite());
+            x1 = new bRectangleTileWImage((int) (GameScreen.UNIT_SIZE*scale), (int) (GameScreen.UNIT_SIZE*scale),"BUTTON", ++index, TileManager.getTile(index).getSprite());
+
             linkedMap.put( index, x1);
 
             if (i==7){
@@ -239,6 +229,56 @@ public class SidePanelEditMap extends aSidePanel{
                 i++;
             }
 
+        }
+
+        return linkedMap;
+    }
+
+    private LinkedHashMap<Integer, bRectangle> getPartOfData(int a){
+        LinkedHashMap<Integer, bRectangle> linkedMap = new LinkedHashMap<>();
+
+
+        bRectangle x1;
+        int offsetX=GameScreen.UNIT_SIZE/2;
+        int offsetY=GameScreen.UNIT_SIZE*2+5;
+
+        if (a==0){
+            int index=0;
+            while (!(index==10)){
+                x1=new bRectangleTileWImage(posWidth+(offsetX),posHeight+(offsetY*index++)+5, allDataLinkedMap.get(index).width, allDataLinkedMap.get(index).height, allDataLinkedMap.get(index).name, allDataLinkedMap.get(index).id, allDataLinkedMap.get(index).getSprite());
+
+                linkedMap.put( index, x1);
+            }
+
+        }else if (a==1){
+            int index=currentDataLinkedMap.values().stream().reduce((first, second) -> second).get().getId();
+            currentDataLinkedMap.clear();
+            int z=0;
+
+            for (int i = index+1; i < index+11; i++) {
+
+                if (allDataLinkedMap.get(i)!=null) {
+
+                    x1 = new bRectangleTileWImage(posWidth + (offsetX), posHeight + (offsetY * z) + 5, allDataLinkedMap.get(i).width, allDataLinkedMap.get(i).height, allDataLinkedMap.get(i).name, allDataLinkedMap.get(i).id, allDataLinkedMap.get(i).getSprite());
+                    linkedMap.put(++z, x1);
+
+                }
+            }
+        }else if (a==-1){
+            int index=currentDataLinkedMap.values().stream().reduce((first, second) -> second).get().getId();
+            currentDataLinkedMap.clear();
+            int z=10;
+
+            for (int i = index-1; i > index-11; i--) {
+
+                if (allDataLinkedMap.get(i)!=null){
+
+                    x1=new bRectangleTileWImage(posWidth+(offsetX),posHeight+(offsetY*(z-1))+5, allDataLinkedMap.get(i).width, allDataLinkedMap.get(i).height, allDataLinkedMap.get(i).name, allDataLinkedMap.get(i).id, allDataLinkedMap.get(i).getSprite());
+                    linkedMap.put( z--, x1);
+
+                }
+
+            }
         }
 
         return linkedMap;
