@@ -28,6 +28,8 @@ public class Readers {
                     i++;
                 }
 
+
+
                 if (nextLine.equals("1")){
                     Level.getLvlArr()[i][j]=new tTile(TileManager.getTile(1).getWidth(),
                             TileManager.getTile(1).getHeight(),

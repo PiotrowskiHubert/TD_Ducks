@@ -16,7 +16,7 @@ public class SidePanelEditMap extends aSidePanel{
     private tTile selectedTile;
     public SidePanelEditMapMethods sidePanelEditMapMethods;
     private PlayScene playScene;
-    private bRectangle scrollUp, scrollDown, closeEditMap;
+    private bRectangle scrollUp, scrollDown, closeEditMap, saveMap;
     public SidePanelEditMap(int width, int height, int posWidth, int posHeight, PlayScene playScene) {
         super(width, height, posWidth, posHeight);
 
@@ -24,9 +24,10 @@ public class SidePanelEditMap extends aSidePanel{
         allDataLinkedMap = initButtonsHashMap();
         currentDataLinkedMap = getPartOfData(0);
         sidePanelEditMapMethods = new SidePanelEditMapMethods();
-        closeEditMap = new bRectangleTile(GameScreen.screenWidth-GameScreen.UNIT_SIZE*2,GameScreen.screenHeight-(2*GameScreen.UNIT_SIZE/6),GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE/4,"GO_BACK_BUTTON",-1);
+        closeEditMap = new bRectangleTile(GameScreen.screenWidth-GameScreen.UNIT_SIZE*2-16,GameScreen.screenHeight-(2*GameScreen.UNIT_SIZE/6),GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE/4,"GO_BACK_BUTTON",-1);
         scrollUp = new bRectangleTile(GameScreen.screenWidth-GameScreen.UNIT_SIZE*3+2,(2*GameScreen.UNIT_SIZE/6),GameScreen.UNIT_SIZE/3,GameScreen.UNIT_SIZE,"SCROLL_UP_BUTTON",-2);
         scrollDown = new bRectangleTile(GameScreen.screenWidth-GameScreen.UNIT_SIZE*3+2,GameScreen.screenHeight-(2*GameScreen.UNIT_SIZE/6),GameScreen.UNIT_SIZE/3,GameScreen.UNIT_SIZE/4,"SCROLL_DOWN_BUTTON",-3);
+        saveMap = new bRectangleTile(GameScreen.screenWidth-GameScreen.UNIT_SIZE-16+2,GameScreen.screenHeight-(2*GameScreen.UNIT_SIZE/6),GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE/4,"SAVE_MAP_BUTTON",-4);
 
 
     }
@@ -77,6 +78,15 @@ public class SidePanelEditMap extends aSidePanel{
                 scrollDown.setMouseOver(true);
             }
         }
+
+        if (saveMap!=null){
+            if (saveMap.isMouseOver()&&!saveMap.getButtonBounds().contains(x,y)){
+                saveMap.setMouseOver(false);
+            }
+            if (saveMap.getButtonBounds().contains(x,y)){
+                saveMap.setMouseOver(true);
+            }
+        }
     }
 
     @Override
@@ -116,6 +126,14 @@ public class SidePanelEditMap extends aSidePanel{
                     currentDataLinkedMap=getPartOfData(1);
                     scrollDown.setMousePressed(false);
                     scrollDown.setMouseOver(false);
+                }
+            }
+
+            if (saveMap!=null){
+                if (saveMap.isMousePressed()&&saveMap.isMouseOver()){
+                    sidePanelEditMapMethods.saveMap(Level.getLvlArr());
+                    saveMap.setMousePressed(false);
+                    saveMap.setMouseOver(false);
                 }
             }
 
@@ -164,6 +182,12 @@ public class SidePanelEditMap extends aSidePanel{
             }
         }
 
+        if (saveMap!=null){
+            if(saveMap.getButtonBounds().contains(x,y)){
+                saveMap.setMousePressed(true);
+            }
+        }
+
     }
 
     @Override
@@ -187,6 +211,7 @@ public class SidePanelEditMap extends aSidePanel{
         closeEditMap.draw(g);
         scrollUp.draw(g);
         scrollDown.draw(g);
+        saveMap.draw(g);
 
         drawSelectedTile(g);
     }

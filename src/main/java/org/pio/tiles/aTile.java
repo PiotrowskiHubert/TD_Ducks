@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class aTile implements iTile {
     private int width, height;
-    private int id;
+    private Integer id;
 
     public aTile(int width, int height, int id) {
         this.width = width;
@@ -18,7 +18,7 @@ public abstract class aTile implements iTile {
     public int getHeight() {
         return height;
     }
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

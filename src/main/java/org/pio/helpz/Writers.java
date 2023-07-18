@@ -17,7 +17,6 @@ public class Writers {
 
             while (!(i==sizeOfLevel)){
 
-
                 writer.write("1");
                 writer.newLine();
                 i++;
