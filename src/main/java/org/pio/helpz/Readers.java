@@ -3,6 +3,7 @@ package org.pio.helpz;
 import org.pio.main.GameScreen;
 import org.pio.scene.Level;
 import org.pio.tiles.TileManager;
+import org.pio.tiles.aTile;
 import org.pio.tiles.tTile;
 
 import java.io.BufferedReader;
@@ -29,15 +30,16 @@ public class Readers {
                 }
 
 
-
-                if (nextLine.equals("1")){
-                    Level.getLvlArr()[i][j]=new tTile(TileManager.getTile(1).getWidth(),
-                            TileManager.getTile(1).getHeight(),
-                            j*GameScreen.UNIT_SIZE,
-                            i*GameScreen.UNIT_SIZE,
-                            "GRASS_TILE_0_6",
-                            TileManager.getTile(1).getId(),
-                            TileManager.getTile(1).getSprite());
+                for (aTile tile : TileManager.getGrassTileSet().values()) {
+                    if (tile.getId() == Integer.parseInt(nextLine)){
+                        Level.getLvlArr()[i][j]=new tTile(tile.getWidth(),
+                                tile.getHeight(),
+                                j*GameScreen.UNIT_SIZE,
+                                i*GameScreen.UNIT_SIZE,
+                                tile.getTileName(),
+                                tile.getId(),
+                                tile.getSprite());
+                    }
                 }
 
                 j++;

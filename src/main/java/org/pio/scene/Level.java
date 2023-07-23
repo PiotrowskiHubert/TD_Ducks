@@ -42,7 +42,7 @@ public class Level extends GameScene {
         createLevelRoundsAndAddEnemies();
 
         Writers.writeEmptyLevel();
-        Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl.txt"));
+        Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_1.txt"));
     }
 
     // -------- INIT ------- //

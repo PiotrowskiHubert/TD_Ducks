@@ -22,7 +22,7 @@ public abstract class aTile implements iTile {
         return id;
     }
 
-
+    public abstract String getTileName();
     public abstract BufferedImage getSprite();
 
 }
