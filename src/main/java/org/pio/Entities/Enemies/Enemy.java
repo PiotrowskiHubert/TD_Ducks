@@ -1,11 +1,15 @@
 package org.pio.Entities.Enemies;
 
 import org.pio.Entities.Entity;
+import org.pio.helpz.KeyPoint;
 import org.pio.main.GameScreen;
+import org.pio.player.Directions;
+import org.pio.scene.Level;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.util.Stack;
 
 public class Enemy extends Entity {
     private int spwnPointWidthX, spwnPointHeightY, endPointWidthX, endPointHeightY;
@@ -14,8 +18,12 @@ public class Enemy extends Entity {
     private int index;
     private Rectangle enemyHitBox;
     private int health, damage, gold;
-    //protected Boolean lead;
-
+    private double timePerUpdate=1_000_000_000.0/240;
+    private long lastUpdate;
+    private long now;
+    private Directions direction;
+    private Stack<KeyPoint> keyPointsStack;
+    private int keypointIndex;
     public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height, int health, int damage, int gold) {
         this.nameEntity=nameEnemy;
         this.posWidthX=posWidthX;
@@ -28,9 +36,15 @@ public class Enemy extends Entity {
         this.health=health;
         this.damage=damage;
         this.gold=gold;
-        //this.lead=false;
 
         this.enemyHitBox=initBounds();
+        lastUpdate=System.nanoTime();
+
+        keyPointsStack=new Stack<>();
+
+        keypointIndex=1;
+        keyPointsStack.push(Level.getKeyPointsList().get(keypointIndex));
+
     }
 
     public Enemy(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int movementSpeed, int health, int damage, int gold) {
@@ -53,53 +67,90 @@ public class Enemy extends Entity {
     public Rectangle initBounds() {
         return super.initBounds();
     }
-    private Shape initBoundsCircle(double offsetHeight, double offsetWidth) {
-
-        double width=getPosWidthX()+getWidth()/2+offsetWidth;
-        double height=getPosHeightY()+getHeight()/2+offsetHeight;
-        double radius=5;
-
-        return new Ellipse2D.Double(width-radius,height-radius,radius*2,radius*2);
-    }
 
     // ----------- UPDATE ----------- //
     @Override
     public void update() {
-        moveUpdate();
-        updateHitBox();
+         now = System.nanoTime();
+
+         if (now-lastUpdate>= timePerUpdate){
+
+            direction=calcDirection();
+
+             if (direction!=null){
+
+                 switch (direction) {
+                    case LEFT -> {
+                        setPosWidthX(getPosWidthX()-movSpeed);
+                        updateHitBox();
+                        System.out.println(direction);
+                    }
+
+                    case RIGHT -> {
+                        moveUpdate();
+                        System.out.println(direction);
+                    }
+
+                    case UP -> {
+                        setPosHeightY(getPosHeightY()-movSpeed);
+                        updateHitBox();
+                        System.out.println(direction);
+                    }
+
+                    case DOWN -> {
+                        setPosHeightY(getPosHeightY()+movSpeed);
+                        updateHitBox();
+                        System.out.println(direction);
+                    }
+
+             }
+
+             }
+
+             lastUpdate=now;
+         }
+
     }
+
+    private Directions calcDirection(){
+
+        if ((keyPointsStack.peek().getWidthX()-posWidthX) > 0){
+            return Directions.RIGHT;
+        }else if (keyPointsStack.peek().getWidthX()-posWidthX<0){
+            return Directions.LEFT;
+        }else if (keyPointsStack.peek().getHeightY()-posHeightY>0){
+            return Directions.DOWN;
+        }else if (keyPointsStack.peek().getHeightY()-posHeightY<0){
+            return Directions.UP;
+        }else {
+            keypointIndex++;
+            keyPointsStack.push(Level.getKeyPointsList().get(keypointIndex));
+            return calcDirection();
+        }
+    }
+
     private void updateHitBox(){
         enemyHitBox.setBounds(posWidthX, posHeightY,width,height);
     }
     public void moveUpdate(){
         if (canGo){
 
-            if (getPosWidthX()<10* GameScreen.UNIT_SIZE){
-                setPosWidthX(getPosWidthX()+movSpeed);
-            }
+            setPosWidthX(getPosWidthX()+movSpeed);
+            updateHitBox();
 
-            if (getPosWidthX()>=10*GameScreen.UNIT_SIZE&&getPosHeightY()>3*GameScreen.UNIT_SIZE&&getPosWidthX()<13*GameScreen.UNIT_SIZE){
-                setPosHeightY(getPosHeightY()-movSpeed);
-            }
-
-            if (getPosWidthX()>=10*GameScreen.UNIT_SIZE && getPosHeightY()<=3*GameScreen.UNIT_SIZE&&getPosWidthX()<13*GameScreen.UNIT_SIZE){
-                setPosWidthX(getPosWidthX()+movSpeed);
-            }
-
-            if (getPosWidthX()>=13*GameScreen.UNIT_SIZE&&getPosHeightY()<8*GameScreen.UNIT_SIZE){
-                setPosHeightY(getPosHeightY()+movSpeed);
-            }
-
-            if (getPosWidthX()>=13*GameScreen.UNIT_SIZE&&getPosHeightY()>=8*GameScreen.UNIT_SIZE){
-                setPosWidthX(getPosWidthX()+movSpeed);
-            }
+//            if (enemyHitBox.contains(Level.tempRect.getBounds())){
+//                canGo=false;
+//            }
         }
     }
 
     // ----------- RENDER ----------- //
     @Override
     public void drawEntity(Graphics g) {
-        g.drawImage(sprite, getPosWidthX(),getPosHeightY(),getWidth(),getHeight(),null);
+        g.drawImage(sprite, enemyHitBox.x,enemyHitBox.y,enemyHitBox.width,enemyHitBox.height,null);
+        g.setColor(Color.black);
+
+        g.fillRect(enemyHitBox.x,enemyHitBox.y,enemyHitBox.width,enemyHitBox.height);
     }
 
     // ----------- GET ----------- //
@@ -152,9 +203,7 @@ public class Enemy extends Entity {
     public int getGold() {
         return gold;
     }
-    //public Boolean getLead() {
-      //  return lead;
-    //}
+
 
     // ----------- SET ----------- //
     public void setIndex(int index) {

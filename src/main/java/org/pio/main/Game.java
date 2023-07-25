@@ -1,6 +1,7 @@
 package org.pio.main;
 
 import org.pio.manager.*;
+import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
 import org.pio.scene.PreGameScene;
 import org.pio.tiles.TileManager;
@@ -41,6 +42,8 @@ public class Game extends JFrame implements Runnable {
 
         render=new Render(this);
         update=new Update(this);
+
+        Level.initKeypoints();
 
         tileManager=new TileManager();
         allyTowerManager=new AllyTowerManager();

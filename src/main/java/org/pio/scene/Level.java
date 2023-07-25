@@ -6,9 +6,8 @@ import org.pio.main.GameScreen;
 import org.pio.manager.AllyTowerManager;
 import org.pio.manager.PlayerManager;
 import org.pio.player.Player;
-import org.pio.tiles.TileManager;
 import org.pio.tiles.tTile;
-import org.pio.helpz.KeyPoints;
+import org.pio.helpz.KeyPoint;
 import org.pio.main.Game;
 import org.pio.readers.ReadFromFile;
 import org.pio.helpz.Helper;
@@ -26,7 +25,8 @@ public class Level extends GameScene {
     private static int lvlHeight, lvlWidth;
     private static tTile [][] lvlArr;
     private static List<Round> roundList;
-    private static List<KeyPoints> keyPointsList;
+    private static List<KeyPoint> keyPointsList;
+    public static Rectangle tempRect;
 
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
@@ -49,8 +49,12 @@ public class Level extends GameScene {
 
     public static void initKeypoints(){
         keyPointsList=new ArrayList<>();
-        keyPointsList.add(new KeyPoints(-50,6*GameScreen.UNIT_SIZE));
-        keyPointsList.add(new KeyPoints(18*GameScreen.UNIT_SIZE,6*GameScreen.UNIT_SIZE));
+        keyPointsList.add(new KeyPoint(-25,6*GameScreen.UNIT_SIZE)); // 0
+        keyPointsList.add(new KeyPoint(10*GameScreen.UNIT_SIZE, 6*GameScreen.UNIT_SIZE));
+        keyPointsList.add(new KeyPoint(10*GameScreen.UNIT_SIZE, 2*GameScreen.UNIT_SIZE));
+        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE, 2*GameScreen.UNIT_SIZE));
+
+        tempRect=new Rectangle(keyPointsList.get(2).getWidthX(),keyPointsList.get(2).getHeightY(),GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE);
     }
     private void createLevelRoundsAndAddEnemies(){
 
@@ -82,7 +86,6 @@ public class Level extends GameScene {
         if (Helper.isFirstValueSmallerThanSecond(Level.currentRound,getNUM_OF_ROUNDS())){
             updateStartMoveEnemies(roundList.get(currentRound).getEnemies());
         }
-
     }
     private void updateStartMoveEnemies(List<Enemy> enemies){
 
@@ -95,14 +98,12 @@ public class Level extends GameScene {
 
             if (i < enemies.size() - 1) {
 
-                if (enemies.get(i).getPosWidthX()- enemies.get(i+1).getPosWidthX()>=50){
+                if (enemies.get(i).getPosWidthX()- enemies.get(i+1).getPosWidthX()>=50&&!enemies.get(i+1).isCanGo()){
                     enemies.get(i+1).setCanGo(true);
                 }
 
                 if (enemies.get(i).getPosWidthX()>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
                     PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).getHealth());
-                    System.out.println(Player.getHealth());
-                    System.out.println(enemies.get(i).getHealth());
                     enemies.remove(enemies.get(i));
                 }
 
@@ -132,6 +133,9 @@ public class Level extends GameScene {
                 lvlArr[i][j].draw(g);
             }
         }
+
+        g.setColor(Color.RED);
+        g.fillRect(tempRect.x,tempRect.y,tempRect.width,tempRect.height);
     }
     private void drawRoundInfo(Graphics g){
         g.setColor(Color.BLACK);
@@ -188,7 +192,7 @@ public class Level extends GameScene {
 
     // -------- SET ------- //
 
-    public static List<KeyPoints> getKeyPointsList() {
+    public static List<KeyPoint> getKeyPointsList() {
         return keyPointsList;
     }
 }

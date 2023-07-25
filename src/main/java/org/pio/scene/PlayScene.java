@@ -52,6 +52,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     public void update(){
 
+
         getGame().getBulletManager().bulletsUpdatePos();
         enemyHitByBullet();
         getLvl().updateLevel();
@@ -193,9 +194,10 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
         if (!mapEditMode){
             sidePanel.draw(g);
+            drawEditModeTileHighlight(g);
+
         }else if(mapEditMode){
             drawEditModeSidePanel(g);
-            //drawEditModeTileHighlight(g);
         }
 
     }
@@ -239,11 +241,14 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     }
     @Override
     public void rightMouseClicked(int x, int y) {
+
         if (SidePanel.getSelectedTowerSidePanel()!=null){
             SidePanel.setSelectedTowerSidePanel(null);
         }
 
         getGame().getAllyTowerManager().rightMouseClicked(x,y);
+
+        System.out.println("x: "+ mouseX/32+", y: "+mouseY/32);
 
     }
     @Override

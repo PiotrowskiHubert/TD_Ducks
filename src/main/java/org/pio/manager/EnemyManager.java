@@ -25,7 +25,7 @@ public class EnemyManager {
     }
 
     private void createEnemies(){
-        Level.initKeypoints();
+//        Level.initKeypoints();
 
         String pathFile = "src/main/resources/";
         String fileName = pathFile+ "EnemiesInfo/FirstEnemy.txt";

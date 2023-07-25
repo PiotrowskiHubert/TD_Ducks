@@ -23,6 +23,8 @@ public class Entity {
         return entityBounds;
     }
 
+
+
     public void update(){
 
     }
