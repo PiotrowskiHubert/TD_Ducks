@@ -81,26 +81,32 @@ public class Enemy extends Entity {
 
                  switch (direction) {
                     case LEFT -> {
-                        setPosWidthX(getPosWidthX()-movSpeed);
-                        updateHitBox();
-                        System.out.println(direction);
+                        if (canGo) {
+                            setPosWidthX(getPosWidthX() - movSpeed);
+                            updateHitBox();
+                        }
                     }
 
                     case RIGHT -> {
-                        moveUpdate();
-                        System.out.println(direction);
+                        if (canGo) {
+                            setPosWidthX(getPosWidthX() + movSpeed);
+                            updateHitBox();
+                        }
                     }
 
                     case UP -> {
-                        setPosHeightY(getPosHeightY()-movSpeed);
-                        updateHitBox();
-                        System.out.println(direction);
+                        if (canGo) {
+                            setPosHeightY(getPosHeightY() - movSpeed);
+                            updateHitBox();
+                        }
                     }
 
                     case DOWN -> {
-                        setPosHeightY(getPosHeightY()+movSpeed);
-                        updateHitBox();
-                        System.out.println(direction);
+                        if (canGo){
+                            setPosHeightY(getPosHeightY()+movSpeed);
+                            updateHitBox();
+                        }
+
                     }
 
              }

@@ -111,17 +111,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
                         Bullet nextBullet = bulletIterator.next();
 
                         // CHECK IF ENEMY IS HIT BY BULLET
-                        if (nextEnemy.getEnemyHitBox().contains(nextBullet.getBulletHitBox().getX(),nextBullet.getBulletHitBox().getY())){
-
-
-                            // FUTURE UPGRADE SPECIAL
-//                            if (nextEnemy.getLead()){
-//                                if (nextAllyTower.getCanShotLead()){
-//                                    nextEnemy.setHealth(nextEnemy.getHealth()-1);
-//                                }
-//                            }else {
-//                                nextEnemy.setHealth(nextEnemy.getHealth()-1);
-//                            }
+                        if (nextEnemy.getEnemyHitBox().intersects(nextBullet.getBulletHitBox())){
 
                             nextEnemy.setHealth(nextEnemy.getHealth()-1);
 

@@ -26,7 +26,6 @@ public class Level extends GameScene {
     private static tTile [][] lvlArr;
     private static List<Round> roundList;
     private static List<KeyPoint> keyPointsList;
-    public static Rectangle tempRect;
 
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
@@ -49,12 +48,12 @@ public class Level extends GameScene {
 
     public static void initKeypoints(){
         keyPointsList=new ArrayList<>();
-        keyPointsList.add(new KeyPoint(-25,6*GameScreen.UNIT_SIZE)); // 0
-        keyPointsList.add(new KeyPoint(10*GameScreen.UNIT_SIZE, 6*GameScreen.UNIT_SIZE));
-        keyPointsList.add(new KeyPoint(10*GameScreen.UNIT_SIZE, 2*GameScreen.UNIT_SIZE));
-        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE, 2*GameScreen.UNIT_SIZE));
-
-        tempRect=new Rectangle(keyPointsList.get(2).getWidthX(),keyPointsList.get(2).getHeightY(),GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE);
+        keyPointsList.add(new KeyPoint(-40,9*GameScreen.UNIT_SIZE)); // 0
+        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE, 9*GameScreen.UNIT_SIZE));
+        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE, 5*GameScreen.UNIT_SIZE));
+        keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE, 5*GameScreen.UNIT_SIZE));
+        keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE, 14*GameScreen.UNIT_SIZE));
+        keyPointsList.add(new KeyPoint(29*GameScreen.UNIT_SIZE, 14*GameScreen.UNIT_SIZE));
     }
     private void createLevelRoundsAndAddEnemies(){
 
@@ -133,9 +132,6 @@ public class Level extends GameScene {
                 lvlArr[i][j].draw(g);
             }
         }
-
-        g.setColor(Color.RED);
-        g.fillRect(tempRect.x,tempRect.y,tempRect.width,tempRect.height);
     }
     private void drawRoundInfo(Graphics g){
         g.setColor(Color.BLACK);
