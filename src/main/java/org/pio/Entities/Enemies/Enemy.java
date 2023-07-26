@@ -154,9 +154,6 @@ public class Enemy extends Entity {
     @Override
     public void drawEntity(Graphics g) {
         g.drawImage(sprite, enemyHitBox.x,enemyHitBox.y,enemyHitBox.width,enemyHitBox.height,null);
-        g.setColor(Color.black);
-
-        g.fillRect(enemyHitBox.x,enemyHitBox.y,enemyHitBox.width,enemyHitBox.height);
     }
 
     // ----------- GET ----------- //

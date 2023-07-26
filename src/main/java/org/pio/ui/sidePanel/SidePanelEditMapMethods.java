@@ -2,7 +2,6 @@ package org.pio.ui.sidePanel;
 
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
-import org.pio.tiles.Tile;
 import org.pio.tiles.tTile;
 
 import java.awt.*;
@@ -18,16 +17,16 @@ public class SidePanelEditMapMethods{
         PlayScene.setMapEditMode(false);
     }
 
-    public Tile selectTile(int id){
-
-        if (id==1){
-            Tile tile = new Tile(SidePanelEditMap.currentDataLinkedMap.get(id).width, SidePanelEditMap.currentDataLinkedMap.get(id).height, SidePanelEditMap.currentDataLinkedMap.get(id).name, SidePanelEditMap.currentDataLinkedMap.get(id).id);
-            tile.color=new Color(0xFFA1106E, true);
-            return tile;
-        }
-
-        return null;
-    }
+//    public Tile selectTile(int id){
+//
+//        if (id==1){
+//            Tile tile = new Tile(SidePanelEditMap.currentDataLinkedMap.get(id).width, SidePanelEditMap.currentDataLinkedMap.get(id).height, SidePanelEditMap.currentDataLinkedMap.get(id).name, SidePanelEditMap.currentDataLinkedMap.get(id).id);
+//            tile.color=new Color(0xFFA1106E, true);
+//            return tile;
+//        }
+//
+//        return null;
+//    }
 
     public void saveMap(tTile[][] lvlArr){
 
