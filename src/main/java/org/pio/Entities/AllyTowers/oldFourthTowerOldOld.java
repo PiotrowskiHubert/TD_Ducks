@@ -3,13 +3,13 @@ package org.pio.Entities.AllyTowers;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class FourthTower extends AllyTower implements AllyTowerInterFace{
+public class oldFourthTowerOldOld extends oldAllyTower implements oldAllyTowerInterFace {
 
-    public FourthTower(String name, int id, BufferedImage sprite, int posWidthX, int posHeightY, int towerWidth, int towerHeight, double timePerShot, int range, int cost, int index) {
+    public oldFourthTowerOldOld(String name, int id, BufferedImage sprite, int posWidthX, int posHeightY, int towerWidth, int towerHeight, double timePerShot, int range, int cost, int index) {
         super(name, id, sprite, posWidthX, posHeightY, towerWidth, towerHeight, timePerShot, range, cost, index);
     }
     // CONSTRUCTOR TO READ FROM FILE
-    public FourthTower(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int towerWidth, int towerHeight, double timePerShot, int range, int cost) {
+    public oldFourthTowerOldOld(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int towerWidth, int towerHeight, double timePerShot, int range, int cost) {
         super(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
     }
 

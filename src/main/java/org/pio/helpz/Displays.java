@@ -1,33 +1,33 @@
 package org.pio.helpz;
 
-import org.pio.Entities.AllyTowers.AllyTower;
-import org.pio.Entities.Enemies.Enemy;
+import org.pio.Entities.AllyTowers.oldAllyTower;
+import org.pio.Entities.Enemies.oldEnemy;
 import org.pio.manager.AllyTowerManager;
 
 public class Displays {
 
 
     // DISPLAYS FOR ENEMY MANAGER
-    public static void displayEnemiesInRangeForPlacedTower(AllyTower allyTowerPlaced){
-        for (Enemy enemy: allyTowerPlaced.getEnemiesInRangeList()){
-            System.out.println(enemy.getNameEntity());
+    public static void displayEnemiesInRangeForPlacedTower(oldAllyTower oldAllyTowerPlaced){
+        for (oldEnemy oldEnemy : oldAllyTowerPlaced.getEnemiesInRangeList()){
+            System.out.println(oldEnemy.getNameEntity());
         }
     }
-    public static void displayEnemiesPosInRangeForPlacedTower(AllyTower allyTowerPlaced){
-        for (Enemy enemy: allyTowerPlaced.getEnemiesInRangeList()){
-            System.out.println(enemy.getPosWidthX() + " " + enemy.getPosHeightY());
+    public static void displayEnemiesPosInRangeForPlacedTower(oldAllyTower oldAllyTowerPlaced){
+        for (oldEnemy oldEnemy : oldAllyTowerPlaced.getEnemiesInRangeList()){
+            System.out.println(oldEnemy.getPosWidthX() + " " + oldEnemy.getPosHeightY());
         }
     }
-    public static void displaySizeOfEnemiesInRangeForPlacedTower(AllyTower allyTowerPlaced){
-        System.out.println(allyTowerPlaced.getEnemiesInRangeList().size());
+    public static void displaySizeOfEnemiesInRangeForPlacedTower(oldAllyTower oldAllyTowerPlaced){
+        System.out.println(oldAllyTowerPlaced.getEnemiesInRangeList().size());
     }
     public static void displayEnemiesInRangeForAllPlacedTowers(){
         if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
             return;
         }
 
-        for (AllyTower allyTowerPlaced: AllyTowerManager.getAllyTowersPlaced()){
-            displayEnemiesInRangeForPlacedTower(allyTowerPlaced);
+        for (oldAllyTower oldAllyTowerPlaced : AllyTowerManager.getAllyTowersPlaced()){
+            displayEnemiesInRangeForPlacedTower(oldAllyTowerPlaced);
         }
     }
     public static void displayEnemiesPosInRangeForAllPlacedTowers(){
@@ -35,8 +35,8 @@ public class Displays {
             return;
         }
 
-        for (AllyTower allyTowerPlaced: AllyTowerManager.getAllyTowersPlaced()){
-            displayEnemiesPosInRangeForPlacedTower(allyTowerPlaced);
+        for (oldAllyTower oldAllyTowerPlaced : AllyTowerManager.getAllyTowersPlaced()){
+            displayEnemiesPosInRangeForPlacedTower(oldAllyTowerPlaced);
         }
     }
     public static void displaySizeOfEnemiesInRangeForAllPlacedTowers(){
@@ -44,8 +44,8 @@ public class Displays {
             return;
         }
 
-        for (AllyTower allyTowerPlaced: AllyTowerManager.getAllyTowersPlaced()){
-            displaySizeOfEnemiesInRangeForPlacedTower(allyTowerPlaced);
+        for (oldAllyTower oldAllyTowerPlaced : AllyTowerManager.getAllyTowersPlaced()){
+            displaySizeOfEnemiesInRangeForPlacedTower(oldAllyTowerPlaced);
         }
     }
 }

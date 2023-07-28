@@ -12,12 +12,12 @@ import java.util.*;
 import java.util.List;
 
 public class EnemyManager {
-    private static List<Enemy> enemyList;
+    private static List<oldEnemy> oldEnemyList;
     private BufferedImage spriteEnemyAtlas;
     public static LinkedHashMap<Integer,Color> colorMap;
 
     public EnemyManager() {
-        enemyList =new ArrayList<>();
+        oldEnemyList =new ArrayList<>();
         colorMap=colorHashMap();
 
         loadEnemyAtlas();
@@ -30,34 +30,34 @@ public class EnemyManager {
         String pathFile = "src/main/resources/";
         String fileName = pathFile+ "EnemiesInfo/FirstEnemy.txt";
 
-        FirstEnemy firstEnemy= (FirstEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
+        oldFirstOldEnemy firstEnemy= (oldFirstOldEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
         setSpwnPoints(firstEnemy);
         firstEnemy.setSprite(setSpriteForEnemy(firstEnemy));
-        enemyList.add(firstEnemy);
+        oldEnemyList.add(firstEnemy);
 
         fileName = pathFile+ "EnemiesInfo/secondEnemy.txt";
-        SecondEnemy secondEnemy= (SecondEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
+        oldSecondOldEnemy secondEnemy= (oldSecondOldEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
         setSpwnPoints(secondEnemy);
         secondEnemy.setSprite(setSpriteForEnemy(secondEnemy));
-        enemyList.add(secondEnemy);
+        oldEnemyList.add(secondEnemy);
 
         fileName = pathFile+ "EnemiesInfo/thirdEnemy.txt";
-        ThirdEnemy thirdEnemy= (ThirdEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
+        oldThirdOldEnemy thirdEnemy= (oldThirdOldEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
         setSpwnPoints(thirdEnemy);
         thirdEnemy.setSprite(setSpriteForEnemy(thirdEnemy));
-        enemyList.add(thirdEnemy);
+        oldEnemyList.add(thirdEnemy);
 
         fileName = pathFile+ "EnemiesInfo/fourthEnemy.txt";
-        FourthEnemy fourthEnemy= (FourthEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
+        oldFourthOldEnemy fourthEnemy= (oldFourthOldEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
         setSpwnPoints(fourthEnemy);
         fourthEnemy.setSprite(setSpriteForEnemy(fourthEnemy));
-        enemyList.add(fourthEnemy);
+        oldEnemyList.add(fourthEnemy);
 
         fileName = pathFile+ "EnemiesInfo/fifthEnemy.txt";
-        FifthEnemy fifthEnemy= (FifthEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
+        oldFifthOldEnemy fifthEnemy= (oldFifthOldEnemy) ReadFromFile.readEnemyDataFromFile(fileName);
         setSpwnPoints(fifthEnemy);
         fifthEnemy.setSprite(setSpriteForEnemy(fifthEnemy));
-        enemyList.add(fifthEnemy);
+        oldEnemyList.add(fifthEnemy);
 
     }
 
@@ -100,17 +100,17 @@ public class EnemyManager {
     private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
         return spriteEnemyAtlas.getSubimage(xCord*74,yCord*77,widthImg,heightImg);
     }
-    public static List<Enemy> getEnemyList() {
-        return enemyList;
+    public static List<oldEnemy> getEnemyList() {
+        return oldEnemyList;
     }
 
     // -------- SET ------- //
 
-    private void setSpwnPoints(Enemy enemy){
-        enemy.setSpwnPointWidthX(Level.getKeyPointsList().get(0).getWidthX());
-        enemy.setSpwnPointHeightY(Level.getKeyPointsList().get(0).getHeightY());
+    private void setSpwnPoints(oldEnemy oldEnemy){
+        oldEnemy.setSpwnPointWidthX(Level.getKeyPointsList().get(0).getWidthX());
+        oldEnemy.setSpwnPointHeightY(Level.getKeyPointsList().get(0).getHeightY());
     }
-    private BufferedImage setSpriteForEnemy(Enemy enemy){
+    private BufferedImage setSpriteForEnemy(oldEnemy oldEnemy){
         return getSprite(0,0,74,77);
     }
 

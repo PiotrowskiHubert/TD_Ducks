@@ -1,11 +1,9 @@
 package org.pio.ui;
 
-import org.pio.Entities.AllyTowers.AllyTower;
+import org.pio.Entities.AllyTowers.oldAllyTower;
 import org.pio.manager.AllyTowerManager;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
-import org.pio.ui.buttons.bRectangleUpgrade;
-import org.pio.ui.sidePanel.sidePanelMethods;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class SidePanel {
@@ -24,7 +21,7 @@ public class SidePanel {
 
     private int panelWidth, panelHeight;
     private int posWidthX, posHeightX;
-    private static AllyTower selectedTowerSidePanel;
+    private static oldAllyTower selectedTowerSidePanel;
     Button bTower_0, editMode, startRound, speedUp;
     private List<Button> buttonTowerList;
 
@@ -71,8 +68,8 @@ public class SidePanel {
         int bHeight=59;
         int posYOffSet=bHeight+7;
 
-        for (AllyTower allyTowerList : AllyTowerManager.getAllyTowersList()) {
-            bTower_0 =new Button(allyTowerList.getNameEntity(), posX, posY+id*posYOffSet, bWidth, bHeight, id++,allyTowerList.getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+        for (oldAllyTower oldAllyTowerList : AllyTowerManager.getAllyTowersList()) {
+            bTower_0 =new Button(oldAllyTowerList.getNameEntity(), posX, posY+id*posYOffSet, bWidth, bHeight, id++, oldAllyTowerList.getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
             buttonTowerList.add(bTower_0);
         }
 
@@ -143,14 +140,14 @@ public class SidePanel {
         for (Button button : buttonTowerList) {
             if (button.getButtonsBounds().contains(x,y) && selectedTowerSidePanel ==null){
 
-                for (AllyTower allyTower : AllyTowerManager.getAllyTowersList()) {
+                for (oldAllyTower oldAllyTower : AllyTowerManager.getAllyTowersList()) {
 
-                    if (button.getName().equals(allyTower.getNameEntity())){
-                        selectedTowerSidePanel=allyTower;
+                    if (button.getName().equals(oldAllyTower.getNameEntity())){
+                        selectedTowerSidePanel= oldAllyTower;
 
-                        selectedTowerSidePanel.setSprite(getSprite(allyTower.getSpriteCordX(),allyTower.getSpriteCordY(), allyTower.getSpriteWidth(),allyTower.getSpriteHeight()));
+                        selectedTowerSidePanel.setSprite(getSprite(oldAllyTower.getSpriteCordX(), oldAllyTower.getSpriteCordY(), oldAllyTower.getSpriteWidth(), oldAllyTower.getSpriteHeight()));
 
-                        if (allyTower.getCost()> PlayScene.getPlayer().getGold()){
+                        if (oldAllyTower.getCost()> PlayScene.getPlayer().getGold()){
                             selectedTowerSidePanel =null;
                         }
 
@@ -253,7 +250,7 @@ public class SidePanel {
 
     // -------- GET ------- //
 
-    public static AllyTower getSelectedTowerSidePanel() {
+    public static oldAllyTower getSelectedTowerSidePanel() {
         return selectedTowerSidePanel;
     }
     private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
@@ -298,7 +295,7 @@ public class SidePanel {
 
     // -------- SET ------- //
 
-    public static void setSelectedTowerSidePanel(AllyTower selectedTowerSidePanel) {
+    public static void setSelectedTowerSidePanel(oldAllyTower selectedTowerSidePanel) {
         SidePanel.selectedTowerSidePanel = selectedTowerSidePanel;
     }
 

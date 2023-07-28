@@ -35,28 +35,28 @@ public class ReadFromFile {
                     while ((nextLine = reader.readLine()) != null && Helper.isInteger(nextLine)){
 
                         if (nextLine.equals("1")) {
-                            Enemy enemy = Creators.enemyCreator(0);
-                            round.getEnemies().add(enemy);
+                            oldEnemy oldEnemy = Creators.enemyCreator(0);
+                            round.getEnemies().add(oldEnemy);
                         }
 
                         if (nextLine.equals("2")) {
-                            Enemy enemy = Creators.enemyCreator(1);
-                            round.getEnemies().add(enemy);
+                            oldEnemy oldEnemy = Creators.enemyCreator(1);
+                            round.getEnemies().add(oldEnemy);
                         }
 
                         if (nextLine.equals("3")) {
-                            Enemy enemy = Creators.enemyCreator(2);
-                            round.getEnemies().add(enemy);
+                            oldEnemy oldEnemy = Creators.enemyCreator(2);
+                            round.getEnemies().add(oldEnemy);
                         }
 
                         if (nextLine.equals("4")) {
-                            Enemy enemy = Creators.enemyCreator(3);
-                            round.getEnemies().add(enemy);
+                            oldEnemy oldEnemy = Creators.enemyCreator(3);
+                            round.getEnemies().add(oldEnemy);
                         }
 
                         if (nextLine.equals("5")) {
-                            Enemy enemy = Creators.enemyCreator(4);
-                            round.getEnemies().add(enemy);
+                            oldEnemy oldEnemy = Creators.enemyCreator(4);
+                            round.getEnemies().add(oldEnemy);
                         }
                     }
 
@@ -69,7 +69,7 @@ public class ReadFromFile {
 
         return round;
     }
-    public static Enemy readEnemyDataFromFile(String fileName) {
+    public static oldEnemy readEnemyDataFromFile(String fileName) {
         String name = null;
         int id = 0;
         int spriteCordX = 0;
@@ -158,28 +158,28 @@ public class ReadFromFile {
         }
 
         if (id==1){
-            return new FirstEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
+            return new oldFirstOldEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
         }
 
         if (id==2){
-            return new SecondEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
+            return new oldSecondOldEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
         }
 
         if (id==3){
-            return new ThirdEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
+            return new oldThirdOldEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
         }
 
         if (id==4){
-            return new FourthEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
+            return new oldFourthOldEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
         }
 
         if (id==5){
-            return new FifthEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
+            return new oldFifthOldEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
         }
 
-        return new Enemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
+        return new oldEnemy(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
     }
-    public static AllyTower readTowerData(String filename) {
+    public static oldAllyTower readTowerData(String filename) {
         String name = null;
         int id = 0;
         int spriteCordX = 0;
@@ -276,26 +276,26 @@ public class ReadFromFile {
 
         if (id==1){
             System.out.println(name);
-            return new FirstTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+            return new oldFirstTowerOldOld(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
         }
 
         if (id==2){
-            return new SecondTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+            return new oldSecondTowerOldOld(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
         }
 
         if (id==3){
-            return new ThirdTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+            return new oldThirdTowerOld(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
         }
 
         if (id==4){
-            return new FourthTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+            return new oldFourthTowerOldOld(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
         }
 
         if (id==5){
-            return new FifthTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+            return new oldFifthTowerOldOld(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
         }
 
-        return new AllyTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
+        return new oldAllyTower(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, towerWidth, towerHeight, timePerShot, range, cost);
 
     }
 

@@ -5,14 +5,14 @@ import org.pio.manager.EnemyManager;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class ThirdEnemy extends Enemy{
+public class oldThirdOldEnemy extends oldEnemy {
 
-    public ThirdEnemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height, int health, int damage, int gold) {
+    public oldThirdOldEnemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height, int health, int damage, int gold) {
         super(nameEnemy, posWidthX, posHeightY, id, spriteEnemy, movSpeed, width, height, health, damage, gold);
     }
 
     // CONSTRUCTOR TO READ FROM FILE
-    public ThirdEnemy(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int movementSpeed, int health, int damage, int gold) {
+    public oldThirdOldEnemy(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int movementSpeed, int health, int damage, int gold) {
         super(name, id, spriteCordX, spriteCordY, spriteWidth, spriteHeight, movementSpeed, health, damage, gold);
     }
 

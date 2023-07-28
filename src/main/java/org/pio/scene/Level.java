@@ -1,7 +1,7 @@
 package org.pio.scene;
 
-import org.pio.Entities.AllyTowers.AllyTower;
-import org.pio.Entities.Enemies.Enemy;
+import org.pio.Entities.AllyTowers.oldAllyTower;
+import org.pio.Entities.Enemies.oldEnemy;
 import org.pio.main.GameScreen;
 import org.pio.manager.AllyTowerManager;
 import org.pio.manager.PlayerManager;
@@ -86,7 +86,7 @@ public class Level extends GameScene {
             updateStartMoveEnemies(roundList.get(currentRound).getEnemies());
         }
     }
-    private void updateStartMoveEnemies(List<Enemy> enemies){
+    private void updateStartMoveEnemies(List<oldEnemy> enemies){
 
         if (Helper.isEnemyListEmpty(enemies)){
             return;
@@ -146,20 +146,20 @@ public class Level extends GameScene {
     private void drawEnemies(Graphics g){
         if (currentRound < NUM_OF_ROUNDS){
             if (!roundList.get(currentRound).getEnemies().isEmpty()) {
-                for (Enemy enemy : getRoundList().get(currentRound).getEnemies()) {
+                for (oldEnemy oldEnemy : getRoundList().get(currentRound).getEnemies()) {
                     //g.drawRect(enemy.getEntityBounds().x, enemy.getEntityBounds().y, enemy.getEntityBounds().width, enemy.getEntityBounds().height);
                     //g.drawImage(enemy.getSprite(), enemy.getPosWidthX(), enemy.getPosHeightY(), enemy.getWidth(), enemy.getHeight(), null);
-                    enemy.drawEntity(g);
+                    oldEnemy.drawEntity(g);
                 }
             }
         }
     }
     private void drawAllyTowerPlaced(Graphics g){
 
-        if (AllyTowerManager.allyTowersPlaced!=null){
+        if (AllyTowerManager.oldAllyTowersPlaced !=null){
 
-            for (AllyTower allyTower: AllyTowerManager.allyTowersPlaced){
-                allyTower.draw(g);
+            for (oldAllyTower oldAllyTower : AllyTowerManager.oldAllyTowersPlaced){
+                oldAllyTower.draw(g);
             }
         }
 

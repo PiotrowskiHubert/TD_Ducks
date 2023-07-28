@@ -1,30 +1,28 @@
 package org.pio.Entities.Enemies;
 
-import org.pio.Entities.Entity;
+import org.pio.Entities.others.oldEntity;
 import org.pio.helpz.KeyPoint;
-import org.pio.main.GameScreen;
 import org.pio.player.Directions;
 import org.pio.scene.Level;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.util.Stack;
 
-public class Enemy extends Entity {
+public class oldEnemy extends oldEntity {
     private int spwnPointWidthX, spwnPointHeightY, endPointWidthX, endPointHeightY;
-    private int movSpeed;
+    private int movSpeed; //
     private boolean canGo=false;
-    private int index;
-    private Rectangle enemyHitBox;
+    private int index; //
+    private Rectangle enemyHitBox; //
     private int health, damage, gold;
     private double timePerUpdate=1_000_000_000.0/240;
     private long lastUpdate;
     private long now;
-    private Directions direction;
-    private Stack<KeyPoint> keyPointsStack;
-    private int keypointIndex;
-    public Enemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height, int health, int damage, int gold) {
+    private Directions direction; //
+    private Stack<KeyPoint> keyPointsStack; //
+    private int keypointIndex; //
+    public oldEnemy(String nameEnemy, int posWidthX, int posHeightY, int id, BufferedImage spriteEnemy, int movSpeed, int width, int height, int health, int damage, int gold) {
         this.nameEntity=nameEnemy;
         this.posWidthX=posWidthX;
         this.posHeightY=posHeightY;
@@ -47,7 +45,7 @@ public class Enemy extends Entity {
 
     }
 
-    public Enemy(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int movementSpeed, int health, int damage, int gold) {
+    public oldEnemy(String name, int id, int spriteCordX, int spriteCordY, int spriteWidth, int spriteHeight, int movementSpeed, int health, int damage, int gold) {
         this.nameEntity=name;
         this.id=id;
         this.spriteCordX=spriteCordX;

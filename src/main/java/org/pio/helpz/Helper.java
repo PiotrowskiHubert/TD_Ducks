@@ -1,36 +1,36 @@
 package org.pio.helpz;
 
-import org.pio.Entities.AllyTowers.AllyTower;
-import org.pio.Entities.Bullet;
-import org.pio.Entities.Enemies.Enemy;
-import org.pio.Entities.AllyTowers.FirstTower;
+import org.pio.Entities.AllyTowers.oldAllyTower;
+import org.pio.Entities.others.oldBullet;
+import org.pio.Entities.Enemies.oldEnemy;
+import org.pio.Entities.AllyTowers.oldFirstTowerOldOld;
 
 import java.util.List;
 
 public class Helper {
 
-    public static boolean isAllyTowerListEmpty(List<AllyTower> passedAllyTowerList){
+    public static boolean isAllyTowerListEmpty(List<oldAllyTower> passedOldAllyTowerList){
+        if (passedOldAllyTowerList.isEmpty()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    public static boolean isFirstAllyTowerListEmpty(List<oldFirstTowerOldOld> passedAllyTowerList){
         if (passedAllyTowerList.isEmpty()){
             return true;
         }else {
             return false;
         }
     }
-    public static boolean isFirstAllyTowerListEmpty(List<FirstTower> passedAllyTowerList){
+    public static boolean isBulletListEmpty(List<oldBullet> passedAllyTowerList){
         if (passedAllyTowerList.isEmpty()){
             return true;
         }else {
             return false;
         }
     }
-    public static boolean isBulletListEmpty(List<Bullet> passedAllyTowerList){
-        if (passedAllyTowerList.isEmpty()){
-            return true;
-        }else {
-            return false;
-        }
-    }
-    public static boolean isEnemyListEmpty(List<Enemy> passedAllyTowerList){
+    public static boolean isEnemyListEmpty(List<oldEnemy> passedAllyTowerList){
         if (passedAllyTowerList.isEmpty()){
             return true;
         }else {

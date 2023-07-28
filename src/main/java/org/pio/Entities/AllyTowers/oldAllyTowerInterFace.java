@@ -1,6 +1,6 @@
 package org.pio.Entities.AllyTowers;
 import java.awt.*;
-public interface AllyTowerInterFace {
+public interface oldAllyTowerInterFace {
 
     public void update();
     public void shot();

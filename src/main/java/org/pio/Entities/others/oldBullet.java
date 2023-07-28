@@ -1,8 +1,8 @@
-package org.pio.Entities;
+package org.pio.Entities.others;
 
 import java.awt.*;
 
-public class Bullet {
+public class oldBullet {
     private final int BULLET_HEIGHT=10;
     private final int BULLET_WIDTH=10;
     private double posWidthX;
@@ -10,7 +10,7 @@ public class Bullet {
     private Rectangle bulletHitBox;
     private double unitX, unitY;
 
-    public Bullet(double posWidthX, double posHeightY, double xEnemy, double yEnemy) {
+    public oldBullet(double posWidthX, double posHeightY, double xEnemy, double yEnemy) {
         this.posWidthX = posWidthX;
         this.posHeightY = posHeightY;
 

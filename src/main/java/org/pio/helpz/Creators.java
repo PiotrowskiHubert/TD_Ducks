@@ -5,10 +5,10 @@ import org.pio.manager.EnemyManager;
 
 public class Creators {
 
-    public static Enemy enemyCreator(int idFromEnemyManagerList){
+    public static oldEnemy enemyCreator(int idFromEnemyManagerList){
 
         if (idFromEnemyManagerList==0){
-            return new FirstEnemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
+            return new oldFirstOldEnemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointWidthX(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointHeightY(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getId(),
@@ -22,7 +22,7 @@ public class Creators {
         }
 
         if (idFromEnemyManagerList==1){
-            return new SecondEnemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
+            return new oldSecondOldEnemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointWidthX(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointHeightY(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getId(),
@@ -36,7 +36,7 @@ public class Creators {
         }
 
         if (idFromEnemyManagerList==2){
-            return new ThirdEnemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
+            return new oldThirdOldEnemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointWidthX(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointHeightY(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getId(),
@@ -50,7 +50,7 @@ public class Creators {
         }
 
         if (idFromEnemyManagerList==3){
-            return new FourthEnemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
+            return new oldFourthOldEnemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointWidthX(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointHeightY(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getId(),
@@ -64,7 +64,7 @@ public class Creators {
         }
 
         if (idFromEnemyManagerList==4){
-            return new FifthEnemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
+            return new oldFifthOldEnemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointWidthX(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointHeightY(),
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getId(),
@@ -77,7 +77,7 @@ public class Creators {
                     EnemyManager.getEnemyList().get(idFromEnemyManagerList).getGold());
         }
 
-        return new Enemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
+        return new oldEnemy(EnemyManager.getEnemyList().get(idFromEnemyManagerList).getNameEntity(),
                 EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointWidthX(),
                 EnemyManager.getEnemyList().get(idFromEnemyManagerList).getSpwnPointHeightY(),
                 EnemyManager.getEnemyList().get(idFromEnemyManagerList).getId(),

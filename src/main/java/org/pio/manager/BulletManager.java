@@ -1,7 +1,7 @@
 package org.pio.manager;
 
-import org.pio.Entities.AllyTowers.AllyTower;
-import org.pio.Entities.Bullet;
+import org.pio.Entities.AllyTowers.oldAllyTower;
+import org.pio.Entities.others.oldBullet;
 import org.pio.helpz.Helper;
 
 import java.util.Iterator;
@@ -18,20 +18,20 @@ public class BulletManager {
 
         // ITERATE THROUGH ALLY TOWER PLACED
 
-        for (Iterator<AllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();) {
-            AllyTower nextAlly = allyTowerIterator.next();
+        for (Iterator<oldAllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();) {
+            oldAllyTower nextAlly = allyTowerIterator.next();
 
             if (!Helper.isBulletListEmpty(nextAlly.getBulletList())){
                 // ITERATE THROUGH BULLET LIST OF EACH ALLY TOWER
 
-                for (Iterator<Bullet> bulletIterator = nextAlly.getBulletList().iterator(); bulletIterator.hasNext();) {
-                    Bullet nextBullet = bulletIterator.next();
+                for (Iterator<oldBullet> bulletIterator = nextAlly.getBulletList().iterator(); bulletIterator.hasNext();) {
+                    oldBullet nextOldBullet = bulletIterator.next();
 
                     // UPDATE BULLET
-                    nextBullet.bulletUpdate();
+                    nextOldBullet.bulletUpdate();
 
                     // CHECK IF BULLET IS OUT OF RANGE OF ALLY TOWER
-                    if (limitBulletRange(nextAlly, nextBullet)){
+                    if (limitBulletRange(nextAlly, nextOldBullet)){
                         bulletIterator.remove();
                     }
 
@@ -42,8 +42,8 @@ public class BulletManager {
 
     }
 
-    private Boolean limitBulletRange(AllyTower allyTower, Bullet bullet){
-        return distanceBetweenTwoPoints(allyTower.getPosWidthX(), allyTower.getPosHeightY(), bullet.getPosWidthX(), bullet.getPosHeightY()) >= allyTower.getRange() + 15;
+    private Boolean limitBulletRange(oldAllyTower oldAllyTower, oldBullet oldBullet){
+        return distanceBetweenTwoPoints(oldAllyTower.getPosWidthX(), oldAllyTower.getPosHeightY(), oldBullet.getPosWidthX(), oldBullet.getPosHeightY()) >= oldAllyTower.getRange() + 15;
     }
 
 }
