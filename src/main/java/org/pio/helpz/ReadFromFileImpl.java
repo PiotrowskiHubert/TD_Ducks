@@ -1,8 +1,12 @@
 package org.pio.helpz;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class ReadFromFileImpl implements ReadFromFile {
 
@@ -204,5 +208,22 @@ public class ReadFromFileImpl implements ReadFromFile {
         }
 
         return -1;
+    }
+
+    @Override
+    public BufferedImage readBufferedImage(String fileName) {
+        BufferedImage bufferedImage = null;
+
+        InputStream is = ReadFromFileImpl.class.getClassLoader().getResourceAsStream(fileName);
+
+        try {
+            if (is!=null){
+                bufferedImage= ImageIO.read(is);
+            }
+        }catch (IOException e){
+            System.out.println("Failed to load: "+ fileName);
+        }
+
+        return bufferedImage;
     }
 }

@@ -2,12 +2,14 @@ package org.pio.database;
 
 import org.pio.Entities.Enemy;
 import org.pio.Entities.Enemy_1;
+import org.pio.helpz.ReadFromFileImpl;
 
+import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;
 
 public class MainDatabase {
     LinkedHashMap<Integer, Enemy> enemyDatabase = new LinkedHashMap<>();
-
+    LinkedHashMap<Integer, BufferedImage> spriteAtlasDatabase = new LinkedHashMap<>();
     public MainDatabase(){
 
     }
@@ -21,6 +23,12 @@ public class MainDatabase {
             default:
                 return null;
         }
+    }
+
+    private BufferedImage getSpriteAtlas(String fileName){
+        ReadFromFileImpl readFromFile = new ReadFromFileImpl();
+
+        return readFromFile.readBufferedImage(fileName);
     }
 
     public static void main(String[] args) {
