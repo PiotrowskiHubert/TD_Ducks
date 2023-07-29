@@ -5,9 +5,17 @@ import java.awt.image.BufferedImage;
 
 abstract class Entity {
     private int width, height, posX, posY, id;
-    private String name;
+    public String name;
     private Shape bounds;
     private BufferedImage sprite;
+
+    protected Entity(String name, int id, int width, int height, BufferedImage sprite){
+        this.name = name;
+        this.id = id;
+        this.width = width;
+        this.height = height;
+        this.sprite = sprite;
+    }
 
     protected Entity(String name, int id, int width, int height, int posX, int posY, BufferedImage sprite){
         this.name = name;
@@ -31,5 +39,7 @@ abstract class Entity {
     private void drawSprite(Graphics g) {
         g.drawImage(sprite, bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height, null);
     }
+
+
 
 }

@@ -1,8 +1,8 @@
 package org.pio.database;
 
-import org.pio.helpz.ReadFromFileImpl;
-
-abstract class EnemyDatabase {
-    ReadFromFileImpl readFromFile = new ReadFromFileImpl();
-
+public interface EnemyDatabase extends EntityDatabase{
+    int getHealth(String fileName);
+    int getDamage(String fileName);
+    int getGold(String fileName);
+    int getMovementSpeed(String fileName);
 }
