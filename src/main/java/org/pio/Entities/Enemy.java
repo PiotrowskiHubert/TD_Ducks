@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Stack;
 
-abstract class Enemy extends Entity{
+public abstract class Enemy extends Entity{
     private double movementSpeed;
     private int health, damage, gold;
     private Directions direction;

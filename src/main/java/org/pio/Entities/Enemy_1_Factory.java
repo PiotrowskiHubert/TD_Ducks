@@ -1,8 +1,12 @@
 package org.pio.Entities;
 
+import org.pio.Entities.Enemies.*;
 import org.pio.player.Directions;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Enemy_1_Factory implements EntityFactory{
 
@@ -17,5 +21,7 @@ public class Enemy_1_Factory implements EntityFactory{
 
             return null;
     }
+
+
 
 }
