@@ -1,8 +1,11 @@
 package org.pio.database;
 
 import org.pio.helpz.ReadFromFileImpl;
+import org.pio.player.Directions;
 
 import java.awt.image.BufferedImage;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 public class EnemyDatabaseImpl implements EnemyDatabase{
     ReadFromFileImpl readFromFile = new ReadFromFileImpl();
@@ -35,6 +38,21 @@ public class EnemyDatabaseImpl implements EnemyDatabase{
     public int getMovementSpeed(String fileName) {
         return readFromFile.readMovementSpeed(fileName);
     }
+
+    @Override
+    public LinkedHashMap<Directions, LinkedList<BufferedImage>> getSprites(String fileName) {
+
+        LinkedHashMap<Directions, LinkedList<BufferedImage>> sprites = new LinkedHashMap<>();
+        LinkedList<BufferedImage> images = new LinkedList<>();
+
+        sprites.put(Directions.DOWN, images);
+        sprites.put(Directions.UP, images);
+        sprites.put(Directions.LEFT, images);
+        sprites.put(Directions.RIGHT, images);
+
+        return sprites;
+    }
+
     @Override
     public int getWidth(String fileName) {
         return readFromFile.readWidth(fileName);

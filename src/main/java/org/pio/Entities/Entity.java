@@ -9,6 +9,13 @@ abstract class Entity {
     private Shape bounds;
     private BufferedImage sprite;
 
+    protected Entity(String name, int id, int width, int height){
+        this.name = name;
+        this.id = id;
+        this.width = width;
+        this.height = height;
+    }
+
     protected Entity(String name, int id, int width, int height, BufferedImage sprite){
         this.name = name;
         this.id = id;

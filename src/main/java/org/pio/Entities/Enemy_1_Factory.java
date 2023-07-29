@@ -1,6 +1,7 @@
 package org.pio.Entities;
 
 import org.pio.Entities.Enemies.*;
+import org.pio.database.MainDatabase;
 import org.pio.player.Directions;
 
 import java.awt.image.BufferedImage;
@@ -12,14 +13,10 @@ public class Enemy_1_Factory implements EntityFactory{
 
     @Override
     public Entity create() {
-            String name;
-            int id, health, damage, gold, movementSpeed, width, height, posX, posY;
-            BufferedImage sprite;
-            Directions direction;
+        MainDatabase mainDatabase = new MainDatabase();
 
-            //return new Enemy_1(name, id, health, damage, gold, movementSpeed, width, height, posX, posY, sprite, direction);
-
-            return null;
+        //return new Enemy_1(mainDatabase.enemyDatabase.get(1).name,mainDatabase.enemyDatabase.get(1).id)
+        return null;
     }
 
 
