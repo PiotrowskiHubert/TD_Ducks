@@ -109,49 +109,52 @@ public class oldAllyTower extends oldEntity {
     }
     protected void shot(){
 
-        if (Helper.isEnemyListEmpty(Level.getRoundList().get(Level.currentRound).getEnemies())){
-            return;
-        }
-        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
-            return;
-        }
-
-        oldBullet oldBullet;
-
-        double shotOffsetX=0.0;
-        double shotOffsetY=0.0;
-
-        oldBullet = new oldBullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
-        oldBulletList.add(oldBullet);
-
+//        if (Helper.isEnemyListEmpty(Level.getRoundList().get(Level.currentRound).getEnemies())){
+//            return;
+//        }
+//        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
+//            return;
+//        }
+//
+//        oldBullet oldBullet;
+//
+//        double shotOffsetX=0.0;
+//        double shotOffsetY=0.0;
+//
+//        oldBullet = new oldBullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
+//        oldBulletList.add(oldBullet);
+//
 
     }
+
+    // TODO OLD ENEMY SYSTEM
     private void updateListOfEnemiesInRangeForPlacedTower(oldAllyTower oldAllyTowerPlaced){
 
-        for (oldEnemy oldEnemy : Level.getRoundList().get(Level.currentRound).getEnemies()){
+        //for (oldEnemy oldEnemy : Level.getRoundList().get(Level.currentRound).getEnemies()){
 
-            if (!isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, oldEnemy)){
-                if (oldAllyTowerPlaced.getRangeEllipse().intersects(oldEnemy.getEntityBounds())){
-                    oldAllyTowerPlaced.getEnemiesInRangeList().add(oldEnemy);
-                }
-            }
-
-            if (isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, oldEnemy)){
-                if (oldAllyTowerPlaced.getRangeEllipse().intersects(oldEnemy.getEntityBounds())){
-                    updateEnemiesPositionInRangeForPlacedTower(oldAllyTowerPlaced, oldEnemy);
-                }
-            }
-
-            if (isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, oldEnemy)){
-
-                if (!oldAllyTowerPlaced.getRangeEllipse().intersects(oldEnemy.getEntityBounds())){
-                    oldAllyTowerPlaced.getEnemiesInRangeList().remove(oldEnemy);
-                }
-            }
-
-        }
+//            if (!isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, oldEnemy)){
+//                if (oldAllyTowerPlaced.getRangeEllipse().intersects(oldEnemy.getEntityBounds())){
+//                    oldAllyTowerPlaced.getEnemiesInRangeList().add(oldEnemy);
+//                }
+//            }
+//
+//            if (isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, oldEnemy)){
+//                if (oldAllyTowerPlaced.getRangeEllipse().intersects(oldEnemy.getEntityBounds())){
+//                    updateEnemiesPositionInRangeForPlacedTower(oldAllyTowerPlaced, oldEnemy);
+//                }
+//            }
+//
+//            if (isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, oldEnemy)){
+//
+//                if (!oldAllyTowerPlaced.getRangeEllipse().intersects(oldEnemy.getEntityBounds())){
+//                    oldAllyTowerPlaced.getEnemiesInRangeList().remove(oldEnemy);
+//                }
+//            }
+//
+//        }
 
     }
+
     private void updateEnemiesPositionInRangeForPlacedTower(oldAllyTower oldAllyTowerPlaced, oldEnemy oldEnemy) {
         for (oldEnemy oldEnemyInRange : oldAllyTowerPlaced.getEnemiesInRangeList()){
             if (oldEnemyInRange.equals(oldEnemy)){
@@ -169,6 +172,7 @@ public class oldAllyTower extends oldEntity {
             updateListOfEnemiesInRangeForPlacedTower(oldAllyTowerPlaced);
         }
     }
+
     private boolean isEnemyAlreadyInAllyTowerPlacedList(oldAllyTower oldAllyTowerPlaced, oldEnemy oldEnemy){
         return oldAllyTowerPlaced.getEnemiesInRangeList().contains(oldEnemy);
     }

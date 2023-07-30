@@ -1,6 +1,7 @@
 package org.pio.helpz;
 
 import org.pio.entities.AllyTowers.oldAllyTower;
+import org.pio.entities.Enemy;
 import org.pio.entities.others.oldBullet;
 import org.pio.entities.Enemies.oldEnemy;
 import org.pio.entities.AllyTowers.oldFirstTowerOldOld;
@@ -30,7 +31,7 @@ public class Helper {
             return false;
         }
     }
-    public static boolean isEnemyListEmpty(List<oldEnemy> passedAllyTowerList){
+    public static boolean isEnemyListEmpty(List<Enemy> passedAllyTowerList){
         if (passedAllyTowerList.isEmpty()){
             return true;
         }else {

@@ -1,18 +1,17 @@
 package org.pio.scene;
 
 import org.pio.entities.AllyTowers.oldAllyTower;
-import org.pio.entities.Enemies.oldEnemy;
 import org.pio.entities.Enemy;
 import org.pio.entities.EnemyFactoryImpl;
+import org.pio.helpz.Helper;
 import org.pio.main.GameScreen;
 import org.pio.manager.AllyTowerManager;
-import org.pio.manager.PlayerManager;
+import org.pio.player.Directions;
 import org.pio.player.Player;
 import org.pio.tiles.tTile;
 import org.pio.helpz.KeyPoint;
 import org.pio.main.Game;
 import org.pio.readers.ReadFromFile;
-import org.pio.helpz.Helper;
 import org.pio.helpz.Readers;
 import org.pio.helpz.Writers;
 
@@ -21,13 +20,13 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 public class Level extends GameScene {
-    private final int START_ROUND=0;
+    private final int START_ROUND=1;
     private final int NUM_OF_ROUNDS;
     public static int currentRound;
     private static int lvlHeight, lvlWidth;
     private static tTile [][] lvlArr;
 //    private static List<Round> roundList;
-    private static List<Round> rounds;
+    public static List<Round> rounds;
     private static List<KeyPoint> keyPointsList;
     private EnemyFactoryImpl enemyFactoryImpl;
 
@@ -43,12 +42,13 @@ public class Level extends GameScene {
 
         currentRound=START_ROUND;
         //roundList = new ArrayList<>();
+
         rounds = new ArrayList<>();
 
         createLevelRoundsAndAddEnemies();
 
-        Writers.writeEmptyLevel();
-        Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_1.txt"));
+        //Writers.writeEmptyLevel();
+        Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_1_Tiles.txt"));
     }
 
     // -------- INIT ------- //
@@ -64,33 +64,32 @@ public class Level extends GameScene {
     }
     private void createLevelRoundsAndAddEnemies(){
 
-//        String pathFile = "src/main/resources/";
-//        String fileName = pathFile+ "RoundsInfo/rounds_data.txt";
-//
-//        for (int i = 0; i <= NUM_OF_ROUNDS; i++) {
-//            Round round= ReadFromFile.readEnemyFromRoundDataFile(fileName,i);
-//            roundList.add(round);
-//        }
+        String pathFile = "src/main/resources/";
+        String fileName = pathFile+ "LevelInfo/lvl_1_Enemies.txt";
 
-        Round round_1 = ReadFromFile.readEnemyFromRoundDataFile_2("src/main/resources/RoundsInfo/rounds_2.txt",1,enemyFactoryImpl);
-        rounds.add(round_1);
+        for (int i = 1; i < NUM_OF_ROUNDS; i++) {
+            Round round = ReadFromFile.readEnemyFromRoundDataFile_2(fileName,i,enemyFactoryImpl, keyPointsList.get(0).getWidthX(), keyPointsList.get(0).getHeightY(), Directions.RIGHT);
+            rounds.add(round);
+        }
+
     }
 
     // -------- UPDATE ------- //
 
 
     public void updateLevel(){
-        //updateRoundCounter();
+        updateRoundCounter();
         //updateMoveEnemies();
     }
 
-//    private void updateRoundCounter() {
-//        if (Helper.isFirstValueSmallerThanSecond(currentRound,NUM_OF_ROUNDS)){
-//            if (Helper.isEnemyListEmpty(getRoundList().get(currentRound).getEnemies())){
-//                currentRound++;
-//            }
-//        }
-//    }
+    private void updateRoundCounter() {
+        if (Helper.isFirstValueSmallerThanSecond(currentRound,NUM_OF_ROUNDS)){
+            if (Helper.isEnemyListEmpty(rounds.get(currentRound).getEnemies_2())){
+                currentRound++;
+            }
+        }
+    }
+
 //    private void updateMoveEnemies() {
 //
 //        if (Helper.isFirstValueSmallerThanSecond(Level.currentRound,getNUM_OF_ROUNDS())){

@@ -13,7 +13,66 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ReadFromFile {
-    public static Round readEnemyFromRoundDataFile(String fileName, int numOfRound){
+//    public static Round readEnemyFromRoundDataFile(String fileName, int numOfRound){
+//        Round round = new Round();
+//
+//        try (
+//                var fileReader = new FileReader(fileName);
+//                var reader = new BufferedReader(fileReader);
+//        ) {
+//
+//            String nextLine = null;
+//
+//            // GO THROUGH PASSED FILE
+//            // UNTIL REACHES PASSED ROUND
+//            // THEN READ ENEMIES FROM PASSED ROUND
+//            // BREAK IF REACHES NEXT ROUND
+//
+//            while ((nextLine = reader.readLine()) != null){
+//
+//                // FIND PASSED ROUND
+//                if (nextLine.equals("ROUND"+(numOfRound))){
+//
+//                    // READ ENEMIES FROM PASSED ROUND
+//                    while ((nextLine = reader.readLine()) != null && Helper.isInteger(nextLine)){
+//
+//                        if (nextLine.equals("1")) {
+//                            oldEnemy oldEnemy = Creators.enemyCreator(0);
+//                            round.getEnemies().add(oldEnemy);
+//                        }
+//
+//                        if (nextLine.equals("2")) {
+//                            oldEnemy oldEnemy = Creators.enemyCreator(1);
+//                            round.getEnemies().add(oldEnemy);
+//                        }
+//
+//                        if (nextLine.equals("3")) {
+//                            oldEnemy oldEnemy = Creators.enemyCreator(2);
+//                            round.getEnemies().add(oldEnemy);
+//                        }
+//
+//                        if (nextLine.equals("4")) {
+//                            oldEnemy oldEnemy = Creators.enemyCreator(3);
+//                            round.getEnemies().add(oldEnemy);
+//                        }
+//
+//                        if (nextLine.equals("5")) {
+//                            oldEnemy oldEnemy = Creators.enemyCreator(4);
+//                            round.getEnemies().add(oldEnemy);
+//                        }
+//                    }
+//
+//                }
+//            }
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return round;
+//    }
+
+    public static Round readEnemyFromRoundDataFile_2(String fileName, int numOfRound, EnemyFactoryImpl enemyFactoryImpl, int posX, int posY, Directions direction){
         Round round = new Round();
 
         try (
@@ -23,90 +82,36 @@ public class ReadFromFile {
 
             String nextLine = null;
 
-            // GO THROUGH PASSED FILE
-            // UNTIL REACHES PASSED ROUND
-            // THEN READ ENEMIES FROM PASSED ROUND
-            // BREAK IF REACHES NEXT ROUND
-
-            while ((nextLine = reader.readLine()) != null){
-
-                // FIND PASSED ROUND
-                if (nextLine.equals("ROUND"+(numOfRound))){
-
-                    // READ ENEMIES FROM PASSED ROUND
-                    while ((nextLine = reader.readLine()) != null && Helper.isInteger(nextLine)){
-
-                        if (nextLine.equals("1")) {
-                            oldEnemy oldEnemy = Creators.enemyCreator(0);
-                            round.getEnemies().add(oldEnemy);
-                        }
-
-                        if (nextLine.equals("2")) {
-                            oldEnemy oldEnemy = Creators.enemyCreator(1);
-                            round.getEnemies().add(oldEnemy);
-                        }
-
-                        if (nextLine.equals("3")) {
-                            oldEnemy oldEnemy = Creators.enemyCreator(2);
-                            round.getEnemies().add(oldEnemy);
-                        }
-
-                        if (nextLine.equals("4")) {
-                            oldEnemy oldEnemy = Creators.enemyCreator(3);
-                            round.getEnemies().add(oldEnemy);
-                        }
-
-                        if (nextLine.equals("5")) {
-                            oldEnemy oldEnemy = Creators.enemyCreator(4);
-                            round.getEnemies().add(oldEnemy);
-                        }
-                    }
-
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return round;
-    }
-
-    public static Round readEnemyFromRoundDataFile_2(String fileName, int numOfRound, EnemyFactoryImpl enemyFactoryImpl){
-        Round round = new Round();
-
-        try (
-                var fileReader = new FileReader(fileName);
-                var reader = new BufferedReader(fileReader);
-        ) {
-
-            String nextLine = null;
-
             while ((nextLine = reader.readLine()) != null){
 
                 if (nextLine.equals("ROUND"+(numOfRound))){
 
+                    int offsetX=60;
+                    int i=0;
+
                     while ((nextLine = reader.readLine()) != null && Helper.isInteger(nextLine)){
 
                         if (nextLine.equals("1")) {
-                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_1(100,100, Directions.DOWN));
+                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_1(posX-(i*offsetX),posY, direction));
                         }
 
                         if (nextLine.equals("2")) {
-                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_2(100,100, Directions.DOWN));
+                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_2(posX-(i*offsetX),posY, direction));
                         }
 
                         if (nextLine.equals("3")) {
-                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_3(100,100, Directions.DOWN));
+                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_3(posX-(i*offsetX),posY, direction));
                         }
 
                         if (nextLine.equals("4")) {
-                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_4(100,100, Directions.DOWN));
+                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_4(posX-(i*offsetX),posY, direction));
                         }
 
                         if (nextLine.equals("5")) {
-                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_5(100,100, Directions.DOWN));
+                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_5(posX-(i*offsetX),posY, direction));
                         }
+
+                        i++;
                     }
 
                 }

@@ -35,13 +35,8 @@ public class Writers {
               var writer = new BufferedWriter(fileWriter);
 
         ){
-            // WRITE ROUNDS DATA TO FILE
-
-            // WRITE NUMBER OF ROUNDS TO FILE
             for (int i = 0; i < numOfRounds; i++) {
                 writer.write("ROUND"+(i+1)); writer.newLine();
-                // WRITE ID NUMBER OF ENEMIES TO FILE
-                // INCREASE NUMBER OF ENEMIES BY 5 EACH ROUND
 
                 for (int j = 0; j < 5*(i+1); j++) {
                     writer.write("1"); writer.newLine();
@@ -177,20 +172,23 @@ public class Writers {
 
             String path;
 
-            path = "src/main/resources/EnemiesInfo/enemy_1.txt";
-            writeEnemyDataToFile(path, "enemy_1", "1", "32", "32", "1", "100", "10", "10");
-
-            path = "src/main/resources/EnemiesInfo/enemy_2.txt";
-            writeEnemyDataToFile(path, "enemy_2", "2", "32", "32", "1", "100", "10", "10");
-
-            path = "src/main/resources/EnemiesInfo/enemy_3.txt";
-            writeEnemyDataToFile(path, "enemy_3", "3", "32", "32", "1", "100", "10", "10");
-
-            path = "src/main/resources/EnemiesInfo/enemy_4.txt";
-            writeEnemyDataToFile(path, "enemy_4", "4", "32", "32", "1", "100", "10", "10");
-
-            path = "src/main/resources/EnemiesInfo/enemy_5.txt";
-            writeEnemyDataToFile(path, "enemy_5", "5", "32", "32", "1", "100", "10", "10");
+//            path = "src/main/resources/EnemiesInfo/enemy_1.txt";
+//            writeEnemyDataToFile(path, "enemy_1", "1", "32", "32", "1", "100", "10", "10");
+//
+//            path = "src/main/resources/EnemiesInfo/enemy_2.txt";
+//            writeEnemyDataToFile(path, "enemy_2", "2", "32", "32", "1", "100", "10", "10");
+//
+//            path = "src/main/resources/EnemiesInfo/enemy_3.txt";
+//            writeEnemyDataToFile(path, "enemy_3", "3", "32", "32", "1", "100", "10", "10");
+//
+//            path = "src/main/resources/EnemiesInfo/enemy_4.txt";
+//            writeEnemyDataToFile(path, "enemy_4", "4", "32", "32", "1", "100", "10", "10");
+//
+//            path = "src/main/resources/EnemiesInfo/enemy_5.txt";
+//            writeEnemyDataToFile(path, "enemy_5", "5", "32", "32", "1", "100", "10", "10");
+//
+//            path = "src/main/resources/LevelInfo/lvl_1_Enemies.txt";
+//            writeRoundsDataToFile(path, 10);
 
         }
 

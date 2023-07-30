@@ -32,7 +32,7 @@ public class SidePanelEditMapMethods{
 
         List<tTile[]> tTiles = Arrays.stream(lvlArr).toList();
 
-        String fileName = "src/main/resources/LevelInfo/lvl_1.txt";
+        String fileName = "src/main/resources/LevelInfo/lvl_1_Tiles.txt";
         try (
                 var fileWriter = new FileWriter(fileName);
                 var writer = new BufferedWriter(fileWriter);
