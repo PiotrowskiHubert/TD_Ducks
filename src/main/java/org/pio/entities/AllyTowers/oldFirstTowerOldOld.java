@@ -37,8 +37,8 @@ public class oldFirstTowerOldOld extends oldAllyTower implements oldAllyTowerInt
         double shotOffsetX=5.0;
         double shotOffsetY=0.0;
 
-        oldBullet = new oldBullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
-        oldBulletList.add(oldBullet);
+//        oldBullet = new oldBullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
+       // oldBulletList.add(oldBullet);
 
     }
 

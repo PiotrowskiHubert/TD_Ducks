@@ -4,7 +4,6 @@ import org.pio.helpz.KeyPoint;
 import org.pio.player.Directions;
 import org.pio.scene.Level;
 
-import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -19,8 +18,8 @@ public abstract class Enemy extends Entity{
     private Stack<KeyPoint> keyPointsStack;
     private int keypointIndex;
 
-    private double timePerUpdate=1_000_000_000.0/240;
-    private long lastUpdate;
+    private double timePerMoveUpdate =1_000_000_000.0/240;
+    private long lastMoveUpdate;
     private long now;
 
     protected Enemy(String name,  int id, int health, int damage, int gold, int movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
@@ -56,40 +55,44 @@ public abstract class Enemy extends Entity{
     public void update() {
         now = System.nanoTime();
 
-        if (now-lastUpdate>= timePerUpdate){
+        if (now - lastMoveUpdate >= timePerMoveUpdate){
+            moveUpdate();
+        }
 
-            direction=calcDirection();
+    }
 
-            if (direction!=null){
+    private void moveUpdate(){
 
-                switch (direction) {
-                    case LEFT -> {
-                        posX=posX-movementSpeed;
-                        updateHitBox();
-                    }
+        direction=calcDirection();
 
-                    case RIGHT -> {
-                        posX=posX+movementSpeed;
-                        updateHitBox();
-                    }
+        if (direction!=null){
 
-                    case UP -> {
-                        posY=posY-movementSpeed;
-                        updateHitBox();
-                    }
+            switch (direction) {
+                case LEFT -> {
+                    posX=posX-movementSpeed;
+                    updateHitBox();
+                }
 
-                    case DOWN -> {
-                        posY=posY+movementSpeed;
-                        updateHitBox();
-                    }
+                case RIGHT -> {
+                    posX=posX+movementSpeed;
+                    updateHitBox();
+                }
 
+                case UP -> {
+                    posY=posY-movementSpeed;
+                    updateHitBox();
+                }
+
+                case DOWN -> {
+                    posY=posY+movementSpeed;
+                    updateHitBox();
                 }
 
             }
 
-            lastUpdate=now;
         }
 
+        lastMoveUpdate =now;
     }
 
     private Directions calcDirection(){

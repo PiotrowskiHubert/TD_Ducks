@@ -15,7 +15,6 @@ public class Game extends JFrame implements Runnable {
     public static GameStates gameStates;
     private Update update;
     private GameScreen gameScreen;
-    private EnemyManager enemyManager;
     private AllyTowerManager allyTowerManager;
     private BulletManager bulletManager;
     private PlayerManager playerManager;
@@ -52,7 +51,6 @@ public class Game extends JFrame implements Runnable {
         tileManager=new TileManager();
         allyTowerManager=new AllyTowerManager();
         bulletManager=new BulletManager();
-        enemyManager = new EnemyManager();
         playerManager=new PlayerManager();
 
         playScene=new PlayScene(this);
@@ -161,9 +159,6 @@ public class Game extends JFrame implements Runnable {
     }
     public PlayScene getPlayScene() {
         return playScene;
-    }
-    public EnemyManager getEnemyManager() {
-        return enemyManager;
     }
     public AllyTowerManager getAllyTowerManager() {
         return allyTowerManager;

@@ -1,11 +1,9 @@
 package org.pio.entities.AllyTowers;
 
 import org.pio.entities.others.oldBullet;
-import org.pio.entities.Enemies.oldEnemy;
 import org.pio.entities.others.oldEntity;
 import org.pio.main.GameScreen;
 import org.pio.manager.AllyTowerManager;
-import org.pio.scene.Level;
 import org.pio.ui.Button;
 import org.pio.ui.sidePanel.SidePanelUpgrade;
 import org.pio.helpz.Helper;
@@ -18,7 +16,7 @@ import java.util.List;
 
 public class oldAllyTower extends oldEntity {
     protected List<oldBullet> oldBulletList;
-    protected List<oldEnemy> enemiesInRangeList;
+//    protected List<oldEnemy> enemiesInRangeList;
     protected int cost, index, range;
     protected double timePerShot;
     protected long lastTimeCheck, now, lastShot;
@@ -79,7 +77,7 @@ public class oldAllyTower extends oldEntity {
         this.selected=false;
     }
     private void initLists(){
-        this.enemiesInRangeList=new ArrayList<>();
+//        this.enemiesInRangeList=new ArrayList<>();
         this.oldBulletList =new ArrayList<>();
     }
 
@@ -155,14 +153,14 @@ public class oldAllyTower extends oldEntity {
 
     }
 
-    private void updateEnemiesPositionInRangeForPlacedTower(oldAllyTower oldAllyTowerPlaced, oldEnemy oldEnemy) {
-        for (oldEnemy oldEnemyInRange : oldAllyTowerPlaced.getEnemiesInRangeList()){
-            if (oldEnemyInRange.equals(oldEnemy)){
-                oldEnemyInRange.setPosWidthX(oldEnemy.getPosWidthX());
-                oldEnemyInRange.setPosHeightY(oldEnemy.getPosHeightY());
-            }
-        }
-    }
+//    private void updateEnemiesPositionInRangeForPlacedTower(oldAllyTower oldAllyTowerPlaced, oldEnemy oldEnemy) {
+//        for (oldEnemy oldEnemyInRange : oldAllyTowerPlaced.getEnemiesInRangeList()){
+//            if (oldEnemyInRange.equals(oldEnemy)){
+//                oldEnemyInRange.setPosWidthX(oldEnemy.getPosWidthX());
+//                oldEnemyInRange.setPosHeightY(oldEnemy.getPosHeightY());
+//            }
+//        }
+//    }
     private void updateEnemiesInRangeForPlacedTower(){
         if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
             return;
@@ -173,9 +171,9 @@ public class oldAllyTower extends oldEntity {
         }
     }
 
-    private boolean isEnemyAlreadyInAllyTowerPlacedList(oldAllyTower oldAllyTowerPlaced, oldEnemy oldEnemy){
-        return oldAllyTowerPlaced.getEnemiesInRangeList().contains(oldEnemy);
-    }
+//    private boolean isEnemyAlreadyInAllyTowerPlacedList(oldAllyTower oldAllyTowerPlaced, oldEnemy oldEnemy){
+//        return oldAllyTowerPlaced.getEnemiesInRangeList().contains(oldEnemy);
+//    }
 
     // -------- UPGRADE ------- //
 
@@ -253,9 +251,9 @@ public class oldAllyTower extends oldEntity {
     public Ellipse2D getRangeEllipse() {
         return rangeEllipse;
     }
-    public List<oldEnemy> getEnemiesInRangeList() {
-        return enemiesInRangeList;
-    }
+//    public List<oldEnemy> getEnemiesInRangeList() {
+//        return enemiesInRangeList;
+//    }
     public int getCost() {
         return cost;
     }

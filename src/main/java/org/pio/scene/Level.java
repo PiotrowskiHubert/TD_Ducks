@@ -25,7 +25,6 @@ public class Level extends GameScene {
     public static int currentRound;
     private static int lvlHeight, lvlWidth;
     private static tTile [][] lvlArr;
-//    private static List<Round> roundList;
     public static List<Round> rounds;
     private static List<KeyPoint> keyPointsList;
     private EnemyFactoryImpl enemyFactoryImpl;
@@ -41,13 +40,11 @@ public class Level extends GameScene {
         lvlArr = new tTile[lvlHeight][lvlWidth];
 
         currentRound=START_ROUND;
-        //roundList = new ArrayList<>();
 
         rounds = new ArrayList<>();
 
         createLevelRoundsAndAddEnemies();
 
-        //Writers.writeEmptyLevel();
         Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_1_Tiles.txt"));
     }
 
@@ -68,7 +65,7 @@ public class Level extends GameScene {
         String fileName = pathFile+ "LevelInfo/lvl_1_Enemies.txt";
 
         for (int i = 0; i < NUM_OF_ROUNDS; i++) {
-            Round round = ReadFromFile.readEnemyFromRoundDataFile_2(fileName,i,enemyFactoryImpl, keyPointsList.get(0).getWidthX(), keyPointsList.get(0).getHeightY(), Directions.RIGHT);
+            Round round = ReadFromFile.readEnemyFromRoundDataFile(fileName,i,enemyFactoryImpl, keyPointsList.get(0).getWidthX(), keyPointsList.get(0).getHeightY(), Directions.RIGHT);
             rounds.add(round);
         }
 
@@ -78,23 +75,13 @@ public class Level extends GameScene {
 
 
     public void updateLevel(){
-        //updateRoundCounter();
-
         updateMoveEnemies();
     }
-
-//    private void updateRoundCounter() {
-//        if (Helper.isFirstValueSmallerThanSecond(currentRound,NUM_OF_ROUNDS)){
-//            if (Helper.isEnemyListEmpty(rounds.get(currentRound).getEnemies_2())){
-//                currentRound++;
-//            }
-//        }
-//    }
 
     private void updateMoveEnemies() {
 
         if (Helper.isFirstValueSmallerThanSecond(Level.currentRound,getNUM_OF_ROUNDS())){
-            updateStartMoveEnemies(rounds.get(currentRound).getEnemies_2());
+            updateStartMoveEnemies(rounds.get(currentRound).getEnemies());
         }
     }
 
@@ -137,8 +124,8 @@ public class Level extends GameScene {
 
     private void drawEnemy(Graphics g) {
         if (currentRound < NUM_OF_ROUNDS){
-            if (!rounds.get(currentRound).getEnemies_2().isEmpty()) {
-                for (Enemy enemy : rounds.get(currentRound).getEnemies_2()) {
+            if (!rounds.get(currentRound).getEnemies().isEmpty()) {
+                for (Enemy enemy : rounds.get(currentRound).getEnemies()) {
                     enemy.draw(g);
                 }
             }
@@ -187,9 +174,6 @@ public class Level extends GameScene {
     }
     public static tTile[][] getLvlArr() {
         return lvlArr;
-    }
-    public static int getCurrentRound() {
-        return currentRound;
     }
 
 

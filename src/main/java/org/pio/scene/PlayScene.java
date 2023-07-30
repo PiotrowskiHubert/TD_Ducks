@@ -1,14 +1,11 @@
 package org.pio.scene;
 
 import org.pio.entities.AllyTowers.oldAllyTower;
-import org.pio.entities.others.oldBullet;
-import org.pio.entities.Enemies.oldEnemy;
 import org.pio.main.GameScreen;
 import org.pio.player.Player;
 import org.pio.inputs.mouseMethods;
 import org.pio.main.Game;
 import org.pio.manager.AllyTowerManager;
-import org.pio.manager.PlayerManager;
 import org.pio.ui.SidePanel;
 import org.pio.ui.sidePanel.SidePanelEditMap;
 import org.pio.helpz.Helper;
@@ -70,7 +67,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
             return;
         }
 
-        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies_2())){
+        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
             return;
         }
 
@@ -83,7 +80,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     }
     public void enemyHitByBullet() {
 
-        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies_2())) {
+        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())) {
             return;
         }
 
@@ -162,8 +159,11 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     // -------- INPUT ACTIONS ------- //
 
     public void startWave() {
-        Level.currentRound++;
-        System.out.println( "START WAVE" );
+        if(Level.rounds.get(Level.currentRound).getEnemies().isEmpty()){
+            Level.currentRound++;
+            System.out.println( "START WAVE" );
+        }
+
     }
     public void changeGameSpeed(){
 
