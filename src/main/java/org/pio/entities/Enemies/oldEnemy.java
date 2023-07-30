@@ -142,9 +142,6 @@ public class oldEnemy extends oldEntity {
             setPosWidthX(getPosWidthX()+movSpeed);
             updateHitBox();
 
-//            if (enemyHitBox.contains(Level.tempRect.getBounds())){
-//                canGo=false;
-//            }
         }
     }
 

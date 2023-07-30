@@ -162,7 +162,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     // -------- INPUT ACTIONS ------- //
 
     public void startWave() {
-        //Level.getRoundList().get(Level.getCurrentRound()).getEnemies().get(0).setCanGo(true);
+        Level.currentRound++;
         System.out.println( "START WAVE" );
     }
     public void changeGameSpeed(){

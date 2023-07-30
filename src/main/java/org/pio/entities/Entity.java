@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 abstract class Entity {
     public int width, height, posX, posY, id;
     public String name;
-    private Shape bounds;
+    public Rectangle bounds;
     private BufferedImage sprite;
 
     protected Entity(String name, int id, int width, int height){
@@ -27,7 +27,7 @@ abstract class Entity {
         bounds=initRectangleBounds();
     }
 
-    private Shape initRectangleBounds(){
+    private Rectangle initRectangleBounds(){
         return new Rectangle(posX, posY, width, height);
     }
 
@@ -35,6 +35,5 @@ abstract class Entity {
         g.setColor(Color.red);
         g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
     }
-
 
 }
