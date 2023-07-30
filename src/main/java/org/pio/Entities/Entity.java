@@ -16,13 +16,6 @@ abstract class Entity {
         this.height = height;
     }
 
-    protected Entity(Entity entity){
-        this.name = entity.name;
-        this.id = entity.id;
-        this.width = entity.width;
-        this.height = entity.height;
-    }
-
     protected Entity(Entity entity, int posX, int posY){
         this.name = entity.name;
         this.id = entity.id;
@@ -34,37 +27,13 @@ abstract class Entity {
         bounds=initRectangleBounds();
     }
 
-    protected Entity(String name, int id, int width, int height, BufferedImage sprite){
-        this.name = name;
-        this.id = id;
-        this.width = width;
-        this.height = height;
-        this.sprite = sprite;
-    }
-
-    protected Entity(String name, int id, int width, int height, int posX, int posY, BufferedImage sprite){
-        this.name = name;
-        this.id = id;
-        this.width = width;
-        this.height = height;
-        this.posX = posX;
-        this.posY = posY;
-        this.sprite = sprite;
-        this.bounds = initRectangleBounds();
-    }
-
     private Shape initRectangleBounds(){
         return new Rectangle(posX, posY, width, height);
     }
 
     private void draw(Graphics g){
-        drawSprite(g);
-    }
 
-    private void drawSprite(Graphics g) {
-        g.drawImage(sprite, bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height, null);
     }
-
 
 
 }

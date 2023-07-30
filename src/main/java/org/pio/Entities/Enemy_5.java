@@ -6,15 +6,11 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
-public class Enemy_1 extends Enemy{
-
-
-    public Enemy_1(String name, int id, int health, int damage, int gold, int movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
+public class Enemy_5 extends Enemy{
+    public Enemy_5(String name, int id, int health, int damage, int gold, int movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, health, damage, gold, movementSpeed, width, height, sprites);
     }
-
-    public Enemy_1(Enemy_1 enemy, int posX, int posY, Directions direction){
+    public Enemy_5(Enemy_5 enemy, int posX, int posY, Directions direction){
         super(enemy, posX, posY, direction);
     }
-
 }

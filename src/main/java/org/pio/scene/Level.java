@@ -7,6 +7,7 @@ import org.pio.Entities.EnemyFactoryImpl;
 import org.pio.main.GameScreen;
 import org.pio.manager.AllyTowerManager;
 import org.pio.manager.PlayerManager;
+import org.pio.player.Directions;
 import org.pio.player.Player;
 import org.pio.tiles.tTile;
 import org.pio.helpz.KeyPoint;
@@ -72,25 +73,12 @@ public class Level extends GameScene {
             roundList.add(round);
         }
 
-        Round round_1 = new Round();
-        round_1.getEnemies_2().add(addEnemy_2());
-        round_1.getEnemies_2().add(addEnemy_2());
-        round_1.getEnemies_2().add(addEnemy_2());
-        round_1.getEnemies_2().add(addEnemy_2());
-        round_1.getEnemies_2().add(addEnemy_2());
-
+        Round round_1 = ReadFromFile.readEnemyFromRoundDataFile_2("src/main/resources/RoundsInfo/rounds_2.txt",1,enemyFactoryImpl);
         roundList_2.add(round_1);
-
-        for (Enemy enemy : roundList_2.get(0).getEnemies_2()) {
-            System.out.println(enemy.name);
-        }
-
     }
 
     // -------- UPDATE ------- //
-    private Enemy addEnemy_2(){
-        return enemyFactoryImpl.createEnemy_2();
-    }
+
 
     public void updateLevel(){
         updateRoundCounter();

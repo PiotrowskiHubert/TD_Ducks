@@ -3,5 +3,5 @@ package org.pio.Entities;
 import org.pio.database.MainDatabase;
 
 public interface EntityFactory {
-    Entity create(MainDatabase mainDatabase);
+    Entity getInfoFromDatabase(MainDatabase mainDatabase, int enemyIndex);
 }

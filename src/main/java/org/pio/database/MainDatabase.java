@@ -1,8 +1,6 @@
 package org.pio.database;
 
-import org.pio.Entities.Enemy;
-import org.pio.Entities.Enemy_1;
-import org.pio.Entities.Enemy_2;
+import org.pio.Entities.*;
 import org.pio.helpz.ReadFromFileImpl;
 import org.pio.player.Directions;
 
@@ -15,13 +13,19 @@ public class MainDatabase {
     LinkedHashMap<Integer, BufferedImage> spriteAtlasDatabase = new LinkedHashMap<>();
     LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<String>>> enemySpriteAtlasDatabase = new LinkedHashMap<>();
     public MainDatabase(){
-        spriteAtlasDatabase.put(1, getSpriteAtlas("src/main/resources/Sprite/GrassTileSet.png"));
-        spriteAtlasDatabase.put(2, getSpriteAtlas("src/main/resources/EnemiesInfo/SecondEnemy.txt"));
+        //spriteAtlasDatabase.put(1, getSpriteAtlas("src/main/resources/Sprite/GrassTileSet.png"));
 
+        enemySpriteAtlasDatabase.put(1, getEnemySpriteAtlas());
         enemySpriteAtlasDatabase.put(2, getEnemySpriteAtlas());
+        enemySpriteAtlasDatabase.put(3, getEnemySpriteAtlas());
+        enemySpriteAtlasDatabase.put(4, getEnemySpriteAtlas());
+        enemySpriteAtlasDatabase.put(5, getEnemySpriteAtlas());
 
         enemyDatabase.put(1, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/FirstEnemy.txt"));
         enemyDatabase.put(2, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/SecondEnemy.txt"));
+        enemyDatabase.put(3, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/ThirdEnemy.txt"));
+        enemyDatabase.put(4, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/FourthEnemy.txt"));
+        enemyDatabase.put(5, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/FifthEnemy.txt"));
 
     }
 
@@ -31,10 +35,14 @@ public class MainDatabase {
         switch (fileName){
             case "src/main/resources/EnemiesInfo/FirstEnemy.txt":
                 return new Enemy_1(enemyDatabase.getName(fileName), enemyDatabase.getId(fileName), enemyDatabase.getHealth(fileName), enemyDatabase.getDamage(fileName), enemyDatabase.getGold(fileName), enemyDatabase.getMovementSpeed(fileName), enemyDatabase.getWidth(fileName), enemyDatabase.getHeight(fileName), enemySpriteAtlasDatabase.get(2) );
-
             case "src/main/resources/EnemiesInfo/SecondEnemy.txt":
                 return new Enemy_2(enemyDatabase.getName(fileName), enemyDatabase.getId(fileName), enemyDatabase.getHealth(fileName), enemyDatabase.getDamage(fileName), enemyDatabase.getGold(fileName), enemyDatabase.getMovementSpeed(fileName), enemyDatabase.getWidth(fileName), enemyDatabase.getHeight(fileName), enemySpriteAtlasDatabase.get(2) );
-
+            case "src/main/resources/EnemiesInfo/ThirdEnemy.txt":
+                return new Enemy_3(enemyDatabase.getName(fileName), enemyDatabase.getId(fileName), enemyDatabase.getHealth(fileName), enemyDatabase.getDamage(fileName), enemyDatabase.getGold(fileName), enemyDatabase.getMovementSpeed(fileName), enemyDatabase.getWidth(fileName), enemyDatabase.getHeight(fileName), enemySpriteAtlasDatabase.get(2) );
+            case "src/main/resources/EnemiesInfo/FourthEnemy.txt":
+                return new Enemy_4(enemyDatabase.getName(fileName), enemyDatabase.getId(fileName), enemyDatabase.getHealth(fileName), enemyDatabase.getDamage(fileName), enemyDatabase.getGold(fileName), enemyDatabase.getMovementSpeed(fileName), enemyDatabase.getWidth(fileName), enemyDatabase.getHeight(fileName), enemySpriteAtlasDatabase.get(2) );
+            case "src/main/resources/EnemiesInfo/FifthEnemy.txt":
+                return new Enemy_5(enemyDatabase.getName(fileName), enemyDatabase.getId(fileName), enemyDatabase.getHealth(fileName), enemyDatabase.getDamage(fileName), enemyDatabase.getGold(fileName), enemyDatabase.getMovementSpeed(fileName), enemyDatabase.getWidth(fileName), enemyDatabase.getHeight(fileName), enemySpriteAtlasDatabase.get(2) );
             default:
                 return null;
         }
@@ -65,17 +73,6 @@ public class MainDatabase {
         enemySpriteAtlas.put(Directions.RIGHT, rightSprites);
 
         return enemySpriteAtlas;
-    }
-
-    public static void main(String[] args) {
-        MainDatabase mainDatabase = new MainDatabase();
-
-        System.out.println(mainDatabase.enemyDatabase.get(1).sprites.get(Directions.UP).get(0));
-        System.out.println(mainDatabase.enemyDatabase.get(1).sprites.get(Directions.DOWN).get(0));
-        System.out.println(mainDatabase.enemyDatabase.get(1).sprites.get(Directions.LEFT).get(0));
-        System.out.println(mainDatabase.enemyDatabase.get(1).sprites.get(Directions.RIGHT).get(0));
-
-
     }
 
 }

@@ -1,8 +1,12 @@
 package org.pio.readers;
 
+import org.pio.Entities.Enemy;
+import org.pio.Entities.EnemyFactoryImpl;
+import org.pio.database.MainDatabase;
 import org.pio.helpz.Creators;
 import org.pio.Entities.AllyTowers.*;
 import org.pio.Entities.Enemies.*;
+import org.pio.player.Directions;
 import org.pio.scene.Round;
 import org.pio.helpz.Helper;
 
@@ -57,6 +61,53 @@ public class ReadFromFile {
                         if (nextLine.equals("5")) {
                             oldEnemy oldEnemy = Creators.enemyCreator(4);
                             round.getEnemies().add(oldEnemy);
+                        }
+                    }
+
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return round;
+    }
+
+    public static Round readEnemyFromRoundDataFile_2(String fileName, int numOfRound, EnemyFactoryImpl enemyFactoryImpl){
+        Round round = new Round();
+
+        try (
+                var fileReader = new FileReader(fileName);
+                var reader = new BufferedReader(fileReader);
+        ) {
+
+            String nextLine = null;
+
+            while ((nextLine = reader.readLine()) != null){
+
+                if (nextLine.equals("ROUND"+(numOfRound))){
+
+                    while ((nextLine = reader.readLine()) != null && Helper.isInteger(nextLine)){
+
+                        if (nextLine.equals("1")) {
+                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_1(100,100, Directions.DOWN));
+                        }
+
+                        if (nextLine.equals("2")) {
+                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_2(100,100, Directions.DOWN));
+                        }
+
+                        if (nextLine.equals("3")) {
+                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_3(100,100, Directions.DOWN));
+                        }
+
+                        if (nextLine.equals("4")) {
+                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_4(100,100, Directions.DOWN));
+                        }
+
+                        if (nextLine.equals("5")) {
+                            round.getEnemies_2().add(enemyFactoryImpl.createEnemy_5(100,100, Directions.DOWN));
                         }
                     }
 

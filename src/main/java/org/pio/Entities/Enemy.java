@@ -27,40 +27,21 @@ public abstract class Enemy extends Entity{
         this.sprites = sprites;
     }
 
-    protected Enemy(Enemy enemy){
-        super(enemy);
+    protected Enemy(Enemy enemy, int posX, int posY, Directions direction){
+        super(enemy, posX, posY);
 
         this.health = enemy.health;
         this.damage = enemy.damage;
         this.gold = enemy.gold;
         this.movementSpeed = enemy.movementSpeed;
         this.sprites = enemy.sprites;
-    }
 
-    protected Enemy(Enemy enemy, Directions direction){
-        super(enemy);
-
-        this.health = enemy.health;
-        this.damage = enemy.damage;
-        this.gold = enemy.gold;
-        this.movementSpeed = enemy.movementSpeed;
-        this.sprites = enemy.sprites;
         this.direction = direction;
 
         this.keyPointsStack=initStack();
         this.keypointIndex=0;
     }
 
-    protected Enemy(String name, int id, int health, int damage, int gold, int movementSpeed, int width, int height, int posX, int posY, BufferedImage sprite, Directions direction) {
-        super(name, id, width, height, posX, posY, sprite);
-        this.health = health;
-        this.damage = damage;
-        this.gold = gold;
-        this.movementSpeed = movementSpeed;
-        this.direction = direction;
-
-        this.keyPointsStack=initStack();
-    }
 
     private Stack<KeyPoint> initStack(){
         this.keypointIndex=0;

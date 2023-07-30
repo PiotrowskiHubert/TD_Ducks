@@ -34,7 +34,6 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         return "-1";
     }
-
     @Override
     public int readId(String fileName) {
 
@@ -61,7 +60,6 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         return -1;
     }
-
     @Override
     public int readHealth(String fileName) {
 
@@ -87,7 +85,6 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         return -1;
     }
-
     @Override
     public int readDamage(String fileName) {
         try (
@@ -111,7 +108,6 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         return -1;
     }
-
     @Override
     public int readGold(String fileName) {
 
@@ -136,7 +132,6 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         return -1;
     }
-
     @Override
     public int readMovementSpeed(String fileName) {
 
@@ -161,7 +156,6 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         return -1;
     }
-
     @Override
     public int readWidth(String fileName) {
         try (
@@ -185,7 +179,6 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         return -1;
     }
-
     @Override
     public int readHeight(String fileName) {
         try (
@@ -209,7 +202,6 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         return -1;
     }
-
     @Override
     public BufferedImage readBufferedImage(String fileName) {
         BufferedImage bufferedImage = null;
@@ -226,4 +218,5 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         return bufferedImage;
     }
+
 }
