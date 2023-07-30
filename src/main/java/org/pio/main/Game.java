@@ -1,5 +1,6 @@
 package org.pio.main;
 
+import org.pio.database.MainDatabase;
 import org.pio.manager.*;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
@@ -9,6 +10,7 @@ import org.pio.tiles.TileManager;
 import javax.swing.*;
 
 public class Game extends JFrame implements Runnable {
+    private MainDatabase mainDatabase;
     private PreGameScene preGameScene;
     public static GameStates gameStates;
     private Update update;
@@ -37,6 +39,8 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void initClass(){
+        mainDatabase=new MainDatabase();
+
         gameScreen=new GameScreen(this);
         gameStates=GameStates.GAME;
 
@@ -181,6 +185,10 @@ public class Game extends JFrame implements Runnable {
 
     public double getTimePerUpdate() {
         return timePerUpdate;
+    }
+
+    public MainDatabase getMainDatabase() {
+        return mainDatabase;
     }
 
     // ----------- SET ----------- //

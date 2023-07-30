@@ -9,16 +9,15 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 public abstract class Enemy extends Entity{
-    private double movementSpeed;
-    private int health, damage, gold;
-//    LinkedHashMap<Integer, LinkedList<SpriteDirection>> sprites;
+    public int movementSpeed;
+    public int health, damage, gold;
     public LinkedHashMap<Directions,LinkedList<String>> sprites;
-    private Directions direction;
+    public Directions direction;
     private Stack<KeyPoint> keyPointsStack;
     private int keypointIndex;
 
 
-    protected Enemy(String name, int id, int health, int damage, int gold, int movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
+    protected Enemy(String name,  int id, int health, int damage, int gold, int movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, width, height);
 
         this.health = health;
@@ -26,6 +25,30 @@ public abstract class Enemy extends Entity{
         this.gold = gold;
         this.movementSpeed = movementSpeed;
         this.sprites = sprites;
+    }
+
+    protected Enemy(Enemy enemy){
+        super(enemy);
+
+        this.health = enemy.health;
+        this.damage = enemy.damage;
+        this.gold = enemy.gold;
+        this.movementSpeed = enemy.movementSpeed;
+        this.sprites = enemy.sprites;
+    }
+
+    protected Enemy(Enemy enemy, Directions direction){
+        super(enemy);
+
+        this.health = enemy.health;
+        this.damage = enemy.damage;
+        this.gold = enemy.gold;
+        this.movementSpeed = enemy.movementSpeed;
+        this.sprites = enemy.sprites;
+        this.direction = direction;
+
+        this.keyPointsStack=initStack();
+        this.keypointIndex=0;
     }
 
     protected Enemy(String name, int id, int health, int damage, int gold, int movementSpeed, int width, int height, int posX, int posY, BufferedImage sprite, Directions direction) {

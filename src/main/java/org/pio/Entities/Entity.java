@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 abstract class Entity {
-    private int width, height, posX, posY, id;
+    public int width, height, posX, posY, id;
     public String name;
     private Shape bounds;
     private BufferedImage sprite;
@@ -14,6 +14,24 @@ abstract class Entity {
         this.id = id;
         this.width = width;
         this.height = height;
+    }
+
+    protected Entity(Entity entity){
+        this.name = entity.name;
+        this.id = entity.id;
+        this.width = entity.width;
+        this.height = entity.height;
+    }
+
+    protected Entity(Entity entity, int posX, int posY){
+        this.name = entity.name;
+        this.id = entity.id;
+        this.width = entity.width;
+        this.height = entity.height;
+        this.posX = posX;
+        this.posY = posY;
+
+        bounds=initRectangleBounds();
     }
 
     protected Entity(String name, int id, int width, int height, BufferedImage sprite){

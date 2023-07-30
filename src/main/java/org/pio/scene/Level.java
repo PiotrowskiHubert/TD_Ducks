@@ -2,6 +2,8 @@ package org.pio.scene;
 
 import org.pio.Entities.AllyTowers.oldAllyTower;
 import org.pio.Entities.Enemies.oldEnemy;
+import org.pio.Entities.Enemy;
+import org.pio.Entities.EnemyFactoryImpl;
 import org.pio.main.GameScreen;
 import org.pio.manager.AllyTowerManager;
 import org.pio.manager.PlayerManager;
@@ -25,10 +27,14 @@ public class Level extends GameScene {
     private static int lvlHeight, lvlWidth;
     private static tTile [][] lvlArr;
     private static List<Round> roundList;
+    private static List<Round> roundList_2;
     private static List<KeyPoint> keyPointsList;
+    private EnemyFactoryImpl enemyFactoryImpl;
 
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
+        enemyFactoryImpl = new EnemyFactoryImpl(game.getMainDatabase());
+
         this.NUM_OF_ROUNDS=numOfRounds;
         this.lvlWidth = lvlWidth;
         this.lvlHeight = lvlHeight;
@@ -37,6 +43,7 @@ public class Level extends GameScene {
 
         currentRound=START_ROUND;
         roundList = new ArrayList<>();
+        roundList_2 = new ArrayList<>();
 
         createLevelRoundsAndAddEnemies();
 
@@ -64,9 +71,26 @@ public class Level extends GameScene {
             Round round= ReadFromFile.readEnemyFromRoundDataFile(fileName,i);
             roundList.add(round);
         }
+
+        Round round_1 = new Round();
+        round_1.getEnemies_2().add(addEnemy_2());
+        round_1.getEnemies_2().add(addEnemy_2());
+        round_1.getEnemies_2().add(addEnemy_2());
+        round_1.getEnemies_2().add(addEnemy_2());
+        round_1.getEnemies_2().add(addEnemy_2());
+
+        roundList_2.add(round_1);
+
+        for (Enemy enemy : roundList_2.get(0).getEnemies_2()) {
+            System.out.println(enemy.name);
+        }
+
     }
 
     // -------- UPDATE ------- //
+    private Enemy addEnemy_2(){
+        return enemyFactoryImpl.createEnemy_2();
+    }
 
     public void updateLevel(){
         updateRoundCounter();
@@ -125,7 +149,20 @@ public class Level extends GameScene {
         drawEnemies(g);
         drawAllyTowerPlaced(g);
         drawRoundInfo(g);
+
+        drawFactoryEnemy(g);
     }
+
+    private void drawFactoryEnemy(Graphics g) {
+        if (currentRound < NUM_OF_ROUNDS){
+            if (!roundList_2.get(0).getEnemies_2().isEmpty()) {
+                for (Enemy enemy : roundList_2.get(0).getEnemies_2()) {
+
+                }
+            }
+        }
+    }
+
     private void drawTiles(Graphics g) {
         for (int i = 0; i < lvlHeight; i++) {
             for (int j = 0; j < lvlWidth; j++) {
