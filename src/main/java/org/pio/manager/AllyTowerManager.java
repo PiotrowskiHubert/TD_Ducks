@@ -1,6 +1,6 @@
 package org.pio.manager;
 
-import org.pio.Entities.AllyTowers.*;
+import org.pio.entities.AllyTowers.*;
 import org.pio.readers.ReadFromFile;
 import org.pio.scene.Level;
 import org.pio.ui.SidePanel;

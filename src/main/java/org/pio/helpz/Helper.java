@@ -1,9 +1,9 @@
 package org.pio.helpz;
 
-import org.pio.Entities.AllyTowers.oldAllyTower;
-import org.pio.Entities.others.oldBullet;
-import org.pio.Entities.Enemies.oldEnemy;
-import org.pio.Entities.AllyTowers.oldFirstTowerOldOld;
+import org.pio.entities.AllyTowers.oldAllyTower;
+import org.pio.entities.others.oldBullet;
+import org.pio.entities.Enemies.oldEnemy;
+import org.pio.entities.AllyTowers.oldFirstTowerOldOld;
 
 import java.util.List;
 

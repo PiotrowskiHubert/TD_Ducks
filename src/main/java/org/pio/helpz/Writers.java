@@ -53,14 +53,12 @@ public class Writers {
         }
 
     }
-    public static void writeEnemyDataToFile(String fileName, String name, String id, String spriteCordX, String spriteCordY, String spriteWidth, String spriteHeight, String movementSpeed, String health, String damage, String gold) {
+    public static void writeEnemyDataToFile(String fileName, String name, String id, String width, String height, String movementSpeed, String health, String damage, String gold) {
 
         try (
                 var fileWriter = new FileWriter(fileName);
                 var writer = new BufferedWriter(fileWriter);
         ) {
-            // WRITE ENEMY DATA TO FILE
-
             // WRITE NAME TO FILE
             writer.write("NAME"); writer.newLine();
             // WRITE NAME AFTER NAME TO FILE
@@ -71,25 +69,15 @@ public class Writers {
             // WRITE ID AFTER ID TO FILE
             writer.write(id); writer.newLine();
 
-            // WRITE SPRITE X CORD TO FILE
-            writer.write("SPRITEXCORD"); writer.newLine();
-            // WRITE SPRITE X CORD AFTER SPRITE X CORD TO FILE
-            writer.write(spriteCordX); writer.newLine();
-
-            // WRITE SPRITE Y CORD TO FILE
-            writer.write("SPRITEYCORD"); writer.newLine();
-            // WRITE SPRITE Y CORD AFTER SPRITE Y CORD TO FILE
-            writer.write(spriteCordY); writer.newLine();
-
             // WRITE SPRITE WIDTH TO FILE
-            writer.write("SPRITEWIDTH"); writer.newLine();
+            writer.write("WIDTH"); writer.newLine();
             // WRITE SPRITE WIDTH AFTER SPRITE WIDTH TO FILE
-            writer.write(spriteWidth); writer.newLine();
+            writer.write(width); writer.newLine();
 
             // WRITE SPRITE HEIGHT TO FILE
-            writer.write("SPRITEHEIGHT"); writer.newLine();
+            writer.write("HEIGHT"); writer.newLine();
             // WRITE SPRITE HEIGHT AFTER SPRITE HEIGHT TO FILE
-            writer.write(spriteHeight); writer.newLine();
+            writer.write(height); writer.newLine();
 
             // WRITE MOVEMENT SPEED TO FILE
             writer.write("MOVEMENTSPEED"); writer.newLine();
@@ -187,14 +175,22 @@ public class Writers {
 
         public static void main(String[] args) {
 
+            String path;
 
-//            String path="src/main/resources/AllyTowerInfo/fourthTower.txt";
-//
-//            writeTower(path, "fourthTower", "4", "0", "0", "40","40","40","40", "250000000.0","100","400");
-//
-//            path="src/main/resources/AllyTowerInfo/fifthTower.txt";
-//
-//            writeTower(path, "fifthTower", "5", "0", "0", "40","40","40","40", "250000000.0","100","500");
+            path = "src/main/resources/EnemiesInfo/enemy_1.txt";
+            writeEnemyDataToFile(path, "enemy_1", "1", "32", "32", "1", "100", "10", "10");
+
+            path = "src/main/resources/EnemiesInfo/enemy_2.txt";
+            writeEnemyDataToFile(path, "enemy_2", "2", "32", "32", "1", "100", "10", "10");
+
+            path = "src/main/resources/EnemiesInfo/enemy_3.txt";
+            writeEnemyDataToFile(path, "enemy_3", "3", "32", "32", "1", "100", "10", "10");
+
+            path = "src/main/resources/EnemiesInfo/enemy_4.txt";
+            writeEnemyDataToFile(path, "enemy_4", "4", "32", "32", "1", "100", "10", "10");
+
+            path = "src/main/resources/EnemiesInfo/enemy_5.txt";
+            writeEnemyDataToFile(path, "enemy_5", "5", "32", "32", "1", "100", "10", "10");
 
         }
 

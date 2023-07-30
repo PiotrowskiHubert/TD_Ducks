@@ -1,7 +1,7 @@
 package org.pio.manager;
 
-import org.pio.Entities.AllyTowers.oldAllyTower;
-import org.pio.Entities.others.oldBullet;
+import org.pio.entities.AllyTowers.oldAllyTower;
+import org.pio.entities.others.oldBullet;
 import org.pio.helpz.Helper;
 
 import java.util.Iterator;

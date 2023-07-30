@@ -1,11 +1,9 @@
 package org.pio.readers;
 
-import org.pio.Entities.Enemy;
-import org.pio.Entities.EnemyFactoryImpl;
-import org.pio.database.MainDatabase;
+import org.pio.entities.EnemyFactoryImpl;
 import org.pio.helpz.Creators;
-import org.pio.Entities.AllyTowers.*;
-import org.pio.Entities.Enemies.*;
+import org.pio.entities.AllyTowers.*;
+import org.pio.entities.Enemies.*;
 import org.pio.player.Directions;
 import org.pio.scene.Round;
 import org.pio.helpz.Helper;

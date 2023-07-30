@@ -1,6 +1,6 @@
 package org.pio.database;
 
-import org.pio.Entities.*;
+import org.pio.entities.*;
 import org.pio.helpz.ReadFromFileImpl;
 import org.pio.player.Directions;
 
@@ -14,18 +14,17 @@ public class MainDatabase {
     LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<String>>> enemySpriteAtlasDatabase = new LinkedHashMap<>();
     public MainDatabase(){
         //spriteAtlasDatabase.put(1, getSpriteAtlas("src/main/resources/Sprite/GrassTileSet.png"));
-
         enemySpriteAtlasDatabase.put(1, getEnemySpriteAtlas());
         enemySpriteAtlasDatabase.put(2, getEnemySpriteAtlas());
         enemySpriteAtlasDatabase.put(3, getEnemySpriteAtlas());
         enemySpriteAtlasDatabase.put(4, getEnemySpriteAtlas());
         enemySpriteAtlasDatabase.put(5, getEnemySpriteAtlas());
 
-        enemyDatabase.put(1, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/FirstEnemy.txt"));
-        enemyDatabase.put(2, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/SecondEnemy.txt"));
-        enemyDatabase.put(3, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/ThirdEnemy.txt"));
-        enemyDatabase.put(4, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/FourthEnemy.txt"));
-        enemyDatabase.put(5, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/FifthEnemy.txt"));
+        enemyDatabase.put(1, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/enemy_1.txt"));
+        enemyDatabase.put(2, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/enemy_2.txt"));
+        enemyDatabase.put(3, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/enemy_3.txt"));
+        enemyDatabase.put(4, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/enemy_4.txt"));
+        enemyDatabase.put(5, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/enemy_5.txt"));
 
     }
 
@@ -33,15 +32,15 @@ public class MainDatabase {
         EnemyDatabaseImpl enemyDatabase = new EnemyDatabaseImpl();
 
         switch (fileName){
-            case "src/main/resources/EnemiesInfo/FirstEnemy.txt":
+            case "src/main/resources/EnemiesInfo/enemy_1.txt":
                 return new Enemy_1(enemyDatabase.getName(fileName), enemyDatabase.getId(fileName), enemyDatabase.getHealth(fileName), enemyDatabase.getDamage(fileName), enemyDatabase.getGold(fileName), enemyDatabase.getMovementSpeed(fileName), enemyDatabase.getWidth(fileName), enemyDatabase.getHeight(fileName), enemySpriteAtlasDatabase.get(2) );
-            case "src/main/resources/EnemiesInfo/SecondEnemy.txt":
+            case "src/main/resources/EnemiesInfo/enemy_2.txt":
                 return new Enemy_2(enemyDatabase.getName(fileName), enemyDatabase.getId(fileName), enemyDatabase.getHealth(fileName), enemyDatabase.getDamage(fileName), enemyDatabase.getGold(fileName), enemyDatabase.getMovementSpeed(fileName), enemyDatabase.getWidth(fileName), enemyDatabase.getHeight(fileName), enemySpriteAtlasDatabase.get(2) );
-            case "src/main/resources/EnemiesInfo/ThirdEnemy.txt":
+            case "src/main/resources/EnemiesInfo/enemy_3.txt":
                 return new Enemy_3(enemyDatabase.getName(fileName), enemyDatabase.getId(fileName), enemyDatabase.getHealth(fileName), enemyDatabase.getDamage(fileName), enemyDatabase.getGold(fileName), enemyDatabase.getMovementSpeed(fileName), enemyDatabase.getWidth(fileName), enemyDatabase.getHeight(fileName), enemySpriteAtlasDatabase.get(2) );
-            case "src/main/resources/EnemiesInfo/FourthEnemy.txt":
+            case "src/main/resources/EnemiesInfo/enemy_4.txt":
                 return new Enemy_4(enemyDatabase.getName(fileName), enemyDatabase.getId(fileName), enemyDatabase.getHealth(fileName), enemyDatabase.getDamage(fileName), enemyDatabase.getGold(fileName), enemyDatabase.getMovementSpeed(fileName), enemyDatabase.getWidth(fileName), enemyDatabase.getHeight(fileName), enemySpriteAtlasDatabase.get(2) );
-            case "src/main/resources/EnemiesInfo/FifthEnemy.txt":
+            case "src/main/resources/EnemiesInfo/enemy_5.txt":
                 return new Enemy_5(enemyDatabase.getName(fileName), enemyDatabase.getId(fileName), enemyDatabase.getHealth(fileName), enemyDatabase.getDamage(fileName), enemyDatabase.getGold(fileName), enemyDatabase.getMovementSpeed(fileName), enemyDatabase.getWidth(fileName), enemyDatabase.getHeight(fileName), enemySpriteAtlasDatabase.get(2) );
             default:
                 return null;

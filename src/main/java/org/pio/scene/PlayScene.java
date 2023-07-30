@@ -1,8 +1,8 @@
 package org.pio.scene;
 
-import org.pio.Entities.AllyTowers.oldAllyTower;
-import org.pio.Entities.others.oldBullet;
-import org.pio.Entities.Enemies.oldEnemy;
+import org.pio.entities.AllyTowers.oldAllyTower;
+import org.pio.entities.others.oldBullet;
+import org.pio.entities.Enemies.oldEnemy;
 import org.pio.main.GameScreen;
 import org.pio.player.Player;
 import org.pio.inputs.mouseMethods;

@@ -1,6 +1,6 @@
 package org.pio.ui;
 
-import org.pio.Entities.AllyTowers.oldAllyTower;
+import org.pio.entities.AllyTowers.oldAllyTower;
 import org.pio.manager.AllyTowerManager;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;

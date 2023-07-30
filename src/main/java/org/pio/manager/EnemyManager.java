@@ -1,6 +1,6 @@
 package org.pio.manager;
 
-import org.pio.Entities.Enemies.*;
+import org.pio.entities.Enemies.*;
 import org.pio.readers.ReadFromFile;
 import org.pio.scene.Level;
 

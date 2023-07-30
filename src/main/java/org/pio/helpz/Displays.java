@@ -1,7 +1,7 @@
 package org.pio.helpz;
 
-import org.pio.Entities.AllyTowers.oldAllyTower;
-import org.pio.Entities.Enemies.oldEnemy;
+import org.pio.entities.AllyTowers.oldAllyTower;
+import org.pio.entities.Enemies.oldEnemy;
 import org.pio.manager.AllyTowerManager;
 
 public class Displays {
