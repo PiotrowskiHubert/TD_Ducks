@@ -25,20 +25,20 @@ public class oldFirstTowerOldOld extends oldAllyTower implements oldAllyTowerInt
 
     @Override
     public void shot() {
-//        if (Helper.isEnemyListEmpty(Level.getRoundList().get(Level.currentRound).getEnemies())){
-//            return;
-//        }
-//        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
-//            return;
-//        }
+        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
+            return;
+        }
+        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
+            return;
+        }
 
         oldBullet oldBullet;
 
         double shotOffsetX=5.0;
         double shotOffsetY=0.0;
 
-//        oldBullet = new oldBullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
-       // oldBulletList.add(oldBullet);
+        oldBullet = new oldBullet(posWidthX,posHeightY,enemiesInRangeList.get(0).posX+shotOffsetX,enemiesInRangeList.get(0).posY+shotOffsetY);
+        oldBulletList.add(oldBullet);
 
     }
 

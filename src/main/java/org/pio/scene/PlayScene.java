@@ -1,7 +1,10 @@
 package org.pio.scene;
 
 import org.pio.entities.AllyTowers.oldAllyTower;
+import org.pio.entities.Enemy;
+import org.pio.entities.others.oldBullet;
 import org.pio.main.GameScreen;
+import org.pio.manager.PlayerManager;
 import org.pio.player.Player;
 import org.pio.inputs.mouseMethods;
 import org.pio.main.Game;
@@ -92,68 +95,67 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
         // REMOVE BULLET FROM TOWER BULLET LIST AND REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
 
-//        // GO THROUGHT ALL ENEMIES FROM CURRENT ROUND
-//        for (Iterator<oldEnemy> enemyIterator = Level.getRoundList().get(Level.currentRound).getEnemies().iterator(); enemyIterator.hasNext();){
-//            oldEnemy nextOldEnemy = enemyIterator.next();
-//
-//            // GO THROUGHT ALL PLACED TOWERS
-//            for (Iterator<oldAllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();){
-//                oldAllyTower nextOldAllyTower = allyTowerIterator.next();
-//
-//                // CHECK IF TOWER HAS ANY BULLETS
-//                if (!nextOldAllyTower.getBulletList().isEmpty()){
-//
-//                    // GO THROUGHT ALL BULLETS FROM TOWER
-//                    for (Iterator<oldBullet> bulletIterator = nextOldAllyTower.getBulletList().iterator(); bulletIterator.hasNext();){
-//                        oldBullet nextOldBullet = bulletIterator.next();
-//
-//                        // CHECK IF ENEMY IS HIT BY BULLET
-//                        if (nextOldEnemy.getEnemyHitBox().intersects(nextOldBullet.getBulletHitBox())){
-//
-//                            nextOldEnemy.setHealth(nextOldEnemy.getHealth()-1);
-//
-//
-//                            // REMOVE BULLET FROM TOWER BULLET LIST
-//                            bulletIterator.remove();
-//
-//                            if (nextOldEnemy.getHealth()<=0){
-//                                // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
-//                                enemyIterator.remove();
-//
-//                                // ADD GOLD TO PLAYER
-//                                PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(), nextOldEnemy.getGold());
-//
-//                                // GO THROUGH ALL PLAYERS TOWERS
-//                                for (Iterator<oldAllyTower> allyTowerIterator1 = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator1.hasNext();){
-//                                    oldAllyTower nextOldAllyTower1 = allyTowerIterator1.next();
-//
-//                                    // GO THROUGH ALL ENEMIES IN RANGE LIST
-//                                    for (Iterator<oldEnemy> enemyIterator1 = nextOldAllyTower1.getEnemiesInRangeList().iterator(); enemyIterator1.hasNext();){
-//                                        oldEnemy nextOldEnemy1 = enemyIterator1.next();
-//
-//                                        // CHECK IF ENEMY IS IN RANGE LIST
-//                                        if (nextOldEnemy1.getId()== nextOldEnemy.getId()){
-//
-//                                            // REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
-//                                            enemyIterator1.remove();
-//
-//                                        }
-//                                    }
-//                                }
-//
-//                            }
-//
-//
-//                            return;
-//
-//
-//                        }
-//
-//                    }
-//                }
-//            }
-//
-//        }
+        // GO THROUGHT ALL ENEMIES FROM CURRENT ROUND
+        for (Iterator<Enemy> enemyIterator = Level.rounds.get(Level.currentRound).getEnemies().iterator(); enemyIterator.hasNext();){
+            Enemy nextEnemy = enemyIterator.next();
+
+            // GO THROUGHT ALL PLACED TOWERS
+            for (Iterator<oldAllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();){
+                oldAllyTower nextOldAllyTower = allyTowerIterator.next();
+
+                // CHECK IF TOWER HAS ANY BULLETS
+                if (!nextOldAllyTower.getBulletList().isEmpty()){
+
+                    // GO THROUGHT ALL BULLETS FROM TOWER
+                    for (Iterator<oldBullet> bulletIterator = nextOldAllyTower.getBulletList().iterator(); bulletIterator.hasNext();){
+                        oldBullet nextOldBullet = bulletIterator.next();
+
+                        // CHECK IF ENEMY IS HIT BY BULLET
+                        if (nextEnemy.bounds.getBounds().intersects(nextOldBullet.getBulletHitBox())){
+
+                            nextEnemy.health=nextEnemy.health-1;
+
+                            // REMOVE BULLET FROM TOWER BULLET LIST
+                            bulletIterator.remove();
+
+                            if (nextEnemy.health<=0){
+                                // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
+                                enemyIterator.remove();
+
+                                // ADD GOLD TO PLAYER
+                                PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(), nextEnemy.gold);
+
+                                // GO THROUGH ALL PLAYERS TOWERS
+                                for (Iterator<oldAllyTower> allyTowerIterator1 = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator1.hasNext();){
+                                    oldAllyTower nextOldAllyTower1 = allyTowerIterator1.next();
+
+                                    // GO THROUGH ALL ENEMIES IN RANGE LIST
+                                    for (Iterator<Enemy> enemyIterator1 = nextOldAllyTower1.enemiesInRangeList.iterator(); enemyIterator1.hasNext();){
+                                        Enemy nextEnemy_1 = enemyIterator1.next();
+
+                                        // CHECK IF ENEMY IS IN RANGE LIST
+                                        if (nextEnemy_1.id== nextEnemy.id){
+
+                                            // REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
+                                            enemyIterator1.remove();
+
+                                        }
+                                    }
+                                }
+
+                            }
+
+
+                            return;
+
+
+                        }
+
+                    }
+                }
+            }
+
+        }
     }
 
     // -------- INPUT ACTIONS ------- //

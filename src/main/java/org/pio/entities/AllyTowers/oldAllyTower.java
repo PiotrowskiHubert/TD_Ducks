@@ -1,9 +1,11 @@
 package org.pio.entities.AllyTowers;
 
+import org.pio.entities.Enemy;
 import org.pio.entities.others.oldBullet;
 import org.pio.entities.others.oldEntity;
 import org.pio.main.GameScreen;
 import org.pio.manager.AllyTowerManager;
+import org.pio.scene.Level;
 import org.pio.ui.Button;
 import org.pio.ui.sidePanel.SidePanelUpgrade;
 import org.pio.helpz.Helper;
@@ -16,7 +18,7 @@ import java.util.List;
 
 public class oldAllyTower extends oldEntity {
     protected List<oldBullet> oldBulletList;
-//    protected List<oldEnemy> enemiesInRangeList;
+    public List<Enemy> enemiesInRangeList;
     protected int cost, index, range;
     protected double timePerShot;
     protected long lastTimeCheck, now, lastShot;
@@ -77,7 +79,7 @@ public class oldAllyTower extends oldEntity {
         this.selected=false;
     }
     private void initLists(){
-//        this.enemiesInRangeList=new ArrayList<>();
+        this.enemiesInRangeList=new ArrayList<>();
         this.oldBulletList =new ArrayList<>();
     }
 
@@ -107,60 +109,61 @@ public class oldAllyTower extends oldEntity {
     }
     protected void shot(){
 
-//        if (Helper.isEnemyListEmpty(Level.getRoundList().get(Level.currentRound).getEnemies())){
-//            return;
-//        }
-//        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
-//            return;
-//        }
-//
-//        oldBullet oldBullet;
-//
-//        double shotOffsetX=0.0;
-//        double shotOffsetY=0.0;
-//
-//        oldBullet = new oldBullet(posWidthX,posHeightY,enemiesInRangeList.get(0).getPosWidthX()+shotOffsetX,enemiesInRangeList.get(0).getPosHeightY()+shotOffsetY);
-//        oldBulletList.add(oldBullet);
-//
+        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
+            return;
+        }
+        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
+            return;
+        }
+
+        oldBullet oldBullet;
+
+        double shotOffsetX=0.0;
+        double shotOffsetY=0.0;
+
+        oldBullet = new oldBullet(posWidthX,posHeightY,enemiesInRangeList.get(0).posX+shotOffsetX,enemiesInRangeList.get(0).posY+shotOffsetY);
+        oldBulletList.add(oldBullet);
+
 
     }
 
     // TODO OLD ENEMY SYSTEM
     private void updateListOfEnemiesInRangeForPlacedTower(oldAllyTower oldAllyTowerPlaced){
 
-        //for (oldEnemy oldEnemy : Level.getRoundList().get(Level.currentRound).getEnemies()){
+        for (Enemy enemy : Level.rounds.get(Level.currentRound).getEnemies()){
 
-//            if (!isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, oldEnemy)){
-//                if (oldAllyTowerPlaced.getRangeEllipse().intersects(oldEnemy.getEntityBounds())){
-//                    oldAllyTowerPlaced.getEnemiesInRangeList().add(oldEnemy);
-//                }
-//            }
-//
-//            if (isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, oldEnemy)){
-//                if (oldAllyTowerPlaced.getRangeEllipse().intersects(oldEnemy.getEntityBounds())){
-//                    updateEnemiesPositionInRangeForPlacedTower(oldAllyTowerPlaced, oldEnemy);
-//                }
-//            }
-//
-//            if (isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, oldEnemy)){
-//
-//                if (!oldAllyTowerPlaced.getRangeEllipse().intersects(oldEnemy.getEntityBounds())){
-//                    oldAllyTowerPlaced.getEnemiesInRangeList().remove(oldEnemy);
-//                }
-//            }
-//
-//        }
+            if (!isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, enemy)){
+                if (oldAllyTowerPlaced.getRangeEllipse().intersects(enemy.bounds.getBounds())){
+                    oldAllyTowerPlaced.enemiesInRangeList.add(enemy);
+                }
+            }
+
+            if (isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, enemy)){
+                if (oldAllyTowerPlaced.getRangeEllipse().intersects(enemy.bounds.getBounds())){
+                    updateEnemiesPositionInRangeForPlacedTower(oldAllyTowerPlaced, enemy);
+                }
+            }
+
+            if (isEnemyAlreadyInAllyTowerPlacedList(oldAllyTowerPlaced, enemy)){
+
+                if (!oldAllyTowerPlaced.getRangeEllipse().intersects(enemy.bounds.getBounds())){
+                    oldAllyTowerPlaced.enemiesInRangeList.remove(enemy);
+                }
+            }
+
+        }
 
     }
 
-//    private void updateEnemiesPositionInRangeForPlacedTower(oldAllyTower oldAllyTowerPlaced, oldEnemy oldEnemy) {
-//        for (oldEnemy oldEnemyInRange : oldAllyTowerPlaced.getEnemiesInRangeList()){
-//            if (oldEnemyInRange.equals(oldEnemy)){
-//                oldEnemyInRange.setPosWidthX(oldEnemy.getPosWidthX());
-//                oldEnemyInRange.setPosHeightY(oldEnemy.getPosHeightY());
-//            }
-//        }
-//    }
+    private void updateEnemiesPositionInRangeForPlacedTower(oldAllyTower oldAllyTowerPlaced, Enemy enemy) {
+        for (Enemy enemyInRange : oldAllyTowerPlaced.enemiesInRangeList){
+            if (enemyInRange.equals(enemy)){
+
+                enemyInRange.posX=enemy.posX;
+                enemyInRange.posY=enemy.posY;
+            }
+        }
+    }
     private void updateEnemiesInRangeForPlacedTower(){
         if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
             return;
@@ -171,11 +174,9 @@ public class oldAllyTower extends oldEntity {
         }
     }
 
-//    private boolean isEnemyAlreadyInAllyTowerPlacedList(oldAllyTower oldAllyTowerPlaced, oldEnemy oldEnemy){
-//        return oldAllyTowerPlaced.getEnemiesInRangeList().contains(oldEnemy);
-//    }
-
-    // -------- UPGRADE ------- //
+    private boolean isEnemyAlreadyInAllyTowerPlacedList(oldAllyTower oldAllyTowerPlaced, Enemy enemy){
+        return oldAllyTowerPlaced.enemiesInRangeList.contains(enemy);
+    }
 
 
     // -------- RENDER ------- //
@@ -251,9 +252,6 @@ public class oldAllyTower extends oldEntity {
     public Ellipse2D getRangeEllipse() {
         return rangeEllipse;
     }
-//    public List<oldEnemy> getEnemiesInRangeList() {
-//        return enemiesInRangeList;
-//    }
     public int getCost() {
         return cost;
     }

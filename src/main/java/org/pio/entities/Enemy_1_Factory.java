@@ -14,6 +14,4 @@ public class Enemy_1_Factory implements EntityFactory{
         return new Enemy_1(enemy_1,posX,posY,direction);
     }
 
-
-
 }

@@ -4,6 +4,7 @@ import org.pio.helpz.KeyPoint;
 import org.pio.player.Directions;
 import org.pio.scene.Level;
 
+import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -31,7 +32,6 @@ public abstract class Enemy extends Entity{
         this.movementSpeed = movementSpeed;
         this.sprites = sprites;
     }
-
     protected Enemy(Enemy enemy, int posX, int posY, Directions direction){
         super(enemy, posX, posY);
 
@@ -117,4 +117,23 @@ public abstract class Enemy extends Entity{
     }
 
 
+    @Override
+    public void draw(Graphics g) {
+        switch (direction) {
+            case LEFT -> {
+                g.setColor(Color.YELLOW);
+            }
+            case RIGHT -> {
+                g.setColor(Color.GREEN);
+            }
+            case UP -> {
+                g.setColor(Color.BLUE);
+            }
+            case DOWN -> {
+                g.setColor(Color.RED);
+            }
+        }
+
+        g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
+    }
 }
