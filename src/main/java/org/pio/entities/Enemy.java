@@ -94,7 +94,6 @@ public abstract class Enemy extends Entity{
 
         lastMoveUpdate =now;
     }
-
     private Directions calcDirection(){
 
         if ((keyPointsStack.peek().getWidthX()-posX) > 0){
@@ -111,12 +110,9 @@ public abstract class Enemy extends Entity{
             return calcDirection();
         }
     }
-
     private void updateHitBox(){
         bounds.setBounds(posX,posY,width,height);
     }
-
-
     @Override
     public void draw(Graphics g) {
         switch (direction) {
