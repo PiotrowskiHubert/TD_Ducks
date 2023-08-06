@@ -1,6 +1,7 @@
-package org.pio.entities;
+package org.pio.entities.factory.enemy;
 
 import org.pio.database.MainDatabase;
+import org.pio.entities.enemy.Enemy;
 import org.pio.player.Directions;
 
 public class EnemyFactoryImpl implements Enemy_1_Factory, Enemy_2_Factory, Enemy_3_Factory, Enemy_4_Factory, Enemy_5_Factory {

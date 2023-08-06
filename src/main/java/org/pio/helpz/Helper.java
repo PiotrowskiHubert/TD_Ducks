@@ -1,7 +1,7 @@
 package org.pio.helpz;
 
 import org.pio.entities.AllyTowers.oldAllyTower;
-import org.pio.entities.Enemy;
+import org.pio.entities.enemy.Enemy;
 import org.pio.entities.others.oldBullet;
 import org.pio.entities.AllyTowers.oldFirstTowerOldOld;
 

@@ -1,5 +1,6 @@
-package org.pio.entities;
+package org.pio.entities.enemy;
 
+import org.pio.entities.Entity;
 import org.pio.helpz.KeyPoint;
 import org.pio.player.Directions;
 import org.pio.scene.Level;
@@ -9,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Stack;
 
-public abstract class Enemy extends Entity{
+public abstract class Enemy extends Entity {
     public int movementSpeed;
     public int health, damage, gold;
     public LinkedHashMap<Directions,LinkedList<String>> sprites;
@@ -20,7 +21,7 @@ public abstract class Enemy extends Entity{
     private long lastMoveUpdate;
     private long now;
 
-    protected Enemy(String name,  int id, int health, int damage, int gold, int movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
+    public Enemy(String name,  int id, int health, int damage, int gold, int movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, width, height);
 
         this.health = health;
@@ -29,7 +30,7 @@ public abstract class Enemy extends Entity{
         this.movementSpeed = movementSpeed;
         this.sprites = sprites;
     }
-    protected Enemy(Enemy enemy, int posX, int posY, Directions direction){
+    public Enemy(Enemy enemy, int posX, int posY, Directions direction){
         super(enemy, posX, posY);
 
         this.health = enemy.health;

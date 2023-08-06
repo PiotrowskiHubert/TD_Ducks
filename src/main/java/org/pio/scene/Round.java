@@ -1,6 +1,6 @@
 package org.pio.scene;
 
-import org.pio.entities.Enemy;
+import org.pio.entities.enemy.Enemy;
 
 import java.util.ArrayList;
 import java.util.List;

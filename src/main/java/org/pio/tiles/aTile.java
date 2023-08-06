@@ -2,7 +2,7 @@ package org.pio.tiles;
 
 import java.awt.image.BufferedImage;
 
-public abstract class aTile implements iTile {
+public abstract class aTile {
     private int width, height;
     private Integer id;
 

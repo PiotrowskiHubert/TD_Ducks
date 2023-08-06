@@ -1,5 +1,7 @@
-package org.pio.entities;
+package org.pio.entities.ally;
 
+import org.pio.entities.enemy.Enemy;
+import org.pio.entities.Entity;
 import org.pio.entities.others.oldBullet;
 import org.pio.player.Directions;
 
@@ -9,7 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Ally extends Entity{
+public abstract class Ally extends Entity {
     public List<Enemy> enemiesInRangeList;
     private List<oldBullet> oldBulletList;
     public LinkedHashMap<Directions, LinkedList<String>> sprites;

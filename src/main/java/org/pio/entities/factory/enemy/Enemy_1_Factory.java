@@ -1,6 +1,8 @@
-package org.pio.entities;
+package org.pio.entities.factory.enemy;
 
 import org.pio.database.MainDatabase;
+import org.pio.entities.enemy.Enemy;
+import org.pio.entities.enemy.Enemy_1;
 import org.pio.player.Directions;
 
 public interface Enemy_1_Factory{

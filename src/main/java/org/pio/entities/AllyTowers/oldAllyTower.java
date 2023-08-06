@@ -1,6 +1,6 @@
 package org.pio.entities.AllyTowers;
 
-import org.pio.entities.Enemy;
+import org.pio.entities.enemy.Enemy;
 import org.pio.entities.others.oldBullet;
 import org.pio.entities.others.oldEntity;
 import org.pio.main.GameScreen;

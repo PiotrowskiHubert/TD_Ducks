@@ -3,20 +3,20 @@ package org.pio.entities;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-abstract class Entity {
+public abstract class Entity {
     public int width, height, posX, posY, id;
     public String name;
     public Rectangle bounds;
     private BufferedImage sprite;
 
-    protected Entity(String name, int id, int width, int height){
+    public Entity(String name, int id, int width, int height){
         this.name = name;
         this.id = id;
         this.width = width;
         this.height = height;
     }
 
-    protected Entity(Entity entity, int posX, int posY){
+    public Entity(Entity entity, int posX, int posY){
         this.name = entity.name;
         this.id = entity.id;
         this.width = entity.width;
@@ -24,10 +24,10 @@ abstract class Entity {
         this.posX = posX;
         this.posY = posY;
 
-        bounds=initRectangleBounds();
+        bounds= setRectangleBounds();
     }
 
-    private Rectangle initRectangleBounds(){
+    private Rectangle setRectangleBounds(){
         return new Rectangle(posX, posY, width, height);
     }
 

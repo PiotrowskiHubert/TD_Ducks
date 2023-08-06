@@ -1,4 +1,4 @@
-package org.pio.entities;
+package org.pio.entities.ally;
 
 import org.pio.player.Directions;
 

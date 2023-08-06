@@ -1,8 +1,8 @@
 package org.pio.scene;
 
 import org.pio.entities.AllyTowers.oldAllyTower;
-import org.pio.entities.Enemy;
-import org.pio.entities.EnemyFactoryImpl;
+import org.pio.entities.enemy.Enemy;
+import org.pio.entities.factory.enemy.EnemyFactoryImpl;
 import org.pio.helpz.Helper;
 import org.pio.main.GameScreen;
 import org.pio.manager.AllyTowerManager;
