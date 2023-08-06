@@ -30,26 +30,26 @@ public class ReadFromFile {
 
                     while ((nextLine = reader.readLine()) != null && Helper.isInteger(nextLine)){
 
-                        if (nextLine.equals("1")) {
-                            round.getEnemies().add(enemyFactoryImpl.createEnemy_1(posX-(i*offsetX),posY, direction));
+                        switch (nextLine){
+                            case "1":
+                                round.getEnemies().add(enemyFactoryImpl.createEnemy_1(posX-(i*offsetX),posY, direction));
+                                break;
+                            case "2":
+                                round.getEnemies().add(enemyFactoryImpl.createEnemy_2(posX-(i*offsetX),posY, direction));
+                                break;
+                            case "3":
+                                round.getEnemies().add(enemyFactoryImpl.createEnemy_3(posX-(i*offsetX),posY, direction));
+                                break;
+                            case "4":
+                                round.getEnemies().add(enemyFactoryImpl.createEnemy_4(posX-(i*offsetX),posY, direction));
+                                break;
+                            case "5":
+                                round.getEnemies().add(enemyFactoryImpl.createEnemy_5(posX-(i*offsetX),posY, direction));
+                                break;
+                            default:
+                                System.out.println("ERROR: Wrong enemy type in file");
+                                break;
                         }
-
-                        if (nextLine.equals("2")) {
-                            round.getEnemies().add(enemyFactoryImpl.createEnemy_2(posX-(i*offsetX),posY, direction));
-                        }
-
-                        if (nextLine.equals("3")) {
-                            round.getEnemies().add(enemyFactoryImpl.createEnemy_3(posX-(i*offsetX),posY, direction));
-                        }
-
-                        if (nextLine.equals("4")) {
-                            round.getEnemies().add(enemyFactoryImpl.createEnemy_4(posX-(i*offsetX),posY, direction));
-                        }
-
-                        if (nextLine.equals("5")) {
-                            round.getEnemies().add(enemyFactoryImpl.createEnemy_5(posX-(i*offsetX),posY, direction));
-                        }
-
                         i++;
                     }
 
