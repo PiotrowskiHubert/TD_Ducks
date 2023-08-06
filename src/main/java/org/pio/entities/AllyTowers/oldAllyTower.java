@@ -17,13 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class oldAllyTower extends oldEntity {
-    protected List<oldBullet> oldBulletList;
-    public List<Enemy> enemiesInRangeList;
-    protected int cost, index, range;
-    protected double timePerShot;
-    protected long lastTimeCheck, now, lastShot;
-    protected Boolean mouseOver, mousePressed, selected;
-    protected Ellipse2D rangeEllipse;
+    protected List<oldBullet> oldBulletList; //
+    public List<Enemy> enemiesInRangeList; //
+    protected int cost, index, range; //
+    protected double timePerShot; //
+    protected long lastTimeCheck, now, lastShot; //
+    protected Boolean mouseOver, mousePressed, selected; //
+    protected Ellipse2D rangeEllipse; //
     protected SidePanelUpgrade sidePanelUpgrade;
 
     public oldAllyTower(String name, int id, BufferedImage sprite, int posWidthX, int posHeightY, int towerWidth, int towerHeight, double timePerShot, int range, int cost, int index){
@@ -43,9 +43,14 @@ public class oldAllyTower extends oldEntity {
         this.lastShot=System.nanoTime();
         this.lastTimeCheck=System.currentTimeMillis();
         this.now=System.nanoTime();
-        
-        initBooleans();
-        initLists();
+
+        this.mouseOver=false;
+        this.mousePressed=false;
+        this.selected=false;
+
+        this.enemiesInRangeList=new ArrayList<>();
+        this.oldBulletList =new ArrayList<>();
+
         initBounds();
         initRangeEllipse();
     }
@@ -72,19 +77,11 @@ public class oldAllyTower extends oldEntity {
     public Rectangle initBounds() {
         return super.initBounds();
     }
-
-    private void initBooleans(){
-        this.mouseOver=false;
-        this.mousePressed=false;
-        this.selected=false;
-    }
-    private void initLists(){
-        this.enemiesInRangeList=new ArrayList<>();
-        this.oldBulletList =new ArrayList<>();
-    }
-
     protected void initRangeEllipse(){
-        rangeEllipse = new Ellipse2D.Float(getPosWidthX()-getRange()+20, getPosHeightY()-getRange()+20, getRange()*2, getRange()*2);
+        rangeEllipse = new Ellipse2D.Float(getPosWidthX()-getRange()+20,
+                getPosHeightY()-getRange()+20,
+                getRange()*2,
+                getRange()*2);
     }
     private Button initButtonUpgradeSelectedAllyTower(String name, double startRadius, double radius, int id){
         return new Button(name, posWidthX, posHeightY, startRadius, radius, id);

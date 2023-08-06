@@ -11,6 +11,9 @@ public interface ReadFromFile {
     int readMovementSpeed(String fileName);
     int readWidth(String fileName);
     int readHeight(String fileName);
+    int readRange(String fileName);
+    int readCost(String fileName);
+
     BufferedImage readBufferedImage(String fileName);
 
 }

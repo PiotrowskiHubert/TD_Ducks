@@ -14,11 +14,8 @@ public abstract class Enemy extends Entity{
     public int health, damage, gold;
     public LinkedHashMap<Directions,LinkedList<String>> sprites;
     public Directions direction;
-
-
     private Stack<KeyPoint> keyPointsStack;
     private int keypointIndex;
-
     private double timePerMoveUpdate =1_000_000_000.0/240;
     private long lastMoveUpdate;
     private long now;
@@ -52,6 +49,7 @@ public abstract class Enemy extends Entity{
         return new Stack<>();
     }
 
+    @Override
     public void update() {
         now = System.nanoTime();
 

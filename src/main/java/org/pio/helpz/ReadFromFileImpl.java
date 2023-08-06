@@ -203,6 +203,52 @@ public class ReadFromFileImpl implements ReadFromFile {
         return -1;
     }
     @Override
+    public int readRange(String fileName) {
+        try (
+                var fileReader = new FileReader(fileName);
+                var reader = new BufferedReader(fileReader);
+        ) {
+            String nextLine = null;
+
+            while ((nextLine = reader.readLine()) != null) {
+
+                if (nextLine.equals("RANGE")) {
+                    return Integer.parseInt(reader.readLine());
+                }
+
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+    @Override
+    public int readCost(String fileName) {
+        try (
+                var fileReader = new FileReader(fileName);
+                var reader = new BufferedReader(fileReader);
+        ) {
+            String nextLine = null;
+
+            while ((nextLine = reader.readLine()) != null) {
+
+                if (nextLine.equals("COST")) {
+                    return Integer.parseInt(reader.readLine());
+                }
+
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+    @Override
     public BufferedImage readBufferedImage(String fileName) {
         BufferedImage bufferedImage = null;
 

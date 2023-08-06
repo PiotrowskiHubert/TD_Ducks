@@ -31,6 +31,8 @@ abstract class Entity {
         return new Rectangle(posX, posY, width, height);
     }
 
+    public abstract void update();
+
     public void draw(Graphics g){
         g.setColor(Color.red);
         g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
