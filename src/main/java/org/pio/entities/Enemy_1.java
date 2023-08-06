@@ -12,7 +12,7 @@ public class Enemy_1 extends Enemy{
         super(name, id, health, damage, gold, movementSpeed, width, height, sprites);
     }
 
-    public Enemy_1(Enemy_1 enemy, int posX, int posY, Directions direction){
+    public Enemy_1(Enemy enemy, int posX, int posY, Directions direction){
         super(enemy, posX, posY, direction);
     }
 

@@ -3,8 +3,7 @@ package org.pio.entities;
 import org.pio.database.MainDatabase;
 import org.pio.player.Directions;
 
-public class EnemyFactoryImpl implements Enemy_5_Factory, Enemy_4_Factory {
-    Enemy_1_Factory enemy_1_factory = new Enemy_1_Factory();
+public class EnemyFactoryImpl implements Enemy_1_Factory, Enemy_5_Factory, Enemy_4_Factory {
     Enemy_2_Factory enemy_2_factory = new Enemy_2_Factory();
     Enemy_3_Factory enemy_3_factory = new Enemy_3_Factory();
 
@@ -15,8 +14,8 @@ public class EnemyFactoryImpl implements Enemy_5_Factory, Enemy_4_Factory {
         this.mainDatabase = mainDatabase;
     }
 
-    public Enemy_1 createEnemy_1(int posX, int posY, Directions direction){
-        return enemy_1_factory.createWithImage(enemy_1_factory.getInfoFromDatabase(mainDatabase,1), posX, posY, direction);
+    public Enemy createEnemy_1(int posX, int posY, Directions direction){
+        return Enemy_1_Factory.super.createWithImageEnemy_1(mainDatabase,1, posX, posY, direction);
     }
     public Enemy_2 createEnemy_2(int posX, int posY, Directions direction){
         return enemy_2_factory.createWithImage(enemy_2_factory.getInfoFromDatabase(mainDatabase,2), posX, posY, direction);
