@@ -3,16 +3,14 @@ package org.pio.entities;
 import org.pio.database.MainDatabase;
 import org.pio.player.Directions;
 
-public class Enemy_2_Factory implements EntityFactory{
+public interface Enemy_2_Factory{
 
-    @Override
-    public Enemy_2 getInfoFromDatabase(MainDatabase mainDatabase, int enemyIndex) {
+    default public Enemy getInfoFromDatabaseEnemy_2(MainDatabase mainDatabase, int enemyIndex) {
         return new Enemy_2(mainDatabase.enemyDatabase.get(enemyIndex).name,mainDatabase.enemyDatabase.get(enemyIndex).id,mainDatabase.enemyDatabase.get(enemyIndex).health,mainDatabase.enemyDatabase.get(enemyIndex).damage,mainDatabase.enemyDatabase.get(enemyIndex).gold,mainDatabase.enemyDatabase.get(enemyIndex).movementSpeed,mainDatabase.enemyDatabase.get(enemyIndex).width,mainDatabase.enemyDatabase.get(enemyIndex).height,mainDatabase.enemyDatabase.get(enemyIndex).sprites);
     }
 
-    public Enemy_2 createWithImage(Enemy_2 enemy_2, int posX, int posY, Directions direction){
-        return new Enemy_2(enemy_2,posX,posY,direction);
+    default public Enemy createWithImageEnemy_2(MainDatabase mainDatabase, int enemyIndex, int posX, int posY, Directions direction){
+        return new Enemy_1(getInfoFromDatabaseEnemy_2(mainDatabase,enemyIndex), posX, posY, direction);
     }
-
 
 }
