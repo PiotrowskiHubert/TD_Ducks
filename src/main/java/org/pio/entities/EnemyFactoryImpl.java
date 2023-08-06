@@ -1,7 +1,6 @@
 package org.pio.entities;
 
 import org.pio.database.MainDatabase;
-import org.pio.entities.others.Enemy_5_Factory_Interface;
 import org.pio.player.Directions;
 
 public class EnemyFactoryImpl implements Enemy_5_Factory_Interface {
@@ -9,7 +8,6 @@ public class EnemyFactoryImpl implements Enemy_5_Factory_Interface {
     Enemy_2_Factory enemy_2_factory = new Enemy_2_Factory();
     Enemy_3_Factory enemy_3_factory = new Enemy_3_Factory();
     Enemy_4_Factory enemy_4_factory = new Enemy_4_Factory();
-    //Enemy_5_Factory enemy_5_factory = new Enemy_5_Factory();
 
 
     private MainDatabase mainDatabase;
@@ -30,9 +28,8 @@ public class EnemyFactoryImpl implements Enemy_5_Factory_Interface {
     public Enemy_4 createEnemy_4(int posX, int posY, Directions direction){
         return enemy_4_factory.createWithImage(enemy_4_factory.getInfoFromDatabase(mainDatabase,4), posX, posY, direction);
     }
-    public Enemy_5 createEnemy_5(int posX, int posY, Directions direction){
-        return Enemy_5_Factory_Interface.super.createWithImage(Enemy_5_Factory_Interface.super.getInfoFromDatabase(mainDatabase, 5), posX, posY, direction);
-        //return enemy_5_factory.createWithImage(enemy_5_factory.getInfoFromDatabase(mainDatabase,5), posX, posY, direction);
+    public Enemy createEnemy_5(int posX, int posY, Directions direction){
+        return Enemy_5_Factory_Interface.super.createWithImage(mainDatabase,5, posX, posY, direction);
     }
 
 }
