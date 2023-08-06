@@ -55,9 +55,13 @@ public abstract class Ally extends Entity{
     public void update() {
         now = System.nanoTime();
 
-        if (now - lastShotUpdate >= timePerShotUpdate){
-            shotUpdate();
+        if (placed){
+            if (now - lastShotUpdate >= timePerShotUpdate){
+                shotUpdate();
+            }
         }
+
+
     }
 
     private void shotUpdate() {

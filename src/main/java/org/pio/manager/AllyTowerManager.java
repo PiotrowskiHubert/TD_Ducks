@@ -44,23 +44,23 @@ public class AllyTowerManager {
         oldAllyTowersList =new ArrayList<>();
     }
     private void initTowersToLists() {
-        oldFirstTowerOldOld firstTower = (oldFirstTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/firstTower.txt");
+        oldFirstTowerOldOld firstTower = (oldFirstTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyInfo/firstTower.txt");
         firstTowersList.add(firstTower);
         oldAllyTowersList.add(firstTower);
 
-        oldSecondTowerOldOld secondTower = (oldSecondTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/secondTower.txt");
+        oldSecondTowerOldOld secondTower = (oldSecondTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyInfo/secondTower.txt");
         secondTowerList.add(secondTower);
         oldAllyTowersList.add(secondTower);
 
-        oldThirdTowerOld thirdTower = (oldThirdTowerOld) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/thirdTower.txt");
+        oldThirdTowerOld thirdTower = (oldThirdTowerOld) ReadFromFile.readTowerData("src/main/resources/AllyInfo/thirdTower.txt");
         thirdTowerList.add(thirdTower);
         oldAllyTowersList.add(thirdTower);
 
-        oldFourthTowerOldOld fourthTower= (oldFourthTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/fourthTower.txt");
+        oldFourthTowerOldOld fourthTower= (oldFourthTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyInfo/fourthTower.txt");
         fourthTowerList.add(fourthTower);
         oldAllyTowersList.add(fourthTower);
 
-        oldFifthTowerOldOld fifthTower = (oldFifthTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyTowerInfo/fifthTower.txt");
+        oldFifthTowerOldOld fifthTower = (oldFifthTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyInfo/fifthTower.txt");
         fifthTowerList.add(fifthTower);
         oldAllyTowersList.add(fifthTower);
     }

@@ -35,11 +35,11 @@ public class MainDatabase {
         enemyDatabase.put(4, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/enemy_4.txt"));
         enemyDatabase.put(5, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/enemy_5.txt"));
 
-        allyDatabase.put(1, getAllyInfoFromTxtFile("src/main/resources/AlliesInfo/ally_1.txt"));
-        allyDatabase.put(2, getAllyInfoFromTxtFile("src/main/resources/AlliesInfo/ally_2.txt"));
-        allyDatabase.put(3, getAllyInfoFromTxtFile("src/main/resources/AlliesInfo/ally_3.txt"));
-        allyDatabase.put(4, getAllyInfoFromTxtFile("src/main/resources/AlliesInfo/ally_4.txt"));
-        allyDatabase.put(5, getAllyInfoFromTxtFile("src/main/resources/AlliesInfo/ally_5.txt"));
+        allyDatabase.put(1, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_1.txt"));
+        allyDatabase.put(2, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_2.txt"));
+        allyDatabase.put(3, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_3.txt"));
+        allyDatabase.put(4, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_4.txt"));
+        allyDatabase.put(5, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_5.txt"));
     }
 
     private Enemy getEnemyInfoFromTxtFile(String fileName){
@@ -61,21 +61,25 @@ public class MainDatabase {
                 return null;
         }
     }
-
     private Ally getAllyInfoFromTxtFile(String fileName){
         AllyDatabaseImpl allyDatabase = new AllyDatabaseImpl();
 
         switch (fileName) {
-        case "src/main/resources/AlliesInfo/ally_1.txt":
+        case "src/main/resources/AllyInfo/ally_1.txt":
             return new Ally_1(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), allySpriteAtlasDatabase.get(1));
-        case "src/main/resources/AlliesInfo/ally_2.txt":
+
+        case "src/main/resources/AllyInfo/ally_2.txt":
             return new Ally_2(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), allySpriteAtlasDatabase.get(2));
-        case "src/main/resources/AlliesInfo/ally_3.txt":
+
+        case "src/main/resources/AllyInfo/ally_3.txt":
             return new Ally_3(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), allySpriteAtlasDatabase.get(3));
-        case "src/main/resources/AlliesInfo/ally_4.txt":
+
+        case "src/main/resources/AllyInfo/ally_4.txt":
             return new Ally_4(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), allySpriteAtlasDatabase.get(4));
-        case "src/main/resources/AlliesInfo/ally_5.txt":
+
+        case "src/main/resources/AllyInfo/ally_5.txt":
             return new Ally_5(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), allySpriteAtlasDatabase.get(5));
+
         default:
             System.out.println("ERROR: Wrong ally text file");
             return null;

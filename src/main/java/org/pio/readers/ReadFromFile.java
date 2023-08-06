@@ -50,6 +50,8 @@ public class ReadFromFile {
                                 System.out.println("ERROR: Wrong enemy type in file");
                                 break;
                         }
+
+
                         i++;
                     }
 
