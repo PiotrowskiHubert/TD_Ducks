@@ -1,6 +1,7 @@
 package org.pio.scene;
 
 import org.pio.entities.AllyTowers.oldAllyTower;
+import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.factory.enemy.EnemyFactoryImpl;
 import org.pio.helpz.Helper;
@@ -152,10 +153,9 @@ public class Level extends GameScene {
 
     private void drawAllyTowerPlaced(Graphics g){
 
-        if (AllyTowerManager.oldAllyTowersPlaced !=null){
-
-            for (oldAllyTower oldAllyTower : AllyTowerManager.oldAllyTowersPlaced){
-                oldAllyTower.draw(g);
+        if (getGame().getAllyTowerManager().allyPlacedTowers!=null){
+            for (Ally ally : getGame().getAllyTowerManager().allyPlacedTowers){
+                ally.draw(g);
             }
         }
 

@@ -257,7 +257,18 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         if (x<29*GameScreen.UNIT_SIZE){
             getGame().getAllyTowerManager().mouseMoved(x,y);
         }
+
+        if (sidePanel.selectedTower!=null){
+
+            sidePanel.selectedTower.posX=x;
+            sidePanel.selectedTower.posY=y;
+
+            sidePanel.selectedTower.bounds.x=sidePanel.selectedTower.posX;
+            sidePanel.selectedTower.bounds.y=sidePanel.selectedTower.posY;
+        }
+
     }
+
     @Override
     public void mousePressed(int x, int y) {
         if (x>29*GameScreen.UNIT_SIZE&&!mapEditMode){
@@ -269,6 +280,12 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         if (x<29*GameScreen.UNIT_SIZE){
             getGame().getAllyTowerManager().mousePressed(x,y);
         }
+
+        if (sidePanel.selectedTower!=null){
+            getGame().getAllyTowerManager().allyPlacedTowers.add(sidePanel.selectedTower);
+            sidePanel.selectedTower=null;
+        }
+
     }
     @Override
     public void mouseReleased(int x, int y) {

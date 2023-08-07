@@ -1,6 +1,7 @@
 package org.pio.manager;
 
 import org.pio.entities.AllyTowers.*;
+import org.pio.entities.ally.Ally;
 import org.pio.readers.ReadFromFile;
 import org.pio.scene.Level;
 import org.pio.ui.SidePanel;
@@ -15,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class AllyTowerManager {
+    public List<Ally> allyPlacedTowers = new ArrayList<>();
     private List<oldFirstTowerOldOld> firstTowersList;
     private List<oldSecondTowerOldOld> secondTowerList;
     private List<oldThirdTowerOld> thirdTowerList;
@@ -107,9 +109,6 @@ public class AllyTowerManager {
         }
 
     }
-
-    // ----------- RENDER ----------- //
-
 
     // ----------- GET ----------- //
     private Boolean containsOtherTower(oldAllyTower oldAllyTower){

@@ -1,6 +1,8 @@
 package org.pio.ui;
 
 import org.pio.entities.AllyTowers.oldAllyTower;
+import org.pio.entities.ally.Ally;
+import org.pio.entities.factory.ally.AllyFactoryImpl;
 import org.pio.manager.AllyTowerManager;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
@@ -22,8 +24,10 @@ public class SidePanel {
     private int panelWidth, panelHeight;
     private int posWidthX, posHeightX;
     private static oldAllyTower selectedTowerSidePanel;
+    public Ally selectedTower;
     Button bTower_0, editMode, startRound, speedUp;
     private List<Button> buttonTowerList;
+    private AllyFactoryImpl allyFactory;
 
     public SidePanel(int posWidthX, int posHeightX, int panelWidth, int panelHeight, PlayScene playScene) {
         this.panelWidth=panelWidth;
@@ -35,6 +39,8 @@ public class SidePanel {
         spriteAllyTowerAtlas=getSpriteAllyTowerAtlas();
         spriteButtonAtlas=getSpriteButtonAtlas();
         spriteSidePanel=getSpriteSidePanel();
+
+        allyFactory=new AllyFactoryImpl(playScene.getGame().getMainDatabase());
 
         initButtons();
     }
@@ -105,6 +111,11 @@ public class SidePanel {
             drawSelectedTowerRange(g);
             drawSelectedTowerSprite(g);
         }
+
+        if (selectedTower != null){
+            //drawSelectedTowerRange(g);
+            drawSelectedTowerSprite(g);
+        }
     }
 
     private void drawSelectedTowerSprite(Graphics g) {
@@ -112,7 +123,8 @@ public class SidePanel {
         // RECTANGE HITBOX
         //g.drawRect(PlayScene.getMouseX()-20, PlayScene.getMouseY()-20, selectedTowerSidePanel.getWidth(), selectedTowerSidePanel.getHeight());
 
-        g.drawImage(selectedTowerSidePanel.getSprite(), PlayScene.getMouseX()-20, PlayScene.getMouseY()-20,40,40,null);
+        //g.drawImage(selectedTowerSidePanel.getSprite(), PlayScene.getMouseX()-20, PlayScene.getMouseY()-20,40,40,null);
+        selectedTower.draw(g);
     }
 
     private void drawSelectedTowerRange(Graphics g){
@@ -140,20 +152,41 @@ public class SidePanel {
         for (Button button : buttonTowerList) {
             if (button.getButtonsBounds().contains(x,y) && selectedTowerSidePanel ==null){
 
-                for (oldAllyTower oldAllyTower : AllyTowerManager.getAllyTowersList()) {
-
-                    if (button.getName().equals(oldAllyTower.getNameEntity())){
-                        selectedTowerSidePanel= oldAllyTower;
-
-                        selectedTowerSidePanel.setSprite(getSprite(oldAllyTower.getSpriteCordX(), oldAllyTower.getSpriteCordY(), oldAllyTower.getSpriteWidth(), oldAllyTower.getSpriteHeight()));
-
-                        if (oldAllyTower.getCost()> PlayScene.getPlayer().getGold()){
-                            selectedTowerSidePanel =null;
-                        }
-
-                    }
-
+                if (button.getId()==0){
+                    selectedTower=allyFactory.createAlly_1(x,y, null);
                 }
+
+                if (button.getId()==1){
+                    selectedTower=allyFactory.createAlly_2(x,y, null);
+                }
+
+                if (button.getId()==2){
+                    selectedTower=allyFactory.createAlly_3(x,y, null);
+                }
+
+                if (button.getId()==3){
+                    selectedTower=allyFactory.createAlly_4(x,y, null);
+                }
+
+                if (button.getId()==4){
+                    selectedTower=allyFactory.createAlly_5(x,y, null);
+                }
+
+
+//                for (oldAllyTower oldAllyTower : AllyTowerManager.getAllyTowersList()) {
+//
+//                    if (button.getName().equals(oldAllyTower.getNameEntity())){
+//                        selectedTowerSidePanel= oldAllyTower;
+//
+//                        selectedTowerSidePanel.setSprite(getSprite(oldAllyTower.getSpriteCordX(), oldAllyTower.getSpriteCordY(), oldAllyTower.getSpriteWidth(), oldAllyTower.getSpriteHeight()));
+//
+//                        if (oldAllyTower.getCost()> PlayScene.getPlayer().getGold()){
+//                            selectedTowerSidePanel =null;
+//                        }
+//
+//                    }
+//
+//                }
 
             }
         }
