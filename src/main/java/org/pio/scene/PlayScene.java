@@ -1,6 +1,7 @@
 package org.pio.scene;
 
 import org.pio.entities.AllyTowers.oldAllyTower;
+import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.others.oldBullet;
 import org.pio.main.GameScreen;
@@ -66,19 +67,19 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     public void updateAllyTowerPlaced(){
 
-//        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
-//            return;
-//        }
-//
-//        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
-//            return;
-//        }
-//
-//        for (Iterator<oldAllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();){
-//            oldAllyTower nextOldAllyTowerPlaced = allyTowerIterator.next();
-//
-//            nextOldAllyTowerPlaced.update();
-//        }
+        if (getGame().getAllyTowerManager().allyPlacedTowers.isEmpty()){
+            return;
+        }
+
+        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
+            return;
+        }
+
+        for (Iterator<Ally> allyIterator = getGame().getAllyTowerManager().allyPlacedTowers.iterator(); allyIterator.hasNext();){
+            Ally nextAlly = allyIterator.next();
+
+            nextAlly.update();
+        }
 
     }
     public void enemyHitByBullet() {
@@ -286,7 +287,9 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
         if (sidePanel.selectedTower!=null){
             getGame().getAllyTowerManager().allyPlacedTowers.add(sidePanel.selectedTower);
+            sidePanel.selectedTower.placed=true;
             sidePanel.selectedTower=null;
+
         }
 
     }

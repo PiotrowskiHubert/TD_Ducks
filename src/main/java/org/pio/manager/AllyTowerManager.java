@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class AllyTowerManager {
-    public List<Ally> allyPlacedTowers = new ArrayList<>();
+    public static List<Ally> allyPlacedTowers = new ArrayList<>();
 //    private List<oldFirstTowerOldOld> firstTowersList;
 //    private List<oldSecondTowerOldOld> secondTowerList;
 //    private List<oldThirdTowerOld> thirdTowerList;

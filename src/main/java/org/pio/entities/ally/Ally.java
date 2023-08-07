@@ -1,9 +1,13 @@
 package org.pio.entities.ally;
 
+import org.pio.entities.AllyTowers.oldAllyTower;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.Entity;
 import org.pio.entities.others.oldBullet;
+import org.pio.helpz.Helper;
+import org.pio.manager.AllyTowerManager;
 import org.pio.player.Directions;
+import org.pio.scene.Level;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -61,7 +65,11 @@ public abstract class Ally extends Entity {
         now = System.nanoTime();
 
         if (placed){
+
+            updateEnemiesInRangeForPlacedTower();
+
             if (now - lastShotUpdate >= timePerShotUpdate){
+                lastShotUpdate=now;
                 shotUpdate();
             }
         }
@@ -69,6 +77,62 @@ public abstract class Ally extends Entity {
 
     private void shotUpdate() {
 
+        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
+            return;
+        }
+        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
+            return;
+        }
+    }
+
+    private void updateListOfEnemiesInRangeForPlacedTower(Ally ally){
+
+        for (Enemy enemy : Level.rounds.get(Level.currentRound).getEnemies()){
+
+            if (!isEnemyAlreadyInAllyTowerPlacedList(ally, enemy)){
+                if (ally.rangeEllipse.intersects(enemy.bounds.getBounds())){
+                    ally.enemiesInRangeList.add(enemy);
+                }
+            }
+
+            if (isEnemyAlreadyInAllyTowerPlacedList(ally, enemy)){
+                if (ally.rangeEllipse.intersects(enemy.bounds.getBounds())){
+                    updateEnemiesPositionInRangeForPlacedTower(ally, enemy);
+                }
+            }
+
+            if (isEnemyAlreadyInAllyTowerPlacedList(ally, enemy)){
+
+                if (!ally.rangeEllipse.intersects(enemy.bounds.getBounds())){
+                    ally.enemiesInRangeList.remove(enemy);
+                }
+            }
+
+        }
+
+    }
+
+    private boolean isEnemyAlreadyInAllyTowerPlacedList(Ally ally, Enemy enemy){
+        return ally.enemiesInRangeList.contains(enemy);
+    }
+
+    private void updateEnemiesPositionInRangeForPlacedTower(Ally ally, Enemy enemy) {
+        for (Enemy enemyInRange : ally.enemiesInRangeList){
+            if (enemyInRange.equals(enemy)){
+
+                enemyInRange.posX=enemy.posX;
+                enemyInRange.posY=enemy.posY;
+            }
+        }
+    }
+
+    private void updateEnemiesInRangeForPlacedTower(){
+
+        System.out.println("a");
+
+//        for (Ally ally : AllyTowerManager.allyPlacedTowers){
+//            updateListOfEnemiesInRangeForPlacedTower(ally);
+//        }
     }
 
     @Override
