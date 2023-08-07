@@ -20,7 +20,7 @@ public abstract class Ally extends Entity {
     private long lastShotUpdate;
     private long now;
     public Ellipse2D rangeEllipse;
-    private Boolean mouseOver, mousePressed, placed;
+    public Boolean mouseOver, mousePressed, placed;
     public Directions direction;
 
 
@@ -64,13 +64,7 @@ public abstract class Ally extends Entity {
             if (now - lastShotUpdate >= timePerShotUpdate){
                 shotUpdate();
             }
-        }else {
-            updateBounds();
         }
-    }
-
-    private void updateBounds() {
-
     }
 
     private void shotUpdate() {
@@ -79,6 +73,19 @@ public abstract class Ally extends Entity {
 
     @Override
     public void draw(Graphics g) {
+
+        if (mousePressed){
+            g.setColor(new Color(0xB0000000, true));
+            g.fillOval(rangeEllipse.getBounds().x, rangeEllipse.getBounds().y, rangeEllipse.getBounds().width, rangeEllipse.getBounds().height);
+        }
+
         g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
+
+        if (mouseOver){
+            g.setColor(new Color(0x5E000000, true));
+            g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
+        }
+
+
     }
 }

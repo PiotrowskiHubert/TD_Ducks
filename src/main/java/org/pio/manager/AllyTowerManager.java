@@ -27,46 +27,9 @@ public class AllyTowerManager {
 //    private BufferedImage spriteAllyTowerAtlas;
 
     public AllyTowerManager() {
-        //initAllyTowerAtlas();
-        //initAllyTowerList();
-        //initTowersToLists();
+
     }
 
-    //private void initAllyTowerAtlas(){
-//        spriteAllyTowerAtlas = getSpriteAllyTowerAtlas();
-//    }
-    //private void initAllyTowerList(){
-//        firstTowersList=new ArrayList<>();
-//        secondTowerList=new ArrayList<>();
-//        thirdTowerList=new ArrayList<>();
-//        fourthTowerList=new ArrayList<>();
-//        fifthTowerList=new ArrayList<>();
-//
-//        oldAllyTowersPlaced =new ArrayList<>();
-//        oldAllyTowersList =new ArrayList<>();
-    //}
-
-//    private void initTowersToLists() {
-//        oldFirstTowerOldOld firstTower = (oldFirstTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyInfo/firstTower.txt");
-//        firstTowersList.add(firstTower);
-//        oldAllyTowersList.add(firstTower);
-//
-//        oldSecondTowerOldOld secondTower = (oldSecondTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyInfo/secondTower.txt");
-//        secondTowerList.add(secondTower);
-//        oldAllyTowersList.add(secondTower);
-//
-//        oldThirdTowerOld thirdTower = (oldThirdTowerOld) ReadFromFile.readTowerData("src/main/resources/AllyInfo/thirdTower.txt");
-//        thirdTowerList.add(thirdTower);
-//        oldAllyTowersList.add(thirdTower);
-//
-//        oldFourthTowerOldOld fourthTower= (oldFourthTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyInfo/fourthTower.txt");
-//        fourthTowerList.add(fourthTower);
-//        oldAllyTowersList.add(fourthTower);
-//
-//        oldFifthTowerOldOld fifthTower = (oldFifthTowerOldOld) ReadFromFile.readTowerData("src/main/resources/AllyInfo/fifthTower.txt");
-//        fifthTowerList.add(fifthTower);
-//        oldAllyTowersList.add(fifthTower);
-//    }
 
     // ----------- INPUT METHODS ----------- //
 //    public void addTower(int x, int y){
@@ -143,36 +106,31 @@ public class AllyTowerManager {
 //    private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
 //        return spriteAllyTowerAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
 //    }
-//    public static List<oldAllyTower> getAllyTowersPlaced() {
-//        return oldAllyTowersPlaced;
-//    }
-//    public static List<oldAllyTower> getAllyTowersList() {
-//        return oldAllyTowersList;
-//    }
+
 
 
     // ----------- INPUTS ----------- //
     public void mouseMoved(int x, int y) {
 
-//        for (oldAllyTower oldAllyTower : oldAllyTowersPlaced) {
-//            if (oldAllyTower.isMouseOver()) {
-//                oldAllyTower.setMouseOver(false);
-//            }
-//        }
-//
+        for (Ally ally : allyPlacedTowers) {
+            if (ally.mouseOver) {
+                ally.mouseOver=false;
+            }
+        }
+
 //        // ----------------------------------------------------- //
+
+        for (Ally ally : allyPlacedTowers) {
+
+            if (ally.bounds.contains(x,y)){
+                ally.mouseOver=true;
+            }
 //
-//        for (oldAllyTower oldAllyTower : oldAllyTowersPlaced) {
-//
-//            if (oldAllyTower.getEntityBounds().contains(x,y)){
-//                oldAllyTower.setMouseOver(true);
+//            if (ally.getSelected()){
+//                ally.getSidePanelUpgrade().mouseMoved(x,y);
 //            }
-//
-//            if (oldAllyTower.getSelected()){
-//                oldAllyTower.getSidePanelUpgrade().mouseMoved(x,y);
-//            }
-//
-//        }
+
+        }
 
     }
     public void leftMouseClicked(int x, int y) {
@@ -214,18 +172,17 @@ public class AllyTowerManager {
     }
     public void mousePressed(int x, int y) {
 
-//        if (Helper.isAllyTowerListEmpty(oldAllyTowersPlaced)){
-//            return;
-//        }
-//
-//        for (oldAllyTower oldAllyTower : oldAllyTowersPlaced) {
-//
-//            if (oldAllyTower.getEntityBounds().contains(x,y)){
-//                oldAllyTower.setMousePressed(true);
-//                return;
-//            }
-//        }
-//
+        if (allyPlacedTowers==null){
+            return;
+        }
+
+        for (Ally ally : allyPlacedTowers) {
+
+            if (ally.bounds.contains(x,y)){
+                ally.mousePressed=true;
+            }
+        }
+
 //        for (oldAllyTower oldAllyTower : oldAllyTowersPlaced) {
 //
 //            if (oldAllyTower.getSelected()){

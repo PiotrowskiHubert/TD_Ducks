@@ -265,6 +265,9 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
             sidePanel.selectedTower.bounds.x=sidePanel.selectedTower.posX;
             sidePanel.selectedTower.bounds.y=sidePanel.selectedTower.posY;
+
+            int ellipseOffset=20;
+            sidePanel.selectedTower.rangeEllipse.setFrame(sidePanel.selectedTower.posX-sidePanel.selectedTower.range+ellipseOffset, sidePanel.selectedTower.posY-sidePanel.selectedTower.range+ellipseOffset, sidePanel.selectedTower.range*2, sidePanel.selectedTower.range*2);
         }
 
     }
