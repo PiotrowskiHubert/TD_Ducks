@@ -15,12 +15,13 @@ public abstract class Ally extends Entity {
     public List<Enemy> enemiesInRangeList;
     private List<oldBullet> oldBulletList;
     public LinkedHashMap<Directions, LinkedList<String>> sprites;
-    private int cost, range;
+    public int cost, range;
     private double timePerShotUpdate =1_000_000_000.0/240;
     private long lastShotUpdate;
     private long now;
     public Ellipse2D rangeEllipse;
     private Boolean mouseOver, mousePressed, placed;
+    public Directions direction;
 
 
     protected Ally(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<String>> sprites) {
@@ -31,12 +32,14 @@ public abstract class Ally extends Entity {
         this.sprites=sprites;
     }
 
-    protected Ally(Ally ally, int posX, int posY) {
+    protected Ally(Ally ally, int posX, int posY, Directions direction) {
         super(ally, posX, posY);
 
         this.cost=ally.cost;
         this.range=ally.range;
         this.sprites=ally.sprites;
+
+        this.direction=direction;
 
         this.mouseOver=false;
         this.mousePressed=false;

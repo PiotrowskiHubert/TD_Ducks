@@ -11,7 +11,7 @@ public class Ally_1 extends Ally {
         super(name, id, width, height, cost, range, sprites);
     }
 
-    public Ally_1(Ally ally, int posX, int posY) {
-        super(ally, posX, posY);
+    public Ally_1(Ally ally, int posX, int posY, Directions direction) {
+        super(ally, posX, posY, direction);
     }
 }
