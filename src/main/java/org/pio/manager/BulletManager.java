@@ -12,33 +12,33 @@ public class BulletManager {
 
     public void bulletsUpdatePos() {
 
-        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
-            return;
-        }
-
-        // ITERATE THROUGH ALLY TOWER PLACED
-
-        for (Iterator<oldAllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();) {
-            oldAllyTower nextAlly = allyTowerIterator.next();
-
-            if (!Helper.isBulletListEmpty(nextAlly.getBulletList())){
-                // ITERATE THROUGH BULLET LIST OF EACH ALLY TOWER
-
-                for (Iterator<oldBullet> bulletIterator = nextAlly.getBulletList().iterator(); bulletIterator.hasNext();) {
-                    oldBullet nextOldBullet = bulletIterator.next();
-
-                    // UPDATE BULLET
-                    nextOldBullet.bulletUpdate();
-
-                    // CHECK IF BULLET IS OUT OF RANGE OF ALLY TOWER
-                    if (limitBulletRange(nextAlly, nextOldBullet)){
-                        bulletIterator.remove();
-                    }
-
-                }
-            }
-
-        }
+//        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
+//            return;
+//        }
+//
+//        // ITERATE THROUGH ALLY TOWER PLACED
+//
+//        for (Iterator<oldAllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();) {
+//            oldAllyTower nextAlly = allyTowerIterator.next();
+//
+//            if (!Helper.isBulletListEmpty(nextAlly.getBulletList())){
+//                // ITERATE THROUGH BULLET LIST OF EACH ALLY TOWER
+//
+//                for (Iterator<oldBullet> bulletIterator = nextAlly.getBulletList().iterator(); bulletIterator.hasNext();) {
+//                    oldBullet nextOldBullet = bulletIterator.next();
+//
+//                    // UPDATE BULLET
+//                    nextOldBullet.bulletUpdate();
+//
+//                    // CHECK IF BULLET IS OUT OF RANGE OF ALLY TOWER
+//                    if (limitBulletRange(nextAlly, nextOldBullet)){
+//                        bulletIterator.remove();
+//                    }
+//
+//                }
+//            }
+//
+//        }
 
     }
 

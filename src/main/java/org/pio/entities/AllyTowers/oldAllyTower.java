@@ -162,13 +162,13 @@ public class oldAllyTower extends oldEntity {
         }
     }
     private void updateEnemiesInRangeForPlacedTower(){
-        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
-            return;
-        }
-
-        for (oldAllyTower oldAllyTowerPlaced : AllyTowerManager.getAllyTowersPlaced()){
-            updateListOfEnemiesInRangeForPlacedTower(oldAllyTowerPlaced);
-        }
+//        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
+//            return;
+//        }
+//
+//        for (oldAllyTower oldAllyTowerPlaced : AllyTowerManager.getAllyTowersPlaced()){
+//            updateListOfEnemiesInRangeForPlacedTower(oldAllyTowerPlaced);
+//        }
     }
 
     private boolean isEnemyAlreadyInAllyTowerPlacedList(oldAllyTower oldAllyTowerPlaced, Enemy enemy){

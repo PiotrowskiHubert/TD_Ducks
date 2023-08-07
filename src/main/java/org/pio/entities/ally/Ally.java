@@ -79,7 +79,6 @@ public abstract class Ally extends Entity {
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(Color.RED);
         g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
     }
 }

@@ -74,10 +74,18 @@ public class SidePanel {
         int bHeight=59;
         int posYOffSet=bHeight+7;
 
-        for (oldAllyTower oldAllyTowerList : AllyTowerManager.getAllyTowersList()) {
-            bTower_0 =new Button(oldAllyTowerList.getNameEntity(), posX, posY+id*posYOffSet, bWidth, bHeight, id++, oldAllyTowerList.getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+
+        for (int i = 0; i < 5; i++) {
+            int index=1;
+
+            bTower_0 =new Button(playScene.getGame().getMainDatabase().allyDatabase.get(index).name, posX, posY+id*posYOffSet, bWidth, bHeight, id++, playScene.getGame().getMainDatabase().allyDatabase.get(index).cost, getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
             buttonTowerList.add(bTower_0);
         }
+
+//        for (oldAllyTower oldAllyTowerList : AllyTowerManager.getAllyTowersList()) {
+//            bTower_0 =new Button(oldAllyTowerList.getNameEntity(), posX, posY+id*posYOffSet, bWidth, bHeight, id++, oldAllyTowerList.getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+//            buttonTowerList.add(bTower_0);
+//        }
 
         editMode=new Button("Edit_Mode", posX, panelHeight-4*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
         speedUp=new Button("Speed_Up", posX, panelHeight-3*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));

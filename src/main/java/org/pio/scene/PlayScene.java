@@ -66,96 +66,96 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     public void updateAllyTowerPlaced(){
 
-        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
-            return;
-        }
-
-        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
-            return;
-        }
-
-        for (Iterator<oldAllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();){
-            oldAllyTower nextOldAllyTowerPlaced = allyTowerIterator.next();
-
-            nextOldAllyTowerPlaced.update();
-        }
+//        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())){
+//            return;
+//        }
+//
+//        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
+//            return;
+//        }
+//
+//        for (Iterator<oldAllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();){
+//            oldAllyTower nextOldAllyTowerPlaced = allyTowerIterator.next();
+//
+//            nextOldAllyTowerPlaced.update();
+//        }
 
     }
     public void enemyHitByBullet() {
 
-        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())) {
-            return;
-        }
-
-        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())) {
-            return;
-        }
-
-        // CHECK IF ANY ENEMY FROM CURRENT ROUND IS HIT BY ANY BULLET FROM ANY TOWER
-        // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
-        // REMOVE BULLET FROM TOWER BULLET LIST AND REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
-
-        // GO THROUGHT ALL ENEMIES FROM CURRENT ROUND
-        for (Iterator<Enemy> enemyIterator = Level.rounds.get(Level.currentRound).getEnemies().iterator(); enemyIterator.hasNext();){
-            Enemy nextEnemy = enemyIterator.next();
-
-            // GO THROUGHT ALL PLACED TOWERS
-            for (Iterator<oldAllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();){
-                oldAllyTower nextOldAllyTower = allyTowerIterator.next();
-
-                // CHECK IF TOWER HAS ANY BULLETS
-                if (!nextOldAllyTower.getBulletList().isEmpty()){
-
-                    // GO THROUGHT ALL BULLETS FROM TOWER
-                    for (Iterator<oldBullet> bulletIterator = nextOldAllyTower.getBulletList().iterator(); bulletIterator.hasNext();){
-                        oldBullet nextOldBullet = bulletIterator.next();
-
-                        // CHECK IF ENEMY IS HIT BY BULLET
-                        if (nextEnemy.bounds.getBounds().intersects(nextOldBullet.getBulletHitBox())){
-
-                            nextEnemy.health=nextEnemy.health-1;
-
-                            // REMOVE BULLET FROM TOWER BULLET LIST
-                            bulletIterator.remove();
-
-                            if (nextEnemy.health<=0){
-                                // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
-                                enemyIterator.remove();
-
-                                // ADD GOLD TO PLAYER
-                                PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(), nextEnemy.gold);
-
-                                // GO THROUGH ALL PLAYERS TOWERS
-                                for (Iterator<oldAllyTower> allyTowerIterator1 = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator1.hasNext();){
-                                    oldAllyTower nextOldAllyTower1 = allyTowerIterator1.next();
-
-                                    // GO THROUGH ALL ENEMIES IN RANGE LIST
-                                    for (Iterator<Enemy> enemyIterator1 = nextOldAllyTower1.enemiesInRangeList.iterator(); enemyIterator1.hasNext();){
-                                        Enemy nextEnemy_1 = enemyIterator1.next();
-
-                                        // CHECK IF ENEMY IS IN RANGE LIST
-                                        if (nextEnemy_1.id== nextEnemy.id){
-
-                                            // REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
-                                            enemyIterator1.remove();
-
-                                        }
-                                    }
-                                }
-
-                            }
-
-
-                            return;
-
-
-                        }
-
-                    }
-                }
-            }
-
-        }
+//        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())) {
+//            return;
+//        }
+//
+//        if (Helper.isAllyTowerListEmpty(AllyTowerManager.getAllyTowersPlaced())) {
+//            return;
+//        }
+//
+//        // CHECK IF ANY ENEMY FROM CURRENT ROUND IS HIT BY ANY BULLET FROM ANY TOWER
+//        // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
+//        // REMOVE BULLET FROM TOWER BULLET LIST AND REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
+//
+//        // GO THROUGHT ALL ENEMIES FROM CURRENT ROUND
+//        for (Iterator<Enemy> enemyIterator = Level.rounds.get(Level.currentRound).getEnemies().iterator(); enemyIterator.hasNext();){
+//            Enemy nextEnemy = enemyIterator.next();
+//
+//            // GO THROUGHT ALL PLACED TOWERS
+//            for (Iterator<oldAllyTower> allyTowerIterator = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator.hasNext();){
+//                oldAllyTower nextOldAllyTower = allyTowerIterator.next();
+//
+//                // CHECK IF TOWER HAS ANY BULLETS
+//                if (!nextOldAllyTower.getBulletList().isEmpty()){
+//
+//                    // GO THROUGHT ALL BULLETS FROM TOWER
+//                    for (Iterator<oldBullet> bulletIterator = nextOldAllyTower.getBulletList().iterator(); bulletIterator.hasNext();){
+//                        oldBullet nextOldBullet = bulletIterator.next();
+//
+//                        // CHECK IF ENEMY IS HIT BY BULLET
+//                        if (nextEnemy.bounds.getBounds().intersects(nextOldBullet.getBulletHitBox())){
+//
+//                            nextEnemy.health=nextEnemy.health-1;
+//
+//                            // REMOVE BULLET FROM TOWER BULLET LIST
+//                            bulletIterator.remove();
+//
+//                            if (nextEnemy.health<=0){
+//                                // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
+//                                enemyIterator.remove();
+//
+//                                // ADD GOLD TO PLAYER
+//                                PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(), nextEnemy.gold);
+//
+//                                // GO THROUGH ALL PLAYERS TOWERS
+//                                for (Iterator<oldAllyTower> allyTowerIterator1 = AllyTowerManager.getAllyTowersPlaced().iterator(); allyTowerIterator1.hasNext();){
+//                                    oldAllyTower nextOldAllyTower1 = allyTowerIterator1.next();
+//
+//                                    // GO THROUGH ALL ENEMIES IN RANGE LIST
+//                                    for (Iterator<Enemy> enemyIterator1 = nextOldAllyTower1.enemiesInRangeList.iterator(); enemyIterator1.hasNext();){
+//                                        Enemy nextEnemy_1 = enemyIterator1.next();
+//
+//                                        // CHECK IF ENEMY IS IN RANGE LIST
+//                                        if (nextEnemy_1.id== nextEnemy.id){
+//
+//                                            // REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
+//                                            enemyIterator1.remove();
+//
+//                                        }
+//                                    }
+//                                }
+//
+//                            }
+//
+//
+//                            return;
+//
+//
+//                        }
+//
+//                    }
+//                }
+//            }
+//
+//        }
     }
 
     // -------- INPUT ACTIONS ------- //
@@ -222,12 +222,12 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
             getGame().getAllyTowerManager().leftMouseClicked(x,y);
 
-            if (SidePanel.getSelectedTowerSidePanel()!=null) {
-                getGame().getAllyTowerManager().addTower(x, y);
-                getGame().getPlayerManager().updateGold(getPlayer(),SidePanel.getSelectedTowerSidePanel().getCost());
-
-                SidePanel.setSelectedTowerSidePanel(null);
-            }
+//            if (SidePanel.getSelectedTowerSidePanel()!=null) {
+//                getGame().getAllyTowerManager().addTower(x, y);
+//                getGame().getPlayerManager().updateGold(getPlayer(),SidePanel.getSelectedTowerSidePanel().getCost());
+//
+//                SidePanel.setSelectedTowerSidePanel(null);
+//            }
         }
 
     }
