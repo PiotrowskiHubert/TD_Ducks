@@ -79,6 +79,8 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
             Ally nextAlly = allyIterator.next();
 
             nextAlly.update();
+            nextAlly.checkIfEnemyIsInRange(getLvl().rounds.get(Level.currentRound).getEnemies());
+//            System.out.println(nextAlly.enemiesInRangeList.size());
         }
 
     }

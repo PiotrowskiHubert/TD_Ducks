@@ -1,6 +1,5 @@
 package org.pio.entities.ally;
 
-import org.pio.entities.AllyTowers.oldAllyTower;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.Entity;
 import org.pio.entities.others.oldBullet;
@@ -11,16 +10,17 @@ import org.pio.scene.Level;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Ally extends Entity {
-    public List<Enemy> enemiesInRangeList;
-    private List<oldBullet> oldBulletList;
+    public List<Entity> enemiesInRangeList;
+    public List<oldBullet> oldBulletList;
     public LinkedHashMap<Directions, LinkedList<String>> sprites;
     public int cost, range;
-    private double timePerShotUpdate =1_000_000_000.0/240;
+    private double timePerShotUpdate =1_000_000_000.0/1;
     private long lastShotUpdate;
     private long now;
     public Ellipse2D rangeEllipse;
@@ -66,23 +66,58 @@ public abstract class Ally extends Entity {
 
         if (placed){
 
-            updateEnemiesInRangeForPlacedTower();
-
             if (now - lastShotUpdate >= timePerShotUpdate){
                 lastShotUpdate=now;
-                shotUpdate();
+                shot();
             }
         }
     }
 
-    private void shotUpdate() {
+    public List<Entity> checkIfEnemyIsInRange(List<Enemy> secondObj){
 
-        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
+        for (Iterator<Enemy> enemyIterator =secondObj.iterator(); enemyIterator.hasNext();){
+            Enemy enemy=enemyIterator.next();
+
+            if (rangeEllipse.intersects(enemy.bounds)){
+                if (!enemiesInRangeList.contains(enemy)) {
+                    enemiesInRangeList.add(enemy);
+                }else {
+                    enemiesInRangeList.get(enemiesInRangeList.indexOf(enemy)).posX=enemy.posX;
+                    enemiesInRangeList.get(enemiesInRangeList.indexOf(enemy)).posY=enemy.posY;
+                }
+            }
+
+            if (!rangeEllipse.intersects(enemy.bounds)){
+                enemiesInRangeList.remove(enemy);
+            }
+        }
+
+        return enemiesInRangeList;
+    }
+
+    private void shot() {
+
+//        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
+//            return;
+//        }
+//        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
+//            return;
+//        }
+
+
+        if (enemiesInRangeList.isEmpty()){
             return;
         }
-        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
-            return;
-        }
+
+        double shotOffsetX=0.0;
+        double shotOffsetY=0.0;
+
+        oldBulletList.add(new oldBullet(posX,posY,enemiesInRangeList.get(0).posX,enemiesInRangeList.get(0).posY));
+        oldBulletList.add(new oldBullet(posX,posY,enemiesInRangeList.get(0).posX,enemiesInRangeList.get(0).posY));
+        oldBulletList.add(new oldBullet(posX,posY,enemiesInRangeList.get(0).posX,enemiesInRangeList.get(0).posY));
+
+        System.out.println(oldBulletList.size());
+
     }
 
     private void updateListOfEnemiesInRangeForPlacedTower(Ally ally){
@@ -117,22 +152,21 @@ public abstract class Ally extends Entity {
     }
 
     private void updateEnemiesPositionInRangeForPlacedTower(Ally ally, Enemy enemy) {
-        for (Enemy enemyInRange : ally.enemiesInRangeList){
-            if (enemyInRange.equals(enemy)){
-
-                enemyInRange.posX=enemy.posX;
-                enemyInRange.posY=enemy.posY;
-            }
-        }
+//        for (Enemy enemyInRange : ally.enemiesInRangeList){
+//            if (enemyInRange.equals(enemy)){
+//
+//                enemyInRange.posX=enemy.posX;
+//                enemyInRange.posY=enemy.posY;
+//            }
+//        }
     }
 
     private void updateEnemiesInRangeForPlacedTower(){
 
-        System.out.println("a");
+        for (Ally ally : AllyTowerManager.allyPlacedTowers){
+            updateListOfEnemiesInRangeForPlacedTower(ally);
+        }
 
-//        for (Ally ally : AllyTowerManager.allyPlacedTowers){
-//            updateListOfEnemiesInRangeForPlacedTower(ally);
-//        }
     }
 
     @Override
@@ -150,6 +184,17 @@ public abstract class Ally extends Entity {
             g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
         }
 
+        drawBullet(g);
 
+    }
+
+    private void drawBullet(Graphics g) {
+        if (oldBulletList.isEmpty()){
+            return;
+        }
+
+        for (oldBullet oldBullet:oldBulletList) {
+            oldBullet.draw(g);
+        }
     }
 }
