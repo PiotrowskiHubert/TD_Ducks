@@ -20,7 +20,7 @@ public abstract class Ally extends Entity {
     public List<oldBullet> oldBulletList;
     public LinkedHashMap<Directions, LinkedList<String>> sprites;
     public int cost, range;
-    private double timePerShotUpdate =1_000_000_000.0/1;
+    private double timePerShotUpdate =1_000_000_000.0/0.8;
     private long lastShotUpdate;
     private long now;
     public Ellipse2D rangeEllipse;
@@ -97,14 +97,6 @@ public abstract class Ally extends Entity {
 
     private void shot() {
 
-//        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
-//            return;
-//        }
-//        if(Helper.isEnemyListEmpty(enemiesInRangeList)){
-//            return;
-//        }
-
-
         if (enemiesInRangeList.isEmpty()){
             return;
         }
@@ -113,10 +105,6 @@ public abstract class Ally extends Entity {
         double shotOffsetY=0.0;
 
         oldBulletList.add(new oldBullet(posX,posY,enemiesInRangeList.get(0).posX,enemiesInRangeList.get(0).posY));
-        oldBulletList.add(new oldBullet(posX,posY,enemiesInRangeList.get(0).posX,enemiesInRangeList.get(0).posY));
-        oldBulletList.add(new oldBullet(posX,posY,enemiesInRangeList.get(0).posX,enemiesInRangeList.get(0).posY));
-
-        System.out.println(oldBulletList.size());
 
     }
 
