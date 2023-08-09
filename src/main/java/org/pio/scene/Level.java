@@ -1,6 +1,5 @@
 package org.pio.scene;
 
-import org.pio.entities.AllyTowers.oldAllyTower;
 import org.pio.entities.Entity;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
@@ -8,7 +7,6 @@ import org.pio.entities.factory.enemy.EnemyFactoryImpl;
 import org.pio.entities.others.oldBullet;
 import org.pio.helpz.Helper;
 import org.pio.main.GameScreen;
-import org.pio.manager.AllyTowerManager;
 import org.pio.manager.PlayerManager;
 import org.pio.player.Directions;
 import org.pio.player.Player;

@@ -1,19 +1,5 @@
 package org.pio.manager;
 
-import org.pio.entities.AllyTowers.*;
-import org.pio.entities.ally.Ally;
-import org.pio.readers.ReadFromFile;
-import org.pio.scene.Level;
-import org.pio.ui.SidePanel;
-import org.pio.helpz.Helper;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class AllyTowerManager {
 

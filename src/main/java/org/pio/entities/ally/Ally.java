@@ -3,10 +3,10 @@ package org.pio.entities.ally;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.Entity;
 import org.pio.entities.others.oldBullet;
-import org.pio.helpz.Helper;
-import org.pio.manager.AllyTowerManager;
+import org.pio.main.GameScreen;
 import org.pio.player.Directions;
 import org.pio.scene.Level;
+import org.pio.ui.sidePanel.SidePanelUpgrade;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -26,7 +26,7 @@ public abstract class Ally extends Entity {
     public Ellipse2D rangeEllipse;
     public Boolean mouseOver, mousePressed, placed;
     public Directions direction;
-
+    protected SidePanelUpgrade sidePanelUpgrade;
 
     protected Ally(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, width, height);
@@ -53,6 +53,8 @@ public abstract class Ally extends Entity {
 
         this.enemiesInRangeList=new LinkedList<>();
         this.oldBulletList=new LinkedList<>();
+        sidePanelUpgrade=new SidePanelUpgrade(150, GameScreen.UNIT_SIZE, GameScreen.screenWidth-250,0);
+
     }
 
     private Ellipse2D createEllipseShape(){
@@ -108,61 +110,16 @@ public abstract class Ally extends Entity {
 
     }
 
-    private void updateListOfEnemiesInRangeForPlacedTower(Ally ally){
-
-        for (Enemy enemy : Level.rounds.get(Level.currentRound).getEnemies()){
-
-            if (!isEnemyAlreadyInAllyTowerPlacedList(ally, enemy)){
-                if (ally.rangeEllipse.intersects(enemy.bounds.getBounds())){
-                    ally.enemiesInRangeList.add(enemy);
-                }
-            }
-
-            if (isEnemyAlreadyInAllyTowerPlacedList(ally, enemy)){
-                if (ally.rangeEllipse.intersects(enemy.bounds.getBounds())){
-                    updateEnemiesPositionInRangeForPlacedTower(ally, enemy);
-                }
-            }
-
-            if (isEnemyAlreadyInAllyTowerPlacedList(ally, enemy)){
-
-                if (!ally.rangeEllipse.intersects(enemy.bounds.getBounds())){
-                    ally.enemiesInRangeList.remove(enemy);
-                }
-            }
-
-        }
-
-    }
-
-    private boolean isEnemyAlreadyInAllyTowerPlacedList(Ally ally, Enemy enemy){
-        return ally.enemiesInRangeList.contains(enemy);
-    }
-
-    private void updateEnemiesPositionInRangeForPlacedTower(Ally ally, Enemy enemy) {
-//        for (Enemy enemyInRange : ally.enemiesInRangeList){
-//            if (enemyInRange.equals(enemy)){
-//
-//                enemyInRange.posX=enemy.posX;
-//                enemyInRange.posY=enemy.posY;
-//            }
-//        }
-    }
-
-//    private void updateEnemiesInRangeForPlacedTower(){
-//
-//        for (Ally ally : AllyTowerManager.allyPlacedTowers){
-//            updateListOfEnemiesInRangeForPlacedTower(ally);
-//        }
-//
-//    }
-
     @Override
     public void draw(Graphics g) {
 
         if (mousePressed){
             g.setColor(new Color(0xB0000000, true));
             g.fillOval(rangeEllipse.getBounds().x, rangeEllipse.getBounds().y, rangeEllipse.getBounds().width, rangeEllipse.getBounds().height);
+            g.setColor(Color.black);
+            g.drawOval(rangeEllipse.getBounds().x, rangeEllipse.getBounds().y, rangeEllipse.getBounds().width, rangeEllipse.getBounds().height);
+
+            sidePanelUpgrade.draw(g);
         }
 
         g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);

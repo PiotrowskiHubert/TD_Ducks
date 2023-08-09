@@ -1,9 +1,7 @@
 package org.pio.ui;
 
-import org.pio.entities.AllyTowers.oldAllyTower;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.factory.ally.AllyFactoryImpl;
-import org.pio.manager.AllyTowerManager;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
 
@@ -13,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SidePanel {
@@ -20,10 +19,9 @@ public class SidePanel {
     private BufferedImage spriteButtonAtlas;
     private BufferedImage spriteAllyTowerAtlas;
     private PlayScene playScene;
-
     private int panelWidth, panelHeight;
     private int posWidthX, posHeightX;
-    private static oldAllyTower selectedTowerSidePanel;
+    private static Ally selectedTowerSidePanel;
     public Ally selectedTower;
     Button bTower_0, editMode, startRound, speedUp;
     private List<Button> buttonTowerList;
@@ -97,7 +95,10 @@ public class SidePanel {
 
     public void updateSelectedTowerHitBox(){
         if (selectedTowerSidePanel !=null){
-            selectedTowerSidePanel.setEntityBounds(PlayScene.getMouseX()-20, PlayScene.getMouseY()-20, selectedTowerSidePanel.getWidth(), selectedTowerSidePanel.getHeight());
+            selectedTowerSidePanel.bounds.getBounds().x= PlayScene.getMouseX()-20;
+            selectedTowerSidePanel.bounds.getBounds().y= PlayScene.getMouseY()-20;
+
+            //selectedTowerSidePanel.setEntityBounds(PlayScene.getMouseX()-20, PlayScene.getMouseY()-20, selectedTowerSidePanel.getWidth(), selectedTowerSidePanel.getHeight());
         }
     }
 
@@ -115,10 +116,6 @@ public class SidePanel {
 
     }
     private void drawSelectedTurret(Graphics g){
-//        if (selectedTowerSidePanel !=null){
-//            drawSelectedTowerRange(g);
-//            drawSelectedTowerSprite(g);
-//        }
 
         if (selectedTower != null){
             drawSelectedTowerRange(g);
@@ -127,20 +124,12 @@ public class SidePanel {
     }
 
     private void drawSelectedTowerSprite(Graphics g) {
-
-        // RECTANGE HITBOX
-        //g.drawRect(PlayScene.getMouseX()-20, PlayScene.getMouseY()-20, selectedTowerSidePanel.getWidth(), selectedTowerSidePanel.getHeight());
-
-        //g.drawImage(selectedTowerSidePanel.getSprite(), PlayScene.getMouseX()-20, PlayScene.getMouseY()-20,40,40,null);
         selectedTower.draw(g);
     }
 
     private void drawSelectedTowerRange(Graphics g){
         g.setColor(new Color(0f,0f,0f,.5f));
         g.fillOval(selectedTower.rangeEllipse.getBounds().x, selectedTower.rangeEllipse.getBounds().y, selectedTower.rangeEllipse.getBounds().width, selectedTower.rangeEllipse.getBounds().height);
-        //g.fillOval(playScene.getMouseX() - selectedTower.range, PlayScene.getMouseY()- selectedTower.range, selectedTower.range*2, selectedTower.range*2);
-        //g.setColor(Color.black);
-        //g.drawOval(playScene.getMouseX() - selectedTowerSidePanel.getRange(), PlayScene.getMouseY()- selectedTowerSidePanel.getRange(), selectedTowerSidePanel.getRange()*2, selectedTowerSidePanel.getRange()*2);
     }
     public void draw(Graphics g){
         drawPanel(g);
@@ -158,44 +147,66 @@ public class SidePanel {
 
     public void mouseClicked(int x, int y) {
 
-        for (Button button : buttonTowerList) {
-            if (button.getButtonsBounds().contains(x,y) && selectedTowerSidePanel ==null){
 
-                if (button.getId()==0){
-                    selectedTower=allyFactory.createAlly_1(x,y, null);
+        for (Iterator<Button> buttonIterator = buttonTowerList.iterator(); buttonIterator.hasNext(); ) {
+            Button button = buttonIterator.next();
+
+            if (button.getButtonsBounds().contains(x, y)) {
+
+                if (button.getId() == 0) {
+
+                    if(playScene.getGame().getMainDatabase().allyDatabase.get(1).cost>playScene.getPlayer().getGold()){
+                        return;
+                    }else {
+                        playScene.getPlayer().setGold(playScene.getPlayer().getGold()-playScene.getGame().getMainDatabase().allyDatabase.get(1).cost);
+                    }
+
+                    selectedTower = allyFactory.createAlly_1(x, y, null);
                 }
 
-                if (button.getId()==1){
-                    selectedTower=allyFactory.createAlly_2(x,y, null);
+                if (button.getId() == 1) {
+
+                    if(playScene.getGame().getMainDatabase().allyDatabase.get(2).cost>playScene.getPlayer().getGold()){
+                        return;
+                    }else {
+                        playScene.getPlayer().setGold(playScene.getPlayer().getGold()-playScene.getGame().getMainDatabase().allyDatabase.get(2).cost);
+                    }
+
+                    selectedTower = allyFactory.createAlly_2(x, y, null);
                 }
 
-                if (button.getId()==2){
-                    selectedTower=allyFactory.createAlly_3(x,y, null);
+                if (button.getId() == 2) {
+
+                    if(playScene.getGame().getMainDatabase().allyDatabase.get(3).cost>playScene.getPlayer().getGold()){
+                        return;
+                    }else {
+                        playScene.getPlayer().setGold(playScene.getPlayer().getGold()-playScene.getGame().getMainDatabase().allyDatabase.get(3).cost);
+                    }
+
+                    selectedTower = allyFactory.createAlly_3(x, y, null);
                 }
 
-                if (button.getId()==3){
-                    selectedTower=allyFactory.createAlly_4(x,y, null);
+                if (button.getId() == 3) {
+
+                    if(playScene.getGame().getMainDatabase().allyDatabase.get(4).cost>playScene.getPlayer().getGold()){
+                        return;
+                    }else {
+                        playScene.getPlayer().setGold(playScene.getPlayer().getGold()-playScene.getGame().getMainDatabase().allyDatabase.get(4).cost);
+                    }
+
+                    selectedTower = allyFactory.createAlly_4(x, y, null);
                 }
 
-                if (button.getId()==4){
-                    selectedTower=allyFactory.createAlly_5(x,y, null);
+                if (button.getId() == 4) {
+
+                    if(playScene.getGame().getMainDatabase().allyDatabase.get(5).cost>playScene.getPlayer().getGold()){
+                        return;
+                    }else {
+                        playScene.getPlayer().setGold(playScene.getPlayer().getGold()-playScene.getGame().getMainDatabase().allyDatabase.get(5).cost);
+                    }
+
+                    selectedTower = allyFactory.createAlly_5(x, y, null);
                 }
-
-
-//                for (oldAllyTower oldAllyTower : AllyTowerManager.getAllyTowersList()) {
-//
-//                    if (button.getName().equals(oldAllyTower.getNameEntity())){
-//                        selectedTowerSidePanel= oldAllyTower;
-//
-//                        selectedTowerSidePanel.setSprite(getSprite(oldAllyTower.getSpriteCordX(), oldAllyTower.getSpriteCordY(), oldAllyTower.getSpriteWidth(), oldAllyTower.getSpriteHeight()));
-//
-//                        if (oldAllyTower.getCost()> PlayScene.getPlayer().getGold()){
-//                            selectedTowerSidePanel =null;
-//                        }
-//
-//                    }
-//
-//                }
 
             }
         }
@@ -292,7 +303,7 @@ public class SidePanel {
 
     // -------- GET ------- //
 
-    public static oldAllyTower getSelectedTowerSidePanel() {
+    public static Ally getSelectedTowerSidePanel() {
         return selectedTowerSidePanel;
     }
     private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
@@ -337,7 +348,7 @@ public class SidePanel {
 
     // -------- SET ------- //
 
-    public static void setSelectedTowerSidePanel(oldAllyTower selectedTowerSidePanel) {
+    public static void setSelectedTowerSidePanel(Ally selectedTowerSidePanel) {
         SidePanel.selectedTowerSidePanel = selectedTowerSidePanel;
     }
 

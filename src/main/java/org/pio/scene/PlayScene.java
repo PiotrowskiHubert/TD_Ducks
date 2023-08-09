@@ -1,23 +1,14 @@
 package org.pio.scene;
 
-import org.pio.entities.AllyTowers.oldAllyTower;
-import org.pio.entities.Entity;
-import org.pio.entities.ally.Ally;
-import org.pio.entities.enemy.Enemy;
-import org.pio.entities.others.oldBullet;
 import org.pio.main.GameScreen;
-import org.pio.manager.PlayerManager;
 import org.pio.player.Player;
 import org.pio.inputs.mouseMethods;
 import org.pio.main.Game;
-import org.pio.manager.AllyTowerManager;
 import org.pio.ui.SidePanel;
 import org.pio.ui.sidePanel.SidePanelEditMap;
-import org.pio.helpz.Helper;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.Iterator;
 
 public class PlayScene extends GameScene implements sceneMeethods, mouseMethods {
     private Level lvl;
@@ -137,6 +128,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     public void rightMouseClicked(int x, int y) {
 
         if (SidePanel.getSelectedTowerSidePanel()!=null){
+
             SidePanel.setSelectedTowerSidePanel(null);
         }
 
