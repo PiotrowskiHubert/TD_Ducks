@@ -2,7 +2,7 @@ package org.pio.entities.ally;
 
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.Entity;
-import org.pio.entities.others.oldBullet;
+import org.pio.entities.Bullet;
 import org.pio.main.GameScreen;
 import org.pio.player.Directions;
 import org.pio.ui.sidePanel.SidePanelUpgrade;
@@ -16,7 +16,7 @@ import java.util.List;
 
 public abstract class Ally extends Entity {
     public List<Entity> enemiesInRangeList;
-    public List<oldBullet> bulletList;
+    public List<Bullet> bulletList;
     public LinkedHashMap<Directions, LinkedList<String>> sprites;
     public int cost, range;
     private double timePerShotUpdate =1_000_000_000.0/0.8;
@@ -101,7 +101,7 @@ public abstract class Ally extends Entity {
             return;
         }
 
-        bulletList.add(new oldBullet(posX,posY,enemiesInRangeList.get(0).posX,enemiesInRangeList.get(0).posY));
+        bulletList.add(new Bullet(posX,posY,enemiesInRangeList.get(0).posX,enemiesInRangeList.get(0).posY));
 
     }
 
@@ -181,7 +181,7 @@ public abstract class Ally extends Entity {
             return;
         }
 
-        for (oldBullet bullet: bulletList) {
+        for (Bullet bullet: bulletList) {
             bullet.draw(g);
         }
     }

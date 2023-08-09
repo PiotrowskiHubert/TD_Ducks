@@ -4,7 +4,7 @@ import org.pio.entities.Entity;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.factory.enemy.EnemyFactoryImpl;
-import org.pio.entities.others.oldBullet;
+import org.pio.entities.Bullet;
 import org.pio.helpz.Helper;
 import org.pio.main.GameScreen;
 import org.pio.manager.PlayerManager;
@@ -112,8 +112,8 @@ public class Level extends GameScene {
                 if (!nextAlly.bulletList.isEmpty()){
 
                     // GO THROUGHT ALL BULLETS FROM TOWER
-                    for (Iterator<oldBullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();){
-                        oldBullet nextBullet = bulletIterator.next();
+                    for (Iterator<Bullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();){
+                        Bullet nextBullet = bulletIterator.next();
 
                         // CHECK IF ENEMY IS HIT BY BULLET
                         if (nextEnemy.bounds.getBounds().intersects(nextBullet.getBulletHitBox())){
@@ -174,14 +174,14 @@ public class Level extends GameScene {
             if (!Helper.isBulletListEmpty(nextAlly.bulletList)){
                 // ITERATE THROUGH BULLET LIST OF EACH ALLY TOWER
 
-                for (Iterator<oldBullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();) {
-                    oldBullet nextOldBullet = bulletIterator.next();
+                for (Iterator<Bullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();) {
+                    Bullet nextBullet = bulletIterator.next();
 
                     // UPDATE BULLET
-                    nextOldBullet.bulletUpdate();
+                    nextBullet.bulletUpdate();
 
                     // CHECK IF BULLET IS OUT OF RANGE OF ALLY TOWER
-                    if (limitBulletRange(nextAlly, nextOldBullet)){
+                    if (limitBulletRange(nextAlly, nextBullet)){
                         bulletIterator.remove();
                     }
 
@@ -191,8 +191,8 @@ public class Level extends GameScene {
         }
 
     }
-    private Boolean limitBulletRange(Ally ally, oldBullet oldBullet){
-        return distanceBetweenTwoPoints(ally.posX, ally.posY, oldBullet.getPosX(), oldBullet.getPosY()) >= ally.range + 15;
+    private Boolean limitBulletRange(Ally ally, Bullet Bullet){
+        return distanceBetweenTwoPoints(ally.posX, ally.posY, Bullet.getPosX(), Bullet.getPosY()) >= ally.range + 15;
     }
     private void updateMoveEnemies() {
 

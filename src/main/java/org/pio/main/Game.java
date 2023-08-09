@@ -68,27 +68,8 @@ public class Game extends JFrame implements Runnable {
 
         new Thread(() -> {
 
-            timePerUpdate =1_000_000_000.0/120.0;
-            long lastUpdate=System.nanoTime();
-            long lastTimeCheck=System.currentTimeMillis();
-            int updates=0;
-            long now;
-
             while (true){
-                now = System.nanoTime();
-
-                if (now-lastUpdate>= timePerUpdate){
-                    update();
-                    lastUpdate=now;
-                    updates++;
-                }
-
-                if (System.currentTimeMillis()-lastTimeCheck>=1000){
-                    System.out.println("T2, UPS: " +updates);
-                    updates=0;
-                    lastTimeCheck=System.currentTimeMillis();
-                }
-
+                update();
             }
         }).start();
 

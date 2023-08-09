@@ -1,13 +1,13 @@
 package org.pio.helpz;
 
 import org.pio.entities.enemy.Enemy;
-import org.pio.entities.others.oldBullet;
+import org.pio.entities.Bullet;
 
 import java.util.List;
 
 public class Helper {
 
-    public static boolean isBulletListEmpty(List<oldBullet> passedAllyTowerList){
+    public static boolean isBulletListEmpty(List<Bullet> passedAllyTowerList){
         if (passedAllyTowerList.isEmpty()){
             return true;
         }else {
