@@ -54,108 +54,10 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     public void update(){
 
-
-        getGame().getBulletManager().bulletsUpdatePos();
-        enemyHitByBullet();
         getLvl().updateLevel();
-
-        updateAllyTowerPlaced();
 
         if (SidePanel.getSelectedTowerSidePanel()!=null){
             sidePanel.updateSelectedTowerHitBox();
-        }
-    }
-
-    public void updateAllyTowerPlaced(){
-
-        if (getGame().getAllyTowerManager().allyPlacedTowers.isEmpty()){
-            return;
-        }
-
-        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())){
-            return;
-        }
-
-        for (Iterator<Ally> allyIterator = getGame().getAllyTowerManager().allyPlacedTowers.iterator(); allyIterator.hasNext();){
-            Ally nextAlly = allyIterator.next();
-
-            nextAlly.update();
-            nextAlly.checkIfEnemyIsInRange(getLvl().rounds.get(Level.currentRound).getEnemies());
-        }
-
-    }
-    public void enemyHitByBullet() {
-
-        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())) {
-            return;
-        }
-
-       if(AllyTowerManager.allyPlacedTowers.isEmpty()){
-           return;
-       }
-
-        // CHECK IF ANY ENEMY FROM CURRENT ROUND IS HIT BY ANY BULLET FROM ANY TOWER
-        // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
-        // REMOVE BULLET FROM TOWER BULLET LIST AND REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
-
-        // GO THROUGHT ALL ENEMIES FROM CURRENT ROUND
-        for (Iterator<Enemy> enemyIterator = Level.rounds.get(Level.currentRound).getEnemies().iterator(); enemyIterator.hasNext();){
-            Enemy nextEnemy = enemyIterator.next();
-
-            // GO THROUGHT ALL PLACED TOWERS
-            for (Iterator<Ally> allyTowerIterator = AllyTowerManager.allyPlacedTowers.iterator(); allyTowerIterator.hasNext();){
-                Ally nextOldAllyTower = allyTowerIterator.next();
-
-                // CHECK IF TOWER HAS ANY BULLETS
-                if (!nextOldAllyTower.oldBulletList.isEmpty()){
-
-                    // GO THROUGHT ALL BULLETS FROM TOWER
-                    for (Iterator<oldBullet> bulletIterator = nextOldAllyTower.oldBulletList.iterator(); bulletIterator.hasNext();){
-                        oldBullet nextOldBullet = bulletIterator.next();
-
-                        // CHECK IF ENEMY IS HIT BY BULLET
-                        if (nextEnemy.bounds.getBounds().intersects(nextOldBullet.getBulletHitBox())){
-
-                            nextEnemy.health=nextEnemy.health-1;
-
-                            // REMOVE BULLET FROM TOWER BULLET LIST
-                            bulletIterator.remove();
-
-                            if (nextEnemy.health<=0){
-                                // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
-                                enemyIterator.remove();
-
-                                // ADD GOLD TO PLAYER
-                                PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(), nextEnemy.gold);
-
-                                // GO THROUGH ALL PLAYERS TOWERS
-                                for (Iterator<Ally> allyTowerIterator1 = AllyTowerManager.allyPlacedTowers.iterator(); allyTowerIterator1.hasNext();){
-                                    Ally nextOldAllyTower1 = allyTowerIterator1.next();
-
-                                    // GO THROUGH ALL ENEMIES IN RANGE LIST
-                                    for (Iterator<Entity> enemyIterator1 = nextOldAllyTower1.enemiesInRangeList.iterator(); enemyIterator1.hasNext();){
-                                        Entity nextEnemy_1 = enemyIterator1.next();
-
-
-                                        if (nextOldAllyTower1.enemiesInRangeList.contains(nextEnemy_1)){
-                                            enemyIterator1.remove();
-                                        }
-
-                                    }
-                                }
-
-                            }
-
-
-                            return;
-
-
-                        }
-
-                    }
-                }
-            }
-
         }
     }
 
@@ -220,15 +122,14 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
 
         if (x<29*GameScreen.UNIT_SIZE){
+            lvl.leftMouseClicked(x,y);
 
-            getGame().getAllyTowerManager().leftMouseClicked(x,y);
+            if (sidePanel.selectedTower!=null){
+                lvl.allyPlacedTowers.add(sidePanel.selectedTower);
+                sidePanel.selectedTower.placed=true;
+                sidePanel.selectedTower=null;
 
-//            if (SidePanel.getSelectedTowerSidePanel()!=null) {
-//                getGame().getAllyTowerManager().addTower(x, y);
-//                getGame().getPlayerManager().updateGold(getPlayer(),SidePanel.getSelectedTowerSidePanel().getCost());
-//
-//                SidePanel.setSelectedTowerSidePanel(null);
-//            }
+            }
         }
 
     }
@@ -239,9 +140,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
             SidePanel.setSelectedTowerSidePanel(null);
         }
 
-        getGame().getAllyTowerManager().rightMouseClicked(x,y);
-
-        System.out.println("x: "+ mouseX/32+", y: "+mouseY/32);
+        lvl.rightMouseClicked(x,y);
 
     }
     @Override
@@ -256,7 +155,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         }
 
         if (x<29*GameScreen.UNIT_SIZE){
-            getGame().getAllyTowerManager().mouseMoved(x,y);
+            lvl.mouseMoved(x,y);
         }
 
         if (sidePanel.selectedTower!=null){
@@ -282,14 +181,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         }
 
         if (x<29*GameScreen.UNIT_SIZE){
-            getGame().getAllyTowerManager().mousePressed(x,y);
-        }
-
-        if (sidePanel.selectedTower!=null){
-            getGame().getAllyTowerManager().allyPlacedTowers.add(sidePanel.selectedTower);
-            sidePanel.selectedTower.placed=true;
-            sidePanel.selectedTower=null;
-
+            lvl.mousePressed(x,y);
         }
 
     }
@@ -297,8 +189,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     public void mouseReleased(int x, int y) {
         sidePanel.mouseReleased(x,y);
         editSidePanel.mouseReleased(x,y);
-
-        getGame().getAllyTowerManager().mouseReleased(x,y);
+        lvl.mouseReleased(x,y);
     }
     @Override
     public void mouseDragged(int x, int y) {

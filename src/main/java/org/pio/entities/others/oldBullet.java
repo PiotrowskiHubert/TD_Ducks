@@ -5,25 +5,25 @@ import java.awt.*;
 public class oldBullet {
     private final int BULLET_HEIGHT=10;
     private final int BULLET_WIDTH=10;
-    private double posWidthX;
-    private double posHeightY;
+    private double posX;
+    private double posY;
     private Rectangle bulletHitBox;
     private double unitX, unitY;
 
-    public oldBullet(double posWidthX, double posHeightY, double xEnemy, double yEnemy) {
-        this.posWidthX = posWidthX;
-        this.posHeightY = posHeightY;
+    public oldBullet(double posX, double posY, double posXTarget, double posYTarget) {
+        this.posX = posX;
+        this.posY = posY;
 
         bulletHitBox=initHitBox();
 
-        unitX=8*getUnitBulletX(posWidthX,posHeightY,xEnemy,yEnemy);
-        unitY=8*getUnitBulletY(posWidthX,posHeightY,xEnemy,yEnemy);
+        unitX=8*getUnitBulletX(posX,posY,posXTarget,posYTarget);
+        unitY=8*getUnitBulletY(posX,posY,posXTarget,posYTarget);
 
     }
 
     // -------- INIT ------- //
     private Rectangle initHitBox() {
-        return new Rectangle((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
+        return new Rectangle((int) posX, (int) posY,BULLET_WIDTH,BULLET_HEIGHT);
     }
 
     // -------- UPDATE ------- //
@@ -33,11 +33,11 @@ public class oldBullet {
         updateHitBox();
     }
     private void updatePos() {
-        setPosWidthX(getPosWidthX()-unitX);
-        setPosHeightY(getPosHeightY()-unitY);
+        setPosX(getPosX()-unitX);
+        setPosY(getPosY()-unitY);
     }
     private void updateHitBox(){
-        bulletHitBox.setBounds((int) posWidthX, (int) posHeightY,BULLET_WIDTH,BULLET_HEIGHT);
+        bulletHitBox.setBounds((int) posX, (int) posY,BULLET_WIDTH,BULLET_HEIGHT);
     }
 
     // -------- RENDER ------- //
@@ -47,14 +47,14 @@ public class oldBullet {
     }
 
     // -------- GET ------- //
-    public double getPosWidthX() {
-        return posWidthX;
+    public double getPosX() {
+        return posX;
     }
     public Rectangle getBulletHitBox() {
         return bulletHitBox;
     }
-    public double getPosHeightY() {
-        return posHeightY;
+    public double getPosY() {
+        return posY;
     }
     public double getUnitBulletX(double xBullet, double yBullet, double xEnemy, double yEnemy){
         double x;
@@ -86,11 +86,11 @@ public class oldBullet {
     }
 
     // -------- SET ------- //
-    public void setPosWidthX(double posWidthX) {
-        this.posWidthX = posWidthX;
+    public void setPosX(double posX) {
+        this.posX = posX;
     }
-    public void setPosHeightY(double posHeightY) {
-        this.posHeightY = posHeightY;
+    public void setPosY(double posY) {
+        this.posY = posY;
     }
 
 }

@@ -149,13 +149,13 @@ public abstract class Ally extends Entity {
 //        }
     }
 
-    private void updateEnemiesInRangeForPlacedTower(){
-
-        for (Ally ally : AllyTowerManager.allyPlacedTowers){
-            updateListOfEnemiesInRangeForPlacedTower(ally);
-        }
-
-    }
+//    private void updateEnemiesInRangeForPlacedTower(){
+//
+//        for (Ally ally : AllyTowerManager.allyPlacedTowers){
+//            updateListOfEnemiesInRangeForPlacedTower(ally);
+//        }
+//
+//    }
 
     @Override
     public void draw(Graphics g) {
