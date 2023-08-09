@@ -1,7 +1,6 @@
 package org.pio.readers;
 
 import org.pio.entities.factory.enemy.EnemyFactoryImpl;
-import org.pio.entities.AllyTowers.*;
 import org.pio.player.Directions;
 import org.pio.scene.Round;
 import org.pio.helpz.Helper;

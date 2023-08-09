@@ -142,7 +142,6 @@ public class SidePanel {
         g.drawImage(spriteSidePanel,posWidthX,posHeightX, panelWidth, panelHeight,null);
     }
 
-
     // -------- INPUTS ------- //
 
     public void mouseClicked(int x, int y) {
@@ -157,8 +156,6 @@ public class SidePanel {
 
                     if(playScene.getGame().getMainDatabase().allyDatabase.get(1).cost>playScene.getPlayer().getGold()){
                         return;
-                    }else {
-                        playScene.getPlayer().setGold(playScene.getPlayer().getGold()-playScene.getGame().getMainDatabase().allyDatabase.get(1).cost);
                     }
 
                     selectedTower = allyFactory.createAlly_1(x, y, null);
@@ -168,8 +165,6 @@ public class SidePanel {
 
                     if(playScene.getGame().getMainDatabase().allyDatabase.get(2).cost>playScene.getPlayer().getGold()){
                         return;
-                    }else {
-                        playScene.getPlayer().setGold(playScene.getPlayer().getGold()-playScene.getGame().getMainDatabase().allyDatabase.get(2).cost);
                     }
 
                     selectedTower = allyFactory.createAlly_2(x, y, null);
@@ -179,8 +174,6 @@ public class SidePanel {
 
                     if(playScene.getGame().getMainDatabase().allyDatabase.get(3).cost>playScene.getPlayer().getGold()){
                         return;
-                    }else {
-                        playScene.getPlayer().setGold(playScene.getPlayer().getGold()-playScene.getGame().getMainDatabase().allyDatabase.get(3).cost);
                     }
 
                     selectedTower = allyFactory.createAlly_3(x, y, null);
@@ -190,8 +183,6 @@ public class SidePanel {
 
                     if(playScene.getGame().getMainDatabase().allyDatabase.get(4).cost>playScene.getPlayer().getGold()){
                         return;
-                    }else {
-                        playScene.getPlayer().setGold(playScene.getPlayer().getGold()-playScene.getGame().getMainDatabase().allyDatabase.get(4).cost);
                     }
 
                     selectedTower = allyFactory.createAlly_4(x, y, null);
@@ -201,8 +192,6 @@ public class SidePanel {
 
                     if(playScene.getGame().getMainDatabase().allyDatabase.get(5).cost>playScene.getPlayer().getGold()){
                         return;
-                    }else {
-                        playScene.getPlayer().setGold(playScene.getPlayer().getGold()-playScene.getGame().getMainDatabase().allyDatabase.get(5).cost);
                     }
 
                     selectedTower = allyFactory.createAlly_5(x, y, null);

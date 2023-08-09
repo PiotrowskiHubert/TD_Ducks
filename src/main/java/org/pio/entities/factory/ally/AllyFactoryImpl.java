@@ -26,4 +26,5 @@ public class AllyFactoryImpl implements Ally_1_Factory, Ally_2_Factory, Ally_3_F
     public Ally createAlly_5(int posX, int posY, Directions direction){
         return Ally_5_Factory.super.createWithImageAlly_5(mainDatabase, posX, posY, direction);
     }
+
 }

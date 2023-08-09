@@ -15,4 +15,5 @@ public interface Ally_1_Factory {
     default public Ally createWithImageAlly_1(MainDatabase mainDatabase, int posX, int posY, Directions direction){
         return new Ally_1(getInfoFromDatabaseAlly_1(mainDatabase), posX, posY, direction);
     }
+
 }

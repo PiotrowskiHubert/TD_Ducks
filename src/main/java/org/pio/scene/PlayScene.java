@@ -1,5 +1,6 @@
 package org.pio.scene;
 
+import org.pio.entities.ally.Ally;
 import org.pio.main.GameScreen;
 import org.pio.player.Player;
 import org.pio.inputs.mouseMethods;
@@ -116,8 +117,14 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
             lvl.leftMouseClicked(x,y);
 
             if (sidePanel.selectedTower!=null){
-                lvl.allyPlacedTowers.add(sidePanel.selectedTower);
-                sidePanel.selectedTower.placed=true;
+
+                if (!containsOtherTower(sidePanel.selectedTower)){
+                    lvl.allyPlacedTowers.add(sidePanel.selectedTower);
+                    sidePanel.selectedTower.placed=true;
+
+                    player.setGold(player.getGold()-sidePanel.selectedTower.cost);
+                }
+
                 sidePanel.selectedTower=null;
 
             }
@@ -162,6 +169,19 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
             sidePanel.selectedTower.rangeEllipse.setFrame(sidePanel.selectedTower.posX-sidePanel.selectedTower.range+ellipseOffset, sidePanel.selectedTower.posY-sidePanel.selectedTower.range+ellipseOffset, sidePanel.selectedTower.range*2, sidePanel.selectedTower.range*2);
         }
 
+    }
+
+        private Boolean containsOtherTower(Ally oldAllyTower){
+            // CHECK IF PASSED TOWER IS NOT OVER OTHER TOWER
+            for (Ally oldAllyTowerPlaced : lvl.allyPlacedTowers){
+
+            // CHECK IF PASSED TOWER BOUNDS ARE NOT OVER OTHER TOWER BOUNDS
+                if (oldAllyTower.bounds.intersects(oldAllyTowerPlaced.bounds)){
+                    return true;
+                }
+
+            }
+        return false;
     }
 
     @Override
