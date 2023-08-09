@@ -16,14 +16,11 @@ public abstract class aSidePanel implements sidePanelMethods {
         this.posX = posX;
         this.posY = posY;
 
-        init();
+        sidePanelBounds= initRectangleBounds();
     }
 
-    private void init(){
-        initBounds();
-    }
-    private void initBounds() {
-        sidePanelBounds = new Rectangle(posX, posY, width, height);
+    private Shape initRectangleBounds() {
+        return new Rectangle(posX, posY, width, height);
     }
     public Shape getSidePanelBounds() {
         return sidePanelBounds;

@@ -83,12 +83,12 @@ public class Level extends GameScene {
         updateMoveEnemies();
         updateAllyTowerPlaced();
         bulletsUpdatePos();
-        enemyHitByBullet();
+        checkIfEnemyIsHitByBullet();
     }
 
-    public void enemyHitByBullet() {
+    private void checkIfEnemyIsHitByBullet() {
 
-        if (Helper.isEnemyListEmpty(Level.rounds.get(Level.currentRound).getEnemies())) {
+        if (rounds.get(currentRound).getEnemies().isEmpty()){
             return;
         }
 
@@ -106,17 +106,17 @@ public class Level extends GameScene {
 
             // GO THROUGHT ALL PLACED TOWERS
             for (Iterator<Ally> allyTowerIterator = allyPlacedTowers.iterator(); allyTowerIterator.hasNext();){
-                Ally nextOldAllyTower = allyTowerIterator.next();
+                Ally nextAlly = allyTowerIterator.next();
 
                 // CHECK IF TOWER HAS ANY BULLETS
-                if (!nextOldAllyTower.bulletList.isEmpty()){
+                if (!nextAlly.bulletList.isEmpty()){
 
                     // GO THROUGHT ALL BULLETS FROM TOWER
-                    for (Iterator<oldBullet> bulletIterator = nextOldAllyTower.bulletList.iterator(); bulletIterator.hasNext();){
-                        oldBullet nextOldBullet = bulletIterator.next();
+                    for (Iterator<oldBullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();){
+                        oldBullet nextBullet = bulletIterator.next();
 
                         // CHECK IF ENEMY IS HIT BY BULLET
-                        if (nextEnemy.bounds.getBounds().intersects(nextOldBullet.getBulletHitBox())){
+                        if (nextEnemy.bounds.getBounds().intersects(nextBullet.getBulletHitBox())){
 
                             nextEnemy.health=nextEnemy.health-1;
 
@@ -138,7 +138,7 @@ public class Level extends GameScene {
                                     for (Iterator<Entity> enemyIterator1 = nextOldAllyTower1.enemiesInRangeList.iterator(); enemyIterator1.hasNext();){
                                         Entity nextEnemy_1 = enemyIterator1.next();
 
-
+                                        // REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
                                         if (nextOldAllyTower1.enemiesInRangeList.contains(nextEnemy_1)){
                                             enemyIterator1.remove();
                                         }
@@ -160,8 +160,7 @@ public class Level extends GameScene {
 
         }
     }
-
-    public void bulletsUpdatePos() {
+    private void bulletsUpdatePos() {
 
         if (allyPlacedTowers.isEmpty()){
             return;
@@ -192,11 +191,9 @@ public class Level extends GameScene {
         }
 
     }
-
     private Boolean limitBulletRange(Ally ally, oldBullet oldBullet){
         return distanceBetweenTwoPoints(ally.posX, ally.posY, oldBullet.getPosX(), oldBullet.getPosY()) >= ally.range + 15;
     }
-
     private void updateMoveEnemies() {
 
         if (Helper.isFirstValueSmallerThanSecond(Level.currentRound,getNUM_OF_ROUNDS())){
@@ -218,7 +215,6 @@ public class Level extends GameScene {
         }
 
     }
-
     private void updateStartMoveEnemies(List<Enemy> enemies){
 
         if (Helper.isEnemyListEmpty(enemies)){
@@ -247,43 +243,28 @@ public class Level extends GameScene {
 
     }
 
+    // -------------------------MOUSE------------------------------- //
+
     public void mouseMoved(int x, int y) {
-
+        mouseOverAllyTowerPlaced(x,y);
+    }
+    private void mouseOverAllyTowerPlaced(int x, int y) {
         for (Ally ally : allyPlacedTowers) {
-            if (ally.mouseOver) {
-                ally.mouseOver=false;
-
-            }
+            ally.mouseMoved(x,y);
         }
-
-        // ----------------------------------------------------- //
-
-        for (Ally ally : allyPlacedTowers) {
-
-            if (ally.bounds.contains(x,y)){
-                ally.mouseOver=true;
-            }
-
-            if (ally.pressed){
-                ally.sidePanelUpgrade.mouseMoved(x,y);
-            }
-
-        }
-
     }
 
     public void leftMouseClicked(int x, int y) {
-
+        leftMouseClickedAllyTowerPlaced(x,y);
+    }
+    private void leftMouseClickedAllyTowerPlaced(int x, int y) {
         if (allyPlacedTowers.isEmpty()){
             return;
         }
 
         for (Ally ally: allyPlacedTowers){
-            if(ally.pressed){
-                ally.sidePanelUpgrade.mouseClicked(x,y);
-            }
+            ally.leftMouseClicked(x,y);
         }
-
 
         for (Iterator<Ally> allyTowerPlacedIterator = allyPlacedTowers.iterator(); allyTowerPlacedIterator.hasNext();){
             Ally nextAlly = allyTowerPlacedIterator.next();
@@ -299,49 +280,50 @@ public class Level extends GameScene {
             }
 
         }
-
     }
 
     public void rightMouseClicked(int x, int y) {
-
-
+        rightMouseClickedAllyTowerPlaced(x,y);
     }
-
-    public void mousePressed(int x, int y) {
-
-        if (allyPlacedTowers==null){
-            return;
-        }
-
-        for (Ally ally : allyPlacedTowers) {
-
-            if (ally.bounds.contains(x,y)){
-                ally.pressed =true;
-            }
-
-            if (ally.pressed){
-                ally.sidePanelUpgrade.mousePressed(x,y);
-            }
-
-        }
-    }
-
-    public void mouseReleased(int x, int y) {
-
+    private void rightMouseClickedAllyTowerPlaced(int x, int y) {
         if (allyPlacedTowers.isEmpty()){
             return;
         }
 
         for (Ally ally : allyPlacedTowers) {
-
-            if (!ally.bounds.contains(x,y)&&! ally.sidePanelUpgrade.getSidePanelBounds().contains(x,y)){
-                ally.pressed =false;
-            }
+            ally.rightMouseClicked(x,y);
         }
 
     }
 
-    // -------- DRAW ------- //
+    public void mousePressed(int x, int y) {
+        mousePressedAllyTowerPlaced(x,y);
+    }
+    private void mousePressedAllyTowerPlaced(int x, int y) {
+        if (allyPlacedTowers.isEmpty()){
+            return;
+        }
+
+        for (Ally ally : allyPlacedTowers) {
+            ally.mousePressed(x, y);
+        }
+    }
+
+    public void mouseReleased(int x, int y) {
+        mouseReleasedAllyTowerPlaced(x,y);
+    }
+    private void mouseReleasedAllyTowerPlaced(int x, int y) {
+        if (allyPlacedTowers.isEmpty()){
+            return;
+        }
+
+        for (Ally ally : allyPlacedTowers) {
+            ally.mouseReleased(x, y);
+        }
+
+    }
+
+    // -------------------------DRAW------------------------------- //
 
     public void drawLevel(Graphics g){
         drawTiles(g);
@@ -359,7 +341,6 @@ public class Level extends GameScene {
             }
         }
     }
-
     private void drawTiles(Graphics g) {
         for (int i = 0; i < lvlHeight; i++) {
             for (int j = 0; j < lvlWidth; j++) {
@@ -377,7 +358,6 @@ public class Level extends GameScene {
         g.drawString("Player Health: " + Player.getHealth(), 10, 40);
         g.drawString("Player Money: " + Player.getGold(), 10, 60);
     }
-
     private void drawAllyTowerPlaced(Graphics g){
 
         if (allyPlacedTowers!=null){
@@ -388,7 +368,7 @@ public class Level extends GameScene {
 
     }
 
-    // -------- GET ------- //
+    // -------------------------GET------------------------------- //
 
     public int getNUM_OF_ROUNDS() {
         return NUM_OF_ROUNDS;
@@ -404,7 +384,7 @@ public class Level extends GameScene {
     }
 
 
-    // -------- SET ------- //
+    // -------------------------SET------------------------------- //
 
     public static List<KeyPoint> getKeyPointsList() {
         return keyPointsList;

@@ -105,17 +105,57 @@ public abstract class Ally extends Entity {
 
     }
 
+    // -------------------------MOUSE------------------------------- //
+
+    public void mouseMoved(int x, int y) {
+        if (mouseOver){
+            if (!bounds.contains(x,y)){
+                mouseOver=false;
+            }
+        }
+
+        if(bounds.contains(x,y)){
+            mouseOver=true;
+        }
+
+        if (pressed){
+            sidePanelUpgrade.mouseMoved(x,y);
+        }
+
+    }
+    public void mousePressed(int x, int y) {
+        if(bounds.contains(x, y)){
+            pressed=true;
+        }
+
+        if (pressed){
+            sidePanelUpgrade.mousePressed(x,y);
+        }
+    }
+    public void leftMouseClicked(int x, int y){
+        if (pressed){
+            sidePanelUpgrade.mouseClicked(x,y);
+        }
+    }
+    public void rightMouseClicked(int x, int y) {
+
+    }
+    public void mouseReleased(int x, int y) {
+        if (!bounds.contains(x,y)&&! sidePanelUpgrade.getSidePanelBounds().contains(x,y)){
+            pressed =false;
+        }
+    }
+
+    // -------------------------DRAW------------------------------- //
+
     @Override
     public void draw(Graphics g) {
-
-
         drawPressed(g);
         drawEntity(g);
         drawMouseOver(g);
         drawBullets(g);
 
     }
-
     private void drawEntity(Graphics g) {
         g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
 
