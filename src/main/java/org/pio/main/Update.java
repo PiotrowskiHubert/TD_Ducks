@@ -2,7 +2,7 @@ package org.pio.main;
 
 public class Update {
     private Game game;
-    private double timePerGameUpdate;
+    public double timePerUpdateGame;
     private long lastGameUpdate;
     private long lastTimeGameUpdateCheck;
     private long now;
@@ -11,7 +11,7 @@ public class Update {
     public Update(Game game) {
         this.game = game;
 
-        this.timePerGameUpdate =1_000_000_000.0/120.0;
+        this.timePerUpdateGame =1_000_000_000.0/120.0;
         this.lastGameUpdate =System.nanoTime();
         this.lastTimeGameUpdateCheck =System.currentTimeMillis();
         this.updateCounter=0;
@@ -21,7 +21,7 @@ public class Update {
 
         now = System.nanoTime();
 
-        if (now- lastGameUpdate >= timePerGameUpdate){
+        if (now- lastGameUpdate >= timePerUpdateGame){
 
             if (game.getGameStates() == GameStates.PREGAME){
                 game.getPreGameScene().update();

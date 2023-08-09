@@ -13,14 +13,13 @@ public class Game extends JFrame implements Runnable {
     private MainDatabase mainDatabase;
     private PreGameScene preGameScene;
     public static GameStates gameStates;
-    private Update update;
+    public Update update;
     private GameScreen gameScreen;
     private PlayerManager playerManager;
     private TileManager tileManager;
     private Render render;
     private PlayScene playScene;
     Thread gameThread_1;
-    private double timePerUpdate;
     private double timePerUpdatePlayerAnimation;
 
     public static void main(String[] args) {
@@ -137,9 +136,6 @@ public class Game extends JFrame implements Runnable {
     public PlayScene getPlayScene() {
         return playScene;
     }
-    public PlayerManager getPlayerManager() {
-        return playerManager;
-    }
 
     public static GameStates getGameStates() {
         return gameStates;
@@ -147,10 +143,6 @@ public class Game extends JFrame implements Runnable {
 
     public PreGameScene getPreGameScene() {
         return preGameScene;
-    }
-
-    public double getTimePerUpdate() {
-        return timePerUpdate;
     }
 
     public MainDatabase getMainDatabase() {
@@ -164,7 +156,4 @@ public class Game extends JFrame implements Runnable {
         Game.gameStates = gameStates;
     }
 
-    public void setTimePerUpdate(double timePerUpdate) {
-        this.timePerUpdate = timePerUpdate;
-    }
 }
