@@ -78,15 +78,7 @@ public class Level extends GameScene {
 
     // -------- UPDATE ------- //
 
-
-    public void updateLevel(){
-        updateMoveEnemies();
-        updateAllyTowerPlaced();
-        bulletsUpdatePos();
-        checkIfEnemyIsHitByBullet();
-    }
-
-    private void checkIfEnemyIsHitByBullet() {
+    public void checkIfEnemyIsHitByBullet() {
 
         if (rounds.get(currentRound).getEnemies().isEmpty()){
             return;
@@ -160,7 +152,7 @@ public class Level extends GameScene {
 
         }
     }
-    private void bulletsUpdatePos() {
+    public void bulletsUpdatePos() {
 
         if (allyPlacedTowers.isEmpty()){
             return;
@@ -194,7 +186,7 @@ public class Level extends GameScene {
     private Boolean limitBulletRange(Ally ally, Bullet Bullet){
         return distanceBetweenTwoPoints(ally.posX, ally.posY, Bullet.getPosX(), Bullet.getPosY()) >= ally.range + 15;
     }
-    private void updateMoveEnemies() {
+    public void updateMoveEnemies() {
 
         if (Helper.isFirstValueSmallerThanSecond(Level.currentRound,getNUM_OF_ROUNDS())){
             updateStartMoveEnemies(rounds.get(currentRound).getEnemies());

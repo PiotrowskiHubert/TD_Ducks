@@ -36,8 +36,6 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     public void update(){
 
-        getLvl().updateLevel();
-
         if (SidePanel.getSelectedTowerSidePanel()!=null){
             sidePanel.updateSelectedTowerHitBox();
         }

@@ -17,9 +17,10 @@ public abstract class Enemy extends Entity {
     public Directions direction;
     private Stack<KeyPoint> keyPointsStack;
     private int keypointIndex;
-    private double timePerMoveUpdate =1_000_000_000.0/240;
-    private long lastMoveUpdate;
-    private long now;
+
+
+    private long lastTimeMoveUpdateCheck;
+    private int updateCounter;
 
     public Enemy(String name,  int id, int health, int damage, int gold, int movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, width, height);
@@ -43,6 +44,9 @@ public abstract class Enemy extends Entity {
 
         this.keyPointsStack=initStack();
         keyPointsStack.push(Level.getKeyPointsList().get(keypointIndex));
+
+        this.lastTimeMoveUpdateCheck=System.currentTimeMillis();
+        this.updateCounter=0;
     }
 
     private Stack<KeyPoint> initStack(){
@@ -52,10 +56,14 @@ public abstract class Enemy extends Entity {
 
     @Override
     public void update() {
-        now = System.nanoTime();
 
-        if (now - lastMoveUpdate >= timePerMoveUpdate){
-            moveUpdate();
+        moveUpdate();
+        updateCounter++;
+
+        if (System.currentTimeMillis()- lastTimeMoveUpdateCheck >=1000){
+            System.out.println("T2, ENEMY UPS: " + updateCounter);
+            updateCounter = 0;
+            lastTimeMoveUpdateCheck =System.currentTimeMillis();
         }
 
     }
@@ -90,8 +98,6 @@ public abstract class Enemy extends Entity {
             }
 
         }
-
-        lastMoveUpdate =now;
     }
     private Directions calcDirection(){
 

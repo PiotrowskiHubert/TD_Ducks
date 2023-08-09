@@ -28,6 +28,11 @@ public class Update {
             }
 
             if (game.getGameStates() == GameStates.GAME){
+                game.getPlayScene().getLvl().updateMoveEnemies();
+                game.getPlayScene().getLvl().updateAllyTowerPlaced();
+                game.getPlayScene().getLvl().bulletsUpdatePos();
+                game.getPlayScene().getLvl().checkIfEnemyIsHitByBullet();
+
                 game.getPlayScene().update();
             }
 
