@@ -1,0 +1,15 @@
+src/main/resources/AllyInfo/ally_5.txt
+NAME
+Ally_5
+ID
+5
+WIDTH
+32
+HEIGHT
+32
+TIME_PER_SHOT
+1000000000.0
+RANGE
+100
+COST
+100
