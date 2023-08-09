@@ -23,24 +23,14 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         super(game);
         mapEditMode=false;
 
-        initLevel();
-        initPlayer();
+        lvl=new Level(29,22, getGame(),11);
+        player=new Player(2000,100);
 
         sidePanel = new SidePanel(29*GameScreen.UNIT_SIZE,0*GameScreen.UNIT_SIZE,3*GameScreen.UNIT_SIZE,22*GameScreen.UNIT_SIZE,this);
-
-        initMapEditSidePanel();
-    }
-
-    // -------- INIT ------- //
-    private void initMapEditSidePanel(){
         editSidePanel = new SidePanelEditMap(3*GameScreen.UNIT_SIZE, 22*GameScreen.UNIT_SIZE, 29*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, this);
+
     }
-    private void initPlayer(){
-        player=new Player(2000,100);
-    }
-    private void initLevel(){
-        lvl=new Level(29,22, getGame(),11);
-    }
+
 
     // -------- UPDATE ------- //
 
