@@ -270,7 +270,7 @@ public class SidePanelEditMap extends aSidePanel{
         if (a==0){
             int index=0;
             while (!(index==10)){
-                x1=new bRectangleTileWImage(posWidth+(offsetX),posHeight+(offsetY*index++)+5, allDataLinkedMap.get(index).width, allDataLinkedMap.get(index).height, allDataLinkedMap.get(index).name, allDataLinkedMap.get(index).id, allDataLinkedMap.get(index).getSprite());
+                x1=new bRectangleTileWImage(posX +(offsetX), posY +(offsetY*index++)+5, allDataLinkedMap.get(index).width, allDataLinkedMap.get(index).height, allDataLinkedMap.get(index).name, allDataLinkedMap.get(index).id, allDataLinkedMap.get(index).getSprite());
 
                 linkedMap.put( index, x1);
             }
@@ -284,7 +284,7 @@ public class SidePanelEditMap extends aSidePanel{
 
                 if (allDataLinkedMap.get(i)!=null) {
 
-                    x1 = new bRectangleTileWImage(posWidth + (offsetX), posHeight + (offsetY * z) + 5, allDataLinkedMap.get(i).width, allDataLinkedMap.get(i).height, allDataLinkedMap.get(i).name, allDataLinkedMap.get(i).id, allDataLinkedMap.get(i).getSprite());
+                    x1 = new bRectangleTileWImage(posX + (offsetX), posY + (offsetY * z) + 5, allDataLinkedMap.get(i).width, allDataLinkedMap.get(i).height, allDataLinkedMap.get(i).name, allDataLinkedMap.get(i).id, allDataLinkedMap.get(i).getSprite());
                     linkedMap.put(++z, x1);
 
                 }
@@ -298,7 +298,7 @@ public class SidePanelEditMap extends aSidePanel{
 
                 if (allDataLinkedMap.get(i)!=null){
 
-                    x1=new bRectangleTileWImage(posWidth+(offsetX),posHeight+(offsetY*(z-1))+5, allDataLinkedMap.get(i).width, allDataLinkedMap.get(i).height, allDataLinkedMap.get(i).name, allDataLinkedMap.get(i).id, allDataLinkedMap.get(i).getSprite());
+                    x1=new bRectangleTileWImage(posX +(offsetX), posY +(offsetY*(z-1))+5, allDataLinkedMap.get(i).width, allDataLinkedMap.get(i).height, allDataLinkedMap.get(i).name, allDataLinkedMap.get(i).id, allDataLinkedMap.get(i).getSprite());
                     linkedMap.put( z--, x1);
 
                 }

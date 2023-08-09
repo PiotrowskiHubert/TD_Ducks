@@ -6,15 +6,15 @@ import java.awt.*;
 import java.util.LinkedHashMap;
 
 public abstract class aSidePanel implements sidePanelMethods {
-    protected int width, height, posWidth, posHeight;
-    public static LinkedHashMap<Integer, bRectangle> currentDataLinkedMap;
-    public static LinkedHashMap<Integer, bRectangle> allDataLinkedMap;
+    protected int width, height, posX, posY;
+    public LinkedHashMap<Integer, bRectangle> currentDataLinkedMap;
+    public LinkedHashMap<Integer, bRectangle> allDataLinkedMap;
     protected Shape sidePanelBounds;
-    public aSidePanel(int width, int height, int posWidth, int posHeight) {
+    public aSidePanel(int width, int height, int posX, int posY) {
         this.width = width;
         this.height = height;
-        this.posWidth = posWidth;
-        this.posHeight = posHeight;
+        this.posX = posX;
+        this.posY = posY;
 
         init();
     }
@@ -23,7 +23,7 @@ public abstract class aSidePanel implements sidePanelMethods {
         initBounds();
     }
     private void initBounds() {
-        sidePanelBounds = new Rectangle(posWidth, posHeight, width, height);
+        sidePanelBounds = new Rectangle(posX, posY, width, height);
     }
     public Shape getSidePanelBounds() {
         return sidePanelBounds;
@@ -36,7 +36,7 @@ public abstract class aSidePanel implements sidePanelMethods {
     }
     private void drawBody(Graphics g) {
         g.setColor(Color.black);
-        g.fillRect(posWidth, posHeight, width, height);
+        g.fillRect(posX, posY, width, height);
     }
     protected void drawButtons(Graphics g) {
         if (currentDataLinkedMap !=null){

@@ -5,7 +5,6 @@ import org.pio.entities.Entity;
 import org.pio.entities.others.oldBullet;
 import org.pio.main.GameScreen;
 import org.pio.player.Directions;
-import org.pio.scene.Level;
 import org.pio.ui.sidePanel.SidePanelUpgrade;
 
 import java.awt.*;
@@ -17,16 +16,16 @@ import java.util.List;
 
 public abstract class Ally extends Entity {
     public List<Entity> enemiesInRangeList;
-    public List<oldBullet> oldBulletList;
+    public List<oldBullet> bulletList;
     public LinkedHashMap<Directions, LinkedList<String>> sprites;
     public int cost, range;
     private double timePerShotUpdate =1_000_000_000.0/0.8;
     private long lastShotUpdate;
     private long now;
     public Ellipse2D rangeEllipse;
-    public Boolean mouseOver, mousePressed, placed;
+    public Boolean mouseOver, pressed, placed;
     public Directions direction;
-    protected SidePanelUpgrade sidePanelUpgrade;
+    public SidePanelUpgrade sidePanelUpgrade;
 
     protected Ally(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, width, height);
@@ -46,14 +45,14 @@ public abstract class Ally extends Entity {
         this.direction=direction;
 
         this.mouseOver=false;
-        this.mousePressed=false;
+        this.pressed =false;
         this.placed=false;
 
         this.rangeEllipse=createEllipseShape();
 
         this.enemiesInRangeList=new LinkedList<>();
-        this.oldBulletList=new LinkedList<>();
-        sidePanelUpgrade=new SidePanelUpgrade(150, GameScreen.UNIT_SIZE, GameScreen.screenWidth-250,0);
+        this.bulletList =new LinkedList<>();
+        this.sidePanelUpgrade=new SidePanelUpgrade(GameScreen.UNIT_SIZE*5, GameScreen.UNIT_SIZE*22, GameScreen.screenWidth-250,0);
 
     }
 
@@ -75,7 +74,7 @@ public abstract class Ally extends Entity {
         }
     }
 
-    public List<Entity> checkIfEnemyIsInRange(List<Enemy> secondObj){
+    public void lookForEnemiesInRange(List<Enemy> secondObj){
 
         for (Iterator<Enemy> enemyIterator =secondObj.iterator(); enemyIterator.hasNext();){
             Enemy enemy=enemyIterator.next();
@@ -94,26 +93,35 @@ public abstract class Ally extends Entity {
             }
         }
 
-        return enemiesInRangeList;
+        //return enemiesInRangeList;
     }
-
     private void shot() {
 
         if (enemiesInRangeList.isEmpty()){
             return;
         }
 
-        double shotOffsetX=0.0;
-        double shotOffsetY=0.0;
-
-        oldBulletList.add(new oldBullet(posX,posY,enemiesInRangeList.get(0).posX,enemiesInRangeList.get(0).posY));
+        bulletList.add(new oldBullet(posX,posY,enemiesInRangeList.get(0).posX,enemiesInRangeList.get(0).posY));
 
     }
 
     @Override
     public void draw(Graphics g) {
 
-        if (mousePressed){
+
+        drawPressed(g);
+        drawEntity(g);
+        drawMouseOver(g);
+        drawBullets(g);
+
+    }
+
+    private void drawEntity(Graphics g) {
+        g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
+
+    }
+    private void drawPressed(Graphics g) {
+        if (pressed){
             g.setColor(new Color(0xB0000000, true));
             g.fillOval(rangeEllipse.getBounds().x, rangeEllipse.getBounds().y, rangeEllipse.getBounds().width, rangeEllipse.getBounds().height);
             g.setColor(Color.black);
@@ -121,25 +129,20 @@ public abstract class Ally extends Entity {
 
             sidePanelUpgrade.draw(g);
         }
-
-        g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
-
-        if (mouseOver){
+    }
+    private void drawMouseOver(Graphics g) {
+        if (mouseOver) {
             g.setColor(new Color(0x5E000000, true));
             g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
         }
-
-        drawBullet(g);
-
     }
-
-    private void drawBullet(Graphics g) {
-        if (oldBulletList.isEmpty()){
+    private void drawBullets(Graphics g) {
+        if (bulletList.isEmpty()){
             return;
         }
 
-        for (oldBullet oldBullet:oldBulletList) {
-            oldBullet.draw(g);
+        for (oldBullet bullet: bulletList) {
+            bullet.draw(g);
         }
     }
 }

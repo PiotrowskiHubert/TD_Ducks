@@ -109,10 +109,10 @@ public class Level extends GameScene {
                 Ally nextOldAllyTower = allyTowerIterator.next();
 
                 // CHECK IF TOWER HAS ANY BULLETS
-                if (!nextOldAllyTower.oldBulletList.isEmpty()){
+                if (!nextOldAllyTower.bulletList.isEmpty()){
 
                     // GO THROUGHT ALL BULLETS FROM TOWER
-                    for (Iterator<oldBullet> bulletIterator = nextOldAllyTower.oldBulletList.iterator(); bulletIterator.hasNext();){
+                    for (Iterator<oldBullet> bulletIterator = nextOldAllyTower.bulletList.iterator(); bulletIterator.hasNext();){
                         oldBullet nextOldBullet = bulletIterator.next();
 
                         // CHECK IF ENEMY IS HIT BY BULLET
@@ -172,10 +172,10 @@ public class Level extends GameScene {
         for (Iterator<Ally> allyTowerIterator = allyPlacedTowers.iterator(); allyTowerIterator.hasNext();) {
             Ally nextAlly = allyTowerIterator.next();
 
-            if (!Helper.isBulletListEmpty(nextAlly.oldBulletList)){
+            if (!Helper.isBulletListEmpty(nextAlly.bulletList)){
                 // ITERATE THROUGH BULLET LIST OF EACH ALLY TOWER
 
-                for (Iterator<oldBullet> bulletIterator = nextAlly.oldBulletList.iterator(); bulletIterator.hasNext();) {
+                for (Iterator<oldBullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();) {
                     oldBullet nextOldBullet = bulletIterator.next();
 
                     // UPDATE BULLET
@@ -210,15 +210,11 @@ public class Level extends GameScene {
             return;
         }
 
-        if (rounds.get(currentRound).getEnemies().isEmpty()){
-            return;
-        }
-
         for (Iterator<Ally> allyIterator = allyPlacedTowers.iterator(); allyIterator.hasNext();){
             Ally nextAlly = allyIterator.next();
 
+            nextAlly.lookForEnemiesInRange(rounds.get(currentRound).getEnemies());
             nextAlly.update();
-            nextAlly.checkIfEnemyIsInRange(rounds.get(currentRound).getEnemies());
         }
 
     }
@@ -256,20 +252,21 @@ public class Level extends GameScene {
         for (Ally ally : allyPlacedTowers) {
             if (ally.mouseOver) {
                 ally.mouseOver=false;
+
             }
         }
 
-//        // ----------------------------------------------------- //
+        // ----------------------------------------------------- //
 
         for (Ally ally : allyPlacedTowers) {
 
             if (ally.bounds.contains(x,y)){
                 ally.mouseOver=true;
             }
-//
-//            if (ally.getSelected()){
-//                ally.getSidePanelUpgrade().mouseMoved(x,y);
-//            }
+
+            if (ally.pressed){
+                ally.sidePanelUpgrade.mouseMoved(x,y);
+            }
 
         }
 
@@ -277,40 +274,36 @@ public class Level extends GameScene {
 
     public void leftMouseClicked(int x, int y) {
 
-//        if (Helper.isAllyTowerListEmpty(oldAllyTowersPlaced)){
-//            return;
-//        }
-//
-//        for (oldAllyTower oldAllyTower : oldAllyTowersPlaced) {
-//            if(oldAllyTower.getSelected()){
-//                oldAllyTower.getSidePanelUpgrade().mouseClicked(x,y);
-//            }
-//        }
-//
-//
-//
-//        for (Iterator<oldAllyTower> allyTowerPlacedIterator = oldAllyTowersPlaced.iterator(); allyTowerPlacedIterator.hasNext();){
-//            oldAllyTower nextAlly = allyTowerPlacedIterator.next();
-//
-//            if(nextAlly.getEntityBounds().contains(x,y)){
-//                nextAlly.setSelected(true);
-//            }else {
-//                if (!nextAlly.getSidePanelUpgrade().getSidePanelBounds().contains(x,y)){
-//                    nextAlly.setSelected(false);
-//                    nextAlly.setMousePressed(false);
-//                }
-//
-//            }
-//
-//        }
+        if (allyPlacedTowers.isEmpty()){
+            return;
+        }
+
+        for (Ally ally: allyPlacedTowers){
+            if(ally.pressed){
+                ally.sidePanelUpgrade.mouseClicked(x,y);
+            }
+        }
+
+
+        for (Iterator<Ally> allyTowerPlacedIterator = allyPlacedTowers.iterator(); allyTowerPlacedIterator.hasNext();){
+            Ally nextAlly = allyTowerPlacedIterator.next();
+
+            if(nextAlly.bounds.contains(x,y)){
+                nextAlly.pressed =true;
+            }else {
+                if (!nextAlly.sidePanelUpgrade.getSidePanelBounds().contains(x,y)){
+                    nextAlly.pressed =false;
+                    nextAlly.mouseOver=false;
+                }
+
+            }
+
+        }
 
     }
 
     public void rightMouseClicked(int x, int y) {
-//
-//        if (Helper.isAllyTowerListEmpty(oldAllyTowersPlaced)){
-//            return;
-//        }
+
 
     }
 
@@ -323,32 +316,28 @@ public class Level extends GameScene {
         for (Ally ally : allyPlacedTowers) {
 
             if (ally.bounds.contains(x,y)){
-                ally.mousePressed=true;
+                ally.pressed =true;
             }
+
+            if (ally.pressed){
+                ally.sidePanelUpgrade.mousePressed(x,y);
+            }
+
         }
-
-//        for (oldAllyTower oldAllyTower : oldAllyTowersPlaced) {
-//
-//            if (oldAllyTower.getSelected()){
-//                oldAllyTower.getSidePanelUpgrade().mousePressed(x,y);
-//                return;
-//            }
-//        }
-
     }
 
     public void mouseReleased(int x, int y) {
-//
-//        if (Helper.isAllyTowerListEmpty(oldAllyTowersPlaced)){
-//            return;
-//        }
-//
-//        for (oldAllyTower oldAllyTower : oldAllyTowersPlaced) {
-//
-//            if (oldAllyTower.getEntityBounds().contains(x,y)){
-//                oldAllyTower.setMousePressed(false);
-//            }
-//        }
+
+        if (allyPlacedTowers.isEmpty()){
+            return;
+        }
+
+        for (Ally ally : allyPlacedTowers) {
+
+            if (!ally.bounds.contains(x,y)&&! ally.sidePanelUpgrade.getSidePanelBounds().contains(x,y)){
+                ally.pressed =false;
+            }
+        }
 
     }
 
