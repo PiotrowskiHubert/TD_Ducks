@@ -96,16 +96,16 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         if (x<29*GameScreen.UNIT_SIZE){
             lvl.leftMouseClicked(x,y);
 
-            if (sidePanel.selectedTower!=null){
+            if (lvl.selectedTower!=null){
 
-                if (!containsOtherTower(sidePanel.selectedTower)){
-                    lvl.allyPlacedTowers.add(sidePanel.selectedTower);
-                    sidePanel.selectedTower.placed=true;
+                if (!containsBoundsOfOtherTower(lvl.selectedTower)){
+                    lvl.allyPlacedTowers.add(lvl.selectedTower);
+                    lvl.selectedTower.placed=true;
 
-                    player.setGold(player.getGold()-sidePanel.selectedTower.cost);
+                    player.setGold(player.getGold()-lvl.selectedTower.cost);
                 }
 
-                sidePanel.selectedTower=null;
+                lvl.selectedTower=null;
 
             }
         }
@@ -132,30 +132,30 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
             lvl.mouseMoved(x,y);
         }
 
-        if (sidePanel.selectedTower!=null){
+        if (lvl.selectedTower!=null){
 
-            sidePanel.selectedTower.posX=x;
-            sidePanel.selectedTower.posY=y;
+            lvl.selectedTower.posX=x;
+            lvl.selectedTower.posY=y;
 
-            sidePanel.selectedTower.bounds.x= (int) sidePanel.selectedTower.posX;
-            sidePanel.selectedTower.bounds.y= (int) sidePanel.selectedTower.posY;
+            lvl.selectedTower.bounds.x= (int) lvl.selectedTower.posX;
+            lvl.selectedTower.bounds.y= (int) lvl.selectedTower.posY;
 
             int ellipseOffset=20;
-            sidePanel.selectedTower.rangeEllipse.setFrame(sidePanel.selectedTower.posX-sidePanel.selectedTower.range+ellipseOffset, sidePanel.selectedTower.posY-sidePanel.selectedTower.range+ellipseOffset, sidePanel.selectedTower.range*2, sidePanel.selectedTower.range*2);
+            lvl.selectedTower.rangeEllipse.setFrame(lvl.selectedTower.posX-lvl.selectedTower.range+ellipseOffset, lvl.selectedTower.posY-lvl.selectedTower.range+ellipseOffset, lvl.selectedTower.range*2, lvl.selectedTower.range*2);
         }
 
     }
 
-        private Boolean containsOtherTower(Ally oldAllyTower){
-            // CHECK IF PASSED TOWER IS NOT OVER OTHER TOWER
-            for (Ally oldAllyTowerPlaced : lvl.allyPlacedTowers){
+    private Boolean containsBoundsOfOtherTower(Ally ally){
 
-            // CHECK IF PASSED TOWER BOUNDS ARE NOT OVER OTHER TOWER BOUNDS
-                if (oldAllyTower.bounds.intersects(oldAllyTowerPlaced.bounds)){
-                    return true;
-                }
+        for (Ally placedAlly : lvl.allyPlacedTowers){
 
+            if (ally.bounds.intersects(placedAlly.bounds)){
+                return true;
             }
+
+        }
+
         return false;
     }
 

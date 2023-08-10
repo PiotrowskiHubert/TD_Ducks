@@ -15,7 +15,6 @@ public class oldSidePanel {
     private BufferedImage spriteButtonAtlas;
     private PlayScene playScene;
     private int width, height, posX, posY;
-//    public Ally selectedTower;
     Button bTower_0, editMode, startRound, speedUp;
     private List<Button> buttonTowerList;
     private AllyFactoryImpl allyFactory;
@@ -75,26 +74,10 @@ public class oldSidePanel {
         startRound.drawRectangleButton(g);
 
     }
-    private void drawSelectedTurret(Graphics g){
 
-        if (selectedTower != null){
-            drawSelectedTowerRange(g);
-            drawSelectedTowerSprite(g);
-        }
-    }
-
-    private void drawSelectedTowerSprite(Graphics g) {
-        selectedTower.draw(g);
-    }
-
-    private void drawSelectedTowerRange(Graphics g){
-        g.setColor(new Color(0f,0f,0f,.5f));
-        g.fillOval(selectedTower.rangeEllipse.getBounds().x, selectedTower.rangeEllipse.getBounds().y, selectedTower.rangeEllipse.getBounds().width, selectedTower.rangeEllipse.getBounds().height);
-    }
     public void draw(Graphics g){
         drawPanel(g);
         drawButtons(g);
-        drawSelectedTurret(g);
     }
 
     private void drawPanel(Graphics g) {
@@ -117,7 +100,7 @@ public class oldSidePanel {
                         return;
                     }
 
-                    selectedTower = allyFactory.createAlly_1(x, y, null);
+                    playScene.getLvl().selectedTower = allyFactory.createAlly_1(x, y, null);
                 }
 
                 if (button.getId() == 1) {
@@ -126,7 +109,7 @@ public class oldSidePanel {
                         return;
                     }
 
-                    selectedTower = allyFactory.createAlly_2(x, y, null);
+                    playScene.getLvl().selectedTower = allyFactory.createAlly_2(x, y, null);
                 }
 
                 if (button.getId() == 2) {
@@ -135,7 +118,7 @@ public class oldSidePanel {
                         return;
                     }
 
-                    selectedTower = allyFactory.createAlly_3(x, y, null);
+                    playScene.getLvl().selectedTower = allyFactory.createAlly_3(x, y, null);
                 }
 
                 if (button.getId() == 3) {
@@ -144,7 +127,7 @@ public class oldSidePanel {
                         return;
                     }
 
-                    selectedTower = allyFactory.createAlly_4(x, y, null);
+                    playScene.getLvl().selectedTower = allyFactory.createAlly_4(x, y, null);
                 }
 
                 if (button.getId() == 4) {
@@ -153,7 +136,7 @@ public class oldSidePanel {
                         return;
                     }
 
-                    selectedTower = allyFactory.createAlly_5(x, y, null);
+                    playScene.getLvl().selectedTower = allyFactory.createAlly_5(x, y, null);
                 }
 
             }

@@ -28,8 +28,8 @@ public class Level extends GameScene {
     private static List<KeyPoint> keyPointsList;
     private EnemyFactoryImpl enemyFactoryImpl;
     public static List<Ally> allyPlacedTowers = new ArrayList<>();
-
     public Ally selectedTower;
+
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
         enemyFactoryImpl = new EnemyFactoryImpl(game.getMainDatabase());
@@ -157,6 +157,21 @@ public class Level extends GameScene {
         drawAllyTowerPlaced(g);
         drawRoundInfo(g);
         drawEnemy(g);
+        drawSelectedAlly(g);
+    }
+
+    private void drawSelectedAlly(Graphics g) {
+        if (selectedTower != null){
+            drawSelectedTowerRange(g);
+            drawSelectedTowerSprite(g);
+        }
+    }
+    private void drawSelectedTowerSprite(Graphics g) {
+        selectedTower.draw(g);
+    }
+    private void drawSelectedTowerRange(Graphics g){
+        g.setColor(new Color(0f,0f,0f,.5f));
+        g.fillOval(selectedTower.rangeEllipse.getBounds().x, selectedTower.rangeEllipse.getBounds().y, selectedTower.rangeEllipse.getBounds().width, selectedTower.rangeEllipse.getBounds().height);
     }
 
     private void drawEnemy(Graphics g) {
