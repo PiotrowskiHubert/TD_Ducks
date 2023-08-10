@@ -2,14 +2,10 @@ package org.pio.ui;
 
 import org.pio.entities.ally.Ally;
 import org.pio.entities.factory.ally.AllyFactoryImpl;
-import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,10 +13,8 @@ import java.util.List;
 public class SidePanel {
     private BufferedImage spriteSidePanel;
     private BufferedImage spriteButtonAtlas;
-    private BufferedImage spriteAllyTowerAtlas;
     private PlayScene playScene;
-    private int panelWidth, panelHeight;
-    private int posWidthX, posHeightX;
+    private int width, height, posX, posY;
     public static Ally selectedTowerSidePanel;
     public Ally selectedTower;
     Button bTower_0, editMode, startRound, speedUp;
@@ -28,15 +22,14 @@ public class SidePanel {
     private AllyFactoryImpl allyFactory;
 
     public SidePanel(int posX, int posY, int width, int panelHeight, PlayScene playScene) {
-        this.panelWidth=width;
-        this.panelHeight=panelHeight;
-        this.posWidthX=posX;
-        this.posHeightX=posY;
+        this.width =width;
+        this.height =panelHeight;
+        this.posX =posX;
+        this.posY =posY;
         this.playScene=playScene;
 
-        spriteAllyTowerAtlas=getSpriteAllyTowerAtlas();
-        spriteButtonAtlas=getSpriteButtonAtlas();
-        spriteSidePanel=getSpriteSidePanel();
+        spriteButtonAtlas=playScene.getGame().getMainDatabase().spriteAtlasDatabase.get("Buttons");
+        spriteSidePanel=playScene.getGame().getMainDatabase().spriteAtlasDatabase.get("SidePanel");
 
         allyFactory=new AllyFactoryImpl(playScene.getGame().getMainDatabase());
 
@@ -45,28 +38,12 @@ public class SidePanel {
 
     // -------- INIT ------- //
 
-    private BufferedImage getSpriteSidePanel() {
-            BufferedImage img = null;
-
-            InputStream is = Level.class.getClassLoader().getResourceAsStream("SidePanel.png");
-
-            try {
-                if (is!=null){
-                    img= ImageIO.read(is);
-                }
-            } catch (IOException e) {
-                System.out.println("FailedToLoadSidePanelSprite");
-            }
-
-            return img;
-    }
-
     public void initButtons(){
         buttonTowerList = new ArrayList<>();
 
         int id =0;
 
-        int posX=this.posWidthX+10;
+        int posX=this.posX +10;
         int posY=29;
         int bWidth=80;
         int bHeight=59;
@@ -80,9 +57,9 @@ public class SidePanel {
             buttonTowerList.add(bTower_0);
         }
 
-        editMode=new Button("Edit_Mode", posX, panelHeight-4*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
-        speedUp=new Button("Speed_Up", posX, panelHeight-3*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
-        startRound =new Button("Start_Round", posX, panelHeight-2*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
+        editMode=new Button("Edit_Mode", posX, height -4*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
+        speedUp=new Button("Speed_Up", posX, height -3*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
+        startRound =new Button("Start_Round", posX, height -2*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
 
     }
 
@@ -119,11 +96,10 @@ public class SidePanel {
         drawPanel(g);
         drawButtons(g);
         drawSelectedTurret(g);
-
     }
 
     private void drawPanel(Graphics g) {
-        g.drawImage(spriteSidePanel,posWidthX,posHeightX, panelWidth, panelHeight,null);
+        g.drawImage(spriteSidePanel, posX, posY, width, height,null);
     }
 
     // -------- INPUTS ------- //
@@ -279,44 +255,9 @@ public class SidePanel {
     public static Ally getSelectedTowerSidePanel() {
         return selectedTowerSidePanel;
     }
-    private BufferedImage getSprite(int xCord, int yCord, int widthImg,int heightImg){
-        return spriteAllyTowerAtlas.getSubimage(xCord*40,yCord*40,widthImg,heightImg);
-    }
 
     private BufferedImage getButtonSprite(int xCord, int yCord, int widthImg,int heightImg){
         return spriteButtonAtlas.getSubimage(xCord*160,yCord*80,widthImg,heightImg);
-    }
-
-
-    private BufferedImage getSpriteAllyTowerAtlas(){
-        BufferedImage img = null;
-
-        InputStream is = Level.class.getClassLoader().getResourceAsStream("AllyAtlas.png");
-
-        try {
-            if (is!=null){
-                img= ImageIO.read(is);
-            }
-        } catch (IOException e) {
-            System.out.println("FailedToLoadAllyTowerAtlas");
-        }
-
-        return img;
-    }
-    private BufferedImage getSpriteButtonAtlas(){
-        BufferedImage img = null;
-
-        InputStream is = Level.class.getClassLoader().getResourceAsStream("AtlasButtons.png");
-
-        try {
-            if (is!=null){
-                img= ImageIO.read(is);
-            }
-        } catch (IOException e) {
-            System.out.println("FailedToLoadButtonAtlas");
-        }
-
-        return img;
     }
 
     // -------- SET ------- //

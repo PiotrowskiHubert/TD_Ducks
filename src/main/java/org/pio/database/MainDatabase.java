@@ -12,12 +12,15 @@ import java.util.LinkedList;
 public class MainDatabase {
     public LinkedHashMap<Integer, Enemy> enemyDatabase = new LinkedHashMap<>();
     public LinkedHashMap<Integer, Ally> allyDatabase = new LinkedHashMap<>();
+    public LinkedHashMap<String, BufferedImage> spriteAtlasDatabase = new LinkedHashMap<>();
 
-    LinkedHashMap<Integer, BufferedImage> spriteAtlasDatabase = new LinkedHashMap<>();
     LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<String>>> enemySpriteAtlasDatabase = new LinkedHashMap<>();
     LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<String>>> allySpriteAtlasDatabase = new LinkedHashMap<>();
     public MainDatabase(){
         //spriteAtlasDatabase.put(1, getSpriteAtlas("src/main/resources/Sprite/GrassTileSet.png"));
+        spriteAtlasDatabase.put("SidePanel",getSpriteAtlas("SidePanel.png"));
+        spriteAtlasDatabase.put("Buttons",getSpriteAtlas("AtlasButtons.png"));
+
         enemySpriteAtlasDatabase.put(1, getEnemySpriteAtlas());
         enemySpriteAtlasDatabase.put(2, getEnemySpriteAtlas());
         enemySpriteAtlasDatabase.put(3, getEnemySpriteAtlas());
