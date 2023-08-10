@@ -12,12 +12,12 @@ import org.pio.ui.buttons.bRectangleTileWImage;
 import java.awt.*;
 import java.util.LinkedHashMap;
 
-public class SidePanelEditMap extends aSidePanel{
+public class sidePanelEditMap extends aSidePanel{
     private tTile selectedTile;
     public SidePanelEditMapMethods sidePanelEditMapMethods;
     private PlayScene playScene;
     private bRectangle scrollUp, scrollDown, closeEditMap, saveMap;
-    public SidePanelEditMap(int width, int height, int posWidth, int posHeight, PlayScene playScene) {
+    public sidePanelEditMap(int width, int height, int posWidth, int posHeight, PlayScene playScene) {
         super(width, height, posWidth, posHeight);
 
         this.playScene=playScene;

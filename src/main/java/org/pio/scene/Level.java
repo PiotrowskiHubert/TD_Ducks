@@ -11,6 +11,7 @@ import org.pio.player.Directions;
 import org.pio.player.Player;
 import org.pio.readers.ReadFromFile;
 import org.pio.tiles.tTile;
+import org.pio.ui.sidePanel.sidePanelGame;
 
 import java.awt.*;
 import java.nio.file.Path;
@@ -25,14 +26,16 @@ public class Level extends GameScene {
     private static int lvlHeight, lvlWidth;
     private static tTile [][] lvlArr;
     public static List<Round> rounds = new ArrayList<>();
-    private static List<KeyPoint> keyPointsList;
+    private static List<KeyPoint> keyPointsList = new ArrayList<>();
     private EnemyFactoryImpl enemyFactoryImpl;
     public static List<Ally> allyPlacedTowers = new ArrayList<>();
     public Ally selectedTower;
+    public sidePanelGame sidePanelGame;
 
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
         enemyFactoryImpl = new EnemyFactoryImpl(game.getMainDatabase());
+        sidePanelGame = new sidePanelGame(GameScreen.UNIT_SIZE*3,GameScreen.UNIT_SIZE*22,GameScreen.UNIT_SIZE*29,GameScreen.UNIT_SIZE*0,this);
 
         this.NUM_OF_ROUNDS=numOfRounds;
         this.lvlWidth = lvlWidth;
@@ -50,7 +53,6 @@ public class Level extends GameScene {
     // -------- INIT ------- //
 
     public static void initKeypoints(){
-        keyPointsList=new ArrayList<>();
         keyPointsList.add(new KeyPoint(-40,9*GameScreen.UNIT_SIZE)); // 0
         keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE, 9*GameScreen.UNIT_SIZE));
         keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE, 5*GameScreen.UNIT_SIZE));
@@ -158,6 +160,11 @@ public class Level extends GameScene {
         drawRoundInfo(g);
         drawEnemy(g);
         drawSelectedAlly(g);
+        drawSidePanel(g);
+    }
+
+    private void drawSidePanel(Graphics g) {
+        sidePanelGame.draw(g);
     }
 
     private void drawSelectedAlly(Graphics g) {
