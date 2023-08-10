@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static org.pio.helpz.Helper.distanceBetweenTwoPoints;
-import static org.pio.scene.Level.currentRound;
+
 
 public class Update {
     private Game game;
@@ -27,9 +27,9 @@ public class Update {
         this.game = game;
 
         this.timePerUpdateGame =1_000_000_000.0/120.0;
-        this.timePerUpdateAllyShot=1_000_000_000.0/1.0;
+        //this.timePerUpdateAllyShot=1_000_000_000.0/1.0;
         this.lastGameUpdate =System.nanoTime();
-        this.lastAllyShotUpdate=System.nanoTime();
+        //this.lastAllyShotUpdate=System.nanoTime();
         this.lastTimeGameUpdateCheck =System.currentTimeMillis();
         this.updateCounter=0;
     }
@@ -45,17 +45,11 @@ public class Update {
             }
 
             if (game.getGameStates() == GameStates.GAME){
+
                 updateMoveEnemies();
-
-                if (now-lastAllyShotUpdate>=timePerUpdateAllyShot){
-                    updateAllyTowerPlaced(Level.allyPlacedTowers);
-                    lastAllyShotUpdate=now;
-                }
-
+                updateAllyTowerPlaced(Level.allyPlacedTowers);
                 bulletsUpdatePos(Level.allyPlacedTowers);
-                checkIfEnemyIsHitByBullet(Level.rounds.get(currentRound).getEnemies(),Level.allyPlacedTowers);
-
-                //game.getPlayScene().getLvl().checkIfEnemyIsHitByBullet();
+                checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
 
                 game.getPlayScene().update();
             }
@@ -124,8 +118,14 @@ public class Update {
         }
 
         for (Ally ally: allies) {
-            ally.lookForEnemiesInRange(Level.rounds.get(currentRound).getEnemies());
-            ally.update();
+
+            ally.lookForEnemiesInRange(Level.rounds.get(Level.currentRound).getEnemies());
+
+            if (now-ally.lastAllyShotUpdate>=ally.timePerUpdateAllyShot){
+                ally.update();
+                ally.lastAllyShotUpdate=now;
+            }
+
         }
 
     }

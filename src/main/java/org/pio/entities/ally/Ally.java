@@ -26,6 +26,8 @@ public abstract class Ally extends Entity {
 
     private int updateCounter;
     private long lastTimeShotUpdateCheck;
+    public double timePerUpdateAllyShot;
+    public long lastAllyShotUpdate;
 
     protected Ally(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, width, height);
@@ -53,6 +55,9 @@ public abstract class Ally extends Entity {
         this.enemiesInRangeList=new LinkedList<>();
         this.bulletList =new LinkedList<>();
         this.sidePanelUpgrade=new SidePanelUpgrade(GameScreen.UNIT_SIZE*5, GameScreen.UNIT_SIZE*22, GameScreen.screenWidth-250,0);
+
+        this.timePerUpdateAllyShot=1_000_000_000.0/1.0;
+        this.lastAllyShotUpdate=System.nanoTime();
 
     }
 
