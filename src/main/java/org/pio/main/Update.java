@@ -2,8 +2,8 @@ package org.pio.main;
 
 public class Update {
     private Game game;
-    public double timePerUpdateGame;
-    private long lastGameUpdate;
+    public double timePerUpdateGame, timePerUpdateAllyShot;
+    private long lastGameUpdate, lastAllyShotUpdate;
     private long lastTimeGameUpdateCheck;
     private long now;
     private int updateCounter;
@@ -12,7 +12,9 @@ public class Update {
         this.game = game;
 
         this.timePerUpdateGame =1_000_000_000.0/120.0;
+        this.timePerUpdateAllyShot=1_000_000_000.0/1.0;
         this.lastGameUpdate =System.nanoTime();
+        this.lastAllyShotUpdate=System.nanoTime();
         this.lastTimeGameUpdateCheck =System.currentTimeMillis();
         this.updateCounter=0;
     }
@@ -29,7 +31,12 @@ public class Update {
 
             if (game.getGameStates() == GameStates.GAME){
                 game.getPlayScene().getLvl().updateMoveEnemies();
-                game.getPlayScene().getLvl().updateAllyTowerPlaced();
+
+                if (now-lastAllyShotUpdate>=timePerUpdateAllyShot){
+                    game.getPlayScene().getLvl().updateAllyTowerPlaced();
+                    lastAllyShotUpdate=now;
+                }
+
                 game.getPlayScene().getLvl().bulletsUpdatePos();
                 game.getPlayScene().getLvl().checkIfEnemyIsHitByBullet();
 
