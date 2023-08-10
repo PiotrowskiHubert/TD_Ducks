@@ -133,7 +133,7 @@ public class ReadFromFileImpl implements ReadFromFile {
         return -1;
     }
     @Override
-    public int readMovementSpeed(String fileName) {
+    public double readMovementSpeed(String fileName) {
 
         try (
                 var fileReader = new FileReader(fileName);
@@ -144,7 +144,7 @@ public class ReadFromFileImpl implements ReadFromFile {
             while ((nextLine = reader.readLine()) != null) {
 
                 if (nextLine.equals("MOVEMENTSPEED")) {
-                    return Integer.parseInt(reader.readLine());
+                    return Double.parseDouble(reader.readLine());
                 }
 
             }

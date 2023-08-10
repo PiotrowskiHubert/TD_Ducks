@@ -35,7 +35,7 @@ public class EnemyDatabaseImpl implements EnemyDatabase{
         return readFromFile.readGold(fileName);
     }
     @Override
-    public int getMovementSpeed(String fileName) {
+    public double getMovementSpeed(String fileName) {
         return readFromFile.readMovementSpeed(fileName);
     }
     @Override

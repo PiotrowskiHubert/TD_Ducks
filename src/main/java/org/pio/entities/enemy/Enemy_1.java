@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class Enemy_1 extends Enemy{
 
 
-    public Enemy_1(String name, int id, int health, int damage, int gold, int movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
+    public Enemy_1(String name, int id, int health, int damage, int gold, double movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, health, damage, gold, movementSpeed, width, height, sprites);
     }
 

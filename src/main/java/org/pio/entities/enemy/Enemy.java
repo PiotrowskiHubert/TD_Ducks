@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 public abstract class Enemy extends Entity {
-    public int movementSpeed;
+    public double movementSpeed;
     public int health, damage, gold;
     public LinkedHashMap<Directions,LinkedList<String>> sprites;
     public Directions direction;
@@ -22,7 +22,7 @@ public abstract class Enemy extends Entity {
     private long lastTimeMoveUpdateCheck;
     private int updateCounter;
 
-    public Enemy(String name,  int id, int health, int damage, int gold, int movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
+    public Enemy(String name,  int id, int health, int damage, int gold, double movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, width, height);
 
         this.health = health;
@@ -116,7 +116,7 @@ public abstract class Enemy extends Entity {
         }
     }
     private void updateHitBox(){
-        bounds.setBounds(posX,posY,width,height);
+        bounds.setBounds((int) posX, (int) posY,width,height);
     }
     @Override
     public void draw(Graphics g) {

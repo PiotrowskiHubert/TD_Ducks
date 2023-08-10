@@ -8,7 +8,7 @@ public interface ReadFromFile {
     int readHealth(String fileName);
     int readDamage(String fileName);
     int readGold(String fileName);
-    int readMovementSpeed(String fileName);
+    double readMovementSpeed(String fileName);
     int readWidth(String fileName);
     int readHeight(String fileName);
     int readRange(String fileName);

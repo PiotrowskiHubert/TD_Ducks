@@ -19,13 +19,13 @@ public abstract class Ally extends Entity {
     public List<Bullet> bulletList;
     public LinkedHashMap<Directions, LinkedList<String>> sprites;
     public int cost, range;
-    private double timePerShotUpdate =1_000_000_000.0/0.8;
-    private long lastShotUpdate;
-    private long now;
     public Ellipse2D rangeEllipse;
     public Boolean mouseOver, pressed, placed;
     public Directions direction;
     public SidePanelUpgrade sidePanelUpgrade;
+
+    private int updateCounter;
+    private long lastTimeShotUpdateCheck;
 
     protected Ally(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, width, height);
@@ -63,14 +63,18 @@ public abstract class Ally extends Entity {
 
     @Override
     public void update() {
-        now = System.nanoTime();
 
         if (placed){
 
-            if (now - lastShotUpdate >= timePerShotUpdate){
-                lastShotUpdate=now;
-                shot();
+            shot();
+            updateCounter++;
+
+            if (System.currentTimeMillis()- lastTimeShotUpdateCheck >=1000){
+                System.out.println("T2, ALLY UPS: " + updateCounter);
+                updateCounter = 0;
+                lastTimeShotUpdateCheck =System.currentTimeMillis();
             }
+
         }
     }
 

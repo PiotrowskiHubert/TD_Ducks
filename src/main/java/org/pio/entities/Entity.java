@@ -4,7 +4,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class Entity {
-    public int width, height, posX, posY, id;
+    public double posX, posY;
+    public int width, height, id;
     public String name;
     public Rectangle bounds;
     private BufferedImage sprite;
@@ -16,7 +17,7 @@ public abstract class Entity {
         this.height = height;
     }
 
-    public Entity(Entity entity, int posX, int posY){
+    public Entity(Entity entity, double posX, double posY){
         this.name = entity.name;
         this.id = entity.id;
         this.width = entity.width;
@@ -28,7 +29,7 @@ public abstract class Entity {
     }
 
     private Rectangle setRectangleBounds(){
-        return new Rectangle(posX, posY, width, height);
+        return new Rectangle((int) posX, (int) posY, width, height);
     }
 
     public abstract void update();
