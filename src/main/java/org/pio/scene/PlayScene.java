@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 public class PlayScene extends GameScene implements sceneMeethods, mouseMethods {
     private Level lvl;
     private static Player player;
-    private SidePanel sidePanel;
+    public SidePanel sidePanel;
     private SidePanelEditMap editSidePanel;
     private static boolean mapEditMode;
     private static int mouseX, mouseY;
@@ -29,16 +29,6 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         sidePanel = new SidePanel(29*GameScreen.UNIT_SIZE,0*GameScreen.UNIT_SIZE,3*GameScreen.UNIT_SIZE,22*GameScreen.UNIT_SIZE,this);
         editSidePanel = new SidePanelEditMap(3*GameScreen.UNIT_SIZE, 22*GameScreen.UNIT_SIZE, 29*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, this);
 
-    }
-
-
-    // -------- UPDATE ------- //
-
-    public void update(){
-
-        if (SidePanel.getSelectedTowerSidePanel()!=null){
-            sidePanel.updateSelectedTowerHitBox();
-        }
     }
 
     // -------- INPUT ACTIONS ------- //

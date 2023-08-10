@@ -21,7 +21,6 @@ public class TileManager {
         BufferedImage img = null;
 
         InputStream is = aTile.class.getClassLoader().getResourceAsStream("Sprite/GrassTileSet.png");
-        //InputStream is = tTile.class.getClassLoader().getResourceAsStream("Sprite/GrassTileSet.png");
 
         try {
             if (is!=null){

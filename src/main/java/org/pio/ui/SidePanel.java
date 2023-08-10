@@ -21,7 +21,7 @@ public class SidePanel {
     private PlayScene playScene;
     private int panelWidth, panelHeight;
     private int posWidthX, posHeightX;
-    private static Ally selectedTowerSidePanel;
+    public static Ally selectedTowerSidePanel;
     public Ally selectedTower;
     Button bTower_0, editMode, startRound, speedUp;
     private List<Button> buttonTowerList;
@@ -80,26 +80,10 @@ public class SidePanel {
             buttonTowerList.add(bTower_0);
         }
 
-//        for (oldAllyTower oldAllyTowerList : AllyTowerManager.getAllyTowersList()) {
-//            bTower_0 =new Button(oldAllyTowerList.getNameEntity(), posX, posY+id*posYOffSet, bWidth, bHeight, id++, oldAllyTowerList.getCost(), getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
-//            buttonTowerList.add(bTower_0);
-//        }
-
         editMode=new Button("Edit_Mode", posX, panelHeight-4*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
         speedUp=new Button("Speed_Up", posX, panelHeight-3*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
         startRound =new Button("Start_Round", posX, panelHeight-2*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
 
-    }
-
-    // -------- UPDATE -------- //
-
-    public void updateSelectedTowerHitBox(){
-        if (selectedTowerSidePanel !=null){
-            selectedTowerSidePanel.bounds.getBounds().x= PlayScene.getMouseX()-20;
-            selectedTowerSidePanel.bounds.getBounds().y= PlayScene.getMouseY()-20;
-
-            //selectedTowerSidePanel.setEntityBounds(PlayScene.getMouseX()-20, PlayScene.getMouseY()-20, selectedTowerSidePanel.getWidth(), selectedTowerSidePanel.getHeight());
-        }
     }
 
     // -------- RENDER ------- //

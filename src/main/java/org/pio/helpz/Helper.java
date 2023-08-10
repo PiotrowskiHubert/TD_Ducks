@@ -7,28 +7,6 @@ import java.util.List;
 
 public class Helper {
 
-    public static boolean isBulletListEmpty(List<Bullet> passedAllyTowerList){
-        if (passedAllyTowerList.isEmpty()){
-            return true;
-        }else {
-            return false;
-        }
-    }
-    public static boolean isEnemyListEmpty(List<Enemy> passedAllyTowerList){
-        if (passedAllyTowerList.isEmpty()){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    public static boolean isFirstValueSmallerThanSecond(int firstValue, int secondValue){
-        if (firstValue<secondValue){
-            return true;
-        }else {
-            return false;
-        }
-    }
     public static boolean isInteger(String nextLine) {
         try {
             Integer.parseInt(nextLine);

@@ -30,7 +30,6 @@ public class PreGameScene implements sceneMeethods, keyboardMethods {
         player.render(g);
     }
 
-    @Override
     public void update() {
         player.update();
 

@@ -4,5 +4,4 @@ import java.awt.*;
 
 public interface sceneMeethods {
     public void render(Graphics g);
-    public void update();
 }

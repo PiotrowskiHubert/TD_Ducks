@@ -1,20 +1,16 @@
 package org.pio.scene;
 
-import org.pio.entities.Entity;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.factory.enemy.EnemyFactoryImpl;
-import org.pio.entities.Bullet;
-import org.pio.helpz.Helper;
+import org.pio.helpz.KeyPoint;
+import org.pio.helpz.Readers;
+import org.pio.main.Game;
 import org.pio.main.GameScreen;
-import org.pio.manager.PlayerManager;
 import org.pio.player.Directions;
 import org.pio.player.Player;
-import org.pio.tiles.tTile;
-import org.pio.helpz.KeyPoint;
-import org.pio.main.Game;
 import org.pio.readers.ReadFromFile;
-import org.pio.helpz.Readers;
+import org.pio.tiles.tTile;
 
 import java.awt.*;
 import java.nio.file.Path;
@@ -22,15 +18,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.pio.helpz.Helper.distanceBetweenTwoPoints;
-
 public class Level extends GameScene {
     private final int START_ROUND=0;
     private final int NUM_OF_ROUNDS;
     public static int currentRound;
     private static int lvlHeight, lvlWidth;
     private static tTile [][] lvlArr;
-    public static List<Round> rounds;
+    public static List<Round> rounds = new ArrayList<>();
     private static List<KeyPoint> keyPointsList;
     private EnemyFactoryImpl enemyFactoryImpl;
     public static List<Ally> allyPlacedTowers = new ArrayList<>();
@@ -45,8 +39,6 @@ public class Level extends GameScene {
         lvlArr = new tTile[lvlHeight][lvlWidth];
 
         currentRound=START_ROUND;
-
-        rounds = new ArrayList<>();
 
         createLevelRoundsAndAddEnemies();
 

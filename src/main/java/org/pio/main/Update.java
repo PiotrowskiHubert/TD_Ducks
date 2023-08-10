@@ -4,10 +4,10 @@ import org.pio.entities.Bullet;
 import org.pio.entities.Entity;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
-import org.pio.helpz.Helper;
 import org.pio.manager.PlayerManager;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
+import org.pio.ui.SidePanel;
 
 import java.util.Iterator;
 import java.util.List;
@@ -17,8 +17,8 @@ import static org.pio.helpz.Helper.distanceBetweenTwoPoints;
 
 public class Update {
     private Game game;
-    public double timePerUpdateGame, timePerUpdateAllyShot;
-    private long lastGameUpdate, lastAllyShotUpdate;
+    public double timePerUpdateGame;
+    private long lastGameUpdate;
     private long lastTimeGameUpdateCheck;
     private long now;
     private int updateCounter;
@@ -27,9 +27,7 @@ public class Update {
         this.game = game;
 
         this.timePerUpdateGame =1_000_000_000.0/120.0;
-        //this.timePerUpdateAllyShot=1_000_000_000.0/1.0;
         this.lastGameUpdate =System.nanoTime();
-        //this.lastAllyShotUpdate=System.nanoTime();
         this.lastTimeGameUpdateCheck =System.currentTimeMillis();
         this.updateCounter=0;
     }
@@ -50,8 +48,8 @@ public class Update {
                 updateAllyTowerPlaced(Level.allyPlacedTowers);
                 bulletsUpdatePos(Level.allyPlacedTowers);
                 checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
+                updateSelectedTowerHitBox();
 
-                game.getPlayScene().update();
             }
 
             lastGameUpdate = now;
@@ -79,20 +77,28 @@ public class Update {
 
     private void updateMoveEnemies() {
 
-        if (Helper.isFirstValueSmallerThanSecond(Level.currentRound,game.getPlayScene().getLvl().getNUM_OF_ROUNDS())){
-            updateStartMoveEnemies(Level.rounds.get(Level.currentRound).getEnemies());
+        if (Level.currentRound<game.getPlayScene().getLvl().getNUM_OF_ROUNDS()){
+
+            checkIfEnemyGetToEndPoint(Level.rounds.get(Level.currentRound).getEnemies());
+            updateEnemies(Level.rounds.get(Level.currentRound).getEnemies());
+
+        }
+
+    }
+
+    private void updateEnemies(List<Enemy> enemies) {
+        if (!enemies.isEmpty()){
+            enemies.stream().forEach(Enemy::update);
         }
     }
-    private void updateStartMoveEnemies(List<Enemy> enemies){
+    private void checkIfEnemyGetToEndPoint(List<Enemy> enemies){
 
         if (enemies.isEmpty()){
             return;
         }
 
         for (int i = 0; i < enemies.size(); i++) {
-
-            enemies.get(i).update();
-
+            
             if (i < enemies.size() - 1) {
 
                 if (enemies.get(i).posX>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
@@ -135,27 +141,25 @@ public class Update {
             return;
         }
 
-        // ITERATE THROUGH ALLY TOWER PLACED
-
         for (Iterator<Ally> allyTowerIterator = allies.iterator(); allyTowerIterator.hasNext();) {
             Ally nextAlly = allyTowerIterator.next();
 
-            if (!Helper.isBulletListEmpty(nextAlly.bulletList)){
-                // ITERATE THROUGH BULLET LIST OF EACH ALLY TOWER
 
-                for (Iterator<Bullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();) {
-                    Bullet nextBullet = bulletIterator.next();
-
-                    // UPDATE BULLET
-                    nextBullet.bulletUpdate();
-
-                    // CHECK IF BULLET IS OUT OF RANGE OF ALLY TOWER
-                    if (limitBulletRange(nextAlly, nextBullet)){
-                        bulletIterator.remove();
-                    }
-
-                }
+            if (nextAlly.bulletList.isEmpty()){
+                continue;
             }
+
+            for (Iterator<Bullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();) {
+                Bullet nextBullet = bulletIterator.next();
+
+                nextBullet.bulletUpdate();
+
+                if (limitBulletRange(nextAlly, nextBullet)){
+                    bulletIterator.remove();
+                }
+
+            }
+
 
         }
 
@@ -235,6 +239,12 @@ public class Update {
                 }
             }
 
+        }
+    }
+    private void updateSelectedTowerHitBox(){
+        if (SidePanel.selectedTowerSidePanel !=null){
+            SidePanel.selectedTowerSidePanel.bounds.getBounds().x= PlayScene.getMouseX()-20;
+            SidePanel.selectedTowerSidePanel.bounds.getBounds().y= PlayScene.getMouseY()-20;
         }
     }
 

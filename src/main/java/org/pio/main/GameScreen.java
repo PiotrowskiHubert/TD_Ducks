@@ -13,6 +13,7 @@ public class GameScreen extends JPanel {
     private KeyboardListener keyboardListener;
 
     public static int screenWidth,screenHeight;
+
     public static final int UNIT_SIZE =32;
 
     public GameScreen(Game game){
@@ -31,8 +32,6 @@ public class GameScreen extends JPanel {
         setMinimumSize(dimensionSize);
         setMaximumSize(dimensionSize);
         setPreferredSize(dimensionSize);
-
-        //set location of the window on the middle of the screen
 
         setBackground(Color.black);
     }
