@@ -5,7 +5,7 @@ import org.pio.main.GameScreen;
 import org.pio.player.Player;
 import org.pio.inputs.mouseMethods;
 import org.pio.main.Game;
-import org.pio.ui.SidePanel;
+import org.pio.ui.oldSidePanel;
 import org.pio.ui.sidePanel.SidePanelEditMap;
 
 import java.awt.*;
@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 public class PlayScene extends GameScene implements sceneMeethods, mouseMethods {
     private Level lvl;
     private static Player player;
-    public SidePanel sidePanel;
+    public oldSidePanel sidePanel;
     private SidePanelEditMap editSidePanel;
     private static boolean mapEditMode;
     private static int mouseX, mouseY;
@@ -26,7 +26,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         lvl=new Level(29,22, getGame(),11);
         player=new Player(2000,100);
 
-        sidePanel = new SidePanel(29*GameScreen.UNIT_SIZE,0*GameScreen.UNIT_SIZE,3*GameScreen.UNIT_SIZE,22*GameScreen.UNIT_SIZE,this);
+        sidePanel = new oldSidePanel(29*GameScreen.UNIT_SIZE,0*GameScreen.UNIT_SIZE,3*GameScreen.UNIT_SIZE,22*GameScreen.UNIT_SIZE,this);
         editSidePanel = new SidePanelEditMap(3*GameScreen.UNIT_SIZE, 22*GameScreen.UNIT_SIZE, 29*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, this);
 
     }
@@ -113,11 +113,6 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     }
     @Override
     public void rightMouseClicked(int x, int y) {
-
-        if (SidePanel.getSelectedTowerSidePanel()!=null){
-
-            SidePanel.setSelectedTowerSidePanel(null);
-        }
 
         lvl.rightMouseClicked(x,y);
 

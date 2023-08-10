@@ -7,7 +7,6 @@ import org.pio.entities.enemy.Enemy;
 import org.pio.manager.PlayerManager;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
-import org.pio.ui.SidePanel;
 
 import java.util.Iterator;
 import java.util.List;
@@ -48,7 +47,6 @@ public class Update {
                 updateAllyTowerPlaced(Level.allyPlacedTowers);
                 bulletsUpdatePos(Level.allyPlacedTowers);
                 checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
-                updateSelectedTowerHitBox();
 
             }
 
@@ -239,12 +237,6 @@ public class Update {
                 }
             }
 
-        }
-    }
-    private void updateSelectedTowerHitBox(){
-        if (SidePanel.selectedTowerSidePanel !=null){
-            SidePanel.selectedTowerSidePanel.bounds.getBounds().x= PlayScene.getMouseX()-20;
-            SidePanel.selectedTowerSidePanel.bounds.getBounds().y= PlayScene.getMouseY()-20;
         }
     }
 

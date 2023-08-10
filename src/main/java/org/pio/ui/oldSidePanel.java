@@ -10,20 +10,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class SidePanel {
+public class oldSidePanel {
     private BufferedImage spriteSidePanel;
     private BufferedImage spriteButtonAtlas;
     private PlayScene playScene;
     private int width, height, posX, posY;
-    public static Ally selectedTowerSidePanel;
-    public Ally selectedTower;
+//    public Ally selectedTower;
     Button bTower_0, editMode, startRound, speedUp;
     private List<Button> buttonTowerList;
     private AllyFactoryImpl allyFactory;
 
-    public SidePanel(int posX, int posY, int width, int panelHeight, PlayScene playScene) {
+    public oldSidePanel(int posX, int posY, int width, int height, PlayScene playScene) {
         this.width =width;
-        this.height =panelHeight;
+        this.height =height;
         this.posX =posX;
         this.posY =posY;
         this.playScene=playScene;
@@ -250,21 +249,11 @@ public class SidePanel {
 
     }
 
-    // -------- GET ------- //
-
-    public static Ally getSelectedTowerSidePanel() {
-        return selectedTowerSidePanel;
-    }
-
     private BufferedImage getButtonSprite(int xCord, int yCord, int widthImg,int heightImg){
         return spriteButtonAtlas.getSubimage(xCord*160,yCord*80,widthImg,heightImg);
     }
 
-    // -------- SET ------- //
 
-    public static void setSelectedTowerSidePanel(Ally selectedTowerSidePanel) {
-        SidePanel.selectedTowerSidePanel = selectedTowerSidePanel;
-    }
 
 
 }

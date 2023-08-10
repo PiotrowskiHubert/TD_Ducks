@@ -28,6 +28,8 @@ public class Level extends GameScene {
     private static List<KeyPoint> keyPointsList;
     private EnemyFactoryImpl enemyFactoryImpl;
     public static List<Ally> allyPlacedTowers = new ArrayList<>();
+
+    public Ally selectedTower;
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
         enemyFactoryImpl = new EnemyFactoryImpl(game.getMainDatabase());
