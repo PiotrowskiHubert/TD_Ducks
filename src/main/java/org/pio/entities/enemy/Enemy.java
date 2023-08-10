@@ -18,7 +18,6 @@ public abstract class Enemy extends Entity {
     private Stack<KeyPoint> keyPointsStack;
     private int keypointIndex;
 
-
     private long lastTimeMoveUpdateCheck;
     private int updateCounter;
 
@@ -101,13 +100,13 @@ public abstract class Enemy extends Entity {
     }
     private Directions calcDirection(){
 
-        if ((keyPointsStack.peek().getWidthX()-posX) > 0){
+        if (keyPointsStack.peek().getPosX()-posX>0){
             return Directions.RIGHT;
-        }else if (keyPointsStack.peek().getWidthX()-posX<0){
+        }else if (keyPointsStack.peek().getPosX()-posX<0){
             return Directions.LEFT;
-        }else if (keyPointsStack.peek().getHeightY()-posY>0){
+        }else if (keyPointsStack.peek().getPosY()-posY>0){
             return Directions.DOWN;
-        }else if (keyPointsStack.peek().getHeightY()-posY<0){
+        }else if (keyPointsStack.peek().getPosY()-posY<0){
             return Directions.UP;
         }else {
             keypointIndex++;

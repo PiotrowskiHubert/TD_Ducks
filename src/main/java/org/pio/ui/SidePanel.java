@@ -27,11 +27,11 @@ public class SidePanel {
     private List<Button> buttonTowerList;
     private AllyFactoryImpl allyFactory;
 
-    public SidePanel(int posWidthX, int posHeightX, int panelWidth, int panelHeight, PlayScene playScene) {
-        this.panelWidth=panelWidth;
+    public SidePanel(int posX, int posY, int width, int panelHeight, PlayScene playScene) {
+        this.panelWidth=width;
         this.panelHeight=panelHeight;
-        this.posWidthX=posWidthX;
-        this.posHeightX=posHeightX;
+        this.posWidthX=posX;
+        this.posHeightX=posY;
         this.playScene=playScene;
 
         spriteAllyTowerAtlas=getSpriteAllyTowerAtlas();

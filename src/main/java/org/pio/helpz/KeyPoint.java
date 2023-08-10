@@ -1,18 +1,17 @@
 package org.pio.helpz;
 
 public class KeyPoint {
-    private int widthX, heightY;
+    private int posX, posY;
 
     public KeyPoint(int widthX, int heightY) {
-        this.widthX = widthX;
-        this.heightY = heightY;
+        this.posX = widthX;
+        this.posY = heightY;
     }
 
-    public int getWidthX() {
-        return widthX;
+    public int getPosX() {
+        return posX;
     }
-
-    public int getHeightY() {
-        return heightY;
+    public int getPosY() {
+        return posY;
     }
 }

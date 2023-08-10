@@ -62,7 +62,7 @@ public class Level extends GameScene {
         String fileName = pathFile+ "LevelInfo/lvl_1_Enemies.txt";
 
         for (int i = 0; i < NUM_OF_ROUNDS; i++) {
-            Round round = ReadFromFile.readEnemyFromRoundDataFile(fileName,i,enemyFactoryImpl, keyPointsList.get(0).getWidthX(), keyPointsList.get(0).getHeightY(), Directions.RIGHT);
+            Round round = ReadFromFile.readEnemyFromRoundDataFile(fileName,i,enemyFactoryImpl, keyPointsList.get(0).getPosX(), keyPointsList.get(0).getPosY(), Directions.RIGHT);
             rounds.add(round);
         }
 

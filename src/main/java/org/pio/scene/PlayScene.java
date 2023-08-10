@@ -43,12 +43,14 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     public void changeGameSpeed(){
 
         double timePerUpdateRegular=1_000_000_000.0/120.0;
-        double timePerUpdateFast=1_000_000_000.0/180.0;
+        double timePerUpdateFast=timePerUpdateRegular/2;
 
         if (getGame().update.timePerUpdateGame==timePerUpdateRegular){
             getGame().update.timePerUpdateGame=timePerUpdateFast;
+            Level.allyPlacedTowers.stream().forEach(ally -> ally.timePerUpdateAllyShot=ally.timePerUpdateAllyShot/2);
         } else if (getGame().update.timePerUpdateGame==timePerUpdateFast){
             getGame().update.timePerUpdateGame=timePerUpdateRegular;
+            Level.allyPlacedTowers.stream().forEach(ally -> ally.timePerUpdateAllyShot=ally.timePerUpdateAllyShot*2);
         }
     }
 

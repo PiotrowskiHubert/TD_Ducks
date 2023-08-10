@@ -36,24 +36,9 @@ public abstract class aSidePanel implements sidePanelMethods {
         g.fillRect(posX, posY, width, height);
     }
     protected void drawButtons(Graphics g) {
-        if (currentDataLinkedMap !=null){
 
-            // DISPLAY FROM X TO Y
-
-            int x = 0;
-            int y = 10;
-
+        if (!currentDataLinkedMap.isEmpty()){
             currentDataLinkedMap.values().stream().forEach(button -> button.draw(g));
-
-//            currentDataLinkedMap.values().stream().skip(x).limit(y).forEach(button -> button.draw(g));
-
-            //dataLinkedMap.values().forEach(button -> button.draw(g));
-
-
-//            for (bRectangle button: dataLinkedMap.values()){
-//                button.draw(g);
-//            }
-
         }
     }
 }

@@ -101,13 +101,13 @@ public class Update {
             
             if (i < enemies.size() - 1) {
 
-                if (enemies.get(i).posX>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
+                if (enemies.get(i).posX>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getPosX()){
                     PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).health);
                     enemies.remove(enemies.get(i));
                 }
 
             } else {
-                if (enemies.get(i).posX>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getWidthX()){
+                if (enemies.get(i).posX>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getPosX()){
 
                     PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).health);
                     enemies.remove(enemies.get(i));
