@@ -15,11 +15,11 @@ public abstract class Enemy extends Entity {
     public int health, damage, gold;
     public LinkedHashMap<Directions,LinkedList<String>> sprites;
     public Directions direction;
-    private Stack<KeyPoint> keyPointsStack;
-    private int keypointIndex;
+    public Stack<KeyPoint> keyPointsStack;
+    public int keypointIndex;
 
-    private long lastTimeMoveUpdateCheck;
-    private int updateCounter;
+    public long lastTimeMoveUpdateCheck;
+    public int updateCounter;
 
     public Enemy(String name,  int id, int health, int damage, int gold, double movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, width, height);
@@ -41,82 +41,14 @@ public abstract class Enemy extends Entity {
 
         this.direction = direction;
 
-        this.keyPointsStack=initStack();
+        this.keyPointsStack=new Stack<>();
+        this.keypointIndex=1;
         keyPointsStack.push(Level.getKeyPointsList().get(keypointIndex));
 
         this.lastTimeMoveUpdateCheck=System.currentTimeMillis();
         this.updateCounter=0;
     }
 
-    private Stack<KeyPoint> initStack(){
-        this.keypointIndex=1;
-        return new Stack<>();
-    }
-
-    @Override
-    public void update() {
-
-        moveUpdate();
-        updateCounter++;
-
-        if (System.currentTimeMillis()- lastTimeMoveUpdateCheck >=1000){
-            System.out.println("T2, ENEMY UPS: " + updateCounter);
-            updateCounter = 0;
-            lastTimeMoveUpdateCheck =System.currentTimeMillis();
-        }
-
-    }
-
-    private void moveUpdate(){
-
-        direction=calcDirection();
-
-        if (direction!=null){
-
-            switch (direction) {
-                case LEFT -> {
-                    posX=posX-movementSpeed;
-                    updateHitBox();
-                }
-
-                case RIGHT -> {
-                    posX=posX+movementSpeed;
-                    updateHitBox();
-                }
-
-                case UP -> {
-                    posY=posY-movementSpeed;
-                    updateHitBox();
-                }
-
-                case DOWN -> {
-                    posY=posY+movementSpeed;
-                    updateHitBox();
-                }
-
-            }
-
-        }
-    }
-    private Directions calcDirection(){
-
-        if (keyPointsStack.peek().getPosX()-posX>0){
-            return Directions.RIGHT;
-        }else if (keyPointsStack.peek().getPosX()-posX<0){
-            return Directions.LEFT;
-        }else if (keyPointsStack.peek().getPosY()-posY>0){
-            return Directions.DOWN;
-        }else if (keyPointsStack.peek().getPosY()-posY<0){
-            return Directions.UP;
-        }else {
-            keypointIndex++;
-            keyPointsStack.push(Level.getKeyPointsList().get(keypointIndex));
-            return calcDirection();
-        }
-    }
-    private void updateHitBox(){
-        bounds.setBounds((int) posX, (int) posY,width,height);
-    }
     @Override
     public void draw(Graphics g) {
         switch (direction) {

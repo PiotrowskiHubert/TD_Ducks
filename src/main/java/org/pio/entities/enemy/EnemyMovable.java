@@ -1,0 +1,83 @@
+package org.pio.entities.enemy;
+
+import org.pio.player.Directions;
+import org.pio.scene.Level;
+
+import java.util.List;
+
+public class EnemyMovable implements Movable {
+
+
+    public EnemyMovable(){
+
+    }
+
+    public void moveUpdateListOfEnemies(List<Enemy> enemies) {
+        for(Enemy enemy: enemies) {
+
+        moveUpdate(enemy);
+        enemy.updateCounter++;
+
+        if (System.currentTimeMillis()- enemy.lastTimeMoveUpdateCheck >=1000){
+                System.out.println("T2, ENEMY UPS: " + enemy.updateCounter);
+                enemy.updateCounter = 0;
+                enemy.lastTimeMoveUpdateCheck =System.currentTimeMillis();
+            }
+        }
+
+
+    }
+
+    @Override
+    public void moveUpdate(Enemy enemy) {
+            enemy.direction = calcDirection(enemy);
+
+            if (enemy.direction != null) {
+
+                switch (enemy.direction) {
+                    case LEFT -> {
+                        enemy.posX = enemy.posX - enemy.movementSpeed;
+                        updateHitBox(enemy);
+                    }
+
+                    case RIGHT -> {
+                        enemy.posX = enemy.posX + enemy.movementSpeed;
+                        updateHitBox(enemy);
+                    }
+
+                    case UP -> {
+                        enemy.posY = enemy.posY - enemy.movementSpeed;
+                        updateHitBox(enemy);
+                    }
+
+                    case DOWN -> {
+                        enemy.posY = enemy.posY + enemy.movementSpeed;
+                        updateHitBox(enemy);
+                    }
+
+                }
+
+            }
+    }
+
+    private Directions calcDirection(Enemy enemy){
+
+        if (enemy.keyPointsStack.peek().getPosX()-enemy.posX>0){
+            return Directions.RIGHT;
+        }else if (enemy.keyPointsStack.peek().getPosX()-enemy.posX<0){
+            return Directions.LEFT;
+        }else if (enemy.keyPointsStack.peek().getPosY()-enemy.posY>0){
+            return Directions.DOWN;
+        }else if (enemy.keyPointsStack.peek().getPosY()-enemy.posY<0){
+            return Directions.UP;
+        }else {
+            enemy.keypointIndex++;
+            enemy.keyPointsStack.push(Level.getKeyPointsList().get(enemy.keypointIndex));
+            return calcDirection(enemy);
+        }
+    }
+
+    private void updateHitBox(Enemy enemy){
+        enemy.bounds.setBounds((int) enemy.posX, (int) enemy.posY,enemy.width,enemy.height);
+    }
+}

@@ -66,7 +66,6 @@ public abstract class Ally extends Entity {
         return new Ellipse2D.Double(posX-range+offset, posY-range+offset, range*2, range*2);
     }
 
-    @Override
     public void update() {
 
         if (placed){
