@@ -1,6 +1,5 @@
 package org.pio.entities.ally;
 
-import org.pio.entities.enemy.Enemy;
 import org.pio.entities.Entity;
 import org.pio.entities.Bullet;
 import org.pio.main.GameScreen;
@@ -9,7 +8,6 @@ import org.pio.ui.sidePanel.SidePanelUpgrade;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,9 +22,10 @@ public abstract class Ally extends Entity {
     public Directions direction;
     public SidePanelUpgrade sidePanelUpgrade;
 
-    private int updateCounter;
-    private long lastTimeShotUpdateCheck;
+
+    public long lastTimeShotUpdateCheck;
     public double timePerUpdateAllyShot;
+    public int updateShotCounter;
     public long lastAllyShotUpdate;
 
     protected Ally(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<String>> sprites) {
@@ -56,61 +55,15 @@ public abstract class Ally extends Entity {
         this.bulletList =new LinkedList<>();
         this.sidePanelUpgrade=new SidePanelUpgrade(GameScreen.UNIT_SIZE*5, GameScreen.UNIT_SIZE*22, GameScreen.screenWidth-250,0);
 
+        this.lastTimeShotUpdateCheck=System.currentTimeMillis();
+        this.updateShotCounter =0;
         this.timePerUpdateAllyShot=1_000_000_000.0/1.0;
         this.lastAllyShotUpdate=System.nanoTime();
-
     }
 
     private Ellipse2D createEllipseShape(){
         int offset=20;
         return new Ellipse2D.Double(posX-range+offset, posY-range+offset, range*2, range*2);
-    }
-
-    public void update() {
-
-        if (placed){
-
-            shot();
-            updateCounter++;
-
-            if (System.currentTimeMillis()- lastTimeShotUpdateCheck >=1000){
-                System.out.println("T2, ALLY UPS: " + updateCounter);
-                updateCounter = 0;
-                lastTimeShotUpdateCheck =System.currentTimeMillis();
-            }
-
-        }
-    }
-
-    public void lookForEnemiesInRange(List<Enemy> secondObj){
-
-        for (Iterator<Enemy> enemyIterator =secondObj.iterator(); enemyIterator.hasNext();){
-            Enemy enemy=enemyIterator.next();
-
-            if (rangeEllipse.intersects(enemy.bounds)){
-                if (!enemiesInRangeList.contains(enemy)) {
-                    enemiesInRangeList.add(enemy);
-                }else {
-                    enemiesInRangeList.get(enemiesInRangeList.indexOf(enemy)).posX=enemy.posX;
-                    enemiesInRangeList.get(enemiesInRangeList.indexOf(enemy)).posY=enemy.posY;
-                }
-            }
-
-            if (!rangeEllipse.intersects(enemy.bounds)){
-                enemiesInRangeList.remove(enemy);
-            }
-        }
-
-        //return enemiesInRangeList;
-    }
-    private void shot() {
-
-        if (enemiesInRangeList.isEmpty()){
-            return;
-        }
-
-        bulletList.add(new Bullet(posX,posY,enemiesInRangeList.get(0).posX,enemiesInRangeList.get(0).posY));
-
     }
 
     // -------------------------MOUSE------------------------------- //

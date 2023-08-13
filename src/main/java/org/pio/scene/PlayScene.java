@@ -47,9 +47,11 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         if (getGame().update.timePerUpdateGame==timePerUpdateRegular){
             getGame().update.timePerUpdateGame=timePerUpdateFast;
             Level.allyPlacedTowers.stream().forEach(ally -> ally.timePerUpdateAllyShot=ally.timePerUpdateAllyShot/2);
+            Level.rounds.get(Level.currentRound).getEnemies().stream().forEach(enemy -> enemy.timePerMoveUpdate=enemy.timePerMoveUpdate/2);
         } else if (getGame().update.timePerUpdateGame==timePerUpdateFast){
             getGame().update.timePerUpdateGame=timePerUpdateRegular;
             Level.allyPlacedTowers.stream().forEach(ally -> ally.timePerUpdateAllyShot=ally.timePerUpdateAllyShot*2);
+            Level.rounds.get(Level.currentRound).getEnemies().stream().forEach(enemy -> enemy.timePerMoveUpdate=enemy.timePerMoveUpdate*2);
         }
     }
 

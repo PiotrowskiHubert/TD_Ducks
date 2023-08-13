@@ -3,6 +3,7 @@ package org.pio.main;
 import org.pio.entities.Bullet;
 import org.pio.entities.Entity;
 import org.pio.entities.ally.Ally;
+import org.pio.entities.ally.AllyShotable;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.enemy.EnemyMovable;
 import org.pio.manager.PlayerManager;
@@ -23,6 +24,7 @@ public class Update {
     private long now;
     private int updateCounter;
     private EnemyMovable enemyMovable = new EnemyMovable();
+    private AllyShotable allyShootable = new AllyShotable();
 
     public Update(Game game) {
         this.game = game;
@@ -87,11 +89,7 @@ public class Update {
     }
 
     private void updateEnemies(List<Enemy> enemies) {
-        if (!enemies.isEmpty()){
-
-            enemyMovable.moveUpdateListOfEnemies(enemies);
-
-        }
+        enemyMovable.moveUpdateListOfEnemies(enemies, now);
     }
     private void checkIfEnemyGetToEndPoint(List<Enemy> enemies){
 
@@ -120,22 +118,7 @@ public class Update {
 
     }
     private void updateAllyTowerPlaced(List<Ally> allies){
-
-        if (allies.isEmpty()){
-            return;
-        }
-
-        for (Ally ally: allies) {
-
-            ally.lookForEnemiesInRange(Level.rounds.get(Level.currentRound).getEnemies());
-
-            if (now-ally.lastAllyShotUpdate>=ally.timePerUpdateAllyShot){
-                ally.update();
-                ally.lastAllyShotUpdate=now;
-            }
-
-        }
-
+         allyShootable.shotUpdateListOfAllies(allies, Level.rounds.get(Level.currentRound).getEnemies(), now);
     }
     private void bulletsUpdatePos(List<Ally> allies) {
 

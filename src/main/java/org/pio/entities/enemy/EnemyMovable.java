@@ -6,25 +6,23 @@ import org.pio.scene.Level;
 import java.util.List;
 
 public class EnemyMovable implements Movable {
+    public void moveUpdateListOfEnemies(List<Enemy> enemies, long now) {
+        if (!enemies.isEmpty()){
+            for(Enemy enemy: enemies) {
 
+                if(now-enemy.lastEnemyMoveUpdate>=enemy.timePerMoveUpdate){
+                    enemy.lastEnemyMoveUpdate=now;
+                    moveUpdate(enemy);
+                    enemy.updateMoveCounter++;
+                }
 
-    public EnemyMovable(){
-
-    }
-
-    public void moveUpdateListOfEnemies(List<Enemy> enemies) {
-        for(Enemy enemy: enemies) {
-
-        moveUpdate(enemy);
-        enemy.updateCounter++;
-
-        if (System.currentTimeMillis()- enemy.lastTimeMoveUpdateCheck >=1000){
-                System.out.println("T2, ENEMY UPS: " + enemy.updateCounter);
-                enemy.updateCounter = 0;
-                enemy.lastTimeMoveUpdateCheck =System.currentTimeMillis();
+                if (System.currentTimeMillis()- enemy.lastTimeMoveUpdateCheck >=1000){
+                    System.out.println("T2, ENEMY UPS: " + enemy.updateMoveCounter);
+                    enemy.updateMoveCounter = 0;
+                    enemy.lastTimeMoveUpdateCheck =System.currentTimeMillis();
+                }
             }
         }
-
 
     }
 
