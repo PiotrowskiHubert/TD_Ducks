@@ -1,6 +1,9 @@
 package org.pio.entities.ally;
 
-public interface Shotable {
+import org.pio.entities.enemy.Enemy;
 
-    void shot(Ally ally);
+import java.util.List;
+
+public interface Shotable {
+    void shot();
 }

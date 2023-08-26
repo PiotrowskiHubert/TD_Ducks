@@ -22,7 +22,6 @@ public class Update {
     private long lastTimeGameUpdateCheck;
     private long now;
     private int updateCounter;
-    private AllyShotable allyShootable = new AllyShotable();
 
     public Update(Game game) {
         this.game = game;
@@ -47,6 +46,7 @@ public class Update {
 
                 updateMoveEnemies();
                 updateAllyTowerPlaced(Level.allyPlacedTowers);
+
                 bulletsUpdatePos(Level.allyPlacedTowers);
                 checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
 
@@ -116,7 +116,7 @@ public class Update {
 
     }
     private void updateAllyTowerPlaced(List<Ally> allies){
-         allyShootable.shotUpdateListOfAllies(allies, Level.rounds.get(Level.currentRound).getEnemies(), now);
+        allies.forEach(ally -> ally.allyUpdate.update(now));
     }
     private void bulletsUpdatePos(List<Ally> allies) {
 

@@ -16,7 +16,9 @@ public class EnemyUpdate extends EntityUpdate{
     public void update(long now) {
         if(now-lastUpdate>=timePerUpdate){
             lastUpdate=now;
+
             enemy.enemyMovable.move();
+
             updateCounter++;
         }
 

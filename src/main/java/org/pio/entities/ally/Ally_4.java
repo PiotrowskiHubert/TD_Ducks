@@ -14,7 +14,7 @@ public class Ally_4 extends Ally{
 
     public Ally_4(Ally ally, int posX, int posY, Directions direction) {
         super(ally, posX, posY, direction);
-        this.timePerUpdateAllyShot=1_000_000_000.0/4.0;
+        allyUpdate.timePerUpdate = 1_000_000_000.0/4.0;
     }
 
     @Override

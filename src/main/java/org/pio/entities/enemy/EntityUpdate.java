@@ -5,4 +5,6 @@ public abstract class EntityUpdate implements Updatable {
     public double timePerUpdate;
     protected int updateCounter;
     protected long lastTimeUpdateCheck;
+
+
 }

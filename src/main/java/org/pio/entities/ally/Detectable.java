@@ -6,5 +6,5 @@ import org.pio.entities.enemy.Enemy;
 import java.util.List;
 
 public interface Detectable {
-    void detect(Ally ally, List<Enemy> enemy);
+    void detect(List<Enemy> enemy);
 }
