@@ -1,11 +1,8 @@
 package org.pio.database;
 
 import org.pio.helpz.ReadFromFileImpl;
-import org.pio.player.Directions;
 
 import java.awt.image.BufferedImage;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 
 public class EnemyDatabaseImpl implements EnemyDatabase{
     ReadFromFileImpl readFromFile = new ReadFromFileImpl();

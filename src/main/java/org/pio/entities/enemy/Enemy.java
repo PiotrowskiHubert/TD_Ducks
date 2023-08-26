@@ -2,7 +2,7 @@ package org.pio.entities.enemy;
 
 import org.pio.entities.Entity;
 import org.pio.helpz.KeyPoint;
-import org.pio.player.Directions;
+import org.pio.helpz.Directions;
 import org.pio.scene.Level;
 
 import java.awt.*;
@@ -13,8 +13,8 @@ import java.util.Stack;
 public abstract class Enemy extends Entity {
     public double movementSpeed;
     public int health, damage, gold;
-    public LinkedHashMap<Directions,LinkedList<String>> sprites;
     public Directions direction;
+    public LinkedHashMap<Directions,LinkedList<String>> sprites;
     public Stack<KeyPoint> keyPointsStack;
     public int keypointIndex;
 

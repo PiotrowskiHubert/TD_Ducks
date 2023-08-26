@@ -35,7 +35,7 @@ public class Update {
         this.updateCounter=0;
     }
 
-    public void update(){
+    public void gameUpdate(){
 
         now = System.nanoTime();
 

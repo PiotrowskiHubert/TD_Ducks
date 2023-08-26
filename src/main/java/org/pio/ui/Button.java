@@ -18,21 +18,6 @@ public class Button {
     boolean deleteButton;
 
 
-    // CIRCLE
-    public Button(String name, int posWidthX, int posHeightY, double startRadius, double radius, int id) {
-        this.name=name;
-        this.posWidthX = posWidthX;
-        this.posHeightY = posHeightY;
-        this.startRadius = startRadius;
-        this.radius = radius;
-        this.id= id;
-
-        this.mouseOver=false;
-        this.mousePressed=false;
-
-        this.partOfCircleShape= initBoundsCircleShape();
-    }
-
     // RECTANGLE
     public Button(String name, int posWidthX, int posHeightY, int width, int height, int id, int cost, BufferedImage spriteButtonIdle, BufferedImage spriteButtonHover, BufferedImage spriteButtonPressed) {
         this.name=name;
@@ -71,18 +56,6 @@ public class Button {
         initBoundsRectangleShape();
     }
 
-    public Button(int posWidthX, int posHeightY, int width, int height, int id) {
-        this.posWidthX = posWidthX;
-        this.posHeightY = posHeightY;
-        this.width = width;
-        this.height = height;
-        this.id = id;
-
-        this.mouseOver=false;
-        this.mousePressed=false;
-
-        initBoundsRectangleShape();
-    }
 
     // -------- INIT -------- //
     public void initBoundsRectangleShape(){
@@ -151,10 +124,6 @@ public class Button {
         }
     }
 
-    public void drawBasicButtonNoSprite(Graphics g){
-        drawRectangleBody(g);
-        drawRectangleBorder(g);
-    }
 
     private void drawRectangleBody(Graphics g) {
         if (mouseOver){
@@ -179,10 +148,6 @@ public class Button {
     }
 
                  // CIRCLE //
-    public void drawCircleButton(Graphics g){
-        drawCircleBody(g);
-        drawCircleBorder(g);
-    }
     private void drawCircleBody(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -229,9 +194,6 @@ public class Button {
     public Boolean getMousePressed() {
         return mousePressed;
     }
-    public Shape getPartOfCircleShape() {
-        return partOfCircleShape;
-    }
     public void resetBooleans(){
         this.mouseOver=false;
         this.mousePressed=false;
@@ -239,18 +201,9 @@ public class Button {
     public String getName() {
         return name;
     }
-    public boolean isDeleteButton() {
-        return deleteButton;
-    }
-    public String getText() {
-        return text;
-    }
 
     // ---------- SET ----------- //
 
-    public void setDeleteButton(boolean deleteButton) {
-        this.deleteButton = deleteButton;
-    }
     public void setMouseOver(Boolean mouseOver) {
         this.mouseOver = mouseOver;
     }

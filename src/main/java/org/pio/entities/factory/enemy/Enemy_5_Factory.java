@@ -3,7 +3,7 @@ package org.pio.entities.factory.enemy;
 import org.pio.database.MainDatabase;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.enemy.Enemy_5;
-import org.pio.player.Directions;
+import org.pio.helpz.Directions;
 
 public interface Enemy_5_Factory {
 

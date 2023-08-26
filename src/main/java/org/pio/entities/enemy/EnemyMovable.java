@@ -1,11 +1,12 @@
 package org.pio.entities.enemy;
 
-import org.pio.player.Directions;
+import org.pio.helpz.Directions;
 import org.pio.scene.Level;
 
 import java.util.List;
 
 public class EnemyMovable implements Movable {
+
     public void moveUpdateListOfEnemies(List<Enemy> enemies, long now) {
         if (!enemies.isEmpty()){
             for(Enemy enemy: enemies) {
@@ -17,7 +18,7 @@ public class EnemyMovable implements Movable {
                 }
 
                 if (System.currentTimeMillis()- enemy.lastTimeMoveUpdateCheck >=1000){
-                    System.out.println("T2, ENEMY UPS: " + enemy.updateMoveCounter);
+                    System.out.println("T2, ENEMY MOVE UPS: " + enemy.updateMoveCounter);
                     enemy.updateMoveCounter = 0;
                     enemy.lastTimeMoveUpdateCheck =System.currentTimeMillis();
                 }

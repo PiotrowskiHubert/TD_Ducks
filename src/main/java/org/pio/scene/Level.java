@@ -4,12 +4,12 @@ import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.factory.enemy.EnemyFactoryImpl;
 import org.pio.helpz.KeyPoint;
+import org.pio.helpz.ReadFromFileImpl;
 import org.pio.helpz.Readers;
 import org.pio.main.Game;
 import org.pio.main.GameScreen;
-import org.pio.player.Directions;
+import org.pio.helpz.Directions;
 import org.pio.player.Player;
-import org.pio.readers.ReadFromFile;
 import org.pio.tiles.tTile;
 import org.pio.ui.sidePanel.sidePanelGame;
 
@@ -66,7 +66,7 @@ public class Level extends GameScene {
         String fileName = pathFile+ "LevelInfo/lvl_1_Enemies.txt";
 
         for (int i = 0; i < NUM_OF_ROUNDS; i++) {
-            Round round = ReadFromFile.readEnemyFromRoundDataFile(fileName,i,enemyFactoryImpl, keyPointsList.get(0).getPosX(), keyPointsList.get(0).getPosY(), Directions.RIGHT);
+            Round round = ReadFromFileImpl.readEnemyFromRoundDataFile(fileName,i,enemyFactoryImpl, keyPointsList.get(0).getPosX(), keyPointsList.get(0).getPosY(), Directions.RIGHT);
             rounds.add(round);
         }
 

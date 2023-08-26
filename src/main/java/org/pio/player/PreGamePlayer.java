@@ -1,5 +1,6 @@
 package org.pio.player;
 
+import org.pio.helpz.Directions;
 import org.pio.inputs.KeyStates;
 import org.pio.inputs.keyboardMethods;
 import org.pio.main.GameScreen;

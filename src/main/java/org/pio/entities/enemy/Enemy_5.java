@@ -1,6 +1,6 @@
 package org.pio.entities.enemy;
 
-import org.pio.player.Directions;
+import org.pio.helpz.Directions;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;

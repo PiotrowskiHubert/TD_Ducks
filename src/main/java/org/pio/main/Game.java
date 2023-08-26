@@ -68,7 +68,7 @@ public class Game extends JFrame implements Runnable {
         new Thread(() -> {
 
             while (true){
-                update();
+                update.gameUpdate();
             }
         }).start();
 
@@ -124,9 +124,6 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
-    private void update() {
-        update.update();
-    }
 
     // ----------- GET ----------- //
 

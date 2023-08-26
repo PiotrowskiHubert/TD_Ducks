@@ -3,7 +3,7 @@ package org.pio.entities.ally;
 import org.pio.entities.Entity;
 import org.pio.entities.Bullet;
 import org.pio.main.GameScreen;
-import org.pio.player.Directions;
+import org.pio.helpz.Directions;
 import org.pio.ui.sidePanel.SidePanelUpgrade;
 
 import java.awt.*;

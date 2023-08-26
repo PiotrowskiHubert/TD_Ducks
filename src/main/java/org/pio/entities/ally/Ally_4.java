@@ -1,6 +1,6 @@
 package org.pio.entities.ally;
 
-import org.pio.player.Directions;
+import org.pio.helpz.Directions;
 
 import java.awt.*;
 import java.util.LinkedHashMap;

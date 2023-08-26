@@ -3,7 +3,7 @@ package org.pio.database;
 import org.pio.entities.ally.*;
 import org.pio.entities.enemy.*;
 import org.pio.helpz.ReadFromFileImpl;
-import org.pio.player.Directions;
+import org.pio.helpz.Directions;
 
 import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;

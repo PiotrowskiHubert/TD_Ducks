@@ -4,7 +4,7 @@ import org.pio.database.MainDatabase;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.enemy.Enemy_1;
 import org.pio.entities.enemy.Enemy_2;
-import org.pio.player.Directions;
+import org.pio.helpz.Directions;
 
 public interface Enemy_2_Factory{
 

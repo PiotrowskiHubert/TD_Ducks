@@ -3,7 +3,7 @@ package org.pio.entities.factory.ally;
 import org.pio.database.MainDatabase;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.ally.Ally_2;
-import org.pio.player.Directions;
+import org.pio.helpz.Directions;
 
 public interface Ally_2_Factory {
     default public Ally getInfoFromDatabaseAlly_2(MainDatabase mainDatabase) {
