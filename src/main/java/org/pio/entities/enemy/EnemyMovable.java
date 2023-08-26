@@ -10,21 +10,6 @@ public class EnemyMovable implements Movable {
         this.enemy = enemy;
     }
 
-    public void moveUpdate(long now) {
-
-                if(now-enemy.lastEnemyMoveUpdate>=enemy.timePerMoveUpdate){
-                    enemy.lastEnemyMoveUpdate=now;
-                    move();
-                    enemy.updateMoveCounter++;
-                }
-
-                if (System.currentTimeMillis()- enemy.lastTimeMoveUpdateCheck >=1000){
-                    System.out.println("T2, ENEMY MOVE UPS: " + enemy.updateMoveCounter);
-                    enemy.updateMoveCounter = 0;
-                    enemy.lastTimeMoveUpdateCheck =System.currentTimeMillis();
-                }
-    }
-
     @Override
     public void move() {
             enemy.direction = calcDirection(enemy);

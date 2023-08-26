@@ -87,7 +87,7 @@ public class Update {
     }
 
     private void updateEnemies(List<Enemy> enemies) {
-        enemies.forEach(enemy -> enemy.enemyMovable.moveUpdate(now));
+        enemies.forEach(enemy -> enemy.enemyUpdate.update(now));
     }
     private void checkIfEnemyGetToEndPoint(List<Enemy> enemies){
 
