@@ -3,17 +3,18 @@ package org.pio.entities.enemy;
 import org.pio.helpz.Directions;
 import org.pio.scene.Level;
 
-import java.util.List;
-
 public class EnemyMovable implements Movable {
+    Enemy enemy;
 
-    public void moveUpdateListOfEnemies(List<Enemy> enemies, long now) {
-        if (!enemies.isEmpty()){
-            for(Enemy enemy: enemies) {
+    public EnemyMovable(Enemy enemy) {
+        this.enemy = enemy;
+    }
+
+    public void moveUpdate(long now) {
 
                 if(now-enemy.lastEnemyMoveUpdate>=enemy.timePerMoveUpdate){
                     enemy.lastEnemyMoveUpdate=now;
-                    moveUpdate(enemy);
+                    move();
                     enemy.updateMoveCounter++;
                 }
 
@@ -22,13 +23,10 @@ public class EnemyMovable implements Movable {
                     enemy.updateMoveCounter = 0;
                     enemy.lastTimeMoveUpdateCheck =System.currentTimeMillis();
                 }
-            }
-        }
-
     }
 
     @Override
-    public void moveUpdate(Enemy enemy) {
+    public void move() {
             enemy.direction = calcDirection(enemy);
 
             if (enemy.direction != null) {

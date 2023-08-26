@@ -5,7 +5,6 @@ import org.pio.entities.Entity;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.ally.AllyShotable;
 import org.pio.entities.enemy.Enemy;
-import org.pio.entities.enemy.EnemyMovable;
 import org.pio.manager.PlayerManager;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
@@ -23,7 +22,6 @@ public class Update {
     private long lastTimeGameUpdateCheck;
     private long now;
     private int updateCounter;
-    private EnemyMovable enemyMovable = new EnemyMovable();
     private AllyShotable allyShootable = new AllyShotable();
 
     public Update(Game game) {
@@ -89,7 +87,7 @@ public class Update {
     }
 
     private void updateEnemies(List<Enemy> enemies) {
-        enemyMovable.moveUpdateListOfEnemies(enemies, now);
+        enemies.forEach(enemy -> enemy.enemyMovable.moveUpdate(now));
     }
     private void checkIfEnemyGetToEndPoint(List<Enemy> enemies){
 
