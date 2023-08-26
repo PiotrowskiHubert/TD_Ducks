@@ -3,7 +3,6 @@ package org.pio.main;
 import org.pio.entities.Bullet;
 import org.pio.entities.Entity;
 import org.pio.entities.ally.Ally;
-import org.pio.entities.ally.AllyShotable;
 import org.pio.entities.enemy.Enemy;
 import org.pio.manager.PlayerManager;
 import org.pio.scene.Level;

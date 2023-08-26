@@ -18,7 +18,7 @@ public abstract class Enemy extends Entity {
     public Stack<KeyPoint> keyPointsStack;
     public int keypointIndex;
 
-    public EnemyMovable enemyMovable;
+
     public EnemyUpdate enemyUpdate;
 
     public Enemy(String name,  int id, int health, int damage, int gold, double movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
@@ -45,7 +45,6 @@ public abstract class Enemy extends Entity {
         this.keypointIndex=1;
         keyPointsStack.push(Level.getKeyPointsList().get(keypointIndex));
 
-        this.enemyMovable=new EnemyMovable(this);
         this.enemyUpdate=new EnemyUpdate(this);
     }
 

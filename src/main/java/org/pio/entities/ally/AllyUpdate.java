@@ -1,13 +1,15 @@
 package org.pio.entities.ally;
 
-import org.pio.entities.enemy.EntityUpdate;
+import org.pio.entities.EntityUpdate;
 import org.pio.entities.enemy.Updatable;
 
 public class AllyUpdate extends EntityUpdate implements Updatable {
     Ally ally;
+    AllyShot allyShot;
 
     public AllyUpdate(Ally ally) {
         this.ally = ally;
+        this.allyShot =new AllyShot(ally);
 
         this.lastTimeUpdateCheck = System.currentTimeMillis();
         this.updateCounter = 0;
@@ -21,7 +23,7 @@ public class AllyUpdate extends EntityUpdate implements Updatable {
             if(now-lastUpdate>=timePerUpdate){
                 lastUpdate=now;
 
-                ally.allyShotable.shot();
+                allyShot.shot();
 
                 updateCounter++;
             }

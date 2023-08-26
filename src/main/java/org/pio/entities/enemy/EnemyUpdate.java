@@ -1,10 +1,14 @@
 package org.pio.entities.enemy;
 
-public class EnemyUpdate extends EntityUpdate{
+import org.pio.entities.EntityUpdate;
+
+public class EnemyUpdate extends EntityUpdate {
     Enemy enemy;
+    EnemyMovable enemyMovable;
 
     public EnemyUpdate(Enemy enemy) {
         this.enemy = enemy;
+        this.enemyMovable=new EnemyMovable(enemy);
 
         this.lastTimeUpdateCheck=System.currentTimeMillis();
         this.updateCounter =0;
@@ -17,7 +21,7 @@ public class EnemyUpdate extends EntityUpdate{
         if(now-lastUpdate>=timePerUpdate){
             lastUpdate=now;
 
-            enemy.enemyMovable.move();
+            enemyMovable.move();
 
             updateCounter++;
         }

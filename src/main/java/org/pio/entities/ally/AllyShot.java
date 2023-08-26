@@ -8,10 +8,10 @@ import org.pio.scene.Level;
 import java.util.Iterator;
 import java.util.List;
 
-public class AllyShotable implements Shotable, Detectable {
+public class AllyShot implements Shotable, Detectable {
     Ally ally;
 
-    public AllyShotable(Ally ally) {
+    public AllyShot(Ally ally) {
         this.ally = ally;
     }
 

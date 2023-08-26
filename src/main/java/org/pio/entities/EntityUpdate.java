@@ -1,4 +1,6 @@
-package org.pio.entities.enemy;
+package org.pio.entities;
+
+import org.pio.entities.enemy.Updatable;
 
 public abstract class EntityUpdate implements Updatable {
     protected long lastUpdate;
