@@ -1,4 +1,4 @@
-package org.pio.entities.factory.enemy;
+package org.pio.factory.enemy;
 
 import org.pio.database.MainDatabase;
 import org.pio.entities.enemy.Enemy;

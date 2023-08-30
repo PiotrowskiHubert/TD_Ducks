@@ -18,7 +18,6 @@ public abstract class Enemy extends Entity {
     public Stack<KeyPoint> keyPointsStack;
     public int keypointIndex;
 
-
     public EnemyUpdate enemyUpdate;
 
     public Enemy(String name,  int id, int health, int damage, int gold, double movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {

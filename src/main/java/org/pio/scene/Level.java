@@ -2,7 +2,7 @@ package org.pio.scene;
 
 import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
-import org.pio.entities.factory.enemy.EnemyFactoryImpl;
+import org.pio.factory.enemy.EnemyFactoryImpl;
 import org.pio.helpz.KeyPoint;
 import org.pio.helpz.ReadFromFileImpl;
 import org.pio.helpz.Readers;

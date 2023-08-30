@@ -18,22 +18,23 @@ public class GameScreen extends JPanel {
 
     public GameScreen(Game game){
         this.game=game;
-        windowConfig();
+        screenInit();
     }
 
-    private void windowConfig(){
+    private void screenInit(){
         int rightSidePanelSize=3* UNIT_SIZE;
 
-        this.screenWidth=29* UNIT_SIZE +rightSidePanelSize;
-        this.screenHeight=22* UNIT_SIZE;
+        this.screenWidth=57* UNIT_SIZE +rightSidePanelSize;
+        this.screenHeight=33* UNIT_SIZE;
 
         dimensionSize=new Dimension(screenWidth, screenHeight);
 
         setMinimumSize(dimensionSize);
         setMaximumSize(dimensionSize);
         setPreferredSize(dimensionSize);
-
+        setVisible(true);
         setBackground(Color.black);
+
     }
 
     public void initInputs(){

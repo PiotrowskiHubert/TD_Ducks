@@ -8,6 +8,7 @@ import org.pio.scene.PreGameScene;
 import org.pio.tiles.TileManager;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Game extends JFrame implements Runnable {
     private MainDatabase mainDatabase;
@@ -21,6 +22,8 @@ public class Game extends JFrame implements Runnable {
     private PlayScene playScene;
     Thread gameThread_1;
     private double timePerUpdatePlayerAnimation;
+    JFrame frame = new JFrame("GameTitle");
+
 
     public static void main(String[] args) {
         Game game=new Game();
@@ -31,7 +34,6 @@ public class Game extends JFrame implements Runnable {
     public Game() {
         initClass();
         initWindow();
-
     }
 
     private void initClass(){
@@ -53,12 +55,16 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void initWindow(){
-        add(gameScreen);
-        pack();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setVisible(true);
+
+        setLocation(0,0);
+        frame.getContentPane().add(gameScreen);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setLocation(new Point(-8,-8));
+        frame.setUndecorated(false);
+        frame.setVisible(true);
+        frame.pack();
+
     }
 
     private void startThread(){
@@ -110,7 +116,7 @@ public class Game extends JFrame implements Runnable {
             now = System.nanoTime();
 
             if (now-lastFrame>=timePerFrame){
-                repaint();
+                frame.repaint();
                 lastFrame=now;
                 frames++;
             }

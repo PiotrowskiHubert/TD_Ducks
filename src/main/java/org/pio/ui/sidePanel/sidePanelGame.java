@@ -1,6 +1,6 @@
 package org.pio.ui.sidePanel;
 
-import org.pio.entities.factory.ally.AllyFactoryImpl;
+import org.pio.factory.ally.AllyFactoryImpl;
 import org.pio.player.Player;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;

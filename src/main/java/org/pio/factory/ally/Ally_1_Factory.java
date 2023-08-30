@@ -1,4 +1,4 @@
-package org.pio.entities.factory.ally;
+package org.pio.factory.ally;
 
 import org.pio.database.MainDatabase;
 import org.pio.entities.ally.Ally;

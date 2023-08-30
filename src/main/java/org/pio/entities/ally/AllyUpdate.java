@@ -1,9 +1,15 @@
 package org.pio.entities.ally;
 
+import org.pio.entities.Entity;
 import org.pio.entities.EntityUpdate;
+import org.pio.entities.enemy.Enemy;
 import org.pio.entities.enemy.Updatable;
+import org.pio.scene.Level;
 
-public class AllyUpdate extends EntityUpdate implements Updatable {
+import java.util.Iterator;
+import java.util.List;
+
+public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
     Ally ally;
     AllyShot allyShot;
 
@@ -23,6 +29,7 @@ public class AllyUpdate extends EntityUpdate implements Updatable {
             if(now-lastUpdate>=timePerUpdate){
                 lastUpdate=now;
 
+                detect(Level.rounds.get(Level.currentRound).getEnemies());
                 allyShot.shot();
 
                 updateCounter++;
@@ -35,5 +42,27 @@ public class AllyUpdate extends EntityUpdate implements Updatable {
             }
         }
 
+    }
+
+    @Override
+    public void detect(List<Enemy> enemies) {
+        if (!enemies.isEmpty()){
+            for (Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
+                Entity enemy=enemyIterator.next();
+
+                if (ally.rangeEllipse.intersects(enemy.bounds)){
+                    if (!ally.enemiesInRangeList.contains(enemy)) {
+                        ally.enemiesInRangeList.add(enemy);
+                    }else {
+                        ally.enemiesInRangeList.get(ally.enemiesInRangeList.indexOf(enemy)).posX=enemy.posX;
+                        ally.enemiesInRangeList.get(ally.enemiesInRangeList.indexOf(enemy)).posY=enemy.posY;
+                    }
+                }
+
+                if (!ally.rangeEllipse.intersects(enemy.bounds)){
+                    ally.enemiesInRangeList.remove(enemy);
+                }
+            }
+        }
     }
 }
