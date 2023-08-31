@@ -34,7 +34,7 @@ public class Level extends GameScene {
     public LevelMouseHandler mouseHandler;
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
-        enemyFactoryImpl = new EnemyFactoryImpl(game.getMainDatabase());
+        enemyFactoryImpl = new EnemyFactoryImpl();
         int scale=3;
         sidePanelGame = new SidePanelGame(GameScreen.UNIT_SIZE*2*scale,GameScreen.UNIT_SIZE*33,GameScreen.UNIT_SIZE*54,GameScreen.UNIT_SIZE*0,this);
 
@@ -74,8 +74,6 @@ public class Level extends GameScene {
         }
 
     }
-
-
 
     // -------------------------DRAW------------------------------- //
 

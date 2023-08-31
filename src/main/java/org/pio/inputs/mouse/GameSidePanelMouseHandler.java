@@ -1,5 +1,6 @@
 package org.pio.inputs.mouse;
 
+import org.pio.database.MainDatabase;
 import org.pio.inputs.mouse.MouseHandler;
 import org.pio.player.Player;
 import org.pio.scene.PlayScene;
@@ -25,7 +26,7 @@ public class GameSidePanelMouseHandler implements MouseHandler {
 
                 if (button.getId() == 0) {
 
-                    if(sidePanelGame.level.getGame().getMainDatabase().allyDatabase.get(1).cost> Player.getGold()){
+                    if(MainDatabase.getMainDatabase().allyDatabase.get(1).cost> Player.getGold()){
                         return;
                     }
 
@@ -34,7 +35,7 @@ public class GameSidePanelMouseHandler implements MouseHandler {
 
                 if (button.getId() == 1) {
 
-                    if(sidePanelGame.level.getGame().getMainDatabase().allyDatabase.get(2).cost> Player.getGold()){
+                    if(MainDatabase.getMainDatabase().allyDatabase.get(2).cost> Player.getGold()){
                         return;
                     }
 
@@ -43,7 +44,7 @@ public class GameSidePanelMouseHandler implements MouseHandler {
 
                 if (button.getId() == 2) {
 
-                    if(sidePanelGame.level.getGame().getMainDatabase().allyDatabase.get(3).cost>Player.getGold()){
+                    if(MainDatabase.getMainDatabase().allyDatabase.get(3).cost>Player.getGold()){
                         return;
                     }
 
@@ -52,7 +53,7 @@ public class GameSidePanelMouseHandler implements MouseHandler {
 
                 if (button.getId() == 3) {
 
-                    if(sidePanelGame.level.getGame().getMainDatabase().allyDatabase.get(4).cost>Player.getGold()){
+                    if(MainDatabase.getMainDatabase().allyDatabase.get(4).cost>Player.getGold()){
                         return;
                     }
 
@@ -61,7 +62,7 @@ public class GameSidePanelMouseHandler implements MouseHandler {
 
                 if (button.getId() == 4) {
 
-                    if(sidePanelGame.level.getGame().getMainDatabase().allyDatabase.get(5).cost>Player.getGold()){
+                    if(MainDatabase.getMainDatabase().allyDatabase.get(5).cost>Player.getGold()){
                         return;
                     }
 

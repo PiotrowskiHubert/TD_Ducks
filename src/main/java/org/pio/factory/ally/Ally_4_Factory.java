@@ -6,12 +6,18 @@ import org.pio.entities.ally.Ally_4;
 import org.pio.helpz.Directions;
 
 public interface Ally_4_Factory {
-    default public Ally getInfoFromDatabaseAlly_4(MainDatabase mainDatabase) {
-        int allyIndex = 4;
-        return new Ally_4(mainDatabase.allyDatabase.get(allyIndex).name, mainDatabase.allyDatabase.get(allyIndex).id, mainDatabase.allyDatabase.get(allyIndex).width, mainDatabase.allyDatabase.get(allyIndex).height, mainDatabase.allyDatabase.get(allyIndex).cost, mainDatabase.allyDatabase.get(allyIndex).range, mainDatabase.allyDatabase.get(allyIndex).sprites);
+    default public Ally getInfoFromDatabaseAlly_4(int allyIndex) {
+        return new Ally_4(
+                MainDatabase.getMainDatabase().allyDatabase.get(allyIndex).name,
+                MainDatabase.getMainDatabase().allyDatabase.get(allyIndex).id,
+                MainDatabase.getMainDatabase().allyDatabase.get(allyIndex).width,
+                MainDatabase.getMainDatabase().allyDatabase.get(allyIndex).height,
+                MainDatabase.getMainDatabase().allyDatabase.get(allyIndex).cost,
+                MainDatabase.getMainDatabase().allyDatabase.get(allyIndex).range,
+                MainDatabase.getMainDatabase().allyDatabase.get(allyIndex).sprites);
     }
 
-    default public Ally createWithImageAlly_4(MainDatabase mainDatabase, int posX, int posY, Directions direction){
-        return new Ally_4(getInfoFromDatabaseAlly_4(mainDatabase), posX, posY, direction);
+    default public Ally createWithImageAlly_4(int allyIndex, int posX, int posY, Directions direction){
+        return new Ally_4(getInfoFromDatabaseAlly_4(allyIndex), posX, posY, direction);
     }
 }

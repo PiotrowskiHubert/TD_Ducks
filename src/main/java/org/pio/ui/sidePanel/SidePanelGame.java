@@ -1,5 +1,6 @@
 package org.pio.ui.sidePanel;
 
+import org.pio.database.MainDatabase;
 import org.pio.factory.ally.AllyFactoryImpl;
 import org.pio.inputs.mouse.GameSidePanelMouseHandler;
 import org.pio.scene.Level;
@@ -27,9 +28,10 @@ public class SidePanelGame extends aSidePanel{
         super(width, height, posX, posY);
 
         this.level=level;
-        this.spriteSidePanel=level.getGame().getMainDatabase().spriteAtlasDatabase.get("SidePanel");
-        this.spriteButtonAtlas=level.getGame().getMainDatabase().spriteAtlasDatabase.get("Buttons");
-        this.allyFactory=new AllyFactoryImpl(level.getGame().getMainDatabase());
+        this.spriteSidePanel= MainDatabase.getMainDatabase().spriteAtlasDatabase.get("SidePanel");
+        this.spriteButtonAtlas=MainDatabase.getMainDatabase().spriteAtlasDatabase.get("Buttons");
+
+        this.allyFactory=new AllyFactoryImpl();
 
         initButtons();
 
@@ -48,7 +50,7 @@ public class SidePanelGame extends aSidePanel{
         for (int i = 0; i < 5; i++) {
             int index=1;
 
-            bTower_0 =new Button(level.getGame().getMainDatabase().allyDatabase.get(index).name, posX, posY+id*posYOffSet, bWidth, bHeight, id++, level.getGame().getMainDatabase().allyDatabase.get(index).cost, getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
+            bTower_0 =new Button(MainDatabase.getMainDatabase().allyDatabase.get(index).name, posX, posY+id*posYOffSet, bWidth, bHeight, id++, MainDatabase.getMainDatabase().allyDatabase.get(index).cost, getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
             buttonTowerList.add(bTower_0);
         }
 

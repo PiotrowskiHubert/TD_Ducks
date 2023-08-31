@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Game extends JFrame implements Runnable {
-    private MainDatabase mainDatabase;
     private PreGameScene preGameScene;
     public static GameStates gameStates;
     public Update update;
@@ -37,7 +36,6 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void initClass(){
-        mainDatabase=new MainDatabase();
 
         gameScreen=new GameScreen(this);
         gameStates=GameStates.GAME;
@@ -147,9 +145,6 @@ public class Game extends JFrame implements Runnable {
         return preGameScene;
     }
 
-    public MainDatabase getMainDatabase() {
-        return mainDatabase;
-    }
 
     // ----------- SET ----------- //
 

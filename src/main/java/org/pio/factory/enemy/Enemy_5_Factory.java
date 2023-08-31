@@ -7,12 +7,21 @@ import org.pio.helpz.Directions;
 
 public interface Enemy_5_Factory {
 
-    default public Enemy getInfoFromDatabaseEnemy_5(MainDatabase mainDatabase, int enemyIndex) {
-        return new Enemy_5(mainDatabase.enemyDatabase.get(enemyIndex).name,mainDatabase.enemyDatabase.get(enemyIndex).id,mainDatabase.enemyDatabase.get(enemyIndex).health,mainDatabase.enemyDatabase.get(enemyIndex).damage,mainDatabase.enemyDatabase.get(enemyIndex).gold,mainDatabase.enemyDatabase.get(enemyIndex).movementSpeed,mainDatabase.enemyDatabase.get(enemyIndex).width,mainDatabase.enemyDatabase.get(enemyIndex).height,mainDatabase.enemyDatabase.get(enemyIndex).sprites);
+    default public Enemy getInfoFromDatabaseEnemy_5(int enemyIndex) {
+        return new Enemy_5(
+                MainDatabase.getMainDatabase().enemyDatabase.get(enemyIndex).name,
+                MainDatabase.getMainDatabase().enemyDatabase.get(enemyIndex).id,
+                MainDatabase.getMainDatabase().enemyDatabase.get(enemyIndex).health,
+                MainDatabase.getMainDatabase().enemyDatabase.get(enemyIndex).damage,
+                MainDatabase.getMainDatabase().enemyDatabase.get(enemyIndex).gold,
+                MainDatabase.getMainDatabase().enemyDatabase.get(enemyIndex).movementSpeed,
+                MainDatabase.getMainDatabase().enemyDatabase.get(enemyIndex).width,
+                MainDatabase.getMainDatabase().enemyDatabase.get(enemyIndex).height,
+                MainDatabase.getMainDatabase().enemyDatabase.get(enemyIndex).sprites);
     }
 
-    default public Enemy createWithImageEnemy_5(MainDatabase mainDatabase, int enemyIndex, int posX, int posY, Directions direction){
-        return new Enemy_5(getInfoFromDatabaseEnemy_5(mainDatabase,enemyIndex), posX, posY, direction);
+    default public Enemy createWithImageEnemy_5(int enemyIndex, int posX, int posY, Directions direction){
+        return new Enemy_5(getInfoFromDatabaseEnemy_5(enemyIndex), posX, posY, direction);
     }
 
 }
