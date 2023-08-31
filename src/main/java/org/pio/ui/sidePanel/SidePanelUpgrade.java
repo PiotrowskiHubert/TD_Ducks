@@ -1,5 +1,6 @@
 package org.pio.ui.sidePanel;
 
+import org.pio.inputs.mouse.UpgradeSidePanelMouseHandler;
 import org.pio.ui.buttons.bRectangle;
 import org.pio.ui.buttons.bRectangleUpgrade;
 
@@ -7,74 +8,14 @@ import java.awt.*;
 import java.util.LinkedHashMap;
 
 public class SidePanelUpgrade extends aSidePanel{
+    public UpgradeSidePanelMouseHandler upgradeSidePanelMouseHandler;
     public SidePanelUpgrade(int width, int height, int posX, int posY) {
         super(width, height, posX, posY);
 
         currentDataLinkedMap = initButtonsHashMap();
+        upgradeSidePanelMouseHandler = new UpgradeSidePanelMouseHandler(this);
     }
-    @Override
-    public void mouseMoved(int x, int y) {
-        if (currentDataLinkedMap !=null){
 
-            for (bRectangle button: currentDataLinkedMap.values()){
-                if (button.isMouseOver()&&!button.getButtonBounds().contains(x,y)){
-                    button.setMouseOver(false);
-                    return;
-                }
-            }
-
-            for (bRectangle button: currentDataLinkedMap.values()){
-                if (button.getButtonBounds().contains(x,y)){
-                    button.setMouseOver(true);
-                    return;
-                }
-            }
-
-        }
-
-    }
-    @Override
-    public void mouseClicked(int x, int y) {
-        if (currentDataLinkedMap !=null){
-
-            for (bRectangle button: currentDataLinkedMap.values()){
-                if (button.getButtonBounds().contains(x,y)){
-                    if (button.isMousePressed()){
-                        button.addProgressStatus();
-                        button.setMousePressed(false);
-                        return;
-                    }
-                }
-            }
-        }
-
-    }
-    @Override
-    public void mousePressed(int x, int y) {
-        if (currentDataLinkedMap !=null){
-
-            for (bRectangle button: currentDataLinkedMap.values()){
-                if (button.getButtonBounds().contains(x,y)){
-                    button.setMousePressed(true);
-                    return;
-                }
-            }
-
-        }
-    }
-    @Override
-    public void mouseReleased(int x, int y) {
-        if (currentDataLinkedMap !=null){
-
-            for (bRectangle button: currentDataLinkedMap.values()){
-                if (button.getButtonBounds().contains(x,y)){
-                    button.setMousePressed(false);
-                }
-
-            }
-
-        }
-    }
     @Override
     public void draw(Graphics g) {
         super.draw(g);

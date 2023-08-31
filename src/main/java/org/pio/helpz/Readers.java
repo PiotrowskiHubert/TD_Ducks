@@ -4,7 +4,7 @@ import org.pio.main.GameScreen;
 import org.pio.scene.Level;
 import org.pio.tiles.TileManager;
 import org.pio.tiles.aTile;
-import org.pio.tiles.tTile;
+import org.pio.tiles.Tile;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -32,7 +32,7 @@ public class Readers {
 
                 for (aTile tile : TileManager.getGrassTileSet().values()) {
                     if (tile.getId() == Integer.parseInt(nextLine)){
-                        Level.getLvlArr()[i][j]=new tTile(tile.getWidth(),
+                        Level.getLvlArr()[i][j]=new Tile(tile.getWidth(),
                                 tile.getHeight(),
                                 j*GameScreen.UNIT_SIZE*2,
                                 i*GameScreen.UNIT_SIZE*2,

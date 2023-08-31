@@ -1,4 +1,4 @@
-package org.pio.inputs;
+package org.pio.inputs.keyboard;
 
 import java.awt.event.KeyEvent;
 

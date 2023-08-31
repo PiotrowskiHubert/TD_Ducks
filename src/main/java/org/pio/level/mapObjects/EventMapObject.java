@@ -1,6 +1,6 @@
 package org.pio.level.mapObjects;
 
-import org.pio.inputs.keyboardMethods;
+import org.pio.inputs.keyboard.keyboardMethods;
 import org.pio.main.Game;
 import org.pio.main.GameStates;
 

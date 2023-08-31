@@ -10,8 +10,8 @@ import org.pio.main.Game;
 import org.pio.main.GameScreen;
 import org.pio.helpz.Directions;
 import org.pio.player.Player;
-import org.pio.tiles.tTile;
-import org.pio.ui.sidePanel.sidePanelGame;
+import org.pio.tiles.Tile;
+import org.pio.ui.sidePanel.SidePanelGame;
 
 import java.awt.*;
 import java.nio.file.Path;
@@ -24,25 +24,25 @@ public class Level extends GameScene {
     private final int NUM_OF_ROUNDS;
     public static int currentRound;
     private static int lvlHeight, lvlWidth;
-    private static tTile [][] lvlArr;
+    private static Tile[][] lvlArr;
     public static List<Round> rounds = new ArrayList<>();
     private static List<KeyPoint> keyPointsList = new ArrayList<>();
     private EnemyFactoryImpl enemyFactoryImpl;
     public static List<Ally> allyPlacedTowers = new ArrayList<>();
     public Ally selectedTower;
-    public sidePanelGame sidePanelGame;
+    public SidePanelGame sidePanelGame;
 
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
         enemyFactoryImpl = new EnemyFactoryImpl(game.getMainDatabase());
         int scale=3;
-        sidePanelGame = new sidePanelGame(GameScreen.UNIT_SIZE*2*scale,GameScreen.UNIT_SIZE*33,GameScreen.UNIT_SIZE*54,GameScreen.UNIT_SIZE*0,this);
+        sidePanelGame = new SidePanelGame(GameScreen.UNIT_SIZE*2*scale,GameScreen.UNIT_SIZE*33,GameScreen.UNIT_SIZE*54,GameScreen.UNIT_SIZE*0,this);
 
         this.NUM_OF_ROUNDS=numOfRounds;
         this.lvlWidth = lvlWidth;
         this.lvlHeight = lvlHeight;
 
-        lvlArr = new tTile[lvlHeight][lvlWidth];
+        lvlArr = new Tile[lvlHeight][lvlWidth];
 
         currentRound=START_ROUND;
 
@@ -237,7 +237,7 @@ public class Level extends GameScene {
     public static int getLvlWidth() {
         return lvlWidth;
     }
-    public static tTile[][] getLvlArr() {
+    public static Tile[][] getLvlArr() {
         return lvlArr;
     }
 

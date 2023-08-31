@@ -1,7 +1,5 @@
 package org.pio.level;
 
-import org.pio.inputs.keyboardMethods;
-
 import java.awt.*;
 
 public interface iLevel{

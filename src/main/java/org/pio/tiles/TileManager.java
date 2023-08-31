@@ -1,7 +1,5 @@
 package org.pio.tiles;
 
-import org.pio.scene.Level;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -39,7 +37,7 @@ public class TileManager {
 
         for (int height = 0; height < 8; height++) {
             for (int width = 0; width < 8; width++) {
-                tTile tile=new tTile("GRASS_TILE_"+height+"_"+width, 32, 32, ++index, setTile(width, height, 32, 32, spriteAtlas));
+                Tile tile=new Tile("GRASS_TILE_"+height+"_"+width, 32, 32, ++index, setTile(width, height, 32, 32, spriteAtlas));
                 System.out.println(tile.getId());
                 grassTileSet.put(tile.getId(), tile);
             }

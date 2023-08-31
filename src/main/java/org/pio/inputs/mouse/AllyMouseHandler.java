@@ -1,4 +1,4 @@
-package org.pio.inputs;
+package org.pio.inputs.mouse;
 
 import org.pio.entities.ally.Ally;
 
@@ -12,7 +12,7 @@ public class AllyMouseHandler implements MouseHandler {
     @Override
     public void leftMouseClicked(int x, int y) {
         if (ally.pressed){
-            ally.sidePanelUpgrade.mouseClicked(x,y);
+            ally.sidePanelUpgrade.upgradeSidePanelMouseHandler.leftMouseClicked(x,y);
         }
     }
 
@@ -34,7 +34,7 @@ public class AllyMouseHandler implements MouseHandler {
         }
 
         if (ally.pressed){
-            ally.sidePanelUpgrade.mouseMoved(x,y);
+            ally.sidePanelUpgrade.upgradeSidePanelMouseHandler.mouseMoved(x,y);
         }
     }
 
@@ -45,7 +45,7 @@ public class AllyMouseHandler implements MouseHandler {
         }
 
         if (ally.pressed){
-            ally.sidePanelUpgrade.mousePressed(x,y);
+            ally.sidePanelUpgrade.upgradeSidePanelMouseHandler.mousePressed(x,y);
         }
     }
 

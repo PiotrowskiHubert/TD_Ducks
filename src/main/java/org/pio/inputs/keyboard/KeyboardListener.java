@@ -1,4 +1,5 @@
-package org.pio.inputs;
+package org.pio.inputs.keyboard;
+import org.pio.inputs.keyboard.KeyStates;
 import org.pio.main.Game;
 import org.pio.main.GameStates;
 

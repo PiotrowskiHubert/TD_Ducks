@@ -1,10 +1,8 @@
 package org.pio.ui.sidePanel;
 
-import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
-import org.pio.tiles.tTile;
+import org.pio.tiles.Tile;
 
-import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,9 +15,9 @@ public class SidePanelEditMapMethods{
         PlayScene.setMapEditMode(false);
     }
 
-    public void saveMap(tTile[][] lvlArr){
+    public void saveMap(Tile[][] lvlArr){
 
-        List<tTile[]> tTiles = Arrays.stream(lvlArr).toList();
+        List<Tile[]> Tiles = Arrays.stream(lvlArr).toList();
 
         String fileName = "src/main/resources/LevelInfo/lvl_1_Tiles.txt";
         try (
@@ -27,10 +25,10 @@ public class SidePanelEditMapMethods{
                 var writer = new BufferedWriter(fileWriter);
         ) {
 
-            for (int i = 0; i < tTiles.size(); i++) {
-                for (int j = 0; j < tTiles.get(i).length; j++) {
+            for (int i = 0; i < Tiles.size(); i++) {
+                for (int j = 0; j < Tiles.get(i).length; j++) {
 
-                    writer.write(tTiles.get(i)[j].getId().toString());
+                    writer.write(Tiles.get(i)[j].getId().toString());
                     writer.newLine();
                 }
             }

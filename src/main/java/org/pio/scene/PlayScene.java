@@ -1,22 +1,22 @@
 package org.pio.scene;
 
 import org.pio.entities.ally.Ally;
+import org.pio.inputs.mouse.PlaySceneMouseHandler;
 import org.pio.main.GameScreen;
 import org.pio.player.Player;
-import org.pio.inputs.MouseHandler;
 import org.pio.main.Game;
-import org.pio.ui.sidePanel.sidePanelEditMap;
+import org.pio.ui.sidePanel.SidePanelEditMap;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class PlayScene extends GameScene implements sceneMeethods, MouseHandler {
-    private Level lvl;
-    private static Player player;
-    //public oldSidePanel sidePanel;
-    private sidePanelEditMap editSidePanel;
-    private static boolean mapEditMode;
-    private static int mouseX, mouseY;
+public class PlayScene extends GameScene implements sceneMeethods {
+    public Level lvl;
+    public static Player player;
+    public SidePanelEditMap editSidePanel;
+    public static boolean mapEditMode;
+    public static int mouseX, mouseY;
+    public PlaySceneMouseHandler mouseHandler;
 
     public PlayScene(Game game) {
         super(game);
@@ -25,8 +25,8 @@ public class PlayScene extends GameScene implements sceneMeethods, MouseHandler 
         lvl=new Level(29,22, getGame(),11);
         player=new Player(2000,100);
 
-        //sidePanel = new oldSidePanel(29*GameScreen.UNIT_SIZE,0*GameScreen.UNIT_SIZE,3*GameScreen.UNIT_SIZE,22*GameScreen.UNIT_SIZE,this);
-        editSidePanel = new sidePanelEditMap(3*GameScreen.UNIT_SIZE, 33*GameScreen.UNIT_SIZE, 57*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, this);
+        this.editSidePanel = new SidePanelEditMap(3*GameScreen.UNIT_SIZE, 33*GameScreen.UNIT_SIZE, 57*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, this);
+        this.mouseHandler=new PlaySceneMouseHandler(this);
 
     }
 
@@ -89,73 +89,9 @@ public class PlayScene extends GameScene implements sceneMeethods, MouseHandler 
 
     // -------- INPUTS ------- //
 
-    @Override
-    public void leftMouseClicked(int x, int y) {
-        if (x>54*GameScreen.UNIT_SIZE&&!mapEditMode){
-            lvl.sidePanelGame.mouseClicked(x,y);
-            //sidePanel.mouseClicked(x,y);
-        }else if (x>54*GameScreen.UNIT_SIZE&&mapEditMode){
-            editSidePanel.mouseClicked(x,y);
-        }else if (x<54*GameScreen.UNIT_SIZE&&mapEditMode) {
-            editSidePanel.mouseClicked(x, y);
-        }
 
 
-        if (x<54*GameScreen.UNIT_SIZE){
-            lvl.leftMouseClicked(x,y);
-
-            if (lvl.selectedTower!=null){
-
-                if (!containsBoundsOfOtherTower(lvl.selectedTower)){
-                    lvl.allyPlacedTowers.add(lvl.selectedTower);
-                    lvl.selectedTower.placed=true;
-
-                    player.setGold(player.getGold()-lvl.selectedTower.cost);
-                }
-
-                lvl.selectedTower=null;
-
-            }
-        }
-
-    }
-    @Override
-    public void rightMouseClicked(int x, int y) {
-
-        lvl.rightMouseClicked(x,y);
-
-    }
-    @Override
-    public void mouseMoved(int x, int y) {
-        mouseX=x;
-        mouseY=y;
-
-        if (x>54*GameScreen.UNIT_SIZE&&!mapEditMode){
-            lvl.sidePanelGame.mouseMoved(x,y);
-            //sidePanel.mouseMoved(x,y);
-        }else if (x>54*GameScreen.UNIT_SIZE&&mapEditMode){
-            editSidePanel.mouseMoved(x,y);
-        }
-
-        if (x<54*GameScreen.UNIT_SIZE){
-            lvl.mouseMoved(x,y);
-        }
-
-        if (lvl.selectedTower!=null){
-
-            lvl.selectedTower.posX=x;
-            lvl.selectedTower.posY=y;
-
-            lvl.selectedTower.bounds.x= (int) lvl.selectedTower.posX;
-            lvl.selectedTower.bounds.y= (int) lvl.selectedTower.posY;
-
-            int ellipseOffset=20;
-            lvl.selectedTower.rangeEllipse.setFrame(lvl.selectedTower.posX-lvl.selectedTower.range+ellipseOffset, lvl.selectedTower.posY-lvl.selectedTower.range+ellipseOffset, lvl.selectedTower.range*2, lvl.selectedTower.range*2);
-        }
-
-    }
-
-    private Boolean containsBoundsOfOtherTower(Ally ally){
+    public Boolean containsBoundsOfOtherTower(Ally ally){
 
         for (Ally placedAlly : lvl.allyPlacedTowers){
 
@@ -168,29 +104,6 @@ public class PlayScene extends GameScene implements sceneMeethods, MouseHandler 
         return false;
     }
 
-    @Override
-    public void mousePressed(int x, int y) {
-        if (x>54*GameScreen.UNIT_SIZE&&!mapEditMode){
-            lvl.sidePanelGame.mousePressed(x,y);
-        }else if (x>54*GameScreen.UNIT_SIZE&&mapEditMode){
-            editSidePanel.mousePressed(x,y);
-        }
-
-        if (x<54*GameScreen.UNIT_SIZE){
-            lvl.mousePressed(x,y);
-        }
-
-    }
-    @Override
-    public void mouseReleased(int x, int y) {
-        lvl.sidePanelGame.mouseReleased(x,y);
-        editSidePanel.mouseReleased(x,y);
-        lvl.mouseReleased(x,y);
-    }
-    @Override
-    public void mouseDragged(int x, int y) {
-
-    }
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode()==KeyEvent.VK_SPACE){
             startWave();

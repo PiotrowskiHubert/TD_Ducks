@@ -1,4 +1,4 @@
-package org.pio.inputs;
+package org.pio.inputs.mouse;
 
 public interface MouseHandler {
     abstract void leftMouseClicked(int x, int y);

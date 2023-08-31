@@ -1,4 +1,4 @@
-package org.pio.inputs;
+package org.pio.inputs.keyboard;
 
 public abstract class KeyStates {
     public static boolean shiftPressed=false;

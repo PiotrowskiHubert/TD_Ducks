@@ -3,13 +3,13 @@ package org.pio.tiles;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class tTile extends aTile{
+public class Tile extends aTile{
     private int posX, posY;
     private String tileName;
     private Shape tileBounds;
     private BufferedImage sprite;
 
-    public tTile(int width, int height, int posX, int posY, String tileName, int id, BufferedImage sprite) {
+    public Tile(int width, int height, int posX, int posY, String tileName, int id, BufferedImage sprite) {
         super(width, height, id);
         this.posX = posX;
         this.posY = posY;
@@ -19,7 +19,7 @@ public class tTile extends aTile{
         this.tileBounds = tileBounds();
     }
 
-    public tTile(String tileName, int width, int height, int id, BufferedImage sprite){
+    public Tile(String tileName, int width, int height, int id, BufferedImage sprite){
         super(width, height, id);
         this.tileName=tileName;
         this.sprite=sprite;

@@ -1,4 +1,4 @@
-package org.pio.inputs;
+package org.pio.inputs.mouse;
 
 
 import org.pio.main.Game;
@@ -22,11 +22,11 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
         if (game.getGameStates()==GameStates.GAME){
 
             if (e.getButton()==MouseEvent.BUTTON1){
-                game.getPlayScene().leftMouseClicked(e.getX(), e.getY());
+                game.getPlayScene().mouseHandler.leftMouseClicked(e.getX(), e.getY());
             }
 
             if (e.getButton()==MouseEvent.BUTTON3){
-                game.getPlayScene().rightMouseClicked(e.getX(), e.getY());
+                game.getPlayScene().mouseHandler.rightMouseClicked(e.getX(), e.getY());
             }
         }
 
@@ -37,22 +37,22 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 
     @Override
     public void mousePressed(MouseEvent e) {
-        game.getPlayScene().mousePressed(e.getX(),e.getY());
+        game.getPlayScene().mouseHandler.mousePressed(e.getX(),e.getY());
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        game.getPlayScene().mouseReleased(e.getX(),e.getY());
+        game.getPlayScene().mouseHandler.mouseReleased(e.getX(),e.getY());
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        game.getPlayScene().mouseDragged(e.getX(),e.getY());
+        game.getPlayScene().mouseHandler.mouseDragged(e.getX(),e.getY());
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        game.getPlayScene().mouseMoved(e.getX(),e.getY());
+        game.getPlayScene().mouseHandler.mouseMoved(e.getX(),e.getY());
     }
 
     @Override

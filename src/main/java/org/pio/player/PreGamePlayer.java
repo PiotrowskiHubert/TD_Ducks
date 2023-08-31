@@ -1,8 +1,8 @@
 package org.pio.player;
 
 import org.pio.helpz.Directions;
-import org.pio.inputs.KeyStates;
-import org.pio.inputs.keyboardMethods;
+import org.pio.inputs.keyboard.KeyStates;
+import org.pio.inputs.keyboard.keyboardMethods;
 import org.pio.main.GameScreen;
 
 import java.awt.*;
