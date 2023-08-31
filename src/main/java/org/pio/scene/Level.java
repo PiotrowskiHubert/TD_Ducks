@@ -35,7 +35,8 @@ public class Level extends GameScene {
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
         enemyFactoryImpl = new EnemyFactoryImpl(game.getMainDatabase());
-        sidePanelGame = new sidePanelGame(GameScreen.UNIT_SIZE*3,GameScreen.UNIT_SIZE*22,GameScreen.UNIT_SIZE*29,GameScreen.UNIT_SIZE*0,this);
+        int scale=3;
+        sidePanelGame = new sidePanelGame(GameScreen.UNIT_SIZE*2*scale,GameScreen.UNIT_SIZE*33,GameScreen.UNIT_SIZE*54,GameScreen.UNIT_SIZE*0,this);
 
         this.NUM_OF_ROUNDS=numOfRounds;
         this.lvlWidth = lvlWidth;
@@ -53,12 +54,13 @@ public class Level extends GameScene {
     // -------- INIT ------- //
 
     public static void initKeypoints(){
-        keyPointsList.add(new KeyPoint(-40,9*GameScreen.UNIT_SIZE)); // 0
-        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE, 9*GameScreen.UNIT_SIZE));
-        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE, 5*GameScreen.UNIT_SIZE));
-        keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE, 5*GameScreen.UNIT_SIZE));
-        keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE, 14*GameScreen.UNIT_SIZE));
-        keyPointsList.add(new KeyPoint(29*GameScreen.UNIT_SIZE, 14*GameScreen.UNIT_SIZE));
+        int scale=2;
+        keyPointsList.add(new KeyPoint(-40,9*GameScreen.UNIT_SIZE*scale)); // 0
+        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*scale, 9*GameScreen.UNIT_SIZE*scale));
+        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*scale, 5*GameScreen.UNIT_SIZE*scale));
+        keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*scale, 5*GameScreen.UNIT_SIZE*scale));
+        keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*scale, 14*GameScreen.UNIT_SIZE*scale));
+        keyPointsList.add(new KeyPoint(29*GameScreen.UNIT_SIZE*scale, 14*GameScreen.UNIT_SIZE*scale));
     }
     private void createLevelRoundsAndAddEnemies(){
 
@@ -79,7 +81,7 @@ public class Level extends GameScene {
     }
     private void mouseOverAllyTowerPlaced(int x, int y) {
         for (Ally ally : allyPlacedTowers) {
-            ally.mouseMoved(x,y);
+            ally.mouseHandler.mouseMoved(x,y);
         }
     }
 
@@ -92,7 +94,7 @@ public class Level extends GameScene {
         }
 
         for (Ally ally: allyPlacedTowers){
-            ally.leftMouseClicked(x,y);
+            ally.mouseHandler.leftMouseClicked(x,y);
         }
 
         for (Iterator<Ally> allyTowerPlacedIterator = allyPlacedTowers.iterator(); allyTowerPlacedIterator.hasNext();){
@@ -120,7 +122,7 @@ public class Level extends GameScene {
         }
 
         for (Ally ally : allyPlacedTowers) {
-            ally.rightMouseClicked(x,y);
+            ally.mouseHandler.rightMouseClicked(x,y);
         }
 
     }
@@ -134,7 +136,7 @@ public class Level extends GameScene {
         }
 
         for (Ally ally : allyPlacedTowers) {
-            ally.mousePressed(x, y);
+            ally.mouseHandler.mousePressed(x, y);
         }
     }
 
@@ -147,7 +149,7 @@ public class Level extends GameScene {
         }
 
         for (Ally ally : allyPlacedTowers) {
-            ally.mouseReleased(x, y);
+            ally.mouseHandler.mouseReleased(x, y);
         }
 
     }
@@ -161,6 +163,13 @@ public class Level extends GameScene {
         drawEnemy(g);
         drawSelectedAlly(g);
         drawSidePanel(g);
+        drawKeypoins(g);
+    }
+
+    private void drawKeypoins(Graphics g) {
+        for (KeyPoint keyPoint : keyPointsList) {
+            keyPoint.draw(g);
+        }
     }
 
     private void drawSidePanel(Graphics g) {

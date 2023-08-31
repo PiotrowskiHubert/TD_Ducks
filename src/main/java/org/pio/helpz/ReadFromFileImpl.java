@@ -281,7 +281,7 @@ public class ReadFromFileImpl implements ReadFromFile {
 
                 if (nextLine.equals("ROUND"+(numOfRound))){
 
-                    int offsetX=60;
+                    int offsetX= (int) (60*1.2);
                     int i=0;
 
                     while ((nextLine = reader.readLine()) != null && Helper.isInteger(nextLine)){

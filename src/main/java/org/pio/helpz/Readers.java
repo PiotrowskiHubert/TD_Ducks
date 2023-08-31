@@ -34,8 +34,8 @@ public class Readers {
                     if (tile.getId() == Integer.parseInt(nextLine)){
                         Level.getLvlArr()[i][j]=new tTile(tile.getWidth(),
                                 tile.getHeight(),
-                                j*GameScreen.UNIT_SIZE,
-                                i*GameScreen.UNIT_SIZE,
+                                j*GameScreen.UNIT_SIZE*2,
+                                i*GameScreen.UNIT_SIZE*2,
                                 tile.getTileName(),
                                 tile.getId(),
                                 tile.getSprite());

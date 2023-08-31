@@ -11,10 +11,13 @@ public abstract class Entity {
     private BufferedImage sprite;
 
     public Entity(String name, int id, int width, int height){
+
+        int scale=2;
+
         this.name = name;
         this.id = id;
-        this.width = width;
-        this.height = height;
+        this.width = (int) (width*1.2);
+        this.height = (int) (height*1.2);
     }
 
     public Entity(Entity entity, double posX, double posY){
@@ -23,7 +26,7 @@ public abstract class Entity {
         this.width = entity.width;
         this.height = entity.height;
         this.posX = posX;
-        this.posY = posY;
+        this.posY = posY+6;
 
         bounds= setRectangleBounds();
     }

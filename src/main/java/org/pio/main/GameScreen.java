@@ -22,10 +22,8 @@ public class GameScreen extends JPanel {
     }
 
     private void screenInit(){
-        int rightSidePanelSize=3* UNIT_SIZE;
-
-        this.screenWidth=57* UNIT_SIZE +rightSidePanelSize;
-        this.screenHeight=33* UNIT_SIZE;
+        this.screenWidth=60*UNIT_SIZE;
+        this.screenHeight=33*UNIT_SIZE;
 
         dimensionSize=new Dimension(screenWidth, screenHeight);
 

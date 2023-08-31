@@ -2,6 +2,7 @@ package org.pio.entities.ally;
 
 import org.pio.entities.Entity;
 import org.pio.entities.Bullet;
+import org.pio.inputs.AllyMouseHandler;
 import org.pio.main.GameScreen;
 import org.pio.helpz.Directions;
 import org.pio.ui.sidePanel.SidePanelUpgrade;
@@ -23,6 +24,7 @@ public abstract class Ally extends Entity {
 
     public SidePanelUpgrade sidePanelUpgrade;
     public AllyUpdate allyUpdate;
+    public AllyMouseHandler mouseHandler;
 
     protected Ally(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<String>> sprites) {
         super(name, id, width, height);
@@ -52,6 +54,7 @@ public abstract class Ally extends Entity {
         this.sidePanelUpgrade=new SidePanelUpgrade(GameScreen.UNIT_SIZE*5, GameScreen.UNIT_SIZE*22, GameScreen.screenWidth-250,0);
 
         this.allyUpdate=new AllyUpdate(this);
+        this.mouseHandler=new AllyMouseHandler(this);
     }
 
     private Ellipse2D createEllipseShape(){
@@ -59,46 +62,6 @@ public abstract class Ally extends Entity {
         return new Ellipse2D.Double(posX-range+offset, posY-range+offset, range*2, range*2);
     }
 
-    // -------------------------MOUSE------------------------------- //
-
-    public void mouseMoved(int x, int y) {
-        if (mouseOver){
-            if (!bounds.contains(x,y)){
-                mouseOver=false;
-            }
-        }
-
-        if(bounds.contains(x,y)){
-            mouseOver=true;
-        }
-
-        if (pressed){
-            sidePanelUpgrade.mouseMoved(x,y);
-        }
-
-    }
-    public void mousePressed(int x, int y) {
-        if(bounds.contains(x, y)){
-            pressed=true;
-        }
-
-        if (pressed){
-            sidePanelUpgrade.mousePressed(x,y);
-        }
-    }
-    public void leftMouseClicked(int x, int y){
-        if (pressed){
-            sidePanelUpgrade.mouseClicked(x,y);
-        }
-    }
-    public void rightMouseClicked(int x, int y) {
-
-    }
-    public void mouseReleased(int x, int y) {
-        if (!bounds.contains(x,y)&&! sidePanelUpgrade.getSidePanelBounds().contains(x,y)){
-            pressed =false;
-        }
-    }
 
     // -------------------------DRAW------------------------------- //
 

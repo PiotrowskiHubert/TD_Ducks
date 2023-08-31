@@ -3,14 +3,14 @@ package org.pio.scene;
 import org.pio.entities.ally.Ally;
 import org.pio.main.GameScreen;
 import org.pio.player.Player;
-import org.pio.inputs.mouseMethods;
+import org.pio.inputs.MouseHandler;
 import org.pio.main.Game;
 import org.pio.ui.sidePanel.sidePanelEditMap;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class PlayScene extends GameScene implements sceneMeethods, mouseMethods {
+public class PlayScene extends GameScene implements sceneMeethods, MouseHandler {
     private Level lvl;
     private static Player player;
     //public oldSidePanel sidePanel;
@@ -26,7 +26,7 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         player=new Player(2000,100);
 
         //sidePanel = new oldSidePanel(29*GameScreen.UNIT_SIZE,0*GameScreen.UNIT_SIZE,3*GameScreen.UNIT_SIZE,22*GameScreen.UNIT_SIZE,this);
-        editSidePanel = new sidePanelEditMap(3*GameScreen.UNIT_SIZE, 22*GameScreen.UNIT_SIZE, 29*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, this);
+        editSidePanel = new sidePanelEditMap(3*GameScreen.UNIT_SIZE, 33*GameScreen.UNIT_SIZE, 57*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, this);
 
     }
 
@@ -81,9 +81,9 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
     }
 
     private void drawEditModeTileHighlight(Graphics g) {
-        if (mouseX<29*GameScreen.UNIT_SIZE){
+        if (mouseX<54*GameScreen.UNIT_SIZE){
             g.setColor(Color.black);
-            g.drawRect((mouseX/GameScreen.UNIT_SIZE)*GameScreen.UNIT_SIZE,(mouseY/GameScreen.UNIT_SIZE)*GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE);
+            g.drawRect((mouseX/GameScreen.UNIT_SIZE)*GameScreen.UNIT_SIZE,(mouseY/GameScreen.UNIT_SIZE)*GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE*2,GameScreen.UNIT_SIZE*2);
         }
     }
 
@@ -91,17 +91,17 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     @Override
     public void leftMouseClicked(int x, int y) {
-        if (x>29*GameScreen.UNIT_SIZE&&!mapEditMode){
+        if (x>54*GameScreen.UNIT_SIZE&&!mapEditMode){
             lvl.sidePanelGame.mouseClicked(x,y);
             //sidePanel.mouseClicked(x,y);
-        }else if (x>29*GameScreen.UNIT_SIZE&&mapEditMode){
+        }else if (x>54*GameScreen.UNIT_SIZE&&mapEditMode){
             editSidePanel.mouseClicked(x,y);
-        }else if (x<29*GameScreen.UNIT_SIZE&&mapEditMode) {
+        }else if (x<54*GameScreen.UNIT_SIZE&&mapEditMode) {
             editSidePanel.mouseClicked(x, y);
         }
 
 
-        if (x<29*GameScreen.UNIT_SIZE){
+        if (x<54*GameScreen.UNIT_SIZE){
             lvl.leftMouseClicked(x,y);
 
             if (lvl.selectedTower!=null){
@@ -130,14 +130,14 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
         mouseX=x;
         mouseY=y;
 
-        if (x>29*GameScreen.UNIT_SIZE&&!mapEditMode){
+        if (x>54*GameScreen.UNIT_SIZE&&!mapEditMode){
             lvl.sidePanelGame.mouseMoved(x,y);
             //sidePanel.mouseMoved(x,y);
-        }else if (x>29*GameScreen.UNIT_SIZE&&mapEditMode){
+        }else if (x>54*GameScreen.UNIT_SIZE&&mapEditMode){
             editSidePanel.mouseMoved(x,y);
         }
 
-        if (x<29*GameScreen.UNIT_SIZE){
+        if (x<54*GameScreen.UNIT_SIZE){
             lvl.mouseMoved(x,y);
         }
 
@@ -170,13 +170,13 @@ public class PlayScene extends GameScene implements sceneMeethods, mouseMethods 
 
     @Override
     public void mousePressed(int x, int y) {
-        if (x>29*GameScreen.UNIT_SIZE&&!mapEditMode){
+        if (x>54*GameScreen.UNIT_SIZE&&!mapEditMode){
             lvl.sidePanelGame.mousePressed(x,y);
-        }else if (x>29*GameScreen.UNIT_SIZE&&mapEditMode){
+        }else if (x>54*GameScreen.UNIT_SIZE&&mapEditMode){
             editSidePanel.mousePressed(x,y);
         }
 
-        if (x<29*GameScreen.UNIT_SIZE){
+        if (x<54*GameScreen.UNIT_SIZE){
             lvl.mousePressed(x,y);
         }
 

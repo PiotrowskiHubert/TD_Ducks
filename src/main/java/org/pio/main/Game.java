@@ -56,7 +56,6 @@ public class Game extends JFrame implements Runnable {
 
     private void initWindow(){
 
-        setLocation(0,0);
         frame.getContentPane().add(gameScreen);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setResizable(false);

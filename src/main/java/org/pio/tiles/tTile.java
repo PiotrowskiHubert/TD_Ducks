@@ -26,7 +26,7 @@ public class tTile extends aTile{
     }
 
     public void draw(Graphics g){
-        g.drawImage(sprite, posX, posY, null);
+        g.drawImage(sprite, posX, posY,32*2,32*2, null);
     }
 
     private Shape tileBounds() {

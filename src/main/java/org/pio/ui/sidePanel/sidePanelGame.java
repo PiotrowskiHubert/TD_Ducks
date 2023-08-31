@@ -37,10 +37,10 @@ public class sidePanelGame extends aSidePanel{
     public void initButtons(){
         int id =0;
         int posX=this.posX +10;
-        int posY=29;
-        int bWidth=80;
-        int bHeight=59;
-        int posYOffSet=bHeight+7;
+        int posY=50;
+        int bWidth=160;
+        int bHeight=80;
+        int posYOffSet=bHeight+20;
 
 
         for (int i = 0; i < 5; i++) {
