@@ -6,6 +6,7 @@ import org.pio.factory.enemy.EnemyFactoryImpl;
 import org.pio.helpz.KeyPoint;
 import org.pio.helpz.ReadFromFileImpl;
 import org.pio.helpz.Readers;
+import org.pio.inputs.mouse.LevelMouseHandler;
 import org.pio.main.Game;
 import org.pio.main.GameScreen;
 import org.pio.helpz.Directions;
@@ -16,7 +17,6 @@ import org.pio.ui.sidePanel.SidePanelGame;
 import java.awt.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Level extends GameScene {
@@ -31,7 +31,7 @@ public class Level extends GameScene {
     public static List<Ally> allyPlacedTowers = new ArrayList<>();
     public Ally selectedTower;
     public SidePanelGame sidePanelGame;
-
+    public LevelMouseHandler mouseHandler;
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
         enemyFactoryImpl = new EnemyFactoryImpl(game.getMainDatabase());
@@ -49,6 +49,7 @@ public class Level extends GameScene {
         createLevelRoundsAndAddEnemies();
 
         Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_1_Tiles.txt"));
+        this.mouseHandler = new LevelMouseHandler(this);
     }
 
     // -------- INIT ------- //
@@ -74,85 +75,7 @@ public class Level extends GameScene {
 
     }
 
-    // -------------------------MOUSE------------------------------- //
 
-    public void mouseMoved(int x, int y) {
-        mouseOverAllyTowerPlaced(x,y);
-    }
-    private void mouseOverAllyTowerPlaced(int x, int y) {
-        for (Ally ally : allyPlacedTowers) {
-            ally.mouseHandler.mouseMoved(x,y);
-        }
-    }
-
-    public void leftMouseClicked(int x, int y) {
-        leftMouseClickedAllyTowerPlaced(x,y);
-    }
-    private void leftMouseClickedAllyTowerPlaced(int x, int y) {
-        if (allyPlacedTowers.isEmpty()){
-            return;
-        }
-
-        for (Ally ally: allyPlacedTowers){
-            ally.mouseHandler.leftMouseClicked(x,y);
-        }
-
-        for (Iterator<Ally> allyTowerPlacedIterator = allyPlacedTowers.iterator(); allyTowerPlacedIterator.hasNext();){
-            Ally nextAlly = allyTowerPlacedIterator.next();
-
-            if(nextAlly.bounds.contains(x,y)){
-                nextAlly.pressed =true;
-            }else {
-                if (!nextAlly.sidePanelUpgrade.getSidePanelBounds().contains(x,y)){
-                    nextAlly.pressed =false;
-                    nextAlly.mouseOver=false;
-                }
-
-            }
-
-        }
-    }
-
-    public void rightMouseClicked(int x, int y) {
-        rightMouseClickedAllyTowerPlaced(x,y);
-    }
-    private void rightMouseClickedAllyTowerPlaced(int x, int y) {
-        if (allyPlacedTowers.isEmpty()){
-            return;
-        }
-
-        for (Ally ally : allyPlacedTowers) {
-            ally.mouseHandler.rightMouseClicked(x,y);
-        }
-
-    }
-
-    public void mousePressed(int x, int y) {
-        mousePressedAllyTowerPlaced(x,y);
-    }
-    private void mousePressedAllyTowerPlaced(int x, int y) {
-        if (allyPlacedTowers.isEmpty()){
-            return;
-        }
-
-        for (Ally ally : allyPlacedTowers) {
-            ally.mouseHandler.mousePressed(x, y);
-        }
-    }
-
-    public void mouseReleased(int x, int y) {
-        mouseReleasedAllyTowerPlaced(x,y);
-    }
-    private void mouseReleasedAllyTowerPlaced(int x, int y) {
-        if (allyPlacedTowers.isEmpty()){
-            return;
-        }
-
-        for (Ally ally : allyPlacedTowers) {
-            ally.mouseHandler.mouseReleased(x, y);
-        }
-
-    }
 
     // -------------------------DRAW------------------------------- //
 

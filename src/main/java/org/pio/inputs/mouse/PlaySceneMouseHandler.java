@@ -23,7 +23,7 @@ public class PlaySceneMouseHandler implements MouseHandler {
 
 
         if (x<54*GameScreen.UNIT_SIZE){
-            playScene.lvl.leftMouseClicked(x,y);
+            playScene.lvl.mouseHandler.leftMouseClicked(x,y);
 
             if ( playScene.lvl.selectedTower!=null){
 
@@ -42,7 +42,7 @@ public class PlaySceneMouseHandler implements MouseHandler {
 
     @Override
     public void rightMouseClicked(int x, int y) {
-        playScene.lvl.rightMouseClicked(x,y);
+        playScene.lvl.mouseHandler.rightMouseClicked(x,y);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class PlaySceneMouseHandler implements MouseHandler {
         }
 
         if (x<54*GameScreen.UNIT_SIZE){
-            playScene.lvl.mouseMoved(x,y);
+            playScene.lvl.mouseHandler.mouseMoved(x,y);
         }
 
         if (playScene.lvl.selectedTower!=null){
@@ -83,7 +83,7 @@ public class PlaySceneMouseHandler implements MouseHandler {
         }
 
         if (x<54*GameScreen.UNIT_SIZE){
-            playScene.lvl.mousePressed(x,y);
+            playScene.lvl.mouseHandler.mousePressed(x,y);
         }
     }
 
@@ -91,7 +91,7 @@ public class PlaySceneMouseHandler implements MouseHandler {
     public void mouseReleased(int x, int y) {
         playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.mouseReleased(x,y);
         playScene.editSidePanel.mouseHandler.mouseReleased(x,y);
-        playScene.lvl.mouseReleased(x,y);
+        playScene.lvl.mouseHandler.mouseReleased(x,y);
     }
 
     @Override
