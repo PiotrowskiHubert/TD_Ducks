@@ -16,7 +16,8 @@ public class MainDatabase {
 
     LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<String>>> enemySpriteAtlasDatabase = new LinkedHashMap<>();
     LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<String>>> allySpriteAtlasDatabase = new LinkedHashMap<>();
-    public MainDatabase(){
+    private static MainDatabase mainDatabase;
+    private MainDatabase(){
         //spriteAtlasDatabase.put(1, getSpriteAtlas("src/main/resources/Sprite/GrassTileSet.png"));
         spriteAtlasDatabase.put("SidePanel",getSpriteAtlas("SidePanel.png"));
         spriteAtlasDatabase.put("Buttons",getSpriteAtlas("AtlasButtons.png"));
@@ -118,4 +119,12 @@ public class MainDatabase {
         return enemySpriteAtlas;
     }
 
+    public static MainDatabase getMainDatabase() {
+        if (mainDatabase==null){
+            mainDatabase = new MainDatabase();
+        }
+
+        return mainDatabase;
+
+    }
 }
