@@ -7,7 +7,7 @@ import java.io.*;
 public class Writers {
     public static void writeEmptyLevel(){
 
-        String fileName = "src/main/resources/LevelInfo/lvl.txt";
+        String fileName = "src/main/resources/LevelInfo/lvl_2_Tiles.txt";
         try (
                 var fileWriter = new FileWriter(fileName);
                 var writer = new BufferedWriter(fileWriter);

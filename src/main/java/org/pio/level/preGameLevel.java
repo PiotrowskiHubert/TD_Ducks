@@ -107,11 +107,11 @@ public class preGameLevel extends aLevel {
         g.setColor(new Color(0x91FFFFFF, true));
 
         for (int i = 1; i < GameScreen.screenWidth /GameScreen.UNIT_SIZE; i++) {
-            g.drawLine(i*GameScreen.UNIT_SIZE,0,i*GameScreen.UNIT_SIZE,GameScreen.screenHeight);
+            g.drawLine(i*GameScreen.UNIT_SIZE,0,i*GameScreen.UNIT_SIZE, (int) GameScreen.screenHeight);
         }
 
         for (int i = 1; i < GameScreen.screenHeight /GameScreen.UNIT_SIZE; i++) {
-            g.drawLine(0,i*GameScreen.UNIT_SIZE,GameScreen.screenWidth,i*GameScreen.UNIT_SIZE);
+            g.drawLine(0,i*GameScreen.UNIT_SIZE, (int) GameScreen.screenWidth,i*GameScreen.UNIT_SIZE);
         }
     }
 

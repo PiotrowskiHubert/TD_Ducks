@@ -40,7 +40,7 @@ public class SidePanelGame extends aSidePanel{
 
     public void initButtons(){
         int id =0;
-        int posX=this.posX +10;
+        int posX= (int) (this.posX +10);
         int posY=50;
         int bWidth=160;
         int bHeight=80;
@@ -54,9 +54,9 @@ public class SidePanelGame extends aSidePanel{
             buttonTowerList.add(bTower_0);
         }
 
-        editMode=new Button("Edit_Mode", posX, height -4*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
-        speedUp=new Button("Speed_Up", posX, height -3*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
-        startRound =new Button("Start_Round", posX, height -2*bHeight, bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
+        editMode=new Button("Edit_Mode", posX, (int) (height -4*bHeight), bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
+        speedUp=new Button("Speed_Up", posX, (int) (height -3*bHeight), bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
+        startRound =new Button("Start_Round", posX, (int) (height -2*bHeight), bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
 
     }
 

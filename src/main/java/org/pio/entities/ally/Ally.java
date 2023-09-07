@@ -51,7 +51,7 @@ public abstract class Ally extends Entity {
 
         this.enemiesInRangeList=new LinkedList<>();
         this.bulletList =new LinkedList<>();
-        this.sidePanelUpgrade=new SidePanelUpgrade(GameScreen.UNIT_SIZE*5, GameScreen.UNIT_SIZE*22, GameScreen.screenWidth-250,0);
+        this.sidePanelUpgrade=new SidePanelUpgrade(GameScreen.UNIT_SIZE*5, GameScreen.UNIT_SIZE*22, (int) (GameScreen.screenWidth-250),0);
 
         this.allyUpdate=new AllyUpdate(this);
         this.mouseHandler=new AllyMouseHandler(this);

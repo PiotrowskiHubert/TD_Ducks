@@ -17,7 +17,7 @@ public class EditSidePanelMouseHandler implements MouseHandler{
 
     @Override
     public void leftMouseClicked(int x, int y) {
-        if (x>29* GameScreen.UNIT_SIZE) {
+        if (x>54 * GameScreen.UNIT_SIZE) {
 
             if (sidePanelEditMap.currentDataLinkedMap != null) {
 
@@ -41,7 +41,7 @@ public class EditSidePanelMouseHandler implements MouseHandler{
 
             if (sidePanelEditMap.scrollUp!=null){
                 if (sidePanelEditMap.scrollUp.isMousePressed()&&sidePanelEditMap.scrollUp.isMouseOver()){
-                    sidePanelEditMap.currentDataLinkedMap=sidePanelEditMap.getPartOfData(-1);
+                    //sidePanelEditMap.currentDataLinkedMap=sidePanelEditMap.getPartOfData(-1);
                     sidePanelEditMap.scrollUp.setMousePressed(false);
                     sidePanelEditMap.scrollUp.setMouseOver(false);
                 }
@@ -49,7 +49,7 @@ public class EditSidePanelMouseHandler implements MouseHandler{
 
             if (sidePanelEditMap.scrollDown!=null){
                 if (sidePanelEditMap.scrollDown.isMousePressed()&&sidePanelEditMap.scrollDown.isMouseOver()){
-                    sidePanelEditMap.currentDataLinkedMap=sidePanelEditMap.getPartOfData(1);
+                    //sidePanelEditMap.currentDataLinkedMap=sidePanelEditMap.getPartOfData(1);
                     sidePanelEditMap.scrollDown.setMousePressed(false);
                     sidePanelEditMap.scrollDown.setMouseOver(false);
                 }
@@ -63,7 +63,7 @@ public class EditSidePanelMouseHandler implements MouseHandler{
                 }
             }
 
-        } else if (x<29*GameScreen.UNIT_SIZE&&sidePanelEditMap.selectedTile!=null){
+        } else if (x<54*GameScreen.UNIT_SIZE&&sidePanelEditMap.selectedTile!=null){
 
             Tile newTile = new Tile(sidePanelEditMap.selectedTile.getWidth(),sidePanelEditMap.selectedTile.getHeight(),
                     Level.getLvlArr()[PlayScene.getMouseY()/32][PlayScene.getMouseX()/32].getPosX(),

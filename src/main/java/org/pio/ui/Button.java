@@ -38,10 +38,10 @@ public class Button {
         initBoundsRectangleShape();
     }
 
-    public Button(String name, int posWidthX, int posHeightY, int width, int height, int id, BufferedImage spriteButtonIdle, BufferedImage spriteButtonHover, BufferedImage spriteButtonPressed) {
+    public Button(String name, int posX, int posY, int width, int height, int id, BufferedImage spriteButtonIdle, BufferedImage spriteButtonHover, BufferedImage spriteButtonPressed) {
         this.name=name;
-        this.posWidthX = posWidthX;
-        this.posHeightY = posHeightY;
+        this.posWidthX = posX;
+        this.posHeightY = posY;
         this.width = width;
         this.height = height;
         this.id = id;

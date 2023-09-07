@@ -21,7 +21,7 @@ public class PreGameScene implements sceneMeethods, keyboardMethods {
         double scale = 2.0;
 
         level = new preGameLevel(30, 20);
-        player = new PreGamePlayer(GameScreen.screenWidth/2,GameScreen.UNIT_SIZE /2, GameScreen.UNIT_SIZE*scale, GameScreen.UNIT_SIZE*2*scale, 3, "player");
+        player = new PreGamePlayer((int) (GameScreen.screenWidth/2),GameScreen.UNIT_SIZE /2, GameScreen.UNIT_SIZE*scale, GameScreen.UNIT_SIZE*2*scale, 3, "player");
     }
 
     @Override

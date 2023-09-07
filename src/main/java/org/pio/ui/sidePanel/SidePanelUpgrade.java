@@ -25,13 +25,13 @@ public class SidePanelUpgrade extends aSidePanel{
     public LinkedHashMap<Integer, bRectangle> initButtonsHashMap() {
         LinkedHashMap<Integer, bRectangle> linkedMapButtons = new LinkedHashMap<>();
 
-        bRectangleUpgrade button_1 = new bRectangleUpgrade(posX +20, posY +20, 110, 110,"1" ,(linkedMapButtons.size()+1),5);
+        bRectangleUpgrade button_1 = new bRectangleUpgrade((int) (posX +20), (int) (posY +20), 110, 110,"1" ,(linkedMapButtons.size()+1),5);
         linkedMapButtons.put( (linkedMapButtons.size()+1) ,button_1);
 
-        bRectangleUpgrade button_2 = new bRectangleUpgrade(posX +20, posY +150, 110, 110,"2" ,(linkedMapButtons.size()+1),5);
+        bRectangleUpgrade button_2 = new bRectangleUpgrade((int) (posX +20), (int) (posY +150), 110, 110,"2" ,(linkedMapButtons.size()+1),5);
         linkedMapButtons.put( (linkedMapButtons.size()+1) ,button_2);
 
-        bRectangleUpgrade button_3 = new bRectangleUpgrade(posX +20, posY +280, 110, 110,"3" ,(linkedMapButtons.size()+1),5);
+        bRectangleUpgrade button_3 = new bRectangleUpgrade((int) (posX +20), (int) (posY +280), 110, 110,"3" ,(linkedMapButtons.size()+1),5);
         linkedMapButtons.put( (linkedMapButtons.size()+1) ,button_3);
 
         return linkedMapButtons;

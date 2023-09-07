@@ -22,10 +22,10 @@ public class PlayScene extends GameScene implements sceneMeethods {
         super(game);
         mapEditMode=false;
 
-        lvl=new Level(29,22, getGame(),11);
+        lvl=new Level(26,16, getGame(),11);
         player=new Player(2000,100);
 
-        this.editSidePanel = new SidePanelEditMap(3*GameScreen.UNIT_SIZE, 33*GameScreen.UNIT_SIZE, 57*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, this);
+        this.editSidePanel = new SidePanelEditMap(GameScreen.SCALED_UNIT_SIZE, 33*GameScreen.UNIT_SIZE, 57*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, this);
         this.mouseHandler=new PlaySceneMouseHandler(this);
 
     }
@@ -83,7 +83,7 @@ public class PlayScene extends GameScene implements sceneMeethods {
     private void drawEditModeTileHighlight(Graphics g) {
         if (mouseX<54*GameScreen.UNIT_SIZE){
             g.setColor(Color.black);
-            g.drawRect((mouseX/GameScreen.UNIT_SIZE)*GameScreen.UNIT_SIZE,(mouseY/GameScreen.UNIT_SIZE)*GameScreen.UNIT_SIZE,GameScreen.UNIT_SIZE*2,GameScreen.UNIT_SIZE*2);
+            g.drawRect((mouseX/(GameScreen.UNIT_SIZE*2))*(GameScreen.UNIT_SIZE*2),(mouseY/(GameScreen.UNIT_SIZE*2)*(GameScreen.UNIT_SIZE*2)),GameScreen.UNIT_SIZE*2,GameScreen.UNIT_SIZE*2);
         }
     }
 

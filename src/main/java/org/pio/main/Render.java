@@ -13,6 +13,10 @@ public class Render {
 
     public void render(Graphics g){
 
+        if (game.getGameStates() == GameStates.MENU){
+            game.getMenuScene().render(g);
+        }
+
         if (game.getGameStates() == GameStates.PREGAME){
             game.getPreGameScene().render(g);
         }

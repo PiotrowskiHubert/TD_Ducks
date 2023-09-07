@@ -1,15 +1,13 @@
 package org.pio.scene;
 
+import org.pio.entities.LevelDraw;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
 import org.pio.factory.enemy.EnemyFactoryImpl;
-import org.pio.helpz.KeyPoint;
-import org.pio.helpz.ReadFromFileImpl;
-import org.pio.helpz.Readers;
+import org.pio.helpz.*;
 import org.pio.inputs.mouse.LevelMouseHandler;
 import org.pio.main.Game;
 import org.pio.main.GameScreen;
-import org.pio.helpz.Directions;
 import org.pio.player.Player;
 import org.pio.tiles.Tile;
 import org.pio.ui.sidePanel.SidePanelGame;
@@ -21,22 +19,23 @@ import java.util.List;
 
 public class Level extends GameScene {
     private final int START_ROUND=0;
-    private final int NUM_OF_ROUNDS;
+    public final int NUM_OF_ROUNDS;
     public static int currentRound;
-    private static int lvlHeight, lvlWidth;
-    private static Tile[][] lvlArr;
+    public static int lvlHeight, lvlWidth;
+    public static Tile[][] lvlArr;
     public static List<Round> rounds = new ArrayList<>();
-    private static List<KeyPoint> keyPointsList = new ArrayList<>();
+    public static List<KeyPoint> keyPointsList = new ArrayList<>();
     private EnemyFactoryImpl enemyFactoryImpl;
     public static List<Ally> allyPlacedTowers = new ArrayList<>();
     public Ally selectedTower;
     public SidePanelGame sidePanelGame;
     public LevelMouseHandler mouseHandler;
+    public LevelDraw levelDraw;
     public Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
         enemyFactoryImpl = new EnemyFactoryImpl();
         int scale=3;
-        sidePanelGame = new SidePanelGame(GameScreen.UNIT_SIZE*2*scale,GameScreen.UNIT_SIZE*33,GameScreen.UNIT_SIZE*54,GameScreen.UNIT_SIZE*0,this);
+        sidePanelGame = new SidePanelGame((int)GameScreen.SCALED_UNIT_SIZE*4,GameScreen.UNIT_SIZE*33,GameScreen.UNIT_SIZE*52,GameScreen.UNIT_SIZE*0,this);
 
         this.NUM_OF_ROUNDS=numOfRounds;
         this.lvlWidth = lvlWidth;
@@ -45,11 +44,14 @@ public class Level extends GameScene {
         lvlArr = new Tile[lvlHeight][lvlWidth];
 
         currentRound=START_ROUND;
-
+        //Writers.writeEmptyLevel();
         createLevelRoundsAndAddEnemies();
 
-        Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_1_Tiles.txt"));
+        Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_2_Tiles.txt"));
+        //Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_1_Tiles.txt"));
+
         this.mouseHandler = new LevelMouseHandler(this);
+        levelDraw=new LevelDraw(this);
     }
 
     // -------- INIT ------- //
@@ -75,77 +77,11 @@ public class Level extends GameScene {
 
     }
 
-    // -------------------------DRAW------------------------------- //
-
     public void drawLevel(Graphics g){
-        drawTiles(g);
-        drawAllyTowerPlaced(g);
-        drawRoundInfo(g);
-        drawEnemy(g);
-        drawSelectedAlly(g);
-        drawSidePanel(g);
-        drawKeypoins(g);
+        levelDraw.draw(g);
     }
 
-    private void drawKeypoins(Graphics g) {
-        for (KeyPoint keyPoint : keyPointsList) {
-            keyPoint.draw(g);
-        }
-    }
 
-    private void drawSidePanel(Graphics g) {
-        sidePanelGame.draw(g);
-    }
-
-    private void drawSelectedAlly(Graphics g) {
-        if (selectedTower != null){
-            drawSelectedTowerRange(g);
-            drawSelectedTowerSprite(g);
-        }
-    }
-    private void drawSelectedTowerSprite(Graphics g) {
-        selectedTower.draw(g);
-    }
-    private void drawSelectedTowerRange(Graphics g){
-        g.setColor(new Color(0f,0f,0f,.5f));
-        g.fillOval(selectedTower.rangeEllipse.getBounds().x, selectedTower.rangeEllipse.getBounds().y, selectedTower.rangeEllipse.getBounds().width, selectedTower.rangeEllipse.getBounds().height);
-    }
-
-    private void drawEnemy(Graphics g) {
-        if (currentRound < NUM_OF_ROUNDS){
-            if (!rounds.get(currentRound).getEnemies().isEmpty()) {
-                for (Enemy enemy : rounds.get(currentRound).getEnemies()) {
-                    enemy.draw(g);
-                }
-            }
-        }
-    }
-    private void drawTiles(Graphics g) {
-        for (int i = 0; i < lvlHeight; i++) {
-            for (int j = 0; j < lvlWidth; j++) {
-                lvlArr[i][j].draw(g);
-            }
-        }
-    }
-    private void drawRoundInfo(Graphics g){
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-        g.drawString("Round: " + (currentRound) + "/" + (NUM_OF_ROUNDS-1), 10, 20);
-
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-        g.drawString("Player Health: " + Player.getHealth(), 10, 40);
-        g.drawString("Player Money: " + Player.getGold(), 10, 60);
-    }
-    private void drawAllyTowerPlaced(Graphics g){
-
-        if (allyPlacedTowers!=null){
-            for (Ally ally : allyPlacedTowers){
-                ally.draw(g);
-            }
-        }
-
-    }
 
     // -------------------------GET------------------------------- //
 

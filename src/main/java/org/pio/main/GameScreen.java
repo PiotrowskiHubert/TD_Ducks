@@ -14,7 +14,9 @@ public class GameScreen extends JPanel {
 
     public static int screenWidth,screenHeight;
 
+    public static final float SCALE=2;
     public static final int UNIT_SIZE =32;
+    public static final float SCALED_UNIT_SIZE = UNIT_SIZE*SCALE;
 
     public GameScreen(Game game){
         this.game=game;
@@ -25,7 +27,7 @@ public class GameScreen extends JPanel {
         this.screenWidth=60*UNIT_SIZE;
         this.screenHeight=33*UNIT_SIZE;
 
-        dimensionSize=new Dimension(screenWidth, screenHeight);
+        dimensionSize=new Dimension((int) screenWidth, (int) screenHeight);
 
         setMinimumSize(dimensionSize);
         setMaximumSize(dimensionSize);

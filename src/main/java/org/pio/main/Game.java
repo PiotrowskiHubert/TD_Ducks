@@ -3,6 +3,7 @@ package org.pio.main;
 import org.pio.database.MainDatabase;
 import org.pio.manager.*;
 import org.pio.scene.Level;
+import org.pio.scene.MenuScene;
 import org.pio.scene.PlayScene;
 import org.pio.scene.PreGameScene;
 import org.pio.tiles.TileManager;
@@ -12,9 +13,11 @@ import java.awt.*;
 
 public class Game extends JFrame implements Runnable {
     private PreGameScene preGameScene;
+    private MenuScene menuScene;
     public static GameStates gameStates;
     public Update update;
     private GameScreen gameScreen;
+
     private PlayerManager playerManager;
     private TileManager tileManager;
     private Render render;
@@ -38,7 +41,7 @@ public class Game extends JFrame implements Runnable {
     private void initClass(){
 
         gameScreen=new GameScreen(this);
-        gameStates=GameStates.GAME;
+        gameStates=GameStates.MENU;
 
         render=new Render(this);
         update=new Update(this);
@@ -48,6 +51,7 @@ public class Game extends JFrame implements Runnable {
         tileManager=new TileManager();
         playerManager=new PlayerManager();
 
+        menuScene=new MenuScene(this);
         playScene=new PlayScene(this);
         preGameScene=new PreGameScene(this);
     }
@@ -145,7 +149,9 @@ public class Game extends JFrame implements Runnable {
         return preGameScene;
     }
 
-
+    public MenuScene getMenuScene() {
+        return menuScene;
+    }
     // ----------- SET ----------- //
 
 
