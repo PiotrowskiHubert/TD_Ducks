@@ -12,6 +12,7 @@ public class Game extends JFrame implements Runnable {
     private PreGameScene preGameScene;
     private MenuScene menuScene;
     private SettingsScene settingsScene;
+    private SelectSaveScene selectSaveScene;
     public static GameStates gameStates;
     public Update update;
     private GameScreen gameScreen;
@@ -53,6 +54,7 @@ public class Game extends JFrame implements Runnable {
         playScene=new PlayScene(this);
         preGameScene=new PreGameScene(this);
         settingsScene=new SettingsScene(this);
+        selectSaveScene=new SelectSaveScene(this);
     }
 
     private void initWindow(){
@@ -154,6 +156,10 @@ public class Game extends JFrame implements Runnable {
 
     public SettingsScene getSettingsScene() {
         return settingsScene;
+    }
+
+    public SelectSaveScene getSelectSaveScene() {
+        return selectSaveScene;
     }
     // ----------- SET ----------- //
 

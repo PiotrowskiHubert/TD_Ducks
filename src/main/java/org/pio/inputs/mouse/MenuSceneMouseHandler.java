@@ -15,7 +15,7 @@ public class MenuSceneMouseHandler implements MouseHandler{
     public void leftMouseClicked(int x, int y) {
         if (menuScene.getButtonByName("PLAY").mousePressed) {
             resetBooleans(menuScene.getButtonByName("PLAY"));
-            GameStates.changeGameStateToGame();
+            GameStates.changeGameStateToMenuSelectSave();
 
         }else if (menuScene.getButtonByName("SETTINGS").mousePressed) {
             resetBooleans(menuScene.getButtonByName("SETTINGS"));
