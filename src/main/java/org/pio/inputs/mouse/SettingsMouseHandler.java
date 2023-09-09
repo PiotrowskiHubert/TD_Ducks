@@ -1,12 +1,32 @@
 package org.pio.inputs.mouse;
 
+import org.pio.main.Game;
+import org.pio.main.GameStates;
+import org.pio.scene.SettingsScene;
+import org.pio.ui.buttons.aButton;
+
 public class SettingsMouseHandler implements MouseHandler{
 
+    SettingsScene settingsScene;
 
+    public SettingsMouseHandler(SettingsScene settingsScene) {
+        this.settingsScene = settingsScene;
+    }
 
     @Override
     public void leftMouseClicked(int x, int y) {
+        if (settingsScene.getButtonByName("APPLY").mousePressed) {
+            resetBooleans(settingsScene.getButtonByName("APPLY"));
 
+
+        }else if (settingsScene.getButtonByName("RESET").mousePressed) {
+            resetBooleans(settingsScene.getButtonByName("RESET"));
+
+
+        }else if (settingsScene.getButtonByName("MENU").mousePressed) {
+            resetBooleans(settingsScene.getButtonByName("MENU"));
+            GameStates.changeGameStateToMenu();
+        }
     }
 
     @Override
@@ -17,11 +37,30 @@ public class SettingsMouseHandler implements MouseHandler{
     @Override
     public void mouseMoved(int x, int y) {
 
+        for (aButton button : settingsScene.getButtons().values()){
+            if (button.mouseOver){
+                if (!button.getButtonBounds().contains(x,y)){
+                    button.setMouseOver(false);
+                }
+            }
+        }
+
+        for (aButton button : settingsScene.getButtons().values()) {
+            if (button.getButtonBounds().contains(x, y)) {
+                button.setMouseOver(true);
+                break;
+            }
+        }
     }
 
     @Override
     public void mousePressed(int x, int y) {
 
+        for (aButton button : settingsScene.getButtons().values()) {
+            if (button.getButtonBounds().contains(x, y)) {
+                button.setMousePressed(true);
+            }
+        }
     }
 
     @Override
@@ -33,4 +72,10 @@ public class SettingsMouseHandler implements MouseHandler{
     public void mouseDragged(int x, int y) {
 
     }
+
+    private void resetBooleans(aButton button){
+        button.setMouseOver(false);
+        button.setMousePressed(false);
+    }
+
 }

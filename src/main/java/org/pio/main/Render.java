@@ -13,16 +13,31 @@ public class Render {
 
     public void render(Graphics g){
 
-        if (game.getGameStates() == GameStates.MENU){
-            game.getMenuScene().render(g);
+        switch (game.getGameStates()) {
+            case MENU -> {
+                game.getMenuScene().render(g);
+                break;
+            }
+
+            case MENU_SETTINGS -> {
+                game.getSettingsScene().render(g);
+            }
+
+            case MENU_SELECT_SAVE -> {
+
+            }
+
+            case GAME -> {
+                game.getPlayScene().render(g);
+                break;
+            }
+
+            case PREGAME -> {
+                game.getPreGameScene().render(g);
+                break;
+            }
+
         }
 
-        if (game.getGameStates() == GameStates.PREGAME){
-            game.getPreGameScene().render(g);
-        }
-
-        if (game.getGameStates() == GameStates.GAME) {
-            game.getPlayScene().render(g);
-        }
     }
 }

@@ -29,6 +29,18 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
                 }
             }
 
+            case MENU_SETTINGS -> {
+                if (e.getButton()==MouseEvent.BUTTON1){
+                    game.getSettingsScene().getMouseHandler().leftMouseClicked(e.getX(), e.getY());
+                    break;
+                }
+
+                if (e.getButton()==MouseEvent.BUTTON3){
+                    game.getSettingsScene().getMouseHandler().rightMouseClicked(e.getX(), e.getY());
+                    break;
+                }
+            }
+
             case GAME -> {
                 if (e.getButton()==MouseEvent.BUTTON1){
                     game.getPlayScene().mouseHandler.leftMouseClicked(e.getX(), e.getY());
@@ -58,6 +70,10 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
                 break;
             }
 
+            case MENU_SETTINGS -> {
+                game.getSettingsScene().getMouseHandler().mousePressed(e.getX(), e.getY());
+            }
+
             case GAME -> {
                 game.getPlayScene().mouseHandler.mousePressed(e.getX(),e.getY());
                 break;
@@ -78,6 +94,10 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
             case MENU -> {
                 game.getMenuScene().getMenuSceneMouseHandler().mouseReleased(e.getX(), e.getY());
                 break;
+            }
+
+            case MENU_SETTINGS -> {
+                game.getSettingsScene().getMouseHandler().mouseReleased(e.getX(), e.getY());
             }
 
             case GAME -> {
@@ -105,6 +125,10 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
             case MENU -> {
                 game.getMenuScene().getMenuSceneMouseHandler().mouseMoved(e.getX(), e.getY());
                 break;
+            }
+
+            case MENU_SETTINGS -> {
+                game.getSettingsScene().getMouseHandler().mouseMoved(e.getX(), e.getY());
             }
 
             case GAME -> {

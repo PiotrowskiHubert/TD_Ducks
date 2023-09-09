@@ -14,5 +14,8 @@ public enum GameStates {
     public static void changeGameStateToMenuSelectSave(){
         Game.setGameStates(MENU_SELECT_SAVE);
     }
+    public static void changeGameStateToMenu(){
+        Game.setGameStates(MENU);
+    }
 
 }

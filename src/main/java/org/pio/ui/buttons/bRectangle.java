@@ -41,6 +41,18 @@ public class bRectangle extends aButton implements buttonMethods {
 
     }
 
+    @Override
+    public void drawCenteredString(Graphics g){
+
+        Font font = new Font("TimesNewRoman",Font.PLAIN, 20);
+        FontMetrics metrics = g.getFontMetrics(font);
+        int x = buttonBounds.getBounds().x + (buttonBounds.getBounds().width - metrics.stringWidth(name)) / 2;
+        int y = buttonBounds.getBounds().y + ((buttonBounds.getBounds().height - metrics.getHeight()) / 2) + metrics.getAscent();
+        g.setColor(new Color(0xFFC300));
+        g.setFont(font);
+        g.drawString(name, x, y);
+    }
+
     public int addProgressStatus(){
         return 0;
     }

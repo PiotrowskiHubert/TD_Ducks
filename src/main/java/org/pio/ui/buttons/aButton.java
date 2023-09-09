@@ -2,7 +2,6 @@ package org.pio.ui.buttons;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Collection;
 
 public abstract class aButton implements buttonMethods {
     public int posX, posY, width, height;
@@ -54,6 +53,10 @@ public abstract class aButton implements buttonMethods {
     }
     public int getId() {
         return id;
+    }
+
+    public void drawCenteredString(Graphics g){
+
     }
 
     public void setMouseOver(boolean mouseOver) {

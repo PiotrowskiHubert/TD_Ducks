@@ -15,11 +15,9 @@ public class MenuScene {
     private LinkedHashMap<String, aButton> buttons = new LinkedHashMap<>();
     private aButton play, settings, exit;
 
-
     public MenuScene(Game game) {
         this.game = game;
         initButtons();
-
 
         menuSceneMouseHandler=new MenuSceneMouseHandler(this);
     }
@@ -54,17 +52,16 @@ public class MenuScene {
     private void drawButtons(Graphics g) {
         if (!buttons.isEmpty()){
             buttons.values().forEach(button -> button.draw(g));
+            buttons.values().forEach(button -> button.drawCenteredString(g));
         }
     }
 
     public LinkedHashMap<String, aButton> getButtons() {
         return buttons;
     }
-
     public aButton getButtonByName(String name){
         return buttons.get(name);
     }
-
     public MenuSceneMouseHandler getMenuSceneMouseHandler() {
         return menuSceneMouseHandler;
     }
