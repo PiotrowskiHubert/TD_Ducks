@@ -13,19 +13,15 @@ import java.awt.event.KeyEvent;
 public class PlayScene extends GameScene implements sceneMeethods {
     public Level lvl;
     public static Player player;
-    public SidePanelEditMap editSidePanel;
-    public static boolean mapEditMode;
     public static int mouseX, mouseY;
     public PlaySceneMouseHandler mouseHandler;
 
     public PlayScene(Game game) {
         super(game);
-        mapEditMode=false;
 
         lvl=new Level(26,16, getGame(),11);
         player=new Player(2000,100);
 
-        this.editSidePanel = new SidePanelEditMap(GameScreen.SCALED_UNIT_SIZE, 33*GameScreen.UNIT_SIZE, 57*GameScreen.UNIT_SIZE, 0*GameScreen.UNIT_SIZE, this);
         this.mouseHandler=new PlaySceneMouseHandler(this);
 
     }
@@ -66,19 +62,11 @@ public class PlayScene extends GameScene implements sceneMeethods {
     public void render(Graphics g){
         lvl.drawLevel(g);
 
-        if (!mapEditMode){
-            //sidePanel.draw(g);
-            drawEditModeTileHighlight(g);
+        drawEditModeTileHighlight(g);
 
-        }else if(mapEditMode){
-            drawEditModeSidePanel(g);
-        }
 
     }
 
-    private void drawEditModeSidePanel(Graphics g) {
-        editSidePanel.draw(g);
-    }
 
     private void drawEditModeTileHighlight(Graphics g) {
         if (mouseX<54*GameScreen.UNIT_SIZE){
@@ -124,13 +112,6 @@ public class PlayScene extends GameScene implements sceneMeethods {
     public static Player getPlayer() {
         return player;
     }
-    public static boolean isMapEditMode() {
-        return mapEditMode;
-    }
 
-    // -------- SET ------- //
 
-    public static void setMapEditMode(boolean mapEditMode) {
-        PlayScene.mapEditMode = mapEditMode;
-    }
 }
