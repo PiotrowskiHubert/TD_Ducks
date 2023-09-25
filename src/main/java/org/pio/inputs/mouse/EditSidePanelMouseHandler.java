@@ -31,13 +31,6 @@ public class EditSidePanelMouseHandler implements MouseHandler{
                 }
             }
 
-            if (sidePanelEditMap.closeEditMap!=null){
-                if (sidePanelEditMap.closeEditMap.isMousePressed()&&sidePanelEditMap.closeEditMap.isMouseOver()){
-                    sidePanelEditMap.sidePanelEditMapMethods.closeEditMapMode();
-                    sidePanelEditMap.closeEditMap.setMousePressed(false);
-                    sidePanelEditMap.closeEditMap.setMouseOver(false);
-                }
-            }
 
             if (sidePanelEditMap.scrollUp!=null){
                 if (sidePanelEditMap.scrollUp.isMousePressed()&&sidePanelEditMap.scrollUp.isMouseOver()){

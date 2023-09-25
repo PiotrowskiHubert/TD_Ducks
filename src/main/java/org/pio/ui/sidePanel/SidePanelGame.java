@@ -5,6 +5,7 @@ import org.pio.factory.ally.AllyFactoryImpl;
 import org.pio.inputs.mouse.GameSidePanelMouseHandler;
 import org.pio.scene.Level;
 import org.pio.ui.Button;
+import org.pio.ui.buttons.aButton;
 import org.pio.ui.buttons.bRectangle;
 
 import java.awt.*;
@@ -14,52 +15,54 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 public class SidePanelGame extends aSidePanel{
+    private BufferedImage spriteSidePanel = MainDatabase.getMainDatabase().spriteAtlasDatabase.get("SidePanel");
+    private List<aButton> towerButtons = new ArrayList<>();
+    private List<aButton> userButtons = new ArrayList<>();
+    private List<aButton> allButtons = new ArrayList<>();
+
+    public AllyFactoryImpl allyFactory = new AllyFactoryImpl();
+    public GameSidePanelMouseHandler gameSidePanelMouseHandler = new GameSidePanelMouseHandler(this);
     public Level level;
-    private BufferedImage spriteSidePanel;
-    private BufferedImage spriteButtonAtlas;
-
-    public Button bTower_0, editMode, startRound, speedUp;
-    public List<Button> buttonTowerList=new ArrayList<>();
-    public AllyFactoryImpl allyFactory;
-
-    public GameSidePanelMouseHandler gameSidePanelMouseHandler;
 
     public SidePanelGame(int width, int height, int posX, int posY, Level level) {
         super(width, height, posX, posY);
-
         this.level=level;
-        this.spriteSidePanel= MainDatabase.getMainDatabase().spriteAtlasDatabase.get("SidePanel");
-        this.spriteButtonAtlas=MainDatabase.getMainDatabase().spriteAtlasDatabase.get("Buttons");
-
-        this.allyFactory=new AllyFactoryImpl();
 
         initButtons();
-
-        this.gameSidePanelMouseHandler=new GameSidePanelMouseHandler(this);
     }
 
     public void initButtons(){
-        int id =0;
-        int posX= (int) (this.posX +10);
-        int posY=50;
-        int bWidth=160;
-        int bHeight=80;
-        int posYOffSet=bHeight+20;
+        initTowerButtons();
+        initUserButtons();
 
-
-        for (int i = 0; i < 5; i++) {
-            int index=1;
-
-            bTower_0 =new Button(MainDatabase.getMainDatabase().allyDatabase.get(index).name, posX, posY+id*posYOffSet, bWidth, bHeight, id++, MainDatabase.getMainDatabase().allyDatabase.get(index).cost, getButtonSprite(0,0,160,80),getButtonSprite(0,1,160,80), getButtonSprite(0,2,160,80));
-            buttonTowerList.add(bTower_0);
-        }
-
-        editMode=new Button("Edit_Mode", posX, (int) (height -4*bHeight), bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
-        speedUp=new Button("Speed_Up", posX, (int) (height -3*bHeight), bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
-        startRound =new Button("Start_Round", posX, (int) (height -2*bHeight), bWidth, bHeight, id++, getButtonSprite(0,3,160,80),getButtonSprite(0,4,160,80), getButtonSprite(0,5,160,80));
-
+        allButtons.addAll(towerButtons);
+        allButtons.addAll(userButtons);
     }
+    private void initUserButtons() {
+        int width = 202;
+        int height = 86;
+        int id = towerButtons.size();
+        int posX = this.posX+27;
+        int posY = this.height-27-height;
+        int posYOffSet=(height+13)*(-1);
+        int index=0;
 
+        userButtons.add(new bRectangle(posX, posY+(index++*posYOffSet), width, height, "START", ++id));
+        userButtons.add(new bRectangle(posX, posY+(index++*posYOffSet), width, height, "SPEED_UP", ++id));
+    }
+    private void initTowerButtons() {
+        int width = 202;
+        int height = 86;
+        int id = 0;
+        int posX = this.posX+27;
+        int posY = 45;
+        int posYOffSet=height+13;
+
+        for (int i = 1; i < 6; i++) {
+            towerButtons.add(new bRectangle(posX, posY+(id*posYOffSet), width, height,
+                    MainDatabase.getMainDatabase().allyDatabase.get(i).name, id++));
+        }
+    }
     @Override
     public LinkedHashMap<Integer, bRectangle> initButtonsHashMap() {
         return null;
@@ -73,17 +76,10 @@ public class SidePanelGame extends aSidePanel{
 
     public void drawButtons(Graphics g){
 
-        for (Button button : buttonTowerList) {
-            button.drawRectangleButton(g);
+        for (aButton button : allButtons) {
+            button.draw(g);
         }
 
-        editMode.drawRectangleButton(g);
-        speedUp.drawRectangleButton(g);
-        startRound.drawRectangleButton(g);
-
     }
 
-    private BufferedImage getButtonSprite(int xCord, int yCord, int widthImg,int heightImg){
-        return spriteButtonAtlas.getSubimage(xCord*160,yCord*80,widthImg,heightImg);
-    }
 }

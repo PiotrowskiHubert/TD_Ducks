@@ -5,7 +5,6 @@ import org.pio.inputs.mouse.PlaySceneMouseHandler;
 import org.pio.main.GameScreen;
 import org.pio.player.Player;
 import org.pio.main.Game;
-import org.pio.ui.sidePanel.SidePanelEditMap;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

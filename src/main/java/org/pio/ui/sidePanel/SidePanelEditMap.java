@@ -18,7 +18,7 @@ public class SidePanelEditMap extends aSidePanel{
     private PlayScene playScene;
     public bRectangle scrollUp, scrollDown, closeEditMap, saveMap;
     public EditSidePanelMouseHandler mouseHandler;
-    public SidePanelEditMap(float posWidth, float posHeight, float width, float height, PlayScene playScene) {
+    public SidePanelEditMap(int posWidth, int posHeight, int width, int height, PlayScene playScene) {
         super(width, height, posWidth, posHeight);
 
         this.playScene=playScene;

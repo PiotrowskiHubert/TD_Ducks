@@ -11,10 +11,6 @@ import java.util.List;
 
 public class SidePanelEditMapMethods{
 
-    public void closeEditMapMode(){
-        PlayScene.setMapEditMode(false);
-    }
-
     public void saveMap(Tile[][] lvlArr){
 
         List<Tile[]> Tiles = Arrays.stream(lvlArr).toList();
