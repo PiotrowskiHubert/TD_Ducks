@@ -16,7 +16,7 @@ import static org.pio.helpz.Helper.distanceBetweenTwoPoints;
 
 public class Update {
     private Game game;
-    public double timePerUpdateGame;
+    public static double timePerUpdateGame;
     private long lastGameUpdate;
     private long lastTimeGameUpdateCheck;
     private long now;

@@ -19,8 +19,6 @@ public class SidePanelGame extends aSidePanel{
     private List<aButton> towerButtons = new ArrayList<>();
     private List<aButton> userButtons = new ArrayList<>();
     private List<aButton> allButtons = new ArrayList<>();
-
-    public AllyFactoryImpl allyFactory = new AllyFactoryImpl();
     public GameSidePanelMouseHandler gameSidePanelMouseHandler = new GameSidePanelMouseHandler(this);
     public Level level;
 
@@ -37,6 +35,8 @@ public class SidePanelGame extends aSidePanel{
 
         allButtons.addAll(towerButtons);
         allButtons.addAll(userButtons);
+
+        System.out.println(allButtons.get(6).id);
     }
     private void initUserButtons() {
         int width = 202;
@@ -47,8 +47,8 @@ public class SidePanelGame extends aSidePanel{
         int posYOffSet=(height+13)*(-1);
         int index=0;
 
-        userButtons.add(new bRectangle(posX, posY+(index++*posYOffSet), width, height, "START", ++id));
-        userButtons.add(new bRectangle(posX, posY+(index++*posYOffSet), width, height, "SPEED_UP", ++id));
+        userButtons.add(new bRectangle(posX, posY+(index++*posYOffSet), width, height, "START", id++));
+        userButtons.add(new bRectangle(posX, posY+(index++*posYOffSet), width, height, "SPEED_UP", id++));
     }
     private void initTowerButtons() {
         int width = 202;
@@ -80,6 +80,16 @@ public class SidePanelGame extends aSidePanel{
             button.draw(g);
         }
 
+        drawTextOnButtons(g);
     }
 
+    private void drawTextOnButtons(Graphics g) {
+        for (aButton button : userButtons) {
+            button.drawCenteredString(g);
+        }
+    }
+
+    public List<aButton> getAllButtons() {
+        return allButtons;
+    }
 }

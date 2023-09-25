@@ -81,8 +81,6 @@ public class Level extends GameScene {
         levelDraw.draw(g);
     }
 
-
-
     // -------------------------GET------------------------------- //
 
     public int getNUM_OF_ROUNDS() {

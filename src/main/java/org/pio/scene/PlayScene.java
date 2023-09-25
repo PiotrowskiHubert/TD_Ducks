@@ -36,24 +36,33 @@ public class PlayScene extends GameScene implements sceneMeethods {
     }
     public void changeGameSpeed(){
 
-        double timePerUpdateRegular=1_000_000_000.0/120.0;
-        double timePerUpdateFast=timePerUpdateRegular/2;
+//        double timePerUpdateRegular=1_000_000_000.0/120.0;
+//        double timePerUpdateFast=timePerUpdateRegular/2;
+//
+//        if (getGame().update.timePerUpdateGame==timePerUpdateRegular){
+//
+//            getGame().update.timePerUpdateGame=timePerUpdateFast;
+//
+//            Level.allyPlacedTowers.stream().forEach(ally -> ally.allyUpdate.timePerUpdate = ally.allyUpdate.timePerUpdate/2);
+//            Level.rounds.get(Level.currentRound).getEnemies().stream().forEach(enemy -> enemy.enemyUpdate.timePerUpdate=enemy.enemyUpdate.timePerUpdate/2);
+//
+//        } else if (getGame().update.timePerUpdateGame==timePerUpdateFast){
+//
+//            getGame().update.timePerUpdateGame=timePerUpdateRegular;
+//
+//            Level.allyPlacedTowers.stream().forEach(ally -> ally.allyUpdate.timePerUpdate=ally.allyUpdate.timePerUpdate*2);
+//            Level.rounds.get(Level.currentRound).getEnemies().stream().forEach(enemy -> enemy.enemyUpdate.timePerUpdate=enemy.enemyUpdate.timePerUpdate*2);
+//
+//        }
+        double gameTimePerUpdate=1_000_000_000.0/120.0;
 
-        if (getGame().update.timePerUpdateGame==timePerUpdateRegular){
-
-            getGame().update.timePerUpdateGame=timePerUpdateFast;
-
-            Level.allyPlacedTowers.stream().forEach(ally -> ally.allyUpdate.timePerUpdate = ally.allyUpdate.timePerUpdate/2);
-            Level.rounds.get(Level.currentRound).getEnemies().stream().forEach(enemy -> enemy.enemyUpdate.timePerUpdate=enemy.enemyUpdate.timePerUpdate/2);
-
-        } else if (getGame().update.timePerUpdateGame==timePerUpdateFast){
-
-            getGame().update.timePerUpdateGame=timePerUpdateRegular;
-
-            Level.allyPlacedTowers.stream().forEach(ally -> ally.allyUpdate.timePerUpdate=ally.allyUpdate.timePerUpdate*2);
-            Level.rounds.get(Level.currentRound).getEnemies().stream().forEach(enemy -> enemy.enemyUpdate.timePerUpdate=enemy.enemyUpdate.timePerUpdate*2);
-
+        if (gameTimePerUpdate==1_000_000_000.0/120.0){
+            gameTimePerUpdate=gameTimePerUpdate/2;
+        }else {
+            gameTimePerUpdate=gameTimePerUpdate*2;
         }
+
+        getGame().update.timePerUpdateGame=gameTimePerUpdate;
     }
 
     // -------- RENDER ------- //

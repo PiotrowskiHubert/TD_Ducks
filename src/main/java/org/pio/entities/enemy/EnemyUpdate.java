@@ -1,6 +1,7 @@
 package org.pio.entities.enemy;
 
 import org.pio.entities.EntityUpdate;
+import org.pio.main.Update;
 
 public class EnemyUpdate extends EntityUpdate {
     Enemy enemy;
@@ -18,7 +19,7 @@ public class EnemyUpdate extends EntityUpdate {
 
     @Override
     public void update(long now) {
-        if(now-lastUpdate>=timePerUpdate){
+        if(now-lastUpdate>= Update.timePerUpdateGame){
             lastUpdate=now;
 
             enemyMovable.move();

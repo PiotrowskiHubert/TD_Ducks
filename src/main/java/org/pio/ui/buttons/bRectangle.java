@@ -17,7 +17,7 @@ public class bRectangle extends aButton implements buttonMethods {
 
     @Override
     public void initBounds() {
-            buttonBounds = new Rectangle(posX, posY, width, height);
+        buttonBounds = new Rectangle(posX, posY, width, height);
     }
 
     @Override
@@ -35,6 +35,10 @@ public class bRectangle extends aButton implements buttonMethods {
             g.setColor(Color.GREEN);
         }else {
             g.setColor(Color.WHITE);
+        }
+
+        if (mousePressed){
+            g.setColor(new Color(0x4F000000, true));
         }
 
         g.fillRect(posX, posY, width, height);
