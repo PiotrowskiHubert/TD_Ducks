@@ -20,9 +20,10 @@ public class LevelDraw {
         drawAllyTowerPlaced(g);
         drawRoundInfo(g);
         drawEnemy(g);
-        drawSelectedAlly(g);
         drawSidePanel(g);
         drawKeypoins(g);
+        drawSelectedAlly(g);
+
     }
 
     private void drawKeypoins(Graphics g) {

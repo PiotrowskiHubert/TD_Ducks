@@ -81,26 +81,26 @@ public class GameSidePanelMouseHandler implements MouseHandler {
 
 
         if (sidePanelGame.getAllButtons().get(0).isMousePressed()){
-//            sidePanelGame.level.selectedTower = allyFactory.createAlly_1(x, y, null);
+            sidePanelGame.level.selectedTower = allyFactory.createAlly_1(x, y, null);
         }
 
         if (sidePanelGame.getAllButtons().get(1).isMousePressed()){
-//            sidePanelGame.level.selectedTower = allyFactory.createAlly_2(x, y, null);
+            sidePanelGame.level.selectedTower = allyFactory.createAlly_2(x, y, null);
 
         }
 
         if (sidePanelGame.getAllButtons().get(2).isMousePressed()){
-//            sidePanelGame.level.selectedTower = allyFactory.createAlly_3(x, y, null);
+            sidePanelGame.level.selectedTower = allyFactory.createAlly_3(x, y, null);
 
         }
 
         if (sidePanelGame.getAllButtons().get(3).isMousePressed()){
-//            sidePanelGame.level.selectedTower = allyFactory.createAlly_4(x, y, null);
+            sidePanelGame.level.selectedTower = allyFactory.createAlly_4(x, y, null);
 
         }
 
         if (sidePanelGame.getAllButtons().get(4).isMousePressed()){
-//            sidePanelGame.level.selectedTower = allyFactory.createAlly_5(x, y, null);
+            sidePanelGame.level.selectedTower = allyFactory.createAlly_5(x, y, null);
 
         }
 

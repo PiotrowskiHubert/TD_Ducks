@@ -3,6 +3,7 @@ package org.pio.scene;
 import org.pio.entities.ally.Ally;
 import org.pio.inputs.mouse.PlaySceneMouseHandler;
 import org.pio.main.GameScreen;
+import org.pio.main.Update;
 import org.pio.player.Player;
 import org.pio.main.Game;
 
@@ -36,33 +37,13 @@ public class PlayScene extends GameScene implements sceneMeethods {
     }
     public void changeGameSpeed(){
 
-//        double timePerUpdateRegular=1_000_000_000.0/120.0;
-//        double timePerUpdateFast=timePerUpdateRegular/2;
-//
-//        if (getGame().update.timePerUpdateGame==timePerUpdateRegular){
-//
-//            getGame().update.timePerUpdateGame=timePerUpdateFast;
-//
-//            Level.allyPlacedTowers.stream().forEach(ally -> ally.allyUpdate.timePerUpdate = ally.allyUpdate.timePerUpdate/2);
-//            Level.rounds.get(Level.currentRound).getEnemies().stream().forEach(enemy -> enemy.enemyUpdate.timePerUpdate=enemy.enemyUpdate.timePerUpdate/2);
-//
-//        } else if (getGame().update.timePerUpdateGame==timePerUpdateFast){
-//
-//            getGame().update.timePerUpdateGame=timePerUpdateRegular;
-//
-//            Level.allyPlacedTowers.stream().forEach(ally -> ally.allyUpdate.timePerUpdate=ally.allyUpdate.timePerUpdate*2);
-//            Level.rounds.get(Level.currentRound).getEnemies().stream().forEach(enemy -> enemy.enemyUpdate.timePerUpdate=enemy.enemyUpdate.timePerUpdate*2);
-//
-//        }
-        double gameTimePerUpdate=1_000_000_000.0/120.0;
-
-        if (gameTimePerUpdate==1_000_000_000.0/120.0){
-            gameTimePerUpdate=gameTimePerUpdate/2;
+        if (Update.timePerUpdateGame==1_000_000_000.0/120.0){
+            Update.timePerUpdateGame/=2;
         }else {
-            gameTimePerUpdate=gameTimePerUpdate*2;
+            Update.timePerUpdateGame*=2;
         }
 
-        getGame().update.timePerUpdateGame=gameTimePerUpdate;
+
     }
 
     // -------- RENDER ------- //
@@ -77,7 +58,7 @@ public class PlayScene extends GameScene implements sceneMeethods {
 
 
     private void drawEditModeTileHighlight(Graphics g) {
-        if (mouseX<54*GameScreen.UNIT_SIZE){
+        if (mouseX<52*GameScreen.UNIT_SIZE){
             g.setColor(Color.black);
             g.drawRect((mouseX/(GameScreen.UNIT_SIZE*2))*(GameScreen.UNIT_SIZE*2),(mouseY/(GameScreen.UNIT_SIZE*2)*(GameScreen.UNIT_SIZE*2)),GameScreen.UNIT_SIZE*2,GameScreen.UNIT_SIZE*2);
         }

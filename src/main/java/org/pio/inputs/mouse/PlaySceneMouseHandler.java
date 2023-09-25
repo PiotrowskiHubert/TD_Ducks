@@ -17,22 +17,22 @@ public class PlaySceneMouseHandler implements MouseHandler {
             playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.leftMouseClicked(x, y);
         }
 
-//        if (x<52*GameScreen.UNIT_SIZE){
-//            playScene.lvl.mouseHandler.leftMouseClicked(x,y);
-//
-//            if ( playScene.lvl.selectedTower!=null){
-//
-//                if (! playScene.containsBoundsOfOtherTower( playScene.lvl.selectedTower)){
-//                    playScene.lvl.allyPlacedTowers.add( playScene.lvl.selectedTower);
-//                    playScene.lvl.selectedTower.placed=true;
-//
+        if (x<52*GameScreen.UNIT_SIZE){
+            //playScene.lvl.mouseHandler.leftMouseClicked(x,y);
+
+            if ( playScene.lvl.selectedTower!=null){
+
+                if (! playScene.containsBoundsOfOtherTower(playScene.lvl.selectedTower)){
+                    playScene.lvl.allyPlacedTowers.add(playScene.lvl.selectedTower);
+                    playScene.lvl.selectedTower.placed=true;
+
 //                    playScene.player.setGold( playScene.player.getGold()- playScene.lvl.selectedTower.cost);
-//                }
-//
-//                playScene.lvl.selectedTower=null;
-//
-//            }
-//        }
+                }
+
+                playScene.lvl.selectedTower=null;
+
+            }
+        }
     }
 
     @Override
@@ -53,17 +53,17 @@ public class PlaySceneMouseHandler implements MouseHandler {
 //            playScene.lvl.mouseHandler.mouseMoved(x,y);
 //        }
 
-//        if (playScene.lvl.selectedTower!=null){
-//
-//            playScene.lvl.selectedTower.posX=x;
-//            playScene.lvl.selectedTower.posY=y;
-//
-//            playScene.lvl.selectedTower.bounds.x= (int) playScene.lvl.selectedTower.posX;
-//            playScene.lvl.selectedTower.bounds.y= (int) playScene.lvl.selectedTower.posY;
-//
-//            int ellipseOffset=20;
-//            playScene.lvl.selectedTower.rangeEllipse.setFrame(playScene.lvl.selectedTower.posX-playScene.lvl.selectedTower.range+ellipseOffset, playScene.lvl.selectedTower.posY-playScene.lvl.selectedTower.range+ellipseOffset, playScene.lvl.selectedTower.range*2, playScene.lvl.selectedTower.range*2);
-//        }
+        if (playScene.lvl.selectedTower!=null){
+
+            playScene.lvl.selectedTower.posX=x;
+            playScene.lvl.selectedTower.posY=y;
+
+            playScene.lvl.selectedTower.bounds.x = (int) playScene.lvl.selectedTower.posX;
+            playScene.lvl.selectedTower.bounds.y = (int) playScene.lvl.selectedTower.posY;
+
+            int ellipseOffset=20;
+            playScene.lvl.selectedTower.rangeEllipse.setFrame(playScene.lvl.selectedTower.posX-playScene.lvl.selectedTower.range+ellipseOffset, playScene.lvl.selectedTower.posY-playScene.lvl.selectedTower.range+ellipseOffset, playScene.lvl.selectedTower.range*2, playScene.lvl.selectedTower.range*2);
+        }
     }
 
     @Override
