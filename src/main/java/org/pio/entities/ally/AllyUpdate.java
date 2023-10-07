@@ -29,7 +29,7 @@ public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
             if(now-lastUpdate>= Update.timePerUpdateGame*120){
                 lastUpdate=now;
 
-                detect(Level.rounds.get(Level.currentRound).getEnemies());
+                detect();
                 allyShot.shot();
 
                 updateCounter++;
@@ -45,23 +45,21 @@ public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
     }
 
     @Override
-    public void detect(List<Enemy> enemies) {
-        if (!enemies.isEmpty()){
-            for (Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
-                Entity enemy=enemyIterator.next();
+    public void detect() {
+        for (Iterator<Enemy> enemyIterator = Level.rounds.get(Level.currentRound).getEnemies().iterator(); enemyIterator.hasNext();){
+            Entity enemy=enemyIterator.next();
 
-                if (ally.rangeEllipse.intersects(enemy.bounds)){
-                    if (!ally.enemiesInRangeList.contains(enemy)) {
-                        ally.enemiesInRangeList.add(enemy);
-                    }else {
-                        ally.enemiesInRangeList.get(ally.enemiesInRangeList.indexOf(enemy)).posX=enemy.posX;
-                        ally.enemiesInRangeList.get(ally.enemiesInRangeList.indexOf(enemy)).posY=enemy.posY;
-                    }
+            if (ally.rangeEllipse.intersects(enemy.bounds)){
+                if (!ally.enemiesInRangeList.contains(enemy)) {
+                    ally.enemiesInRangeList.add(enemy);
+                }else {
+                    ally.enemiesInRangeList.get(ally.enemiesInRangeList.indexOf(enemy)).posX=enemy.posX;
+                    ally.enemiesInRangeList.get(ally.enemiesInRangeList.indexOf(enemy)).posY=enemy.posY;
                 }
+            }
 
-                if (!ally.rangeEllipse.intersects(enemy.bounds)){
-                    ally.enemiesInRangeList.remove(enemy);
-                }
+            if (!ally.rangeEllipse.intersects(enemy.bounds)){
+                ally.enemiesInRangeList.remove(enemy);
             }
         }
     }
