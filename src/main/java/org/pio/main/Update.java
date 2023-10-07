@@ -44,7 +44,7 @@ public class Update {
             if (game.getGameStates() == GameStates.GAME){
                 updateEnemy();
                 updatePlacedAllies();
-                updateBullet(Level.allyPlacedTowers);
+                updateBullet();
             }
 
             lastGameUpdate = now;
@@ -104,8 +104,8 @@ public class Update {
         Level.allyPlacedTowers.forEach(ally -> ally.allyUpdate.update(now));
     }
 
-    private void updateBullet(List<Ally> allyPlacedTowers) {
-        bulletsUpdatePos(allyPlacedTowers);
+    private void updateBullet() {
+        bulletsUpdatePos();
         checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
     }
 
@@ -119,19 +119,10 @@ public class Update {
         }
     }
 
-    private void bulletsUpdatePos(List<Ally> allies) {
+    private void bulletsUpdatePos() {
 
-        if (allies.isEmpty()){
-            return;
-        }
-
-        for (Iterator<Ally> allyTowerIterator = allies.iterator(); allyTowerIterator.hasNext();) {
+        for (Iterator<Ally> allyTowerIterator = Level.allyPlacedTowers.iterator(); allyTowerIterator.hasNext();) {
             Ally nextAlly = allyTowerIterator.next();
-
-
-            if (nextAlly.bulletList.isEmpty()){
-                continue;
-            }
 
             for (Iterator<Bullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();) {
                 Bullet nextBullet = bulletIterator.next();
@@ -143,7 +134,6 @@ public class Update {
                 }
 
             }
-
 
         }
 
