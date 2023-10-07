@@ -14,6 +14,7 @@ public class Ally_1 extends Ally {
 
     public Ally_1(Ally ally, int posX, int posY, Directions direction) {
         super(ally, posX, posY, direction);
+        this.updates=120;
     }
 
     @Override

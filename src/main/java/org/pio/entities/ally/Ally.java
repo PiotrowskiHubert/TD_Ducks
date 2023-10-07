@@ -17,7 +17,7 @@ public abstract class Ally extends Entity {
     public List<Entity> enemiesInRangeList;
     public List<Bullet> bulletList;
     public LinkedHashMap<Directions, LinkedList<String>> sprites;
-    public int cost, range;
+    public int cost, range, updates;
     public Ellipse2D rangeEllipse;
     public Boolean mouseOver, pressed, placed;
     public Directions direction;

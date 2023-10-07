@@ -29,7 +29,6 @@ public class PlaySceneMouseHandler implements MouseHandler {
                     playScene.lvl.allyPlacedTowers.add(playScene.lvl.selectedTower);
                     playScene.lvl.selectedTower.placed=true;
 
-//                    playScene.player.setGold( playScene.player.getGold()- playScene.lvl.selectedTower.cost);
                 }
 
                 playScene.lvl.selectedTower=null;

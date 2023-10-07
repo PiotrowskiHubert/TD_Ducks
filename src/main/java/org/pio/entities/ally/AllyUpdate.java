@@ -8,7 +8,6 @@ import org.pio.main.Update;
 import org.pio.scene.Level;
 
 import java.util.Iterator;
-import java.util.List;
 
 public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
     Ally ally;
@@ -19,14 +18,14 @@ public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
         this.allyShot =new AllyShot(ally);
 
         this.lastTimeUpdateCheck = System.currentTimeMillis();
-        this.updateCounter = 0;
         this.lastUpdate = System.nanoTime();
+        this.updateCounter = 0;
     }
 
     @Override
     public void update(long now) {
         if (ally.placed){
-            if(now-lastUpdate>= Update.timePerUpdateGame*120){
+            if(now-lastUpdate>= Update.timePerUpdateGame * ally.updates){
                 lastUpdate=now;
 
                 detect();
