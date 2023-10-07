@@ -43,7 +43,7 @@ public class Update {
 
             if (game.getGameStates() == GameStates.GAME){
                 updateEnemy();
-                updateAlly(Level.allyPlacedTowers);
+                updatePlacedAllies();
                 updateBullet(Level.allyPlacedTowers);
             }
 
@@ -97,11 +97,11 @@ public class Update {
     }
 
     private void updateEnemies(){
-        game.getPlayScene().getLvl().rounds.get(Level.currentRound).getEnemies().forEach(enemy -> enemy.enemyUpdate.update(now));
+        Level.rounds.get(Level.currentRound).getEnemies().forEach(enemy -> enemy.enemyUpdate.update(now));
     }
 
-    private void updateAlly(List<Ally> allies) {
-        allies.forEach(ally -> ally.allyUpdate.update(now));
+    private void updatePlacedAllies() {
+        Level.allyPlacedTowers.forEach(ally -> ally.allyUpdate.update(now));
     }
 
     private void updateBullet(List<Ally> allyPlacedTowers) {
