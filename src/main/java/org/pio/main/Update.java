@@ -105,7 +105,7 @@ public class Update {
     }
 
     private void updateBullet() {
-        bulletsUpdatePos();
+        bulletsUpdate();
         checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
     }
 
@@ -119,7 +119,7 @@ public class Update {
         }
     }
 
-    private void bulletsUpdatePos() {
+    private void bulletsUpdate() {
 
         for (Iterator<Ally> allyTowerIterator = Level.allyPlacedTowers.iterator(); allyTowerIterator.hasNext();) {
             Ally nextAlly = allyTowerIterator.next();
@@ -137,6 +137,7 @@ public class Update {
 
         }
 
+
     }
     private Boolean limitBulletRange(Ally ally, Bullet Bullet){
         return distanceBetweenTwoPoints(ally.posX, ally.posY, Bullet.getPosX(), Bullet.getPosY()) >= ally.range + 15;
@@ -151,49 +152,35 @@ public class Update {
             return;
         }
 
-        // CHECK IF ANY ENEMY FROM CURRENT ROUND IS HIT BY ANY BULLET FROM ANY TOWER
-        // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
-        // REMOVE BULLET FROM TOWER BULLET LIST AND REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
-
-        // GO THROUGHT ALL ENEMIES FROM CURRENT ROUND
         for (Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
             Enemy nextEnemy = enemyIterator.next();
 
-            // GO THROUGHT ALL PLACED TOWERS
             for (Iterator<Ally> allyTowerIterator = allies.iterator(); allyTowerIterator.hasNext();){
                 Ally nextAlly = allyTowerIterator.next();
 
-                // CHECK IF TOWER HAS ANY BULLETS
                 if (!nextAlly.bulletList.isEmpty()){
 
-                    // GO THROUGHT ALL BULLETS FROM TOWER
                     for (Iterator<Bullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();){
                         Bullet nextBullet = bulletIterator.next();
 
-                        // CHECK IF ENEMY IS HIT BY BULLET
                         if (nextEnemy.bounds.getBounds().intersects(nextBullet.getBulletHitBox())){
 
                             nextEnemy.health=nextEnemy.health-1;
 
-                            // REMOVE BULLET FROM TOWER BULLET LIST
                             bulletIterator.remove();
 
                             if (nextEnemy.health<=0){
-                                // REMOVE ENEMY FROM CURRENT ROUND ENEMY LIST
+
                                 enemyIterator.remove();
 
-                                // ADD GOLD TO PLAYER
                                 PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(), nextEnemy.gold);
 
-                                // GO THROUGH ALL PLAYERS TOWERS
                                 for (Iterator<Ally> allyTowerIterator1 = allies.iterator(); allyTowerIterator1.hasNext();){
                                     Ally nextOldAllyTower1 = allyTowerIterator1.next();
 
-                                    // GO THROUGH ALL ENEMIES IN RANGE LIST
                                     for (Iterator<Entity> enemyIterator1 = nextOldAllyTower1.enemiesInRangeList.iterator(); enemyIterator1.hasNext();){
                                         Entity nextEnemy_1 = enemyIterator1.next();
 
-                                        // REMOVE ENEMY FROM ALL TOWER ENEMY IN RANGE LIST
                                         if (nextOldAllyTower1.enemiesInRangeList.contains(nextEnemy_1)){
                                             enemyIterator1.remove();
                                         }
@@ -203,9 +190,7 @@ public class Update {
 
                             }
 
-
                             return;
-
 
                         }
 

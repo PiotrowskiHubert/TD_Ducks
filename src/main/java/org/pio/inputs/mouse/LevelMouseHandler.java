@@ -78,8 +78,4 @@ public class LevelMouseHandler implements MouseHandler {
         }
     }
 
-    @Override
-    public void mouseDragged(int x, int y) {
-
-    }
 }

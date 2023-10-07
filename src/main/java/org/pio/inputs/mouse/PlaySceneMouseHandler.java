@@ -1,6 +1,7 @@
 package org.pio.inputs.mouse;
 
 import org.pio.main.GameScreen;
+import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
 
 public class PlaySceneMouseHandler implements MouseHandler {
@@ -13,12 +14,14 @@ public class PlaySceneMouseHandler implements MouseHandler {
     @Override
     public void leftMouseClicked(int x, int y) {
 
-        if (x>52*GameScreen.UNIT_SIZE){
+        if (x>GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
             playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.leftMouseClicked(x, y);
         }
 
-        if (x<52*GameScreen.UNIT_SIZE){
-            //playScene.lvl.mouseHandler.leftMouseClicked(x,y);
+        if (x<GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
+
+            Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.leftMouseClicked(x,y));
+
 
             if ( playScene.lvl.selectedTower!=null){
 
@@ -37,7 +40,7 @@ public class PlaySceneMouseHandler implements MouseHandler {
 
     @Override
     public void rightMouseClicked(int x, int y) {
-//        playScene.lvl.mouseHandler.rightMouseClicked(x,y);
+
     }
 
     @Override
@@ -45,13 +48,14 @@ public class PlaySceneMouseHandler implements MouseHandler {
         playScene.mouseX=x;
         playScene.mouseY=y;
 
-        if (x>52*GameScreen.UNIT_SIZE){
-            playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.mouseMoved(x,y);
+        if (x>GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
+            playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.mouseMoved(x, y);
         }
 
-//        if (x<52*GameScreen.UNIT_SIZE){
-//            playScene.lvl.mouseHandler.mouseMoved(x,y);
-//        }
+        if (x<GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
+            Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.mouseMoved(x, y));
+        }
+
 
         if (playScene.lvl.selectedTower!=null){
 
@@ -68,23 +72,20 @@ public class PlaySceneMouseHandler implements MouseHandler {
 
     @Override
     public void mousePressed(int x, int y) {
-        if (x>52*GameScreen.UNIT_SIZE){
-            playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.mousePressed(x,y);
+        if (x>GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
+            playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.mousePressed(x, y);
         }
 
-//        if (x<52*GameScreen.UNIT_SIZE){
-//            playScene.lvl.mouseHandler.mousePressed(x,y);
-//        }
+        if (x<GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
+            Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.mousePressed(x, y));
+        }
+
     }
 
     @Override
     public void mouseReleased(int x, int y) {
-        playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.mouseReleased(x,y);
-//        playScene.lvl.mouseHandler.mouseReleased(x,y);
+        playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.mouseReleased(x, y);
+        Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.mouseReleased(x, y));
     }
 
-    @Override
-    public void mouseDragged(int x, int y) {
-
-    }
 }

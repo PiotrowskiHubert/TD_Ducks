@@ -20,7 +20,6 @@ public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
 
         this.lastTimeUpdateCheck = System.currentTimeMillis();
         this.updateCounter = 0;
-        this.timePerUpdate = 1_000_000_000.0/1.0;
         this.lastUpdate = System.nanoTime();
     }
 

@@ -51,7 +51,7 @@ public abstract class Ally extends Entity {
 
         this.enemiesInRangeList=new LinkedList<>();
         this.bulletList =new LinkedList<>();
-        this.sidePanelUpgrade=new SidePanelUpgrade(GameScreen.UNIT_SIZE*5, GameScreen.UNIT_SIZE*22, (int) (GameScreen.screenWidth-250),0);
+        this.sidePanelUpgrade=new SidePanelUpgrade(GameScreen.UNIT_SIZE*7, GameScreen.UNIT_SIZE*33, GameScreen.UNIT_SIZE*(52-7),0);
 
         this.allyUpdate=new AllyUpdate(this);
         this.mouseHandler=new AllyMouseHandler(this);
@@ -62,18 +62,18 @@ public abstract class Ally extends Entity {
         return new Ellipse2D.Double(posX-range+offset, posY-range+offset, range*2, range*2);
     }
 
-
-    // -------------------------DRAW------------------------------- //
-
     @Override
     public void draw(Graphics g) {
-        drawPressed(g);
-        drawEntity(g);
+
+        drawAlly(g);
+
         drawMouseOver(g);
+        drawPressed(g);
+
         drawBullets(g);
 
     }
-    private void drawEntity(Graphics g) {
+    private void drawAlly(Graphics g) {
         g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
 
     }

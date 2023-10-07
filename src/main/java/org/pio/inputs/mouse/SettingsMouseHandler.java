@@ -68,10 +68,6 @@ public class SettingsMouseHandler implements MouseHandler{
 
     }
 
-    @Override
-    public void mouseDragged(int x, int y) {
-
-    }
 
     private void resetBooleans(aButton button){
         button.setMouseOver(false);

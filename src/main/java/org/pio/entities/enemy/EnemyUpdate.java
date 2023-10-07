@@ -11,9 +11,8 @@ public class EnemyUpdate extends EntityUpdate {
         this.enemy = enemy;
         this.enemyMovable=new EnemyMovable(enemy);
 
-        this.lastTimeUpdateCheck=System.currentTimeMillis();
         this.updateCounter =0;
-        this.timePerUpdate=1_000_000_000.0/120.0;
+        this.lastTimeUpdateCheck=System.currentTimeMillis();
         this.lastUpdate=System.nanoTime();
     }
 

@@ -184,8 +184,4 @@ public class EditSidePanelMouseHandler implements MouseHandler{
         }
     }
 
-    @Override
-    public void mouseDragged(int x, int y) {
-
-    }
 }

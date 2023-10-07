@@ -51,13 +51,9 @@ public class AllyMouseHandler implements MouseHandler {
 
     @Override
     public void mouseReleased(int x, int y) {
-        if (!ally.bounds.contains(x,y)&&! ally.sidePanelUpgrade.getSidePanelBounds().contains(x,y)){
+        if (!ally.bounds.contains(x,y) && !ally.sidePanelUpgrade.getSidePanelBounds().contains(x,y)){
             ally.pressed =false;
         }
     }
 
-    @Override
-    public void mouseDragged(int x, int y) {
-
-    }
 }

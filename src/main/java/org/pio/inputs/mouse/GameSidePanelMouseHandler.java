@@ -158,8 +158,4 @@ public class GameSidePanelMouseHandler implements MouseHandler {
 
     }
 
-    @Override
-    public void mouseDragged(int x, int y) {
-
-    }
 }

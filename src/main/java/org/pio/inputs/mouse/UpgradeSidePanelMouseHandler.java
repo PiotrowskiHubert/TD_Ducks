@@ -80,8 +80,4 @@ public class UpgradeSidePanelMouseHandler implements MouseHandler{
         }
     }
 
-    @Override
-    public void mouseDragged(int x, int y) {
-
-    }
 }
