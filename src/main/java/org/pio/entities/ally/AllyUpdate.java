@@ -4,6 +4,7 @@ import org.pio.entities.Entity;
 import org.pio.entities.EntityUpdate;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.enemy.Updatable;
+import org.pio.main.Update;
 import org.pio.scene.Level;
 
 import java.util.Iterator;
@@ -26,7 +27,7 @@ public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
     @Override
     public void update(long now) {
         if (ally.placed){
-            if(now-lastUpdate>=timePerUpdate){
+            if(now-lastUpdate>= Update.timePerUpdateGame*120){
                 lastUpdate=now;
 
                 detect(Level.rounds.get(Level.currentRound).getEnemies());

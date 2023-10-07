@@ -42,13 +42,9 @@ public class Update {
             }
 
             if (game.getGameStates() == GameStates.GAME){
-
-                updateMoveEnemies();
-                updateAllyTowerPlaced(Level.allyPlacedTowers);
-
-                bulletsUpdatePos(Level.allyPlacedTowers);
-                checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
-
+                updateEnemy();
+                updateAlly(Level.allyPlacedTowers);
+                updateBullet(Level.allyPlacedTowers);
             }
 
             lastGameUpdate = now;
@@ -64,30 +60,15 @@ public class Update {
 
     }
 
-    public void updateAnimations(){
-        if (game.getGameStates() == GameStates.PREGAME){
-            game.getPreGameScene().updateAnimations();
-        }
-
-        if (game.getGameStates() == GameStates.GAME){
-
-        }
-    }
-
-    private void updateMoveEnemies() {
-
+    private void updateEnemy() {
         if (Level.currentRound<game.getPlayScene().getLvl().getNUM_OF_ROUNDS()){
 
             checkIfEnemyGetToEndPoint(Level.rounds.get(Level.currentRound).getEnemies());
-            updateEnemies(Level.rounds.get(Level.currentRound).getEnemies());
+            updateEnemies();
 
         }
-
     }
 
-    private void updateEnemies(List<Enemy> enemies) {
-        enemies.forEach(enemy -> enemy.enemyUpdate.update(now));
-    }
     private void checkIfEnemyGetToEndPoint(List<Enemy> enemies){
 
         if (enemies.isEmpty()){
@@ -95,7 +76,7 @@ public class Update {
         }
 
         for (int i = 0; i < enemies.size(); i++) {
-            
+
             if (i < enemies.size() - 1) {
 
                 if (enemies.get(i).posX>=Level.getKeyPointsList().get(Level.getKeyPointsList().size()-1).getPosX()){
@@ -114,9 +95,30 @@ public class Update {
         }
 
     }
-    private void updateAllyTowerPlaced(List<Ally> allies){
+
+    private void updateEnemies(){
+        game.getPlayScene().getLvl().rounds.get(Level.currentRound).getEnemies().forEach(enemy -> enemy.enemyUpdate.update(now));
+    }
+
+    private void updateAlly(List<Ally> allies) {
         allies.forEach(ally -> ally.allyUpdate.update(now));
     }
+
+    private void updateBullet(List<Ally> allyPlacedTowers) {
+        bulletsUpdatePos(allyPlacedTowers);
+        checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
+    }
+
+    public void updateAnimations(){
+        if (game.getGameStates() == GameStates.PREGAME){
+            game.getPreGameScene().updateAnimations();
+        }
+
+        if (game.getGameStates() == GameStates.GAME){
+
+        }
+    }
+
     private void bulletsUpdatePos(List<Ally> allies) {
 
         if (allies.isEmpty()){
