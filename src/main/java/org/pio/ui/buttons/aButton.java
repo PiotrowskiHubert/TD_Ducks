@@ -3,12 +3,13 @@ package org.pio.ui.buttons;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class aButton implements buttonMethods {
+public abstract class aButton implements buttonMethods, perform, performCreateAlly {
     public int posX, posY, width, height;
     public String text, name;
     public int id;
     public boolean mouseOver, mousePressed;
     public Shape buttonBounds;
+    public ButtonPerform buttonPerform;
 
     public aButton(int width, int height, String name, int id) {
         this.width = width;

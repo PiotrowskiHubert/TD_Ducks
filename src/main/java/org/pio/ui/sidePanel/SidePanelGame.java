@@ -1,10 +1,8 @@
 package org.pio.ui.sidePanel;
 
 import org.pio.database.MainDatabase;
-import org.pio.factory.ally.AllyFactoryImpl;
 import org.pio.inputs.mouse.GameSidePanelMouseHandler;
 import org.pio.scene.Level;
-import org.pio.ui.Button;
 import org.pio.ui.buttons.aButton;
 import org.pio.ui.buttons.bRectangle;
 
@@ -91,5 +89,13 @@ public class SidePanelGame extends aSidePanel{
 
     public List<aButton> getAllButtons() {
         return allButtons;
+    }
+
+    public List<aButton> getTowerButtons() {
+        return towerButtons;
+    }
+
+    public List<aButton> getUserButtons() {
+        return userButtons;
     }
 }

@@ -1,9 +1,13 @@
 package org.pio.ui.buttons;
 
+import org.pio.entities.ally.Ally;
+import org.pio.helpz.Directions;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class bRectangle extends aButton implements buttonMethods {
+    ButtonPerform buttonPerformCreateAlly = new ButtonPerformCreateAlly();
     public bRectangle(int width, int height, String name, int id) {
         super(width, height, name, id);
     }
@@ -61,4 +65,13 @@ public class bRectangle extends aButton implements buttonMethods {
         return 0;
     }
 
+    @Override
+    public Ally performCreateAlly(int posX, int posY, Directions direction, int listPos) {
+        return buttonPerformCreateAlly.performCreateAlly(posX, posY, direction, listPos);
+    }
+
+    @Override
+    public void perform() {
+        buttonPerform.perform();
+    }
 }

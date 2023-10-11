@@ -6,6 +6,8 @@ import org.pio.main.GameScreen;
 import org.pio.main.Update;
 import org.pio.player.Player;
 import org.pio.main.Game;
+import org.pio.ui.buttons.ButtonPerformChangeGameSpeed;
+import org.pio.ui.buttons.ButtonPerformStartWave;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -20,6 +22,7 @@ public class PlayScene extends GameScene implements sceneMeethods {
         super(game);
 
         lvl=new Level(26,16, getGame(),11);
+
         player=new Player(2000,100);
 
         this.mouseHandler=new PlaySceneMouseHandler(this);

@@ -4,6 +4,8 @@ import org.pio.database.MainDatabase;
 import org.pio.manager.*;
 import org.pio.scene.*;
 import org.pio.tiles.TileManager;
+import org.pio.ui.buttons.ButtonPerformChangeGameSpeed;
+import org.pio.ui.buttons.ButtonPerformStartWave;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,6 +54,7 @@ public class Game extends JFrame implements Runnable {
 
         menuScene=new MenuScene(this);
         playScene=new PlayScene(this);
+
         preGameScene=new PreGameScene(this);
         settingsScene=new SettingsScene(this);
         selectSaveScene=new SelectSaveScene(this);

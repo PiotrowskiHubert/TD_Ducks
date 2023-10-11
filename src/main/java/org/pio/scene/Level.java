@@ -8,8 +8,11 @@ import org.pio.helpz.*;
 import org.pio.inputs.mouse.LevelMouseHandler;
 import org.pio.main.Game;
 import org.pio.main.GameScreen;
+import org.pio.main.Update;
 import org.pio.player.Player;
 import org.pio.tiles.Tile;
+import org.pio.ui.buttons.ButtonPerformChangeGameSpeed;
+import org.pio.ui.buttons.ButtonPerformStartWave;
 import org.pio.ui.sidePanel.SidePanelGame;
 
 import java.awt.*;
@@ -52,9 +55,10 @@ public class Level extends GameScene {
 
         this.mouseHandler = new LevelMouseHandler(this);
         levelDraw=new LevelDraw(this);
-    }
 
-    // -------- INIT ------- //
+        sidePanelGame.getUserButtons().get(0).buttonPerform=new ButtonPerformStartWave();
+        sidePanelGame.getUserButtons().get(1).buttonPerform=new ButtonPerformChangeGameSpeed();
+    }
 
     public static void initKeypoints(){
         int scale=2;
@@ -77,11 +81,28 @@ public class Level extends GameScene {
 
     }
 
+    public static void startWave() {
+
+        if(rounds.get(currentRound).getEnemies().isEmpty()){
+            currentRound++;
+        }
+
+    }
+
+    public static void changeGameSpeed(){
+
+        if (Update.timePerUpdateGame==1_000_000_000.0/120.0){
+            Update.timePerUpdateGame/=2;
+        }else {
+            Update.timePerUpdateGame*=2;
+        }
+
+
+    }
+
     public void drawLevel(Graphics g){
         levelDraw.draw(g);
     }
-
-    // -------------------------GET------------------------------- //
 
     public int getNUM_OF_ROUNDS() {
         return NUM_OF_ROUNDS;
@@ -95,9 +116,6 @@ public class Level extends GameScene {
     public static Tile[][] getLvlArr() {
         return lvlArr;
     }
-
-
-    // -------------------------SET------------------------------- //
 
     public static List<KeyPoint> getKeyPointsList() {
         return keyPointsList;
