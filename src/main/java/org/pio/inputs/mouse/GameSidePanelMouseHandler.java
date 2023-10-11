@@ -1,13 +1,8 @@
 package org.pio.inputs.mouse;
 
-import org.pio.database.MainDatabase;
 import org.pio.factory.ally.AllyFactoryImpl;
-import org.pio.player.Player;
-import org.pio.ui.Button;
 import org.pio.ui.buttons.aButton;
 import org.pio.ui.sidePanel.SidePanelGame;
-
-import java.util.Iterator;
 
 public class GameSidePanelMouseHandler implements MouseHandler {
     private AllyFactoryImpl allyFactory = new AllyFactoryImpl();
@@ -78,44 +73,50 @@ public class GameSidePanelMouseHandler implements MouseHandler {
 //        if (sidePanelGame.speedUp.getButtonsBounds().contains(x,y)){
 //            sidePanelGame.level.getGame().getPlayScene().changeGameSpeed();
 //        }
-
+//        for (aButton button:
+//             sidePanelGame.) {
+//
+//        }
 
         if (sidePanelGame.getAllButtons().get(0).isMousePressed()){
             sidePanelGame.level.selectedTower = allyFactory.createAlly_1(x, y, null);
+            butonResetPressedBoolean(sidePanelGame.getAllButtons().get(0));
         }
+//
+//        if (sidePanelGame.getAllButtons().get(1).isMousePressed()){
+//            sidePanelGame.level.selectedTower = allyFactory.createAlly_2(x, y, null);
+//
+//        }
+//
+//        if (sidePanelGame.getAllButtons().get(2).isMousePressed()){
+//            sidePanelGame.level.selectedTower = allyFactory.createAlly_3(x, y, null);
+//
+//        }
+//
+//        if (sidePanelGame.getAllButtons().get(3).isMousePressed()){
+//            sidePanelGame.level.selectedTower = allyFactory.createAlly_4(x, y, null);
+//
+//        }
+//
+//        if (sidePanelGame.getAllButtons().get(4).isMousePressed()){
+//            sidePanelGame.level.selectedTower = allyFactory.createAlly_5(x, y, null);
+//
+//        }
+//
+//        if (sidePanelGame.getAllButtons().get(5).isMousePressed()){
+//            sidePanelGame.level.getGame().getPlayScene().startWave();
+//        }
+//
+//        if (sidePanelGame.getAllButtons().get(6).isMousePressed()){
+//            sidePanelGame.level.getGame().getPlayScene().changeGameSpeed();
+//        }
 
-        if (sidePanelGame.getAllButtons().get(1).isMousePressed()){
-            sidePanelGame.level.selectedTower = allyFactory.createAlly_2(x, y, null);
 
-        }
 
-        if (sidePanelGame.getAllButtons().get(2).isMousePressed()){
-            sidePanelGame.level.selectedTower = allyFactory.createAlly_3(x, y, null);
+    }
 
-        }
-
-        if (sidePanelGame.getAllButtons().get(3).isMousePressed()){
-            sidePanelGame.level.selectedTower = allyFactory.createAlly_4(x, y, null);
-
-        }
-
-        if (sidePanelGame.getAllButtons().get(4).isMousePressed()){
-            sidePanelGame.level.selectedTower = allyFactory.createAlly_5(x, y, null);
-
-        }
-
-        if (sidePanelGame.getAllButtons().get(5).isMousePressed()){
-            sidePanelGame.level.getGame().getPlayScene().startWave();
-        }
-
-        if (sidePanelGame.getAllButtons().get(6).isMousePressed()){
-            sidePanelGame.level.getGame().getPlayScene().changeGameSpeed();
-        }
-
-        for (aButton button : sidePanelGame.getAllButtons()) {
-            button.setMousePressed(false);
-        }
-
+    private void butonResetPressedBoolean(aButton aButton) {
+        aButton.mousePressed=false;
     }
 
     @Override

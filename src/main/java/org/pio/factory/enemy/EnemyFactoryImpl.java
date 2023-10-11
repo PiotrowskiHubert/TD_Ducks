@@ -25,4 +25,24 @@ public class EnemyFactoryImpl implements Enemy_1_Factory, Enemy_2_Factory, Enemy
         return Enemy_5_Factory.super.createWithImageEnemy_5(5, posX, posY, direction);
     }
 
+    public Enemy createEnemy(int posX, int posY, Directions direction, int id){
+
+        switch (id){
+            case 1:
+                return createEnemy_1(posX, posY, direction);
+            case 2:
+                return createEnemy_2(posX, posY, direction);
+            case 3:
+                return createEnemy_3(posX, posY, direction);
+            case 4:
+                return createEnemy_4(posX, posY, direction);
+            case 5:
+                return createEnemy_5(posX, posY, direction);
+            default:
+                //TODO throw exception DONT THROW NULL, CREATE CLASS FOR ENEMY ENEMY INSTEAD OF NULL
+                return null;
+        }
+
+    }
+
 }
