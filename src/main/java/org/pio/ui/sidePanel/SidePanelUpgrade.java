@@ -52,4 +52,8 @@ public class SidePanelUpgrade extends aSidePanel{
     public UpgradeSidePanelMouseHandler getUpgradeSidePanelMouseHandler() {
         return upgradeSidePanelMouseHandler;
     }
+
+    public Ally getAlly() {
+        return ally;
+    }
 }

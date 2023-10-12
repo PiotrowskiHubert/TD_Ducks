@@ -6,7 +6,7 @@ import org.pio.helpz.Directions;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class bRectangle extends aButton implements buttonMethods {
+public class bRectangle extends aButton implements drawable {
     ButtonPerform buttonPerformCreateAlly = new ButtonPerformCreateAlly();
     public bRectangle(int width, int height, String name, int id) {
         super(width, height, name, id);

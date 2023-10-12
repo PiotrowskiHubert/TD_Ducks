@@ -22,8 +22,8 @@ public abstract class Ally extends Entity {
     public Boolean mouseOver, pressed, placed;
     public Directions direction;
 
-    public SidePanelUpgrade sidePanelUpgrade;
     public AllyUpdate update;
+    public SidePanelUpgrade sidePanelUpgrade;
     public AllyMouseHandler mouseHandler;
 
     protected Ally(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<String>> sprites) {

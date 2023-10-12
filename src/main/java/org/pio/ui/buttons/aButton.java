@@ -3,7 +3,7 @@ package org.pio.ui.buttons;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class aButton implements buttonMethods, perform, performCreateAlly {
+public abstract class aButton implements drawable, perform, performCreateAlly {
     public int posX, posY, width, height;
     public String text, name;
     public int id;
