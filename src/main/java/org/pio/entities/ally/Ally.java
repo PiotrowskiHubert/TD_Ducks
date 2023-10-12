@@ -23,7 +23,7 @@ public abstract class Ally extends Entity {
     public Directions direction;
 
     public SidePanelUpgrade sidePanelUpgrade;
-    public AllyUpdate allyUpdate;
+    public AllyUpdate update;
     public AllyMouseHandler mouseHandler;
 
     protected Ally(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<String>> sprites) {
@@ -51,9 +51,9 @@ public abstract class Ally extends Entity {
 
         this.enemiesInRangeList=new LinkedList<>();
         this.bulletList =new LinkedList<>();
-        this.sidePanelUpgrade=new SidePanelUpgrade(GameScreen.UNIT_SIZE*7, GameScreen.UNIT_SIZE*33, GameScreen.UNIT_SIZE*(52-7),0);
 
-        this.allyUpdate=new AllyUpdate(this);
+        this.sidePanelUpgrade=new SidePanelUpgrade(this, GameScreen.UNIT_SIZE*7, GameScreen.UNIT_SIZE*33, GameScreen.UNIT_SIZE*(52-7),0);
+        this.update =new AllyUpdate(this);
         this.mouseHandler=new AllyMouseHandler(this);
     }
 

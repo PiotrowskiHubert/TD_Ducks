@@ -6,7 +6,6 @@ import java.awt.*;
 
 public class KeyPoint {
     private int posX, posY;
-
     public KeyPoint(int widthX, int heightY) {
         this.posX = widthX;
         this.posY = heightY;

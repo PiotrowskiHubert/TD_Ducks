@@ -99,7 +99,7 @@ public class Update {
     }
 
     private void updatePlacedAllies() {
-        Level.allyPlacedTowers.forEach(ally -> ally.allyUpdate.update(now));
+        Level.allyPlacedTowers.forEach(ally -> ally.update.update(now));
     }
 
     private void updateBullet() {

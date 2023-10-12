@@ -1,5 +1,6 @@
 package org.pio.ui.sidePanel;
 
+import org.pio.entities.ally.Ally;
 import org.pio.inputs.mouse.UpgradeSidePanelMouseHandler;
 import org.pio.main.GameScreen;
 import org.pio.ui.buttons.bRectangle;
@@ -9,12 +10,13 @@ import java.awt.*;
 import java.util.LinkedHashMap;
 
 public class SidePanelUpgrade extends aSidePanel{
-    public UpgradeSidePanelMouseHandler upgradeSidePanelMouseHandler;
-    public SidePanelUpgrade(int width, int height, int posX, int posY) {
+    private UpgradeSidePanelMouseHandler upgradeSidePanelMouseHandler = new UpgradeSidePanelMouseHandler(this);
+    private Ally ally;
+    public SidePanelUpgrade(Ally ally, int width, int height, int posX, int posY) {
         super(width, height, posX, posY);
+        this.ally = ally;
 
         currentDataLinkedMap = initButtonsHashMap();
-        upgradeSidePanelMouseHandler = new UpgradeSidePanelMouseHandler(this);
     }
 
     @Override
@@ -47,4 +49,7 @@ public class SidePanelUpgrade extends aSidePanel{
         return linkedMapButtons;
     }
 
+    public UpgradeSidePanelMouseHandler getUpgradeSidePanelMouseHandler() {
+        return upgradeSidePanelMouseHandler;
+    }
 }
