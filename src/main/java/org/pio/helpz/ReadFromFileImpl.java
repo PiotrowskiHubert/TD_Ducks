@@ -273,7 +273,7 @@ public class ReadFromFileImpl implements ReadFromFile {
         return bufferedImage;
     }
 
-    public static Round readEnemyFromRoundDataFile(String fileName, int numOfRound, EnemyFactoryImpl enemyFactoryImpl, int posX, int posY, Directions direction, KeyPoint startKeyPoint){
+    public static Round readEnemyFromRoundDataFile(String fileName, int numOfRound, int posX, int posY, Directions direction, KeyPoint startKeyPoint){
         Round round = new Round();
 
         try (
@@ -294,19 +294,19 @@ public class ReadFromFileImpl implements ReadFromFile {
 
                         switch (nextLine){
                             case "1":
-                                round.getEnemies().add(enemyFactoryImpl.createEnemy_1(posX-(i*offsetX),posY, direction, startKeyPoint));
+                                round.getEnemies().add(EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy_1(posX-(i*offsetX),posY, direction, startKeyPoint));
                                 break;
                             case "2":
-                                round.getEnemies().add(enemyFactoryImpl.createEnemy_2(posX-(i*offsetX),posY, direction, startKeyPoint));
+                                round.getEnemies().add(EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy_2(posX-(i*offsetX),posY, direction, startKeyPoint));
                                 break;
                             case "3":
-                                round.getEnemies().add(enemyFactoryImpl.createEnemy_3(posX-(i*offsetX),posY, direction, startKeyPoint));
+                                round.getEnemies().add(EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy_3(posX-(i*offsetX),posY, direction, startKeyPoint));
                                 break;
                             case "4":
-                                round.getEnemies().add(enemyFactoryImpl.createEnemy_4(posX-(i*offsetX),posY, direction, startKeyPoint));
+                                round.getEnemies().add(EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy_4(posX-(i*offsetX),posY, direction, startKeyPoint));
                                 break;
                             case "5":
-                                round.getEnemies().add(enemyFactoryImpl.createEnemy_5(posX-(i*offsetX),posY, direction, startKeyPoint));
+                                round.getEnemies().add(EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy_5(posX-(i*offsetX),posY, direction, startKeyPoint));
                                 break;
                             default:
                                 System.out.println("ERROR: Wrong enemy type in file");

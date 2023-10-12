@@ -32,6 +32,9 @@ public class Level extends GameScene {
 
     private static Level level;
 
+    public static void createLevel(int lvlWidth, int lvlHeight, Game game, int numOfRounds){
+        level=new Level(lvlWidth,lvlHeight,game,numOfRounds);
+    }
     private Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
 
@@ -42,21 +45,45 @@ public class Level extends GameScene {
         this.lvlHeight = lvlHeight;
         this.lvlArr = new Tile[lvlHeight][lvlWidth];
 
-        initKeyPoints();
-        createLevelRoundsAndAddEnemies();
+
+        this.rounds=createLevelRoundsAndAddEnemies("src/main/resources/LevelInfo/lvl_1_Enemies.txt");
 
         ReadFromFileImpl.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_2_Tiles.txt"));
 
-        this.sidePanelGame = new SidePanelGame((int)GameScreen.SCALED_UNIT_SIZE*4,GameScreen.UNIT_SIZE*33,GameScreen.UNIT_SIZE*52,GameScreen.UNIT_SIZE*0,this);
+        this.sidePanelGame = new SidePanelGame(
+                (int)GameScreen.SCALED_UNIT_SIZE*4,
+                GameScreen.UNIT_SIZE*GameScreen.intScreenHeight,
+                GameScreen.UNIT_SIZE*GameScreen.intSidePanelStart,
+                GameScreen.UNIT_SIZE*0,
+                this);
+
         this.mouseHandler = new LevelMouseHandler(this);
         this.levelDraw=new LevelDraw(this);
     }
 
-    public static void createLevel(int lvlWidth, int lvlHeight, Game game, int numOfRounds){
-        level=new Level(lvlWidth,lvlHeight,game,numOfRounds);
+    private List<Round> createLevelRoundsAndAddEnemies(String filePath){
+        List<Round> rounds = new ArrayList<>();
+
+        initKeyPoints();
+
+        for (int i = 0; i < NUM_OF_ROUNDS; i++) {
+            rounds.add(new Round());
+
+            rounds.get(i).setEnemies(
+                rounds.get(i).fillEnemyList(
+                    filePath, i,
+                    keyPointsList.get(0).getPosX(),
+                    keyPointsList.get(0).getPosY(),
+                    Directions.RIGHT,
+                    keyPointsList.get(0)
+                )
+            );
+        }
+
+        return rounds;
     }
 
-    public void initKeyPoints(){
+    private void initKeyPoints(){
         int scale=2;
         keyPointsList.add(new KeyPoint(-40,9*GameScreen.UNIT_SIZE*scale)); // 0
         keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*scale, 9*GameScreen.UNIT_SIZE*scale));
@@ -64,17 +91,6 @@ public class Level extends GameScene {
         keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*scale, 5*GameScreen.UNIT_SIZE*scale));
         keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*scale, 14*GameScreen.UNIT_SIZE*scale));
         keyPointsList.add(new KeyPoint(29*GameScreen.UNIT_SIZE*scale, 14*GameScreen.UNIT_SIZE*scale));
-    }
-    private void createLevelRoundsAndAddEnemies(){
-
-        String pathFile = "src/main/resources/";
-        String fileName = pathFile+ "LevelInfo/lvl_1_Enemies.txt";
-
-        for (int i = 0; i < NUM_OF_ROUNDS; i++) {
-            Round round = ReadFromFileImpl.readEnemyFromRoundDataFile(fileName,i,EnemyFactoryImpl.getEnemyFactoryImpl(), keyPointsList.get(0).getPosX(), keyPointsList.get(0).getPosY(), Directions.RIGHT, keyPointsList.get(0));
-            rounds.add(round);
-        }
-
     }
 
     public static void startWave() {
