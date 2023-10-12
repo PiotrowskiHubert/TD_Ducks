@@ -2,17 +2,15 @@ package org.pio.scene;
 
 import org.pio.entities.LevelDraw;
 import org.pio.entities.ally.Ally;
-import org.pio.entities.enemy.Enemy;
 import org.pio.factory.enemy.EnemyFactoryImpl;
-import org.pio.helpz.*;
+import org.pio.helpz.Directions;
+import org.pio.helpz.KeyPoint;
+import org.pio.helpz.ReadFromFileImpl;
 import org.pio.inputs.mouse.LevelMouseHandler;
 import org.pio.main.Game;
 import org.pio.main.GameScreen;
 import org.pio.main.Update;
-import org.pio.player.Player;
 import org.pio.tiles.Tile;
-import org.pio.ui.buttons.ButtonPerformChangeGameSpeed;
-import org.pio.ui.buttons.ButtonPerformStartWave;
 import org.pio.ui.sidePanel.SidePanelGame;
 
 import java.awt.*;
@@ -51,7 +49,7 @@ public class Level extends GameScene {
         initKeypoints();
         createLevelRoundsAndAddEnemies();
 
-        Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_2_Tiles.txt"));
+        ReadFromFileImpl.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_2_Tiles.txt"));
         //Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_1_Tiles.txt"));
 
         this.mouseHandler = new LevelMouseHandler(this);
