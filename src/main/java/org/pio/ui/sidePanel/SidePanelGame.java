@@ -3,6 +3,8 @@ package org.pio.ui.sidePanel;
 import org.pio.database.MainDatabase;
 import org.pio.inputs.mouse.GameSidePanelMouseHandler;
 import org.pio.scene.Level;
+import org.pio.ui.buttons.ButtonPerformChangeGameSpeed;
+import org.pio.ui.buttons.ButtonPerformStartWave;
 import org.pio.ui.buttons.aButton;
 import org.pio.ui.buttons.bRectangle;
 
@@ -33,8 +35,6 @@ public class SidePanelGame extends aSidePanel{
 
         allButtons.addAll(towerButtons);
         allButtons.addAll(userButtons);
-
-        System.out.println(allButtons.get(6).id);
     }
     private void initUserButtons() {
         int width = 202;
@@ -46,7 +46,9 @@ public class SidePanelGame extends aSidePanel{
         int index=0;
 
         userButtons.add(new bRectangle(posX, posY+(index++*posYOffSet), width, height, "START", id++));
+        userButtons.get(0).buttonPerform=new ButtonPerformStartWave();
         userButtons.add(new bRectangle(posX, posY+(index++*posYOffSet), width, height, "SPEED_UP", id++));
+        userButtons.get(1).buttonPerform=new ButtonPerformChangeGameSpeed();
     }
     private void initTowerButtons() {
         int width = 202;

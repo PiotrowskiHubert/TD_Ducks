@@ -1,6 +1,7 @@
 package org.pio.entities.enemy;
 
 import org.pio.helpz.Directions;
+import org.pio.helpz.KeyPoint;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -12,8 +13,8 @@ public class Enemy_1 extends Enemy{
         super(name, id, health, damage, gold, movementSpeed, width, height, sprites);
     }
 
-    public Enemy_1(Enemy enemy, int posX, int posY, Directions direction){
-        super(enemy, posX, posY, direction);
+    public Enemy_1(Enemy enemy, int posX, int posY, Directions direction, KeyPoint startKeyPoint){
+        super(enemy, posX, posY, direction, startKeyPoint);
     }
 
 }

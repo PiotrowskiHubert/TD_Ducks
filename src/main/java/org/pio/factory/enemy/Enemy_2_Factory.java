@@ -5,6 +5,7 @@ import org.pio.entities.enemy.Enemy;
 import org.pio.entities.enemy.Enemy_1;
 import org.pio.entities.enemy.Enemy_2;
 import org.pio.helpz.Directions;
+import org.pio.helpz.KeyPoint;
 
 public interface Enemy_2_Factory{
 
@@ -21,8 +22,8 @@ public interface Enemy_2_Factory{
                 MainDatabase.getMainDatabase().enemyDatabase.get(enemyIndex).sprites);
     }
 
-    default public Enemy createWithImageEnemy_2(int enemyIndex, int posX, int posY, Directions direction){
-        return new Enemy_1(getInfoFromDatabaseEnemy_2(enemyIndex), posX, posY, direction);
+    default public Enemy createWithImageEnemy_2(int enemyIndex, int posX, int posY, Directions direction, KeyPoint startKeyPoint){
+        return new Enemy_1(getInfoFromDatabaseEnemy_2(enemyIndex), posX, posY, direction, startKeyPoint);
     }
 
 }

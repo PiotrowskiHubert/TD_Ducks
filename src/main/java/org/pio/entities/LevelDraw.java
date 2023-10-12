@@ -21,13 +21,13 @@ public class LevelDraw {
         drawRoundInfo(g);
         drawEnemy(g);
         drawSidePanel(g);
-        drawKeypoins(g);
+        drawKeyPoints(g);
         drawSelectedAlly(g);
 
     }
 
-    private void drawKeypoins(Graphics g) {
-        for (KeyPoint keyPoint : level.keyPointsList) {
+    private void drawKeyPoints(Graphics g) {
+        for (KeyPoint keyPoint : level.getKeyPointsList()) {
             keyPoint.draw(g);
         }
     }

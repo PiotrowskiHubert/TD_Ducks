@@ -29,7 +29,7 @@ public abstract class Enemy extends Entity {
         this.movementSpeed = movementSpeed;
         this.sprites = sprites;
     }
-    public Enemy(Enemy enemy, int posX, int posY, Directions direction){
+    public Enemy(Enemy enemy, int posX, int posY, Directions direction, KeyPoint startKeyPoint){
         super(enemy, posX, posY);
 
         this.health = enemy.health;
@@ -42,7 +42,7 @@ public abstract class Enemy extends Entity {
 
         this.keyPointsStack=new Stack<>();
         this.keypointIndex=1;
-        keyPointsStack.push(Level.getKeyPointsList().get(keypointIndex));
+        this.keyPointsStack.push(startKeyPoint);
 
         this.enemyUpdate=new EnemyUpdate(this);
     }

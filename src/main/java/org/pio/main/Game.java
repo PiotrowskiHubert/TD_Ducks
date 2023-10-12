@@ -47,8 +47,6 @@ public class Game extends JFrame implements Runnable {
         render=new Render(this);
         update=new Update(this);
 
-        Level.initKeypoints();
-
         tileManager=new TileManager();
         playerManager=new PlayerManager();
 

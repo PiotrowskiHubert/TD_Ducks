@@ -77,9 +77,7 @@ public class GameSidePanelMouseHandler implements MouseHandler {
 
     @Override
     public void mouseReleased(int x, int y) {
-        for (aButton button : sidePanelGame.getAllButtons()) {
-            //button.setMousePressed(false);
-        }
+
     }
 
 }
