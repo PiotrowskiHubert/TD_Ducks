@@ -2,7 +2,7 @@ package org.pio.ui.buttons;
 
 import org.pio.entities.ally.Ally;
 import org.pio.helpz.Directions;
-import org.pio.scene.Level;
+import org.pio.ui.sidePanel.GameSidePanelButtonMethods;
 
 public class ButtonPerformStartWave extends ButtonPerform{
 
@@ -13,6 +13,7 @@ public class ButtonPerformStartWave extends ButtonPerform{
 
     @Override
     public void perform() {
-        Level.startWave();
+        GameSidePanelButtonMethods.startWave();
     }
+
 }

@@ -5,6 +5,7 @@ import org.pio.inputs.mouse.PlaySceneMouseHandler;
 import org.pio.main.GameScreen;
 import org.pio.player.Player;
 import org.pio.main.Game;
+import org.pio.ui.sidePanel.GameSidePanelButtonMethods;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -58,7 +59,7 @@ public class PlayScene extends GameScene implements sceneMeethods {
 
     public void keyPressed(KeyEvent e){
         if (e.getKeyCode()==KeyEvent.VK_SPACE){
-            Level.startWave();
+            GameSidePanelButtonMethods.startWave();
         }
     }
 

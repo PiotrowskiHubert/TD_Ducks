@@ -2,7 +2,7 @@ package org.pio.ui.buttons;
 
 import org.pio.entities.ally.Ally;
 import org.pio.helpz.Directions;
-import org.pio.scene.Level;
+import org.pio.ui.sidePanel.GameSidePanelButtonMethods;
 
 public class ButtonPerformChangeGameSpeed extends ButtonPerform{
 
@@ -13,6 +13,6 @@ public class ButtonPerformChangeGameSpeed extends ButtonPerform{
 
     @Override
     public void perform() {
-        Level.changeGameSpeed();
+        GameSidePanelButtonMethods.changeGameSpeed();
     }
 }

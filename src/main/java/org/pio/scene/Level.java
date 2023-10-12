@@ -2,7 +2,6 @@ package org.pio.scene;
 
 import org.pio.entities.LevelDraw;
 import org.pio.entities.ally.Ally;
-import org.pio.factory.enemy.EnemyFactoryImpl;
 import org.pio.helpz.Directions;
 import org.pio.helpz.KeyPoint;
 import org.pio.helpz.ReadFromFileImpl;
@@ -43,12 +42,8 @@ public class Level extends GameScene {
 
         this.lvlWidth = lvlWidth;
         this.lvlHeight = lvlHeight;
-        this.lvlArr = new Tile[lvlHeight][lvlWidth];
-
-
-        this.rounds=createLevelRoundsAndAddEnemies("src/main/resources/LevelInfo/lvl_1_Enemies.txt");
-
-        ReadFromFileImpl.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_2_Tiles.txt"));
+        this.lvlArr = ReadFromFileImpl.getTilesForLevelArrayFromTxt(Path.of("src/main/resources/LevelInfo/lvl_2_Tiles.txt"), lvlWidth, lvlHeight);
+        this.rounds= addEnemiesToRoundsEnemiesList("src/main/resources/LevelInfo/lvl_1_Enemies.txt");
 
         this.sidePanelGame = new SidePanelGame(
                 (int)GameScreen.SCALED_UNIT_SIZE*4,
@@ -61,7 +56,7 @@ public class Level extends GameScene {
         this.levelDraw=new LevelDraw(this);
     }
 
-    private List<Round> createLevelRoundsAndAddEnemies(String filePath){
+    private List<Round> addEnemiesToRoundsEnemiesList(String filePath){
         List<Round> rounds = new ArrayList<>();
 
         initKeyPoints();
@@ -93,24 +88,6 @@ public class Level extends GameScene {
         keyPointsList.add(new KeyPoint(29*GameScreen.UNIT_SIZE*scale, 14*GameScreen.UNIT_SIZE*scale));
     }
 
-    public static void startWave() {
-
-        if(rounds.get(currentRound).getEnemies().isEmpty()){
-            currentRound++;
-        }
-
-    }
-
-    public static void changeGameSpeed(){
-
-        if (Update.timePerUpdateGame==1_000_000_000.0/120.0){
-            Update.timePerUpdateGame/=2;
-        }else {
-            Update.timePerUpdateGame*=2;
-        }
-
-    }
-
     public void drawLevel(Graphics g){
         levelDraw.draw(g);
     }
@@ -127,7 +104,9 @@ public class Level extends GameScene {
     public static Tile[][] getLvlArr() {
         return lvlArr;
     }
-
+    public static List<Round> getRounds() {
+        return rounds;
+    }
     public List<KeyPoint> getKeyPointsList() {
         return keyPointsList;
     }

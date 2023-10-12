@@ -3,7 +3,6 @@ package org.pio.helpz;
 import org.pio.database.MainDatabase;
 import org.pio.factory.enemy.EnemyFactoryImpl;
 import org.pio.main.GameScreen;
-import org.pio.scene.Level;
 import org.pio.scene.Round;
 import org.pio.tiles.Tile;
 import org.pio.tiles.aTile;
@@ -273,61 +272,10 @@ public class ReadFromFileImpl implements ReadFromFile {
         return bufferedImage;
     }
 
-    public static Round readEnemyFromRoundDataFile(String fileName, int numOfRound, int posX, int posY, Directions direction, KeyPoint startKeyPoint){
-        Round round = new Round();
 
-        try (
-                var fileReader = new FileReader(fileName);
-                var reader = new BufferedReader(fileReader);
-        ) {
+    public static Tile[][] getTilesForLevelArrayFromTxt(Path path, int lvlWidth, int lvlHeight){
 
-            String nextLine = null;
-
-            while ((nextLine = reader.readLine()) != null){
-
-                if (nextLine.equals("ROUND"+(numOfRound))){
-
-                    int offsetX= (int) (60*1.2);
-                    int i=0;
-
-                    while ((nextLine = reader.readLine()) != null && Helper.isInteger(nextLine)){
-
-                        switch (nextLine){
-                            case "1":
-                                round.getEnemies().add(EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy_1(posX-(i*offsetX),posY, direction, startKeyPoint));
-                                break;
-                            case "2":
-                                round.getEnemies().add(EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy_2(posX-(i*offsetX),posY, direction, startKeyPoint));
-                                break;
-                            case "3":
-                                round.getEnemies().add(EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy_3(posX-(i*offsetX),posY, direction, startKeyPoint));
-                                break;
-                            case "4":
-                                round.getEnemies().add(EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy_4(posX-(i*offsetX),posY, direction, startKeyPoint));
-                                break;
-                            case "5":
-                                round.getEnemies().add(EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy_5(posX-(i*offsetX),posY, direction, startKeyPoint));
-                                break;
-                            default:
-                                System.out.println("ERROR: Wrong enemy type in file");
-                                break;
-                        }
-
-
-                        i++;
-                    }
-
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return round;
-    }
-
-    public static void readLevelDataFromTxt(Path path){
+        Tile levelArr[][] = new Tile[lvlHeight][lvlWidth];
 
         try (
                 var fileReader = new FileReader(path.toFile());
@@ -339,17 +287,17 @@ public class ReadFromFileImpl implements ReadFromFile {
             int j=0;
             while ((nextLine = reader.readLine()) != null) {
 
-                if (j== Level.getLvlWidth()){
+                if (j == lvlWidth){
                     j=0;
                     i++;
                 }
 
                 for (aTile tile : MainDatabase.getMainDatabase().grassTileSet.values()) {
                     if (tile.getId() == Integer.parseInt(nextLine)){
-                        Level.getLvlArr()[i][j]=new Tile(tile.getWidth(),
+                        levelArr[i][j]=new Tile(tile.getWidth(),
                                 tile.getHeight(),
-                                j* GameScreen.UNIT_SIZE*2,
-                                i*GameScreen.UNIT_SIZE*2,
+                                j* GameScreen.UNIT_SIZE*GameScreen.SCALE,
+                                i*GameScreen.UNIT_SIZE*GameScreen.SCALE,
                                 tile.getTileName(),
                                 tile.getId(),
                                 tile.getSprite());
@@ -363,6 +311,7 @@ public class ReadFromFileImpl implements ReadFromFile {
             e.printStackTrace();
         }
 
+        return levelArr;
     }
 
 }
