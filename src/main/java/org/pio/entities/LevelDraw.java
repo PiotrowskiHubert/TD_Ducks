@@ -53,7 +53,7 @@ public class LevelDraw {
     }
 
     private void drawEnemy(Graphics g) {
-        if (level.currentRound < level.NUM_OF_ROUNDS){
+        if (level.currentRound < level.getNUM_OF_ROUNDS()){
             if (!level.rounds.get(level.currentRound).getEnemies().isEmpty()) {
                 for (Enemy enemy : level.rounds.get(level.currentRound).getEnemies()) {
                     enemy.draw(g);
@@ -65,7 +65,7 @@ public class LevelDraw {
     private void drawRoundInfo(Graphics g) {
         g.setColor(Color.BLACK);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-        g.drawString("Round: " + (level.currentRound) + "/" + (level.NUM_OF_ROUNDS-1), 10, 20);
+        g.drawString("Round: " + (level.currentRound) + "/" + (level.getNUM_OF_ROUNDS()-1), 10, 20);
 
         g.setColor(Color.BLACK);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
@@ -76,7 +76,7 @@ public class LevelDraw {
     private void drawTiles(Graphics g) {
         for (int i = 0; i < level.lvlHeight; i++) {
             for (int j = 0; j < level.lvlWidth; j++) {
-                level.lvlArr[i][j].draw(g);
+                level.getLvlArr()[i][j].draw(g);
             }
         }
     }

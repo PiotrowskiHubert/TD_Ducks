@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class PlayScene extends GameScene implements sceneMeethods {
-    public Level lvl;
+    private Level lvl;
     public static Player player;
     public static int mouseX, mouseY;
     public PlaySceneMouseHandler mouseHandler;

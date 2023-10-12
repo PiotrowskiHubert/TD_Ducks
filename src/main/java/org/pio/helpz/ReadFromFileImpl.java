@@ -1,11 +1,11 @@
 package org.pio.helpz;
 
+import org.pio.database.MainDatabase;
 import org.pio.factory.enemy.EnemyFactoryImpl;
 import org.pio.main.GameScreen;
 import org.pio.scene.Level;
 import org.pio.scene.Round;
 import org.pio.tiles.Tile;
-import org.pio.tiles.TileManager;
 import org.pio.tiles.aTile;
 
 import javax.imageio.ImageIO;
@@ -344,7 +344,7 @@ public class ReadFromFileImpl implements ReadFromFile {
                     i++;
                 }
 
-                for (aTile tile : TileManager.getGrassTileSet().values()) {
+                for (aTile tile : MainDatabase.getMainDatabase().grassTileSet.values()) {
                     if (tile.getId() == Integer.parseInt(nextLine)){
                         Level.getLvlArr()[i][j]=new Tile(tile.getWidth(),
                                 tile.getHeight(),

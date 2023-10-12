@@ -1,11 +1,7 @@
 package org.pio.main;
 
-import org.pio.database.MainDatabase;
 import org.pio.manager.*;
 import org.pio.scene.*;
-import org.pio.tiles.TileManager;
-import org.pio.ui.buttons.ButtonPerformChangeGameSpeed;
-import org.pio.ui.buttons.ButtonPerformStartWave;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +16,6 @@ public class Game extends JFrame implements Runnable {
     private GameScreen gameScreen;
 
     private PlayerManager playerManager;
-    private TileManager tileManager;
     private Render render;
     private PlayScene playScene;
     Thread gameThread_1;
@@ -47,7 +42,6 @@ public class Game extends JFrame implements Runnable {
         render=new Render(this);
         update=new Update(this);
 
-        tileManager=new TileManager();
         playerManager=new PlayerManager();
 
         menuScene=new MenuScene(this);

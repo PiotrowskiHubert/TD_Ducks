@@ -19,11 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Level extends GameScene {
-    private final int START_ROUND=0;
-    public final int NUM_OF_ROUNDS;
-    public static int currentRound;
-    public static int lvlHeight, lvlWidth;
-    public static Tile[][] lvlArr;
+    private final int START_ROUND=0, NUM_OF_ROUNDS;
+    public static int currentRound, lvlHeight, lvlWidth;
+    private static Tile[][] lvlArr;
     public static List<Round> rounds = new ArrayList<>();
     private List<KeyPoint> keyPointsList = new ArrayList<>();
     public static List<Ally> allyPlacedTowers = new ArrayList<>();
@@ -36,31 +34,29 @@ public class Level extends GameScene {
 
     private Level(int lvlWidth, int lvlHeight, Game game, int numOfRounds) {
         super(game);
-        sidePanelGame = new SidePanelGame((int)GameScreen.SCALED_UNIT_SIZE*4,GameScreen.UNIT_SIZE*33,GameScreen.UNIT_SIZE*52,GameScreen.UNIT_SIZE*0,this);
 
         this.NUM_OF_ROUNDS=numOfRounds;
+        this.currentRound=START_ROUND;
+
         this.lvlWidth = lvlWidth;
         this.lvlHeight = lvlHeight;
+        this.lvlArr = new Tile[lvlHeight][lvlWidth];
 
-        lvlArr = new Tile[lvlHeight][lvlWidth];
-
-        currentRound=START_ROUND;
-        //Writers.writeEmptyLevel();
-        initKeypoints();
+        initKeyPoints();
         createLevelRoundsAndAddEnemies();
 
         ReadFromFileImpl.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_2_Tiles.txt"));
-        //Readers.readLevelDataFromTxt(Path.of("src/main/resources/LevelInfo/lvl_1_Tiles.txt"));
 
+        this.sidePanelGame = new SidePanelGame((int)GameScreen.SCALED_UNIT_SIZE*4,GameScreen.UNIT_SIZE*33,GameScreen.UNIT_SIZE*52,GameScreen.UNIT_SIZE*0,this);
         this.mouseHandler = new LevelMouseHandler(this);
-        levelDraw=new LevelDraw(this);
+        this.levelDraw=new LevelDraw(this);
     }
 
     public static void createLevel(int lvlWidth, int lvlHeight, Game game, int numOfRounds){
         level=new Level(lvlWidth,lvlHeight,game,numOfRounds);
     }
 
-    public void initKeypoints(){
+    public void initKeyPoints(){
         int scale=2;
         keyPointsList.add(new KeyPoint(-40,9*GameScreen.UNIT_SIZE*scale)); // 0
         keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*scale, 9*GameScreen.UNIT_SIZE*scale));
@@ -96,7 +92,6 @@ public class Level extends GameScene {
         }else {
             Update.timePerUpdateGame*=2;
         }
-
 
     }
 

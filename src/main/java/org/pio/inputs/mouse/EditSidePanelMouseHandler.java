@@ -3,7 +3,6 @@ package org.pio.inputs.mouse;
 import org.pio.main.GameScreen;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
-import org.pio.tiles.TileManager;
 import org.pio.tiles.Tile;
 import org.pio.ui.buttons.bRectangle;
 import org.pio.ui.sidePanel.SidePanelEditMap;
@@ -24,7 +23,7 @@ public class EditSidePanelMouseHandler implements MouseHandler{
                 for (bRectangle button : sidePanelEditMap.currentDataLinkedMap.values()) {
 
                     if (button.isMousePressed()){
-                        sidePanelEditMap.selectedTile= (Tile) TileManager.getTile(button.id);
+                        //sidePanelEditMap.selectedTile= (Tile) TileManager.getTile(button.id);
                         button.setMousePressed(false);
                         return;
                     }

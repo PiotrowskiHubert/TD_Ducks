@@ -15,7 +15,7 @@ public class PlaySceneMouseHandler implements MouseHandler {
     public void leftMouseClicked(int x, int y) {
 
         if (x>GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
-            playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.leftMouseClicked(x, y);
+            playScene.getLvl().sidePanelGame.gameSidePanelMouseHandler.leftMouseClicked(x, y);
         }
 
         if (x<GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
@@ -23,15 +23,15 @@ public class PlaySceneMouseHandler implements MouseHandler {
             Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.leftMouseClicked(x,y));
 
 
-            if ( playScene.lvl.selectedTower!=null){
+            if ( playScene.getLvl().selectedTower!=null){
 
-                if (! playScene.containsBoundsOfOtherTower(playScene.lvl.selectedTower)){
-                    playScene.lvl.allyPlacedTowers.add(playScene.lvl.selectedTower);
-                    playScene.lvl.selectedTower.placed=true;
+                if (! playScene.containsBoundsOfOtherTower(playScene.getLvl().selectedTower)){
+                    playScene.getLvl().allyPlacedTowers.add(playScene.getLvl().selectedTower);
+                    playScene.getLvl().selectedTower.placed=true;
 
                 }
 
-                playScene.lvl.selectedTower=null;
+                playScene.getLvl().selectedTower=null;
 
             }
         }
@@ -48,7 +48,7 @@ public class PlaySceneMouseHandler implements MouseHandler {
         playScene.mouseY=y;
 
         if (x>GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
-            playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.mouseMoved(x, y);
+            playScene.getLvl().sidePanelGame.gameSidePanelMouseHandler.mouseMoved(x, y);
         }
 
         if (x<GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
@@ -56,23 +56,26 @@ public class PlaySceneMouseHandler implements MouseHandler {
         }
 
 
-        if (playScene.lvl.selectedTower!=null){
+        if (playScene.getLvl().selectedTower!=null){
 
-            playScene.lvl.selectedTower.posX=x;
-            playScene.lvl.selectedTower.posY=y;
+            playScene.getLvl().selectedTower.posX=x;
+            playScene.getLvl().selectedTower.posY=y;
 
-            playScene.lvl.selectedTower.bounds.x = (int) playScene.lvl.selectedTower.posX;
-            playScene.lvl.selectedTower.bounds.y = (int) playScene.lvl.selectedTower.posY;
+            playScene.getLvl().selectedTower.bounds.x = (int) playScene.getLvl().selectedTower.posX;
+            playScene.getLvl().selectedTower.bounds.y = (int) playScene.getLvl().selectedTower.posY;
 
             int ellipseOffset=20;
-            playScene.lvl.selectedTower.rangeEllipse.setFrame(playScene.lvl.selectedTower.posX-playScene.lvl.selectedTower.range+ellipseOffset, playScene.lvl.selectedTower.posY-playScene.lvl.selectedTower.range+ellipseOffset, playScene.lvl.selectedTower.range*2, playScene.lvl.selectedTower.range*2);
+            playScene.getLvl().selectedTower.rangeEllipse.setFrame(playScene.getLvl().selectedTower.posX-playScene.getLvl().selectedTower.range+ellipseOffset,
+                    playScene.getLvl().selectedTower.posY-playScene.getLvl().selectedTower.range+ellipseOffset,
+                    playScene.getLvl().selectedTower.range*2,
+                    playScene.getLvl().selectedTower.range*2);
         }
     }
 
     @Override
     public void mousePressed(int x, int y) {
         if (x>GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
-            playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.mousePressed(x, y);
+            playScene.getLvl().sidePanelGame.gameSidePanelMouseHandler.mousePressed(x, y);
         }
 
         if (x<GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
@@ -83,7 +86,7 @@ public class PlaySceneMouseHandler implements MouseHandler {
 
     @Override
     public void mouseReleased(int x, int y) {
-        playScene.lvl.sidePanelGame.gameSidePanelMouseHandler.mouseReleased(x, y);
+        playScene.getLvl().sidePanelGame.gameSidePanelMouseHandler.mouseReleased(x, y);
         Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.mouseReleased(x, y));
     }
 

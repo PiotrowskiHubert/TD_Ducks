@@ -1,13 +1,9 @@
  package org.pio.ui.sidePanel;
 
 import org.pio.inputs.mouse.EditSidePanelMouseHandler;
-import org.pio.main.GameScreen;
 import org.pio.scene.PlayScene;
-import org.pio.tiles.TileManager;
 import org.pio.tiles.Tile;
 import org.pio.ui.buttons.bRectangle;
-import org.pio.ui.buttons.bRectangleTile;
-import org.pio.ui.buttons.bRectangleTileWImage;
 
 import java.awt.*;
 import java.util.LinkedHashMap;
