@@ -97,7 +97,7 @@ public abstract class AbstractMyButton implements drawable{
         }
 
         if (text != null){
-            drawCenteredString(g);
+            drawCenteredText(g);
         }
 
         g.fillRect(posX, posY, width, height);
