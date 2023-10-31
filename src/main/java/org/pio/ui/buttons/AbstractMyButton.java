@@ -3,7 +3,7 @@ package org.pio.ui.buttons;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-abstract class AbstractMyButton {
+public abstract class AbstractMyButton {
     protected int width, height, posX, posY;
     protected String name, text;
     protected int id;
@@ -64,4 +64,47 @@ abstract class AbstractMyButton {
         this.mousePressed = false;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isMouseOver() {
+        return mouseOver;
+    }
+
+    public boolean isMousePressed() {
+        return mousePressed;
+    }
+
+    public Shape getBounds() {
+        return bounds;
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
 }
