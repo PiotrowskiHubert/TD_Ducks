@@ -3,7 +3,7 @@ package org.pio.ui.buttons;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class AbstractMyButton {
+public abstract class AbstractMyButton implements drawable{
     protected int width, height, posX, posY;
     protected String name, text;
     protected int id;
@@ -21,6 +21,8 @@ public abstract class AbstractMyButton {
 
         this.mouseOver = false;
         this.mousePressed = false;
+
+        this.bounds = new Rectangle(posX, posY, width, height);
     }
 
     protected AbstractMyButton(String name, int posX, int posY, int width, int height, int id, String text) {
@@ -34,6 +36,9 @@ public abstract class AbstractMyButton {
 
         this.mouseOver = false;
         this.mousePressed = false;
+
+        this.bounds = new Rectangle(posX, posY, width, height);
+
     }
 
     protected AbstractMyButton(String name,int posX, int posY, int width, int height, int id, BufferedImage image) {
@@ -48,6 +53,7 @@ public abstract class AbstractMyButton {
         this.mouseOver = false;
         this.mousePressed = false;
 
+        this.bounds = new Rectangle(posX, posY, width, height);
     }
 
     protected AbstractMyButton(String name, int posX, int posY, int width, int height, int id, String text, BufferedImage image) {
@@ -62,6 +68,39 @@ public abstract class AbstractMyButton {
 
         this.mouseOver = false;
         this.mousePressed = false;
+
+        this.bounds = new Rectangle(posX, posY, width, height);
+    }
+
+    private void drawCenteredText(Graphics g){
+
+        Font font = new Font("TimesNewRoman",Font.PLAIN, 20);
+        FontMetrics metrics = g.getFontMetrics(font);
+        int x = bounds.getBounds().x + (bounds.getBounds().width - metrics.stringWidth(name)) / 2;
+        int y = bounds.getBounds().y + ((bounds.getBounds().height - metrics.getHeight()) / 2) + metrics.getAscent();
+
+        g.setColor(new Color(0x000000));
+        g.setFont(font);
+        g.drawString(text, x, y);
+    }
+
+    public void draw(Graphics g) {
+
+        if (mouseOver){
+            g.setColor(Color.GREEN);
+        }else {
+            g.setColor(Color.WHITE);
+        }
+
+        if (mousePressed){
+            g.setColor(new Color(0x4F000000, true));
+        }
+
+        if (text != null){
+            drawCenteredString(g);
+        }
+
+        g.fillRect(posX, posY, width, height);
     }
 
     public int getWidth() {
@@ -107,4 +146,6 @@ public abstract class AbstractMyButton {
     public BufferedImage getImage() {
         return image;
     }
+
+
 }
