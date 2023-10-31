@@ -1,5 +1,6 @@
 package org.pio.ui.buttons;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class MyButton extends AbstractMyButton{
@@ -35,4 +36,8 @@ public class MyButton extends AbstractMyButton{
         return new MyButton(name, posX, posY, width, height, id, text, image);
     }
 
+    @Override
+    public void draw(Graphics g) {
+        super.draw(g);
+    }
 }
