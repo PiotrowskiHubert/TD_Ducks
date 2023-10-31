@@ -10,7 +10,7 @@ import java.awt.*;
 public class EditScene extends GameScene implements sceneMeethods{
     private int editSceneSidePanelWidth = (int) (GameScreen.SCALED_UNIT_SIZE*4);
     private int editSceneSidePanelHeight = GameScreen.UNIT_SIZE*GameScreen.intScreenHeight ;
-    private aSidePanel sidePanelEditMap = new SidePanelEditMap(
+    private SidePanelEditMap sidePanelEditMap = new SidePanelEditMap(
             editSceneSidePanelWidth,
             editSceneSidePanelHeight,
             GameScreen.UNIT_SIZE*GameScreen.intSidePanelStart,
