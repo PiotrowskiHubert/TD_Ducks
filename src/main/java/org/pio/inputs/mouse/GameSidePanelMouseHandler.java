@@ -1,5 +1,7 @@
 package org.pio.inputs.mouse;
 
+import org.pio.database.MainDatabase;
+import org.pio.player.Player;
 import org.pio.ui.buttons.aButton;
 import org.pio.ui.sidePanel.SidePanelGame;
 
@@ -21,6 +23,7 @@ public class GameSidePanelMouseHandler implements MouseHandler {
                 }
             }finally {
                 button.setMousePressed(false);
+                button.setMouseOver(false);
             }
 
         }
@@ -33,6 +36,7 @@ public class GameSidePanelMouseHandler implements MouseHandler {
                 }
             }finally {
                 button.setMousePressed(false);
+                button.setMouseOver(false);
             }
 
         }
@@ -42,7 +46,12 @@ public class GameSidePanelMouseHandler implements MouseHandler {
 
     @Override
     public void rightMouseClicked(int x, int y) {
-
+        for (aButton button : sidePanelGame.getAllButtons()) {
+            if (button.isMousePressed()){
+                button.setMousePressed(false);
+                button.setMouseOver(false);
+            }
+        }
     }
 
     @Override
@@ -79,5 +88,7 @@ public class GameSidePanelMouseHandler implements MouseHandler {
     public void mouseReleased(int x, int y) {
 
     }
+
+
 
 }

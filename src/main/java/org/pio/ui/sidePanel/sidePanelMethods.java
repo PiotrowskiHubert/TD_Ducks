@@ -7,5 +7,5 @@ import java.util.LinkedHashMap;
 
 public interface sidePanelMethods {
     public void draw(Graphics g);
-    public LinkedHashMap<Integer, bRectangle> initButtonsHashMap();
+//    public LinkedHashMap<Integer, bRectangle> initButtonsHashMap();
 }

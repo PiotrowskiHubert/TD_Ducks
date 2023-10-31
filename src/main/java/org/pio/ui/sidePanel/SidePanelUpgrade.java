@@ -24,7 +24,7 @@ public class SidePanelUpgrade extends aSidePanel{
         super.draw(g);
     }
 
-    @Override
+
     public LinkedHashMap<Integer, bRectangle> initButtonsHashMap() {
         LinkedHashMap<Integer, bRectangle> linkedMapButtons = new LinkedHashMap<>();
 

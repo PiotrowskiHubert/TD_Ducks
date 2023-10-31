@@ -63,10 +63,6 @@ public class SidePanelGame extends aSidePanel{
                     MainDatabase.getMainDatabase().allyDatabase.get(i).name, id++));
         }
     }
-    @Override
-    public LinkedHashMap<Integer, bRectangle> initButtonsHashMap() {
-        return null;
-    }
 
     @Override
     public void draw(Graphics g) {

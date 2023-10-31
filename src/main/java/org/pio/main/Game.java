@@ -7,17 +7,22 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Game extends JFrame implements Runnable {
-    private PreGameScene preGameScene;
+    public static GameStates gameStates;
+    private GameScreen gameScreen;
+    private Render render;
+
     private MenuScene menuScene;
     private SettingsScene settingsScene;
     private SelectSaveScene selectSaveScene;
-    public static GameStates gameStates;
-    public Update update;
-    private GameScreen gameScreen;
-
-    private PlayerManager playerManager;
-    private Render render;
+    private PreGameScene preGameScene;
     private PlayScene playScene;
+    private EditScene editMapScene;
+
+
+    public Update update;
+    private PlayerManager playerManager;
+
+
     Thread gameThread_1;
     private double timePerUpdatePlayerAnimation;
     JFrame frame = new JFrame("GameTitle");
@@ -37,7 +42,7 @@ public class Game extends JFrame implements Runnable {
     private void initClass(){
 
         gameScreen=new GameScreen(this);
-        gameStates=GameStates.GAME;
+        gameStates=GameStates.EDIT_MAP;
 
         render=new Render(this);
         update=new Update(this);
@@ -45,11 +50,13 @@ public class Game extends JFrame implements Runnable {
         playerManager=new PlayerManager();
 
         menuScene=new MenuScene(this);
-        playScene=new PlayScene(this);
-
-        preGameScene=new PreGameScene(this);
         settingsScene=new SettingsScene(this);
         selectSaveScene=new SelectSaveScene(this);
+
+        editMapScene =new EditScene(this);
+        preGameScene=new PreGameScene(this);
+        playScene=new PlayScene(this);
+
     }
 
     private void initWindow(){
@@ -156,7 +163,10 @@ public class Game extends JFrame implements Runnable {
     public SelectSaveScene getSelectSaveScene() {
         return selectSaveScene;
     }
-    // ----------- SET ----------- //
+
+    public EditScene getEditMapScene() {
+        return editMapScene;
+    }
 
 
     public static void setGameStates(GameStates gameStates) {

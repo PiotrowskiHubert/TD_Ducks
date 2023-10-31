@@ -8,7 +8,6 @@ import org.pio.helpz.ReadFromFileImpl;
 import org.pio.inputs.mouse.LevelMouseHandler;
 import org.pio.main.Game;
 import org.pio.main.GameScreen;
-import org.pio.main.Update;
 import org.pio.tiles.Tile;
 import org.pio.ui.sidePanel.SidePanelGame;
 
@@ -112,5 +111,15 @@ public class Level extends GameScene {
     }
     public static Level getLevel() {
         return level;
+    }
+    public Ally getSelectedTower() {
+        return selectedTower;
+    }
+    public SidePanelGame getSidePanelGame() {
+        return sidePanelGame;
+    }
+
+    public void setSelectedTower(Ally selectedTower) {
+        this.selectedTower = selectedTower;
     }
 }

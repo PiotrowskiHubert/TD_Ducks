@@ -3,6 +3,7 @@ package org.pio.inputs.mouse;
 import org.pio.main.GameScreen;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
+import org.pio.ui.buttons.aButton;
 
 public class PlaySceneMouseHandler implements MouseHandler {
     PlayScene playScene;
@@ -13,49 +14,83 @@ public class PlaySceneMouseHandler implements MouseHandler {
 
     @Override
     public void leftMouseClicked(int x, int y) {
-
+        sidePanelLeftMouseClicked(x, y);
+        gameSideLeftMouseClicked(x, y);
+    }
+    private void sidePanelLeftMouseClicked(int x, int y) {
         if (x>GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
-            playScene.getLvl().sidePanelGame.gameSidePanelMouseHandler.leftMouseClicked(x, y);
+            gameSidePanelLeftMousePressedHandler( x, y);
         }
-
+    }
+    private void gameSidePanelLeftMousePressedHandler(int x, int y) {
+        playScene.getLvl().sidePanelGame.gameSidePanelMouseHandler.leftMouseClicked(x, y);
+    }
+    private void gameSideLeftMouseClicked(int x, int y) {
         if (x<GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
-
-            Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.leftMouseClicked(x,y));
-
-
-            if ( playScene.getLvl().selectedTower!=null){
-
-                if (! playScene.containsBoundsOfOtherTower(playScene.getLvl().selectedTower)){
-                    playScene.getLvl().allyPlacedTowers.add(playScene.getLvl().selectedTower);
-                    playScene.getLvl().selectedTower.placed=true;
-
-                }
-
-                playScene.getLvl().selectedTower=null;
+            placedTowerLeftMousePressedHandler(x,y);
+            placeSelectedTower();
+        }
+    }
+    private void placedTowerLeftMousePressedHandler(int x, int y) {
+        Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.leftMouseClicked(x,y));
+    }
+    private void placeSelectedTower() {
+        if ( playScene.getLvl().selectedTower!=null){
+            if (! playScene.containsBoundsOfOtherTower(playScene.getLvl().selectedTower)){
+                playScene.getLvl().allyPlacedTowers.add(playScene.getLvl().selectedTower);
+                playScene.getLvl().selectedTower.placed=true;
 
             }
+
+            playScene.getLvl().selectedTower=null;
         }
     }
 
     @Override
     public void rightMouseClicked(int x, int y) {
+        sidePanelRightMousePressed(x, y);
+        gameSideRightMousePressed(x,y);
 
+        cancelSelectedTower();
+    }
+
+    private void sidePanelRightMousePressed(int x, int y) {
+        playScene.getLvl().getSidePanelGame().gameSidePanelMouseHandler.rightMouseClicked(x, y);
+    }
+
+    private void gameSideRightMousePressed(int x, int y) {
+
+    }
+
+    private void cancelSelectedTower() {
+        if (Level.getLevel().selectedTower!=null){
+            Level.getLevel().selectedTower=null;
+        }
     }
 
     @Override
     public void mouseMoved(int x, int y) {
-        playScene.mouseX=x;
-        playScene.mouseY=y;
-
+        sidePanelMouseMoved(x, y);
+        gameScreenMouseMoved(x, y);
+        selectedTowerMouseMoved(x, y);
+    }
+    private void sidePanelMouseMoved(int x, int y) {
         if (x>GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
-            playScene.getLvl().sidePanelGame.gameSidePanelMouseHandler.mouseMoved(x, y);
+            gameSidePanelMouseMovedHandler(x, y);
         }
-
+    }
+    private void gameSidePanelMouseMovedHandler(int x, int y) {
+        playScene.getLvl().sidePanelGame.gameSidePanelMouseHandler.mouseMoved(x, y);
+    }
+    private void gameScreenMouseMoved(int x, int y) {
         if (x<GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
-            Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.mouseMoved(x, y));
+            placedTowerMouseMovedHandler(x, y);
         }
-
-
+    }
+    private void placedTowerMouseMovedHandler(int x, int y) {
+        Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.mouseMoved(x, y));
+    }
+    private void selectedTowerMouseMoved(int x, int y) {
         if (playScene.getLvl().selectedTower!=null){
 
             playScene.getLvl().selectedTower.posX=x;
@@ -74,14 +109,24 @@ public class PlaySceneMouseHandler implements MouseHandler {
 
     @Override
     public void mousePressed(int x, int y) {
+        sidePanelMousePressed(x, y);
+        gameSideMousePressed(x, y);
+    }
+    private void sidePanelMousePressed(int x, int y) {
         if (x>GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
-            playScene.getLvl().sidePanelGame.gameSidePanelMouseHandler.mousePressed(x, y);
+            sidePanelMousePressedHandler(x, y);
         }
-
+    }
+    private void sidePanelMousePressedHandler(int x, int y) {
+        playScene.getLvl().sidePanelGame.gameSidePanelMouseHandler.mousePressed(x, y);
+    }
+    private void gameSideMousePressed(int x, int y) {
         if (x<GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
-            Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.mousePressed(x, y));
+            placedTowerMousePressedHandler(x, y);
         }
-
+    }
+    private void placedTowerMousePressedHandler(int x, int y) {
+        Level.allyPlacedTowers.forEach(ally -> ally.mouseHandler.mousePressed(x, y));
     }
 
     @Override

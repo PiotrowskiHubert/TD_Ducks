@@ -1,7 +1,5 @@
 package org.pio.main;
 
-import org.pio.main.Game;
-
 import java.awt.*;
 
 public class Render {
@@ -27,13 +25,17 @@ public class Render {
                 game.getSelectSaveScene().render(g);
             }
 
-            case GAME -> {
-                game.getPlayScene().render(g);
-                break;
+            case EDIT_MAP -> {
+                game.getEditMapScene().render(g);
             }
 
             case PREGAME -> {
                 game.getPreGameScene().render(g);
+                break;
+            }
+
+            case GAME -> {
+                game.getPlayScene().render(g);
                 break;
             }
 

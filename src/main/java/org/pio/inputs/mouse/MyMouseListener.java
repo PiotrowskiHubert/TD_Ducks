@@ -3,6 +3,7 @@ package org.pio.inputs.mouse;
 
 import org.pio.main.Game;
 import org.pio.main.GameStates;
+import org.pio.scene.GameScene;
 
 import java.awt.event.*;
 
@@ -146,6 +147,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 
             case GAME -> {
                 game.getPlayScene().mouseHandler.mouseMoved(e.getX(),e.getY());
+                GameScene.setMouseX(e.getX());
+                GameScene.setMouseY(e.getY());
             }
 
             case PREGAME -> {

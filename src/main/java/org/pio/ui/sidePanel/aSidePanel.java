@@ -32,12 +32,12 @@ public abstract class aSidePanel implements sidePanelMethods {
         drawButtons(g);
     }
     private void drawBody(Graphics g) {
-        g.setColor(Color.black);
+        g.setColor(Color.white);
         g.fillRect(posX, posY, width, height);
     }
     protected void drawButtons(Graphics g) {
 
-        if (!currentDataLinkedMap.isEmpty()){
+        if (currentDataLinkedMap!=null&&!currentDataLinkedMap.isEmpty()){
             currentDataLinkedMap.values().stream().forEach(button -> button.draw(g));
         }
     }

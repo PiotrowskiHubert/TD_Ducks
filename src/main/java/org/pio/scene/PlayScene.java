@@ -13,36 +13,23 @@ import java.awt.event.KeyEvent;
 public class PlayScene extends GameScene implements sceneMeethods {
     private Level lvl;
     public static Player player;
-    public static int mouseX, mouseY;
     public PlaySceneMouseHandler mouseHandler;
 
     public PlayScene(Game game) {
         super(game);
-
         Level.createLevel(26,16,getGame(),11);
-        lvl=Level.getLevel();
-        player=new Player(2000,100);
 
+        this.lvl=Level.getLevel();
+        this.player=new Player(2000,100);
         this.mouseHandler=new PlaySceneMouseHandler(this);
     }
 
 
+    @Override
     public void render(Graphics g){
         lvl.drawLevel(g);
-
-        drawTileBorder(g);
+        super.render(g);
     }
-
-
-    private void drawTileBorder(Graphics g) {
-        if (mouseX<GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE){
-
-            g.setColor(Color.black);
-
-            g.drawRect( ((mouseX/(GameScreen.UNIT_SIZE*GameScreen.SCALE))*(GameScreen.UNIT_SIZE*GameScreen.SCALE)),(mouseY/(GameScreen.UNIT_SIZE*GameScreen.SCALE)*(GameScreen.UNIT_SIZE*GameScreen.SCALE)),GameScreen.UNIT_SIZE*GameScreen.SCALE,GameScreen.UNIT_SIZE*GameScreen.SCALE);
-        }
-    }
-
 
     public Boolean containsBoundsOfOtherTower(Ally ally){
 
@@ -66,12 +53,7 @@ public class PlayScene extends GameScene implements sceneMeethods {
     public Level getLvl() {
         return lvl;
     }
-    public static int getMouseX() {
-        return mouseX;
-    }
-    public static int getMouseY() {
-        return mouseY;
-    }
+
     public static Player getPlayer() {
         return player;
     }
