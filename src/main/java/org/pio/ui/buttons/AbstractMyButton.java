@@ -79,28 +79,30 @@ public abstract class AbstractMyButton implements drawable{
         int x = bounds.getBounds().x + (bounds.getBounds().width - metrics.stringWidth(name)) / 2;
         int y = bounds.getBounds().y + ((bounds.getBounds().height - metrics.getHeight()) / 2) + metrics.getAscent();
 
-        g.setColor(new Color(0x000000));
+        g.setColor(new Color(Color.BLUE.getRGB()));
         g.setFont(font);
         g.drawString(text, x, y);
     }
 
     public void draw(Graphics g) {
 
+
+
         if (mouseOver){
             g.setColor(Color.GREEN);
         }else {
-            g.setColor(Color.WHITE);
+            g.setColor(Color.RED);
         }
 
         if (mousePressed){
             g.setColor(new Color(0x4F000000, true));
         }
 
+        g.fillRect(posX, posY, width, height);
+
         if (text != null){
             drawCenteredText(g);
         }
-
-        g.fillRect(posX, posY, width, height);
     }
 
     public int getWidth() {
