@@ -1,6 +1,14 @@
 package org.pio.inputs.mouse;
 
+import org.pio.ui.sidePanel.SidePanelEditMap;
+
 public class EditSidePanelMouseHandler implements MouseHandler{
+    SidePanelEditMap sidePanelEditMap;
+
+    public EditSidePanelMouseHandler(SidePanelEditMap sidePanelEditMap) {
+        this.sidePanelEditMap = sidePanelEditMap;
+    }
+
     @Override
     public void leftMouseClicked(int x, int y) {
 
