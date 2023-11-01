@@ -1,5 +1,6 @@
 package org.pio.inputs.mouse;
 
+import org.pio.ui.buttons.AbstractMyButton;
 import org.pio.ui.sidePanel.SidePanelEditMap;
 
 public class EditSidePanelMouseHandler implements MouseHandler{
@@ -21,7 +22,14 @@ public class EditSidePanelMouseHandler implements MouseHandler{
 
     @Override
     public void mouseMoved(int x, int y) {
+        for (AbstractMyButton button : sidePanelEditMap.getButtons().values()) {
+            if (button.getBounds().contains(x, y)){
+                button.setMouseOver(true);
+            }else{
+                button.setMouseOver(false);
+            }
 
+        }
     }
 
     @Override
