@@ -1,5 +1,6 @@
 package org.pio.ui.sidePanel;
 
+import org.pio.inputs.mouse.EditSidePanelMouseHandler;
 import org.pio.ui.buttons.AbstractMyButton;
 import org.pio.ui.buttons.MyButton;
 
@@ -7,7 +8,7 @@ import java.awt.*;
 import java.util.HashMap;
 
 public class SidePanelEditMap extends aSidePanel{
-
+    private EditSidePanelMouseHandler editSidePanelMouseHandler = new EditSidePanelMouseHandler(this);
     private HashMap<Integer, AbstractMyButton> buttons = new HashMap<>();
 
     public SidePanelEditMap(int width, int height, int posX, int posY) {
@@ -35,4 +36,11 @@ public class SidePanelEditMap extends aSidePanel{
         buttons.forEach((k, v) -> v.draw(g));
     }
 
+    public EditSidePanelMouseHandler getEditSidePanelMouseHandler() {
+        return editSidePanelMouseHandler;
+    }
+
+    public HashMap<Integer, AbstractMyButton> getButtons() {
+        return buttons;
+    }
 }
