@@ -21,7 +21,7 @@ public class EditSceneMouseHandler implements MouseHandler{
 
     @Override
     public void mouseMoved(int x, int y) {
-
+        editScene.getSidePanelEditMap().getEditSidePanelMouseHandler().mouseMoved(x,y);
     }
 
     @Override
