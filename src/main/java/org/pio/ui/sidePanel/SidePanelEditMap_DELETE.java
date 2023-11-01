@@ -1,6 +1,6 @@
  package org.pio.ui.sidePanel;
 
-import org.pio.inputs.mouse.EditSidePanelMouseHandler;
+import org.pio.inputs.mouse.EditSidePanelMouseHandler_DELETE;
 import org.pio.scene.PlayScene;
 import org.pio.tiles.Tile;
 import org.pio.ui.buttons.bRectangle;
@@ -13,7 +13,7 @@ public class SidePanelEditMap_DELETE extends aSidePanel{
     public SidePanelEditMapMethods sidePanelEditMapMethods;
     private PlayScene playScene;
     public bRectangle scrollUp, scrollDown, closeEditMap, saveMap;
-    public EditSidePanelMouseHandler mouseHandler;
+    public EditSidePanelMouseHandler_DELETE mouseHandler;
     public SidePanelEditMap_DELETE(int posWidth, int posHeight, int width, int height, PlayScene playScene) {
         super(width, height, posWidth, posHeight);
 

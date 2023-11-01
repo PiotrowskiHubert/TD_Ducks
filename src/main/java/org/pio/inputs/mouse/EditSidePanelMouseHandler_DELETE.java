@@ -5,10 +5,10 @@ import org.pio.scene.Level;
 import org.pio.ui.buttons.bRectangle;
 import org.pio.ui.sidePanel.SidePanelEditMap_DELETE;
 
-public class EditSidePanelMouseHandler implements MouseHandler{
+public class EditSidePanelMouseHandler_DELETE implements MouseHandler{
     SidePanelEditMap_DELETE sidePanelEditMapDELETE;
 
-    public EditSidePanelMouseHandler(SidePanelEditMap_DELETE sidePanelEditMapDELETE) {
+    public EditSidePanelMouseHandler_DELETE(SidePanelEditMap_DELETE sidePanelEditMapDELETE) {
         this.sidePanelEditMapDELETE = sidePanelEditMapDELETE;
     }
 
