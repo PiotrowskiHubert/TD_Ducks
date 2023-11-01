@@ -145,6 +145,10 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
                 game.getSelectSaveScene().getMouseHandler().mouseMoved(e.getX(), e.getY());
             }
 
+            case EDIT_MAP -> {
+                game.getEditMapScene().getMouseHandler().mouseMoved(e.getX(), e.getY());
+            }
+
             case GAME -> {
                 game.getPlayScene().mouseHandler.mouseMoved(e.getX(),e.getY());
                 GameScene.setMouseX(e.getX());
