@@ -23,6 +23,6 @@ public interface Enemy_3_Factory{
     }
 
     default public Enemy createWithImageEnemy_3(int enemyIndex, int posX, int posY, Directions direction, KeyPoint startKeyPoint){
-        return new Enemy_1(getInfoFromDatabaseEnemy_3(enemyIndex), posX, posY, direction, startKeyPoint);
+        return new Enemy_3(getInfoFromDatabaseEnemy_3(enemyIndex), posX, posY, direction, startKeyPoint);
     }
 }

@@ -53,7 +53,7 @@ public class Update {
         }
 
         if (System.currentTimeMillis()- lastTimeGameUpdateCheck >=1000){
-            System.out.println("T2, GAME UPDATE: " + updateCounter);
+            System.out.println("T2, TPS: " + updateCounter);
             updateCounter =0;
             lastTimeGameUpdateCheck =System.currentTimeMillis();
         }

@@ -25,7 +25,7 @@ public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
     @Override
     public void update(long now) {
         if (ally.placed){
-            if(now-lastUpdate>= Update.timePerUpdateGame * ally.updates){
+            if(now-lastUpdate >= Update.timePerUpdateGame * ally.updates){
                 lastUpdate=now;
 
                 detect();

@@ -23,7 +23,7 @@ public abstract class Ally extends Entity {
     public Directions direction;
 
     public AllyUpdate update;
-    public SidePanelUpgrade sidePanelUpgrade;
+   // public SidePanelUpgrade sidePanelUpgrade;
     public AllyMouseHandler mouseHandler;
 
     protected Ally(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<String>> sprites) {
@@ -52,7 +52,7 @@ public abstract class Ally extends Entity {
         this.enemiesInRangeList=new LinkedList<>();
         this.bulletList =new LinkedList<>();
 
-        this.sidePanelUpgrade=new SidePanelUpgrade(this, GameScreen.UNIT_SIZE*7, GameScreen.UNIT_SIZE*33, GameScreen.UNIT_SIZE*(52-7),0);
+        //this.sidePanelUpgrade=new SidePanelUpgrade(this, GameScreen.UNIT_SIZE*7, GameScreen.UNIT_SIZE*33, GameScreen.UNIT_SIZE*(52-7),0);
         this.update =new AllyUpdate(this);
         this.mouseHandler=new AllyMouseHandler(this);
     }
@@ -84,7 +84,7 @@ public abstract class Ally extends Entity {
             g.setColor(Color.black);
             g.drawOval(rangeEllipse.getBounds().x, rangeEllipse.getBounds().y, rangeEllipse.getBounds().width, rangeEllipse.getBounds().height);
 
-            sidePanelUpgrade.draw(g);
+            //sidePanelUpgrade.draw(g);
         }
     }
     private void drawMouseOver(Graphics g) {

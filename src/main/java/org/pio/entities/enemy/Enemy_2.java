@@ -14,6 +14,7 @@ public class Enemy_2 extends Enemy {
     }
     public Enemy_2(Enemy enemy, int posX, int posY, Directions direction, KeyPoint startKeyPoint){
         super(enemy, posX, posY, direction, startKeyPoint);
+        this.updates=1;
     }
 
 }

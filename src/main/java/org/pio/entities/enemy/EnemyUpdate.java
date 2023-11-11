@@ -18,7 +18,8 @@ public class EnemyUpdate extends EntityUpdate {
 
     @Override
     public void update(long now) {
-        if(now-lastUpdate>= Update.timePerUpdateGame){
+        if(now-lastUpdate >= Update.timePerUpdateGame / enemy.updates){
+
             lastUpdate=now;
 
             enemyMovable.move();
