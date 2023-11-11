@@ -80,9 +80,9 @@ public class Level extends GameScene {
     }
 
     private void initKeyPoints(){
-        keyPointsList.add(new KeyPoint(-40,9*GameScreen.UNIT_SIZE*GameScreen.SCALE)); // 0
-        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*GameScreen.SCALE, 9*GameScreen.UNIT_SIZE*GameScreen.SCALE));
-        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*GameScreen.SCALE, 5*GameScreen.UNIT_SIZE*GameScreen.SCALE));
+        keyPointsList.add(new KeyPoint(-40, (int) (9.2*GameScreen.UNIT_SIZE*GameScreen.SCALE))); // 0
+        keyPointsList.add(new KeyPoint((int) (17.7*GameScreen.UNIT_SIZE*GameScreen.SCALE), (int) (9.2*GameScreen.UNIT_SIZE*GameScreen.SCALE)));
+        keyPointsList.add(new KeyPoint((int) (17.7*GameScreen.UNIT_SIZE*GameScreen.SCALE), 5*GameScreen.UNIT_SIZE*GameScreen.SCALE));
         keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*GameScreen.SCALE, 5*GameScreen.UNIT_SIZE*GameScreen.SCALE));
         keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*GameScreen.SCALE, 14*GameScreen.UNIT_SIZE*GameScreen.SCALE));
         keyPointsList.add(new KeyPoint((int) (24.5*GameScreen.UNIT_SIZE*GameScreen.SCALE), 14*GameScreen.UNIT_SIZE*GameScreen.SCALE));

@@ -60,9 +60,7 @@ public class MainDatabase {
         if (mainDatabase==null){
             mainDatabase = new MainDatabase();
         }
-
         return mainDatabase;
-
     }
 
     private Enemy getEnemyInfoFromTxtFile(String fileName){
@@ -111,7 +109,6 @@ public class MainDatabase {
     }
     private BufferedImage getSpriteAtlas(String fileName){
         ReadFromFileImpl readFromFile = new ReadFromFileImpl();
-
         return readFromFile.readBufferedImage(fileName);
     }
     private LinkedHashMap<Directions, LinkedList<BufferedImage>> getEnemySpriteAtlas_2(String fileName, int numOfSprites){

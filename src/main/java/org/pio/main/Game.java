@@ -98,7 +98,7 @@ public class Game extends JFrame implements Runnable {
                     lastUpdatePlayer=now;
                 }
 
-                if (now-lastUpdateEnemy>= timePerUpdatePlayerAnimation){
+                if (now-lastUpdateEnemy>= timePerUpdateEnemyAnimation){
                     updateAnimationsEnemy();
                     lastUpdateEnemy=now;
                 }

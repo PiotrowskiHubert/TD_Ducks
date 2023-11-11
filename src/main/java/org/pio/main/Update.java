@@ -4,6 +4,9 @@ import org.pio.entities.Bullet;
 import org.pio.entities.Entity;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
+import org.pio.entities.enemy.Enemy_2;
+import org.pio.factory.enemy.EnemyFactoryImpl;
+import org.pio.helpz.Directions;
 import org.pio.manager.PlayerManager;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
@@ -171,6 +174,30 @@ public class Update {
                             bulletIterator.remove();
 
                             if (nextEnemy.health<=0){
+
+                                if (nextEnemy.id!=1){
+
+                                    for (Iterator<Ally> allyTowerIterator1 = allies.iterator(); allyTowerIterator1.hasNext();){
+                                        Ally nextOldAllyTower1 = allyTowerIterator1.next();
+
+                                        for (Iterator<Entity> enemyIterator1 = nextOldAllyTower1.enemiesInRangeList.iterator(); enemyIterator1.hasNext();){
+                                            Entity nextEnemy_1 = enemyIterator1.next();
+
+                                            if (nextOldAllyTower1.enemiesInRangeList.contains(nextEnemy_1)){
+                                                enemyIterator1.remove();
+                                            }
+
+                                        }
+                                    }
+
+                                    enemyIterator.remove();
+                                    Enemy enemy = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id -1, game.getPlayScene().getLvl().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                    enemy.keypointIndex= nextEnemy.keypointIndex;
+                                    enemies.add(enemy);
+
+
+                                    return;
+                                }
 
                                 enemyIterator.remove();
 

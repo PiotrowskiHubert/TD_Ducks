@@ -1,12 +1,15 @@
 package org.pio.entities;
 
+import org.pio.entities.ally.Ally;
+import org.pio.entities.enemy.Enemy;
 import org.pio.main.GameScreen;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class Entity {
-    public double posX, posY;
+    public double posX;
+    public double posY;
     public int width, height, id;
     public String name;
     public Rectangle bounds;
@@ -25,9 +28,9 @@ public abstract class Entity {
         this.width = entity.width;
         this.height = entity.height;
         this.posX = posX;
-        this.posY = posY+6;
+        this.posY = posY;
 
-        this.bounds= setRectangleBounds();
+        this.bounds = setRectangleBounds();
     }
 
     private Rectangle setRectangleBounds(){

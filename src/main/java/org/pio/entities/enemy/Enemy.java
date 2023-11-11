@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Stack;
 
 public abstract class Enemy extends Entity {
@@ -47,24 +48,39 @@ public abstract class Enemy extends Entity {
         this.keyPointsStack.push(startKeyPoint);
 
         this.enemyUpdate=new EnemyUpdate(this);
+
     }
 
     @Override
     public void draw(Graphics g) {
         switch (direction) {
             case LEFT -> {
-                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 36, bounds.getBounds().y - 83, null);
+                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 38, bounds.getBounds().y - 96, null);
             }
             case RIGHT -> {
-                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 36, bounds.getBounds().y - 83, null);
+                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 38, bounds.getBounds().y - 96, null);
             }
             case UP -> {
-                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 36, bounds.getBounds().y - 83, null);
+                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 38, bounds.getBounds().y - 96, null);
             }
             case DOWN -> {
-                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 36, bounds.getBounds().y - 83, null);
+                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 38, bounds.getBounds().y - 96,   null);
             }
-
         }
+        g.setColor(Color.BLACK);
+        g.drawRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Enemy enemy = (Enemy) o;
+        return Double.compare(enemy.movementSpeed, movementSpeed) == 0 && health == enemy.health && damage == enemy.damage && gold == enemy.gold && keypointIndex == enemy.keypointIndex && currentSprite == enemy.currentSprite && maxSprite == enemy.maxSprite && direction == enemy.direction && Objects.equals(sprites, enemy.sprites) && Objects.equals(keyPointsStack, enemy.keyPointsStack) && Objects.equals(enemyUpdate, enemy.enemyUpdate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(movementSpeed, health, damage, gold, direction, sprites, keyPointsStack, keypointIndex, currentSprite, maxSprite, enemyUpdate);
     }
 }
