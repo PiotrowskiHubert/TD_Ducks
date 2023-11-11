@@ -22,10 +22,14 @@ public class GameSidePanelMouseHandler implements MouseHandler {
                     sidePanelGame.level.selectedTower = button.performCreateAlly(x,y,null, sidePanelGame.getAllButtons().indexOf(button));
                 }
             }finally {
-                button.setMousePressed(false);
-                button.setMouseOver(false);
-            }
+                if(button.mousePressed){
+                    button.setMousePressed(false);
 
+                    if (!button.buttonBounds.contains(x,y)){
+                        button.setMouseOver(false);
+                    }
+                }
+            }
         }
 
         for (aButton button : sidePanelGame.getUserButtons()) {
@@ -35,10 +39,24 @@ public class GameSidePanelMouseHandler implements MouseHandler {
                     button.perform();
                 }
             }finally {
-                button.setMousePressed(false);
-                button.setMouseOver(false);
-            }
+                if(button.mousePressed){
+                    button.setMousePressed(false);
 
+                    if (!button.buttonBounds.contains(x,y)){
+                        button.setMouseOver(false);
+                    }
+                }
+            }
+        }
+
+        for(aButton button : sidePanelGame.getAllButtons()) {
+            if(button.mousePressed){
+                button.setMousePressed(false);
+
+                if (!button.buttonBounds.contains(x,y)){
+                    button.setMouseOver(false);
+                }
+            }
         }
 
     }
@@ -46,12 +64,17 @@ public class GameSidePanelMouseHandler implements MouseHandler {
 
     @Override
     public void rightMouseClicked(int x, int y) {
-        for (aButton button : sidePanelGame.getAllButtons()) {
-            if (button.isMousePressed()){
+
+        for(aButton button : sidePanelGame.getAllButtons()) {
+            if(button.mousePressed){
                 button.setMousePressed(false);
-                button.setMouseOver(false);
+
+                if (!button.buttonBounds.contains(x,y)){
+                    button.setMouseOver(false);
+                }
             }
         }
+
     }
 
     @Override
@@ -87,8 +110,7 @@ public class GameSidePanelMouseHandler implements MouseHandler {
     @Override
     public void mouseReleased(int x, int y) {
 
+
     }
-
-
 
 }

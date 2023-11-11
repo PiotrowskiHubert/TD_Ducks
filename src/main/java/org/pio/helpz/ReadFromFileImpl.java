@@ -277,6 +277,9 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         Tile levelArr[][] = new Tile[lvlHeight][lvlWidth];
 
+        int offsetX=(GameScreen.intSidePanelStart-lvlWidth*GameScreen.SCALE)/2;
+        int offsetY=(GameScreen.intScreenHeight-lvlHeight*GameScreen.SCALE)/2;
+
         try (
                 var fileReader = new FileReader(path.toFile());
                 var reader = new BufferedReader(fileReader);
@@ -296,8 +299,8 @@ public class ReadFromFileImpl implements ReadFromFile {
                     if (tile.getId() == Integer.parseInt(nextLine)){
                         levelArr[i][j]=new Tile(tile.getWidth(),
                                 tile.getHeight(),
-                                j* GameScreen.UNIT_SIZE*GameScreen.SCALE,
-                                i*GameScreen.UNIT_SIZE*GameScreen.SCALE,
+                                j*GameScreen.UNIT_SIZE*GameScreen.SCALE+offsetX*GameScreen.UNIT_SIZE,
+                                i*GameScreen.UNIT_SIZE*GameScreen.SCALE+offsetY*GameScreen.UNIT_SIZE,
                                 tile.getTileName(),
                                 tile.getId(),
                                 tile.getSprite());

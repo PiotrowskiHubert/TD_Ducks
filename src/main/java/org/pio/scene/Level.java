@@ -41,7 +41,7 @@ public class Level extends GameScene {
 
         this.lvlWidth = lvlWidth;
         this.lvlHeight = lvlHeight;
-        this.lvlArr = ReadFromFileImpl.getTilesForLevelArrayFromTxt(Path.of("src/main/resources/LevelInfo/lvl_2_Tiles.txt"), lvlWidth, lvlHeight);
+        this.lvlArr = ReadFromFileImpl.getTilesForLevelArrayFromTxt(Path.of("src/main/resources/LevelInfo/lvl_3_Tiles.txt"), lvlWidth, lvlHeight);
         this.rounds= addEnemiesToRoundsEnemiesList("src/main/resources/LevelInfo/lvl_1_Enemies.txt");
 
         this.sidePanelGame = new SidePanelGame(
@@ -79,12 +79,12 @@ public class Level extends GameScene {
 
     private void initKeyPoints(){
         int scale=2;
-        keyPointsList.add(new KeyPoint(-40,9*GameScreen.UNIT_SIZE*scale)); // 0
-        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*scale, 9*GameScreen.UNIT_SIZE*scale));
-        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*scale, 5*GameScreen.UNIT_SIZE*scale));
-        keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*scale, 5*GameScreen.UNIT_SIZE*scale));
-        keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*scale, 14*GameScreen.UNIT_SIZE*scale));
-        keyPointsList.add(new KeyPoint(29*GameScreen.UNIT_SIZE*scale, 14*GameScreen.UNIT_SIZE*scale));
+        keyPointsList.add(new KeyPoint(-40,9*GameScreen.UNIT_SIZE*GameScreen.SCALE)); // 0
+        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*GameScreen.SCALE, 9*GameScreen.UNIT_SIZE*GameScreen.SCALE));
+        keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*GameScreen.SCALE, 5*GameScreen.UNIT_SIZE*GameScreen.SCALE));
+        keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*GameScreen.SCALE, 5*GameScreen.UNIT_SIZE*GameScreen.SCALE));
+        keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*GameScreen.SCALE, 14*GameScreen.UNIT_SIZE*GameScreen.SCALE));
+        keyPointsList.add(new KeyPoint((int) (24.5*GameScreen.UNIT_SIZE*GameScreen.SCALE), 14*GameScreen.UNIT_SIZE*GameScreen.SCALE));
     }
 
     public void drawLevel(Graphics g){

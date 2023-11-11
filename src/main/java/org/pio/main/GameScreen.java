@@ -14,8 +14,8 @@ public class GameScreen extends JPanel {
 
     public static int screenWidth,screenHeight, intScreenWidth, intScreenHeight, intSidePanelStart;
 
-    public static final int SCALE=2;
-    public static final int UNIT_SIZE =32;
+    public static final int SCALE=2, UNIT_SIZE = 32;
+    public static final double ENTITY_SCALE = 1.2;
     public static final float SCALED_UNIT_SIZE = UNIT_SIZE*SCALE;
 
     public GameScreen(Game game){

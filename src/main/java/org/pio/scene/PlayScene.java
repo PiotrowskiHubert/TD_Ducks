@@ -17,7 +17,7 @@ public class PlayScene extends GameScene implements sceneMeethods {
 
     public PlayScene(Game game) {
         super(game);
-        Level.createLevel(26,16,getGame(),11);
+        Level.createLevel(23,14,getGame(),11);
 
         this.lvl=Level.getLevel();
         this.player=new Player(2000,100);

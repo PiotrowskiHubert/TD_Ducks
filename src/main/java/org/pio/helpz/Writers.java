@@ -5,14 +5,14 @@ import org.pio.scene.Level;
 import java.io.*;
 
 public class Writers {
-    public static void writeEmptyLevel(){
+    public static void writeEmptyLevel(String filename, int height, int width){
 
-        String fileName = "src/main/resources/LevelInfo/lvl_2_Tiles.txt";
+        String fileName = "src/main/resources/LevelInfo/" + filename + ".txt";
         try (
                 var fileWriter = new FileWriter(fileName);
                 var writer = new BufferedWriter(fileWriter);
         ) {
-            int sizeOfLevel= Level.getLvlHeight()*Level.getLvlWidth();
+            int sizeOfLevel= height*width;
             int i=0;
 
             while (!(i==sizeOfLevel)){
@@ -150,26 +150,27 @@ public class Writers {
 
         public static void main(String[] args) {
 
-            String path;
-
-            path = "src/main/resources/AllyInfo/ally_1.txt";
-            writeAllyDataToTxtFile(path, "Ally_1", "1", "32", "32", "1000000000.0", "100", "100");
-
-            path = "src/main/resources/AllyInfo/ally_2.txt";
-            writeAllyDataToTxtFile(path, "Ally_2", "2", "32", "32", "1000000000.0", "100", "100");
-
-            path = "src/main/resources/AllyInfo/ally_3.txt";
-            writeAllyDataToTxtFile(path, "Ally_3", "3", "32", "32", "1000000000.0", "100", "100");
-
-            path = "src/main/resources/AllyInfo/ally_4.txt";
-            writeAllyDataToTxtFile(path, "Ally_4", "4", "32", "32", "1000000000.0", "100", "100");
-
-            path = "src/main/resources/AllyInfo/ally_5.txt";
-            writeAllyDataToTxtFile(path, "Ally_5", "5", "32", "32", "1000000000.0", "100", "100");
+//            String path;
+//
+//            path = "src/main/resources/AllyInfo/ally_1.txt";
+//            writeAllyDataToTxtFile(path, "Ally_1", "1", "32", "32", "1000000000.0", "100", "100");
+//
+//            path = "src/main/resources/AllyInfo/ally_2.txt";
+//            writeAllyDataToTxtFile(path, "Ally_2", "2", "32", "32", "1000000000.0", "100", "100");
+//
+//            path = "src/main/resources/AllyInfo/ally_3.txt";
+//            writeAllyDataToTxtFile(path, "Ally_3", "3", "32", "32", "1000000000.0", "100", "100");
+//
+//            path = "src/main/resources/AllyInfo/ally_4.txt";
+//            writeAllyDataToTxtFile(path, "Ally_4", "4", "32", "32", "1000000000.0", "100", "100");
+//
+//            path = "src/main/resources/AllyInfo/ally_5.txt";
+//            writeAllyDataToTxtFile(path, "Ally_5", "5", "32", "32", "1000000000.0", "100", "100");
 
 //            path = "src/main/resources/LevelInfo/lvl_1_Enemies.txt";
 //            writeRoundsDataToFile(path, 10);
 
+            Writers.writeEmptyLevel("lvl_3_Tiles", 23, 14);
         }
 
 }

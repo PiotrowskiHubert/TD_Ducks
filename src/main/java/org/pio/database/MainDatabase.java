@@ -108,15 +108,19 @@ public class MainDatabase {
     }
     private LinkedHashMap<Directions, LinkedList<String>> getEnemySpriteAtlas(){
         LinkedHashMap<Directions, LinkedList<String>> enemySpriteAtlas = new LinkedHashMap<>();
+
         LinkedList<String> upSprites = new LinkedList<>();
         upSprites.add("1");
         upSprites.add("2");
+
         LinkedList<String> downSprites = new LinkedList<>();
         downSprites.add("3");
         downSprites.add("4");
+
         LinkedList<String> leftSprites = new LinkedList<>();
         leftSprites.add("5");
         leftSprites.add("6");
+
         LinkedList<String> rightSprites = new LinkedList<>();
         rightSprites.add("7");
         rightSprites.add("8");
