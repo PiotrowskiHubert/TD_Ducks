@@ -107,13 +107,16 @@ public class Update {
         checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
     }
 
-    public void updateAnimations(){
+    public void updateAnimationsPreGame(){
         if (game.getGameStates() == GameStates.PREGAME){
             game.getPreGameScene().updateAnimations();
         }
 
-        if (game.getGameStates() == GameStates.GAME){
+    }
 
+    public void updateAnimationsEnemy(){
+        if (game.getGameStates() == GameStates.GAME){
+            game.getPlayScene().getLvl().updateEnemyAnimations();
         }
     }
 

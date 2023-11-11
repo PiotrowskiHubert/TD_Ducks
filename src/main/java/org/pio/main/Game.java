@@ -25,6 +25,7 @@ public class Game extends JFrame implements Runnable {
 
     Thread gameThread_1;
     private double timePerUpdatePlayerAnimation;
+    private double timePerUpdateEnemyAnimation;
     JFrame frame = new JFrame("GameTitle");
 
 
@@ -85,22 +86,33 @@ public class Game extends JFrame implements Runnable {
         new Thread(() -> {
 
             timePerUpdatePlayerAnimation =1_000_000_000.0/11.0;
-            long lastUpdate=System.nanoTime();
+            timePerUpdateEnemyAnimation =1_000_000_000.0/13.0;
+            long lastUpdatePlayer=System.nanoTime();
+            long lastUpdateEnemy=System.nanoTime();
             long now;
             while (true){
                 now = System.nanoTime();
 
-                if (now-lastUpdate>= timePerUpdatePlayerAnimation){
+                if (now-lastUpdatePlayer>= timePerUpdatePlayerAnimation){
                     updateAnimations();
-                    lastUpdate=now;
+                    lastUpdatePlayer=now;
+                }
+
+                if (now-lastUpdateEnemy>= timePerUpdatePlayerAnimation){
+                    updateAnimationsEnemy();
+                    lastUpdateEnemy=now;
                 }
             }
         }).start();
 
     }
 
+    private void updateAnimationsEnemy() {
+        update.updateAnimationsEnemy();
+    }
+
     private void updateAnimations() {
-        update.updateAnimations();
+        update.updateAnimationsPreGame();
     }
 
     @Override

@@ -1,7 +1,9 @@
 package org.pio.scene;
 
+import org.pio.entities.Entity;
 import org.pio.entities.LevelDraw;
 import org.pio.entities.ally.Ally;
+import org.pio.entities.enemy.Enemy;
 import org.pio.helpz.Directions;
 import org.pio.helpz.KeyPoint;
 import org.pio.helpz.ReadFromFileImpl;
@@ -78,13 +80,24 @@ public class Level extends GameScene {
     }
 
     private void initKeyPoints(){
-        int scale=2;
         keyPointsList.add(new KeyPoint(-40,9*GameScreen.UNIT_SIZE*GameScreen.SCALE)); // 0
         keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*GameScreen.SCALE, 9*GameScreen.UNIT_SIZE*GameScreen.SCALE));
         keyPointsList.add(new KeyPoint(18*GameScreen.UNIT_SIZE*GameScreen.SCALE, 5*GameScreen.UNIT_SIZE*GameScreen.SCALE));
         keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*GameScreen.SCALE, 5*GameScreen.UNIT_SIZE*GameScreen.SCALE));
         keyPointsList.add(new KeyPoint(11*GameScreen.UNIT_SIZE*GameScreen.SCALE, 14*GameScreen.UNIT_SIZE*GameScreen.SCALE));
         keyPointsList.add(new KeyPoint((int) (24.5*GameScreen.UNIT_SIZE*GameScreen.SCALE), 14*GameScreen.UNIT_SIZE*GameScreen.SCALE));
+    }
+
+    public void updateEnemyAnimations(){
+
+        for (Enemy enemy : rounds.get(currentRound).getEnemies()){
+            if (enemy.currentSprite<enemy.maxSprite){
+                enemy.currentSprite++;
+            }else {
+                enemy.currentSprite=0;
+            }
+        }
+
     }
 
     public void drawLevel(Graphics g){

@@ -6,6 +6,7 @@ import org.pio.helpz.Directions;
 import org.pio.scene.Level;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -14,13 +15,14 @@ public abstract class Enemy extends Entity {
     public double movementSpeed;
     public int health, damage, gold;
     public Directions direction;
-    public LinkedHashMap<Directions,LinkedList<String>> sprites;
+    public LinkedHashMap<Directions, LinkedList<BufferedImage>> sprites;
     public Stack<KeyPoint> keyPointsStack;
     public int keypointIndex;
-
+    public int currentSprite=0;
+    public int maxSprite=7;
     public EnemyUpdate enemyUpdate;
 
-    public Enemy(String name,  int id, int health, int damage, int gold, double movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<String>> sprites) {
+    public Enemy(String name,  int id, int health, int damage, int gold, double movementSpeed, int width, int height, LinkedHashMap<Directions, LinkedList<BufferedImage>> sprites) {
         super(name, id, width, height);
 
         this.health = health;
@@ -51,19 +53,18 @@ public abstract class Enemy extends Entity {
     public void draw(Graphics g) {
         switch (direction) {
             case LEFT -> {
-                g.setColor(Color.YELLOW);
+                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 36, bounds.getBounds().y - 83, null);
             }
             case RIGHT -> {
-                g.setColor(Color.GREEN);
+                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 36, bounds.getBounds().y - 83, null);
             }
             case UP -> {
-                g.setColor(Color.BLUE);
+                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 36, bounds.getBounds().y - 83, null);
             }
             case DOWN -> {
-                g.setColor(Color.RED);
+                g.drawImage(sprites.get(direction).get(currentSprite), bounds.getBounds().x - 36, bounds.getBounds().y - 83, null);
             }
-        }
 
-        g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
+        }
     }
 }

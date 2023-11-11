@@ -1,5 +1,6 @@
 package org.pio.entities;
 
+import org.pio.database.MainDatabase;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
 import org.pio.helpz.KeyPoint;
@@ -114,6 +115,7 @@ public class LevelDraw {
         g.drawString("<3Beanelth<3: " + Player.getHealth(), 10, 40);
         g.drawString("$$Beanollars$$: " + Player.getGold(), 10, 60);
         g.drawString("Beam: " + (level.currentRound) + "/" + (level.getNUM_OF_ROUNDS()-1), 10, 20);
+
     }
 
 }

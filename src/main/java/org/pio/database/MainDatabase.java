@@ -20,23 +20,22 @@ public class MainDatabase {
     public LinkedHashMap<String, BufferedImage> spriteAtlasDatabase = new LinkedHashMap<>();
     public LinkedHashMap<Integer, aTile> grassTileSet;
 
-    LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<String>>> enemySpriteAtlasDatabase = new LinkedHashMap<>();
+    LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<BufferedImage>>> enemySpriteAtlasDatabase = new LinkedHashMap<>();
     LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<String>>> allySpriteAtlasDatabase = new LinkedHashMap<>();
 
     private static MainDatabase mainDatabase;
     private MainDatabase(){
-
         spriteAtlasDatabase.put("SidePanel",getSpriteAtlas("SidePanel.png"));
         spriteAtlasDatabase.put("Buttons",getSpriteAtlas("AtlasButtons.png"));
-        spriteAtlasDatabase.put("GrassTileSet", setSpriteAtlas());
+        spriteAtlasDatabase.put("GrassTileSet", setSpriteAtlas("Sprite/GrassTileSet.png"));
 
         grassTileSet=setGrassTileSet();
 
-        enemySpriteAtlasDatabase.put(1, getEnemySpriteAtlas());
-        enemySpriteAtlasDatabase.put(2, getEnemySpriteAtlas());
-        enemySpriteAtlasDatabase.put(3, getEnemySpriteAtlas());
-        enemySpriteAtlasDatabase.put(4, getEnemySpriteAtlas());
-        enemySpriteAtlasDatabase.put(5, getEnemySpriteAtlas());
+        enemySpriteAtlasDatabase.put(1, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/RedSlimeWalk.png",8));
+        enemySpriteAtlasDatabase.put(2, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/BlueSlimeWalk.png",8));
+        enemySpriteAtlasDatabase.put(3, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/GreenSlimeWalk.png", 8));
+        enemySpriteAtlasDatabase.put(4, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/PurpleSlimeWalk.png",8));
+        enemySpriteAtlasDatabase.put(5, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/YellowSlimeWalk.png",8));
 
         allySpriteAtlasDatabase.put(1, getEnemySpriteAtlas());
         allySpriteAtlasDatabase.put(2, getEnemySpriteAtlas());
@@ -55,6 +54,15 @@ public class MainDatabase {
         allyDatabase.put(3, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_3.txt"));
         allyDatabase.put(4, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_4.txt"));
         allyDatabase.put(5, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_5.txt"));
+    }
+
+    public static MainDatabase getMainDatabase() {
+        if (mainDatabase==null){
+            mainDatabase = new MainDatabase();
+        }
+
+        return mainDatabase;
+
     }
 
     private Enemy getEnemyInfoFromTxtFile(String fileName){
@@ -106,7 +114,42 @@ public class MainDatabase {
 
         return readFromFile.readBufferedImage(fileName);
     }
+    private LinkedHashMap<Directions, LinkedList<BufferedImage>> getEnemySpriteAtlas_2(String fileName, int numOfSprites){
+
+        BufferedImage spriteAtlasEnemy = setSpriteAtlas(fileName);
+
+        LinkedHashMap<Directions, LinkedList<BufferedImage>> enemySpriteAtlas = new LinkedHashMap<>();
+
+        LinkedList<BufferedImage> upSprites = new LinkedList<>();
+        for (int i = 0; i < numOfSprites; i++) {
+            upSprites.add(getSpriteOutOfImage(i,0,128, 128,spriteAtlasEnemy));
+        }
+
+        LinkedList<BufferedImage> downSprites = new LinkedList<>();
+        for (int i = 0; i < numOfSprites; i++) {
+            downSprites.add(getSpriteOutOfImage(i,0,128, 128,spriteAtlasEnemy));
+        }
+
+        LinkedList<BufferedImage> leftSprites = new LinkedList<>();
+        for (int i = 0; i < numOfSprites; i++) {
+            leftSprites.add(getSpriteOutOfImage(i,0,128, 128,spriteAtlasEnemy));
+        }
+
+        LinkedList<BufferedImage> rightSprites = new LinkedList<>();
+        for (int i = 0; i < numOfSprites; i++) {
+            rightSprites.add(getSpriteOutOfImage(i,0,128, 128,spriteAtlasEnemy));
+        }
+
+        enemySpriteAtlas.put(Directions.UP, upSprites);
+        enemySpriteAtlas.put(Directions.DOWN, downSprites);
+        enemySpriteAtlas.put(Directions.LEFT, leftSprites);
+        enemySpriteAtlas.put(Directions.RIGHT, rightSprites);
+
+        return enemySpriteAtlas;
+    }
+
     private LinkedHashMap<Directions, LinkedList<String>> getEnemySpriteAtlas(){
+
         LinkedHashMap<Directions, LinkedList<String>> enemySpriteAtlas = new LinkedHashMap<>();
 
         LinkedList<String> upSprites = new LinkedList<>();
@@ -133,35 +176,25 @@ public class MainDatabase {
         return enemySpriteAtlas;
     }
 
-    public static MainDatabase getMainDatabase() {
-        if (mainDatabase==null){
-            mainDatabase = new MainDatabase();
-        }
-
-        return mainDatabase;
-
-    }
-
-
-
-
-
-    private BufferedImage setSpriteAtlas(){
+    private BufferedImage setSpriteAtlas(String path){
         BufferedImage img = null;
-
-        InputStream is = aTile.class.getClassLoader().getResourceAsStream("Sprite/GrassTileSet.png");
+        InputStream is = aTile.class.getClassLoader().getResourceAsStream(path);
 
         try {
             if (is!=null){
                 img= ImageIO.read(is);
-                System.out.println("Loaded GrassTileSet.png");
             }
         } catch (IOException e) {
-            System.out.println("Failed to load GrassTileSet.png");
+            System.out.println("Failed to load: " + path);
         }
 
         return img;
     }
+
+    private BufferedImage getSpriteOutOfImage(int xCord, int yCord, int widthImg, int heightImg, BufferedImage spriteAtlas){
+        return spriteAtlas.getSubimage(xCord*128,yCord*128,widthImg,heightImg);
+    }
+
 
     private LinkedHashMap<Integer, aTile> setGrassTileSet(){
         LinkedHashMap<Integer, aTile> grassTileSet=new LinkedHashMap<>();
