@@ -176,6 +176,134 @@ public class Update {
                             if (nextEnemy.health<=0){
 
                                 if (nextEnemy.id!=1){
+                                    enemyIterator.remove();
+                                    PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(), nextEnemy.gold);
+
+                                    if (nextEnemy.id==2){
+                                        int spawnOffset = 10;
+                                        int enemyTypeDescendant = 1;
+
+                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, game.getPlayScene().getLvl().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        enemy_2.keypointIndex= nextEnemy.keypointIndex;
+
+                                        if (nextEnemy.direction==Directions.RIGHT){
+                                            enemy_2.posX=enemy_2.posX-spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.LEFT){
+                                            enemy_2.posX=enemy_2.posX+spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.UP){
+                                            enemy_2.posY=enemy_2.posY-spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.DOWN){
+                                            enemy_2.posY=enemy_2.posY+spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        }
+
+                                    }
+
+                                    if (nextEnemy.id==3){
+                                        int spawnOffset = 10;
+                                        int enemyTypeDescendant = 1;
+
+                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, game.getPlayScene().getLvl().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        enemy_2.keypointIndex= nextEnemy.keypointIndex;
+
+                                        if (nextEnemy.direction==Directions.RIGHT){
+                                            enemy_2.posX=enemy_2.posX-spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.LEFT){
+                                            enemy_2.posX=enemy_2.posX+spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.UP){
+                                            enemy_2.posY=enemy_2.posY-spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.DOWN){
+                                            enemy_2.posY=enemy_2.posY+spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        }
+
+                                    }
+
+                                    if (nextEnemy.id==4){
+                                        int spawnOffset = 10;
+                                        int enemyTypeDescendant = 3;
+
+                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, game.getPlayScene().getLvl().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        enemy_2.keypointIndex= nextEnemy.keypointIndex;
+
+                                        if (nextEnemy.direction==Directions.RIGHT){
+                                            enemy_2.posX=enemy_2.posX-spawnOffset;
+                                            enemies.add(enemy_2);
+                                            enemy_2.posX=enemy_2.posX-spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.LEFT){
+                                            enemy_2.posX=enemy_2.posX+spawnOffset;
+                                            enemies.add(enemy_2);
+                                            enemy_2.posX=enemy_2.posX+spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.UP){
+                                            enemy_2.posY=enemy_2.posY-spawnOffset;
+                                            enemies.add(enemy_2);
+                                            enemy_2.posY=enemy_2.posY-spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.DOWN){
+                                            enemy_2.posY=enemy_2.posY+spawnOffset;
+                                            enemies.add(enemy_2);
+                                            enemy_2.posY=enemy_2.posY+spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        }
+
+                                    }
+
+                                    if (nextEnemy.id==5){
+
+                                        int spawnOffset = 10;
+                                        int enemyTypeDescendant = 1;
+
+                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, game.getPlayScene().getLvl().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        enemy_2.keypointIndex= nextEnemy.keypointIndex;
+
+                                        if (nextEnemy.direction==Directions.RIGHT){
+                                            enemy_2.posX=enemy_2.posX-spawnOffset;
+                                            enemies.add(enemy_2);
+                                            enemy_2.posX=enemy_2.posX-spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.LEFT){
+                                            enemy_2.posX=enemy_2.posX+spawnOffset;
+                                            enemies.add(enemy_2);
+                                            enemy_2.posX=enemy_2.posX+spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.UP){
+                                            enemy_2.posY=enemy_2.posY-spawnOffset;
+                                            enemies.add(enemy_2);
+                                            enemy_2.posY=enemy_2.posY-spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        } else if (nextEnemy.direction==Directions.DOWN){
+                                            enemy_2.posY=enemy_2.posY+spawnOffset;
+                                            enemies.add(enemy_2);
+                                            enemy_2.posY=enemy_2.posY+spawnOffset;
+                                            enemies.add(enemy_2);
+
+                                        }
+
+                                    }
+
 
                                     for (Iterator<Ally> allyTowerIterator1 = allies.iterator(); allyTowerIterator1.hasNext();){
                                         Ally nextOldAllyTower1 = allyTowerIterator1.next();
@@ -190,18 +318,11 @@ public class Update {
                                         }
                                     }
 
-                                    enemyIterator.remove();
-                                    Enemy enemy = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id -1, game.getPlayScene().getLvl().getKeyPointsList().get(nextEnemy.keypointIndex));
-                                    enemy.keypointIndex= nextEnemy.keypointIndex;
-                                    enemies.add(enemy);
-
-
                                     return;
                                 }
 
                                 enemyIterator.remove();
 
-                                PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(), nextEnemy.gold);
 
                                 for (Iterator<Ally> allyTowerIterator1 = allies.iterator(); allyTowerIterator1.hasNext();){
                                     Ally nextOldAllyTower1 = allyTowerIterator1.next();

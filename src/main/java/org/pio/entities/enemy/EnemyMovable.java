@@ -53,7 +53,11 @@ public class EnemyMovable implements Movable {
         }else if (enemy.keyPointsStack.peek().getPosY()-enemy.posY<0){
             return Directions.UP;
         }else {
-            enemy.keypointIndex++;
+            if (enemy.keypointIndex==Level.getLevel().getKeyPointsList().size()-1){
+                return null;
+            }else {
+                enemy.keypointIndex++;
+            }
             enemy.keyPointsStack.push(Level.getLevel().getKeyPointsList().get(enemy.keypointIndex));
             return calcDirection(enemy);
         }
