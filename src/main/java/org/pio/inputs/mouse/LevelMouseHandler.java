@@ -27,12 +27,6 @@ public class LevelMouseHandler implements MouseHandler {
 
             if(nextAlly.bounds.contains(x,y)){
                 nextAlly.pressed =true;
-            }else {
-                if (!nextAlly.sidePanelUpgrade.getSidePanelBounds().contains(x,y)){
-                    nextAlly.pressed =false;
-                    nextAlly.mouseOver=false;
-                }
-
             }
 
         }

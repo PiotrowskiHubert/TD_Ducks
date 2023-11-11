@@ -12,7 +12,7 @@ public class AllyMouseHandler implements MouseHandler {
     @Override
     public void leftMouseClicked(int x, int y) {
         if (ally.pressed){
-            ally.sidePanelUpgrade.getUpgradeSidePanelMouseHandler().leftMouseClicked(x,y);
+            //ally.sidePanelUpgrade.getUpgradeSidePanelMouseHandler().leftMouseClicked(x,y);
         }
     }
 
@@ -34,7 +34,7 @@ public class AllyMouseHandler implements MouseHandler {
         }
 
         if (ally.pressed){
-            ally.sidePanelUpgrade.getUpgradeSidePanelMouseHandler().mouseMoved(x,y);
+            //ally.sidePanelUpgrade.getUpgradeSidePanelMouseHandler().mouseMoved(x,y);
         }
     }
 
@@ -45,13 +45,16 @@ public class AllyMouseHandler implements MouseHandler {
         }
 
         if (ally.pressed){
-            ally.sidePanelUpgrade.getUpgradeSidePanelMouseHandler().mousePressed(x,y);
+            //ally.sidePanelUpgrade.getUpgradeSidePanelMouseHandler().mousePressed(x,y);
         }
     }
 
     @Override
     public void mouseReleased(int x, int y) {
-        if (!ally.bounds.contains(x,y) && !ally.sidePanelUpgrade.getSidePanelBounds().contains(x,y)){
+//        if (!ally.bounds.contains(x,y) && !ally.sidePanelUpgrade.getSidePanelBounds().contains(x,y)){
+//            ally.pressed =false;
+//        }
+        if (!ally.bounds.contains(x,y)){
             ally.pressed =false;
         }
     }
