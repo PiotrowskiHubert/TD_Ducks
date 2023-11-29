@@ -1,36 +1,41 @@
 package org.pio.entities.enemy;
 
 import org.pio.entities.EntityUpdate;
-import org.pio.main.Update;
 
 public class EnemyUpdate extends EntityUpdate {
     Enemy enemy;
     EnemyMovable enemyMovable;
 
+    private double timePerUpdateEnemy;
+    private long lastEnemyUpdate, lastTimeEnemyUpdateCheck, enemyNow;
+    private int enemyUpdateCounter;
+
     public EnemyUpdate(Enemy enemy) {
         this.enemy = enemy;
         this.enemyMovable=new EnemyMovable(enemy);
 
-        this.updateCounter =0;
-        this.lastTimeUpdateCheck=System.currentTimeMillis();
-        this.lastUpdate=System.nanoTime();
+        this.timePerUpdateEnemy = 1_000_000_000.0/120.0;
+        this.lastEnemyUpdate = System.nanoTime();
+        this.lastTimeEnemyUpdateCheck = System.currentTimeMillis();
+        this.enemyUpdateCounter = 0;
     }
 
     @Override
-    public void update(long now) {
-        if(now-lastUpdate >= Update.timePerUpdateGame / enemy.updates){
+    public void update() {
+        enemyNow = System.nanoTime();
 
-            lastUpdate=now;
+        if(enemyNow - lastEnemyUpdate >= timePerUpdateEnemy){
+            lastEnemyUpdate = enemyNow;
 
             enemyMovable.move();
 
-            updateCounter++;
+            enemyUpdateCounter++;
         }
 
-        if (System.currentTimeMillis()- lastTimeUpdateCheck >= 1000){
-            System.out.println("T2, ENEMY UPS: " + updateCounter);
-            updateCounter = 0;
-            lastTimeUpdateCheck = System.currentTimeMillis();
+        if (System.currentTimeMillis() - lastTimeEnemyUpdateCheck >= 1000){
+            System.out.println("T2, ENEMY UPS: " + enemyUpdateCounter);
+            enemyUpdateCounter = 0;
+            lastTimeEnemyUpdateCheck = System.currentTimeMillis();
         }
     }
 }

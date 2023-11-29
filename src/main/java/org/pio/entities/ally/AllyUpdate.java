@@ -13,31 +13,39 @@ public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
     Ally ally;
     AllyShot allyShot;
 
+    private double timePerUpdateAlly;
+    private long lastAllyUpdate, lastTimeAllyUpdateCheck, allyNow;
+    private int allyUpdateCounter;
+
     public AllyUpdate(Ally ally) {
         this.ally = ally;
         this.allyShot =new AllyShot(ally);
 
-        this.lastTimeUpdateCheck = System.currentTimeMillis();
-        this.lastUpdate = System.nanoTime();
-        this.updateCounter = 0;
+        this.timePerUpdateAlly = 1_000_000_000.0/1.0;
+        this.lastAllyUpdate = System.nanoTime();
+        this.lastTimeAllyUpdateCheck = System.currentTimeMillis();
+        this.allyUpdateCounter = 0;
     }
 
     @Override
-    public void update(long now) {
+    public void update() {
         if (ally.placed){
-            if(now-lastUpdate >= Update.timePerUpdateGame * ally.updates){
-                lastUpdate=now;
+
+            allyNow = System.nanoTime();
+
+            if(allyNow-lastAllyUpdate >= timePerUpdateAlly){
+                lastAllyUpdate=allyNow;
 
                 detect();
                 allyShot.shot();
 
-                updateCounter++;
+                allyUpdateCounter++;
             }
 
-            if (System.currentTimeMillis()- lastTimeUpdateCheck >= 1000){
-                System.out.println("T2, ALLY UPS: " + updateCounter);
-                updateCounter = 0;
-                lastTimeUpdateCheck = System.currentTimeMillis();
+            if (System.currentTimeMillis()- lastTimeAllyUpdateCheck >= 1000){
+                System.out.println("T2, ALLY UPS: " + allyUpdateCounter);
+                allyUpdateCounter = 0;
+                lastTimeAllyUpdateCheck = System.currentTimeMillis();
             }
         }
 
