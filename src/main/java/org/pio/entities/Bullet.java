@@ -14,10 +14,10 @@ public class Bullet {
         this.posX = posX;
         this.posY = posY;
 
-        bulletHitBox=initHitBox();
+        this.bulletHitBox=initHitBox();
 
-        unitX=8*getUnitBulletX(posX,posY,posXTarget,posYTarget);
-        unitY=8*getUnitBulletY(posX,posY,posXTarget,posYTarget);
+        this.unitX=1*getUnitBulletX(posX,posY,posXTarget,posYTarget);
+        this.unitY=1*getUnitBulletY(posX,posY,posXTarget,posYTarget);
 
         this.bulletUpdate=new BulletUpdate(this);
     }
@@ -29,12 +29,10 @@ public class Bullet {
 
     public double getUnitBulletX(double xBullet, double yBullet, double xEnemy, double yEnemy){
         double x;
-        double y;
         double lengthBetweenPoints;
         double constX;
 
         x=xBullet-xEnemy;
-        y=yBullet-yEnemy;
 
         lengthBetweenPoints=Math.sqrt(Math.pow(xBullet-xEnemy,2)+Math.pow(yBullet-yEnemy,2));
 
@@ -43,10 +41,8 @@ public class Bullet {
         return constX;
     }
     public double getUnitBulletY(double xBullet, double yBullet, double xEnemy, double yEnemy){
-        double x;
         double y;
         double lengthBetweenPoints;
-        double constX;
         double constY;
 
         y=yBullet-yEnemy;
