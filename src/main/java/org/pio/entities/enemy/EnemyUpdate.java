@@ -14,7 +14,7 @@ public class EnemyUpdate extends EntityUpdate {
         this.enemy = enemy;
         this.enemyMovable=new EnemyMovable(enemy);
 
-        this.timePerMoveUpdateEnemy = 1_000_000_000.0/120.0;
+        this.timePerMoveUpdateEnemy = 1_000_000_000.0/enemy.updatesPerSec;
         this.lastEnemyMoveUpdate = System.nanoTime();
         this.lastTimeEnemyUpdateCheck = System.currentTimeMillis();
         this.enemyMoveUpdateCounter = 0;
@@ -24,6 +24,11 @@ public class EnemyUpdate extends EntityUpdate {
     public void update() {
         enemyMoveNow = System.nanoTime();
 
+        enemyMoveUpdate();
+        enemyMoveUpdateReport();
+    }
+
+    private void enemyMoveUpdate() {
         if(enemyMoveNow - lastEnemyMoveUpdate >= timePerMoveUpdateEnemy){
             lastEnemyMoveUpdate = enemyMoveNow;
 
@@ -31,11 +36,13 @@ public class EnemyUpdate extends EntityUpdate {
 
             enemyMoveUpdateCounter++;
         }
-
+    }
+    private void enemyMoveUpdateReport() {
         if (System.currentTimeMillis() - lastTimeEnemyUpdateCheck >= 1000){
             System.out.println("T2, ENEMY UPS: " + enemyMoveUpdateCounter);
             enemyMoveUpdateCounter = 0;
             lastTimeEnemyUpdateCheck = System.currentTimeMillis();
         }
+
     }
 }

@@ -14,57 +14,60 @@ public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
 
     private double timePerShotUpdateAlly, timePerDetectUpdateAlly;
     private long lastAllyShotUpdate, lastAllyDetectUpdate,
-            lastTimeAllyShotUpdateCheck, lastTimeAllyDetectUpdateCheck,
-            allyNow;
-    private int allyShotUpdateCounter, allyDetectUpdateCounter;
+            lastTimeAllyShotUpdateCheck, allyNow;
+    private int allyShotUpdateCounter;
 
     public AllyUpdate(Ally ally) {
         this.ally = ally;
         this.allyShot =new AllyShot(ally);
 
-        this.timePerShotUpdateAlly = 1_000_000_000.0/1.0;
+        this.timePerShotUpdateAlly = 1_000_000_000.0/ally.shotUpdatesPerSec;
         this.timePerDetectUpdateAlly = 1_000_000_000.0/120.0;
 
         this.lastAllyShotUpdate = System.nanoTime();
         this.lastAllyDetectUpdate = System.nanoTime();
 
         this.lastTimeAllyShotUpdateCheck = System.currentTimeMillis();
-        this.lastTimeAllyDetectUpdateCheck = System.currentTimeMillis();
 
         this.allyShotUpdateCounter = 0;
-        this.allyDetectUpdateCounter = 0;
     }
 
     @Override
     public void update() {
         if (ally.placed){
 
-            allyNow = System.nanoTime();
+           allyNow = System.nanoTime();
 
-            if(allyNow - lastAllyDetectUpdate >= timePerDetectUpdateAlly){
-                lastAllyDetectUpdate = allyNow;
-
-                detect();
-
-                allyDetectUpdateCounter++;
-            }
-
-            if(allyNow - lastAllyShotUpdate >= timePerShotUpdateAlly){
-                lastAllyShotUpdate = allyNow;
-
-                allyShot.shot();
-
-                allyShotUpdateCounter++;
-            }
-
-            if (System.currentTimeMillis()- lastTimeAllyShotUpdateCheck >= 1000){
-                System.out.println("T2, ALLY UPS: " + allyShotUpdateCounter);
-                allyShotUpdateCounter = 0;
-                lastTimeAllyShotUpdateCheck = System.currentTimeMillis();
-            }
-
+           allyDetect();
+           allyShot();
+           allyShotUpdateRateCheck();
         }
 
+    }
+
+
+    private void allyDetect() {
+        if(allyNow - lastAllyDetectUpdate >= timePerDetectUpdateAlly){
+            lastAllyDetectUpdate = allyNow;
+
+            detect();
+        }
+    }
+    private void allyShot() {
+        if(allyNow - lastAllyShotUpdate >= timePerShotUpdateAlly){
+            lastAllyShotUpdate = allyNow;
+
+            allyShot.shot();
+
+            allyShotUpdateCounter++;
+        }
+    }
+    private void allyShotUpdateRateCheck() {
+        if (System.currentTimeMillis()- lastTimeAllyShotUpdateCheck >= 1000){
+            System.out.println("T2, ALLY UPS: " + allyShotUpdateCounter);
+            allyShotUpdateCounter = 0;
+            lastTimeAllyShotUpdateCheck = System.currentTimeMillis();
+        }
     }
 
     @Override
