@@ -102,35 +102,37 @@ public class EnemyBulletCollisionSystem {
 
                                     if (nextEnemy.id==4){
                                         int spawnOffset_1 = 0;
-                                        int spawnOffset_2 = 15;
+                                        int spawnOffset_2 = 30;
                                         int enemyTypeDescendant = 2;
 
                                         Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, Level.getLevel().getKeyPointsList().get(nextEnemy.keypointIndex));
                                         enemy_2.keypointIndex= nextEnemy.keypointIndex;
+                                        Enemy enemy_3 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, Level.getLevel().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        enemy_3.keypointIndex= nextEnemy.keypointIndex;
 
                                         if (nextEnemy.direction==Directions.RIGHT){
                                             enemy_2.posX=enemy_2.posX-spawnOffset_1;
                                             enemies.add(enemy_2);
-                                            enemy_2.posX=enemy_2.posX-spawnOffset_2;
-                                            enemies.add(enemy_2);
+                                            enemy_3.posX=enemy_2.posX-spawnOffset_2;
+                                            enemies.add(enemy_3);
 
                                         } else if (nextEnemy.direction==Directions.LEFT){
                                             enemy_2.posX=enemy_2.posX+spawnOffset_1;
                                             enemies.add(enemy_2);
-                                            enemy_2.posX=enemy_2.posX+spawnOffset_2;
-                                            enemies.add(enemy_2);
+                                            enemy_3.posX=enemy_2.posX+spawnOffset_2;
+                                            enemies.add(enemy_3);
 
                                         } else if (nextEnemy.direction==Directions.UP){
                                             enemy_2.posY=enemy_2.posY-spawnOffset_1;
                                             enemies.add(enemy_2);
-                                            enemy_2.posY=enemy_2.posY-spawnOffset_2;
-                                            enemies.add(enemy_2);
+                                            enemy_3.posY=enemy_2.posY-spawnOffset_2;
+                                            enemies.add(enemy_3);
 
                                         } else if (nextEnemy.direction==Directions.DOWN){
                                             enemy_2.posY=enemy_2.posY+spawnOffset_1;
                                             enemies.add(enemy_2);
-                                            enemy_2.posY=enemy_2.posY+spawnOffset_2;
-                                            enemies.add(enemy_2);
+                                            enemy_3.posY=enemy_2.posY+spawnOffset_2;
+                                            enemies.add(enemy_3);
 
                                         }
 
@@ -139,35 +141,37 @@ public class EnemyBulletCollisionSystem {
                                     if (nextEnemy.id==5){
 
                                         int spawnOffset_1 = 0;
-                                        int spawnOffset_2 = 15;
+                                        int spawnOffset_2 = 30;
                                         int enemyTypeDescendant = 1;
 
                                         Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, Level.getLevel().getKeyPointsList().get(nextEnemy.keypointIndex));
                                         enemy_2.keypointIndex= nextEnemy.keypointIndex;
+                                        Enemy enemy_3 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, Level.getLevel().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        enemy_3.keypointIndex= nextEnemy.keypointIndex;
 
                                         if (nextEnemy.direction==Directions.RIGHT){
                                             enemy_2.posX=enemy_2.posX-spawnOffset_1;
                                             enemies.add(enemy_2);
-                                            enemy_2.posX=enemy_2.posX-spawnOffset_2;
-                                            enemies.add(enemy_2);
+                                            enemy_3.posX=enemy_2.posX-spawnOffset_2;
+                                            enemies.add(enemy_3);
 
                                         } else if (nextEnemy.direction==Directions.LEFT){
                                             enemy_2.posX=enemy_2.posX+spawnOffset_1;
                                             enemies.add(enemy_2);
-                                            enemy_2.posX=enemy_2.posX+spawnOffset_2;
-                                            enemies.add(enemy_2);
+                                            enemy_3.posX=enemy_2.posX+spawnOffset_2;
+                                            enemies.add(enemy_3);
 
                                         } else if (nextEnemy.direction==Directions.UP){
                                             enemy_2.posY=enemy_2.posY-spawnOffset_1;
                                             enemies.add(enemy_2);
-                                            enemy_2.posY=enemy_2.posY-spawnOffset_2;
-                                            enemies.add(enemy_2);
+                                            enemy_3.posY=enemy_2.posY-spawnOffset_2;
+                                            enemies.add(enemy_3);
 
                                         } else if (nextEnemy.direction==Directions.DOWN){
                                             enemy_2.posY=enemy_2.posY+spawnOffset_1;
                                             enemies.add(enemy_2);
-                                            enemy_2.posY=enemy_2.posY+spawnOffset_2;
-                                            enemies.add(enemy_2);
+                                            enemy_3.posY=enemy_2.posY+spawnOffset_2;
+                                            enemies.add(enemy_3);
 
                                         }
 
