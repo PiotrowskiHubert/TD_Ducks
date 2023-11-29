@@ -3,7 +3,6 @@ package org.pio.entities.enemy;
 import org.pio.entities.Entity;
 import org.pio.helpz.KeyPoint;
 import org.pio.helpz.Directions;
-import org.pio.scene.Level;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,9 +12,8 @@ import java.util.Objects;
 import java.util.Stack;
 
 public abstract class Enemy extends Entity {
-    public double movementSpeed;
+    public double movementSpeed, updatesPerSec;
     public int health, damage, gold, keypointIndex, currentSprite=0, maxSprite=7;
-    public double updates;
     public Directions direction;
     public LinkedHashMap<Directions, LinkedList<BufferedImage>> sprites;
     public Stack<KeyPoint> keyPointsStack;
@@ -45,8 +43,7 @@ public abstract class Enemy extends Entity {
         this.keypointIndex=1;
         this.keyPointsStack.push(startKeyPoint);
 
-        this.enemyUpdate=new EnemyUpdate(this);
-
+        //this.enemyUpdate=new EnemyUpdate(this);
     }
 
     @Override

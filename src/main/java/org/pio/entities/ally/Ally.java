@@ -3,9 +3,7 @@ package org.pio.entities.ally;
 import org.pio.entities.Entity;
 import org.pio.entities.Bullet;
 import org.pio.inputs.mouse.AllyMouseHandler;
-import org.pio.main.GameScreen;
 import org.pio.helpz.Directions;
-import org.pio.ui.sidePanel.SidePanelUpgrade;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -17,7 +15,8 @@ public abstract class Ally extends Entity {
     public List<Entity> enemiesInRangeList;
     public List<Bullet> bulletList;
     public LinkedHashMap<Directions, LinkedList<String>> sprites;
-    public int cost, range, updates;
+    public int cost, range;
+    public double shotUpdatesPerSec;
     public Ellipse2D rangeEllipse;
     public Boolean mouseOver, pressed, placed;
     public Directions direction;
@@ -53,7 +52,7 @@ public abstract class Ally extends Entity {
         this.bulletList =new LinkedList<>();
 
         //this.sidePanelUpgrade=new SidePanelUpgrade(this, GameScreen.UNIT_SIZE*7, GameScreen.UNIT_SIZE*33, GameScreen.UNIT_SIZE*(52-7),0);
-        this.update =new AllyUpdate(this);
+
         this.mouseHandler=new AllyMouseHandler(this);
     }
 

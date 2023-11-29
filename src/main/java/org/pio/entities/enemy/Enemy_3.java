@@ -14,6 +14,8 @@ public class Enemy_3 extends Enemy{
     }
     public Enemy_3(Enemy enemy, int posX, int posY, Directions direction, KeyPoint startKeyPoint){
         super(enemy, posX, posY, direction, startKeyPoint);
-        this.updates=1;
+
+        this.updatesPerSec = 150.0;
+        this.enemyUpdate=new EnemyUpdate(this);
     }
 }
