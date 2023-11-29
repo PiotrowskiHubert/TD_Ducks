@@ -1,12 +1,14 @@
 package org.pio.main;
 
 import org.pio.entities.Bullet;
+import org.pio.entities.EnemyBulletCollisionSystem;
 import org.pio.entities.Entity;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
 import org.pio.entities.enemy.Enemy_2;
 import org.pio.factory.enemy.EnemyFactoryImpl;
 import org.pio.helpz.Directions;
+import org.pio.helpz.Utile;
 import org.pio.manager.PlayerManager;
 import org.pio.scene.Level;
 import org.pio.scene.PlayScene;
@@ -26,7 +28,7 @@ public class Update {
     public Update(Game game) {
         this.game = game;
 
-        this.timePerUpdateGame =1_000_000_000.0/120.0;
+        this.timePerUpdateGame = 1_000_000_000.0/5000.0;
         this.lastGameUpdate =System.nanoTime();
         this.lastTimeGameUpdateCheck =System.currentTimeMillis();
         this.updateCounter=0;
@@ -36,7 +38,8 @@ public class Update {
 
         now = System.nanoTime();
 
-        if (now- lastGameUpdate >= timePerUpdateGame){
+        if (now - lastGameUpdate >= timePerUpdateGame){
+
 
             if (game.getGameStates() == GameStates.PREGAME){
                 game.getPreGameScene().update();
@@ -45,7 +48,9 @@ public class Update {
             if (game.getGameStates() == GameStates.GAME){
                 updateEnemy();
                 updatePlacedAllies();
-                updateBullet();
+                bulletsUpdate();
+
+                EnemyBulletCollisionSystem.checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
             }
 
             lastGameUpdate = now;
@@ -53,8 +58,8 @@ public class Update {
         }
 
         if (System.currentTimeMillis()- lastTimeGameUpdateCheck >=1000){
-            System.out.println("T2, TPS: " + updateCounter);
-            updateCounter =0;
+            System.out.println("UPS: " + updateCounter);
+            updateCounter = 0;
             lastTimeGameUpdateCheck =System.currentTimeMillis();
         }
 
@@ -98,17 +103,13 @@ public class Update {
     }
 
     private void updateEnemies(){
-        Level.rounds.get(Level.currentRound).getEnemies().forEach(enemy -> enemy.enemyUpdate.update(now));
+        Level.rounds.get(Level.currentRound).getEnemies().forEach(enemy -> enemy.enemyUpdate.update());
     }
 
     private void updatePlacedAllies() {
-        Level.allyPlacedTowers.forEach(ally -> ally.update.update(now));
+        Level.allyPlacedTowers.forEach(ally -> ally.update.update());
     }
 
-    private void updateBullet() {
-        bulletsUpdate();
-        checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
-    }
 
     public void updateAnimationsPreGame(){
         if (game.getGameStates() == GameStates.PREGAME){
@@ -131,9 +132,9 @@ public class Update {
             for (Iterator<Bullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();) {
                 Bullet nextBullet = bulletIterator.next();
 
-                nextBullet.bulletUpdate();
+                nextBullet.bulletUpdate.update();
 
-                if (limitBulletRange(nextAlly, nextBullet)){
+                if (Utile.limitBulletRange(nextAlly, nextBullet)){
                     bulletIterator.remove();
                 }
 
@@ -141,213 +142,7 @@ public class Update {
 
         }
 
-
     }
-    private Boolean limitBulletRange(Ally ally, Bullet Bullet){
-        return distanceBetweenTwoPoints(ally.posX, ally.posY, Bullet.getPosX(), Bullet.getPosY()) >= ally.range + 15;
-    }
-    private void checkIfEnemyIsHitByBullet(List<Enemy> enemies, List<Ally> allies) {
 
-        if (enemies.isEmpty()){
-            return;
-        }
-
-        if (allies.isEmpty()){
-            return;
-        }
-
-        for (Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
-            Enemy nextEnemy = enemyIterator.next();
-
-            for (Iterator<Ally> allyTowerIterator = allies.iterator(); allyTowerIterator.hasNext();){
-                Ally nextAlly = allyTowerIterator.next();
-
-                if (!nextAlly.bulletList.isEmpty()){
-
-                    for (Iterator<Bullet> bulletIterator = nextAlly.bulletList.iterator(); bulletIterator.hasNext();){
-                        Bullet nextBullet = bulletIterator.next();
-
-                        if (nextEnemy.bounds.getBounds().intersects(nextBullet.getBulletHitBox())){
-
-                            nextEnemy.health=nextEnemy.health-1;
-
-                            bulletIterator.remove();
-
-                            if (nextEnemy.health<=0){
-
-                                if (nextEnemy.id!=1){
-                                    enemyIterator.remove();
-                                    PlayerManager.updateGoldAfterKill(PlayScene.getPlayer(), nextEnemy.gold);
-
-                                    if (nextEnemy.id==2){
-                                        int spawnOffset = 10;
-                                        int enemyTypeDescendant = 1;
-
-                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, game.getPlayScene().getLvl().getKeyPointsList().get(nextEnemy.keypointIndex));
-                                        enemy_2.keypointIndex= nextEnemy.keypointIndex;
-
-                                        if (nextEnemy.direction==Directions.RIGHT){
-                                            enemy_2.posX=enemy_2.posX-spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.LEFT){
-                                            enemy_2.posX=enemy_2.posX+spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.UP){
-                                            enemy_2.posY=enemy_2.posY-spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.DOWN){
-                                            enemy_2.posY=enemy_2.posY+spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        }
-
-                                    }
-
-                                    if (nextEnemy.id==3){
-                                        int spawnOffset = 10;
-                                        int enemyTypeDescendant = 1;
-
-                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, game.getPlayScene().getLvl().getKeyPointsList().get(nextEnemy.keypointIndex));
-                                        enemy_2.keypointIndex= nextEnemy.keypointIndex;
-
-                                        if (nextEnemy.direction==Directions.RIGHT){
-                                            enemy_2.posX=enemy_2.posX-spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.LEFT){
-                                            enemy_2.posX=enemy_2.posX+spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.UP){
-                                            enemy_2.posY=enemy_2.posY-spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.DOWN){
-                                            enemy_2.posY=enemy_2.posY+spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        }
-
-                                    }
-
-                                    if (nextEnemy.id==4){
-                                        int spawnOffset = 10;
-                                        int enemyTypeDescendant = 3;
-
-                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, game.getPlayScene().getLvl().getKeyPointsList().get(nextEnemy.keypointIndex));
-                                        enemy_2.keypointIndex= nextEnemy.keypointIndex;
-
-                                        if (nextEnemy.direction==Directions.RIGHT){
-                                            enemy_2.posX=enemy_2.posX-spawnOffset;
-                                            enemies.add(enemy_2);
-                                            enemy_2.posX=enemy_2.posX-spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.LEFT){
-                                            enemy_2.posX=enemy_2.posX+spawnOffset;
-                                            enemies.add(enemy_2);
-                                            enemy_2.posX=enemy_2.posX+spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.UP){
-                                            enemy_2.posY=enemy_2.posY-spawnOffset;
-                                            enemies.add(enemy_2);
-                                            enemy_2.posY=enemy_2.posY-spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.DOWN){
-                                            enemy_2.posY=enemy_2.posY+spawnOffset;
-                                            enemies.add(enemy_2);
-                                            enemy_2.posY=enemy_2.posY+spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        }
-
-                                    }
-
-                                    if (nextEnemy.id==5){
-
-                                        int spawnOffset = 10;
-                                        int enemyTypeDescendant = 1;
-
-                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, game.getPlayScene().getLvl().getKeyPointsList().get(nextEnemy.keypointIndex));
-                                        enemy_2.keypointIndex= nextEnemy.keypointIndex;
-
-                                        if (nextEnemy.direction==Directions.RIGHT){
-                                            enemy_2.posX=enemy_2.posX-spawnOffset;
-                                            enemies.add(enemy_2);
-                                            enemy_2.posX=enemy_2.posX-spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.LEFT){
-                                            enemy_2.posX=enemy_2.posX+spawnOffset;
-                                            enemies.add(enemy_2);
-                                            enemy_2.posX=enemy_2.posX+spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.UP){
-                                            enemy_2.posY=enemy_2.posY-spawnOffset;
-                                            enemies.add(enemy_2);
-                                            enemy_2.posY=enemy_2.posY-spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        } else if (nextEnemy.direction==Directions.DOWN){
-                                            enemy_2.posY=enemy_2.posY+spawnOffset;
-                                            enemies.add(enemy_2);
-                                            enemy_2.posY=enemy_2.posY+spawnOffset;
-                                            enemies.add(enemy_2);
-
-                                        }
-
-                                    }
-
-
-                                    for (Iterator<Ally> allyTowerIterator1 = allies.iterator(); allyTowerIterator1.hasNext();){
-                                        Ally nextOldAllyTower1 = allyTowerIterator1.next();
-
-                                        for (Iterator<Entity> enemyIterator1 = nextOldAllyTower1.enemiesInRangeList.iterator(); enemyIterator1.hasNext();){
-                                            Entity nextEnemy_1 = enemyIterator1.next();
-
-                                            if (nextOldAllyTower1.enemiesInRangeList.contains(nextEnemy_1)){
-                                                enemyIterator1.remove();
-                                            }
-
-                                        }
-                                    }
-
-                                    return;
-                                }
-
-                                enemyIterator.remove();
-
-
-                                for (Iterator<Ally> allyTowerIterator1 = allies.iterator(); allyTowerIterator1.hasNext();){
-                                    Ally nextOldAllyTower1 = allyTowerIterator1.next();
-
-                                    for (Iterator<Entity> enemyIterator1 = nextOldAllyTower1.enemiesInRangeList.iterator(); enemyIterator1.hasNext();){
-                                        Entity nextEnemy_1 = enemyIterator1.next();
-
-                                        if (nextOldAllyTower1.enemiesInRangeList.contains(nextEnemy_1)){
-                                            enemyIterator1.remove();
-                                        }
-
-                                    }
-                                }
-
-                            }
-
-                            return;
-
-                        }
-
-                    }
-                }
-            }
-
-        }
-    }
 
 }
