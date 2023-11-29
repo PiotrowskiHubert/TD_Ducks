@@ -3,12 +3,12 @@ package org.pio.entities;
 import java.awt.*;
 
 public class Bullet {
-    private final int BULLET_HEIGHT=10;
-    private final int BULLET_WIDTH=10;
-    private double posX;
-    private double posY;
+    private final int BULLET_HEIGHT=10, BULLET_WIDTH=10;
+    private double posX, posY, unitX, unitY;
+
     private Rectangle bulletHitBox;
-    private double unitX, unitY;
+    public BulletUpdate bulletUpdate;
+
 
     public Bullet(double posX, double posY, double posXTarget, double posYTarget) {
         this.posX = posX;
@@ -19,43 +19,14 @@ public class Bullet {
         unitX=8*getUnitBulletX(posX,posY,posXTarget,posYTarget);
         unitY=8*getUnitBulletY(posX,posY,posXTarget,posYTarget);
 
+        this.bulletUpdate=new BulletUpdate(this);
     }
 
-    // -------- INIT ------- //
     private Rectangle initHitBox() {
         return new Rectangle((int) posX, (int) posY,BULLET_WIDTH,BULLET_HEIGHT);
     }
 
-    // -------- UPDATE ------- //
-    public void bulletUpdate(){
 
-        updatePos();
-        updateHitBox();
-    }
-    private void updatePos() {
-        setPosX(getPosX()-unitX);
-        setPosY(getPosY()-unitY);
-    }
-    private void updateHitBox(){
-        bulletHitBox.setBounds((int) posX, (int) posY,BULLET_WIDTH,BULLET_HEIGHT);
-    }
-
-    // -------- RENDER ------- //
-    public void draw(Graphics g){
-        g.setColor(Color.red);
-        g.fillRect(bulletHitBox.x, bulletHitBox.y, bulletHitBox.width, bulletHitBox.height);
-    }
-
-    // -------- GET ------- //
-    public double getPosX() {
-        return posX;
-    }
-    public Rectangle getBulletHitBox() {
-        return bulletHitBox;
-    }
-    public double getPosY() {
-        return posY;
-    }
     public double getUnitBulletX(double xBullet, double yBullet, double xEnemy, double yEnemy){
         double x;
         double y;
@@ -85,7 +56,36 @@ public class Bullet {
         return constY;
     }
 
-    // -------- SET ------- //
+
+    public void draw(Graphics g){
+        g.setColor(Color.red);
+        g.fillRect(bulletHitBox.x, bulletHitBox.y, bulletHitBox.width, bulletHitBox.height);
+    }
+
+
+    public double getPosX() {
+        return posX;
+    }
+    public Rectangle getBulletHitBox() {
+        return bulletHitBox;
+    }
+    public double getPosY() {
+        return posY;
+    }
+    public double getUnitX() {
+        return unitX;
+    }
+    public double getUnitY() {
+        return unitY;
+    }
+    public int getBULLET_HEIGHT() {
+        return BULLET_HEIGHT;
+    }
+    public int getBULLET_WIDTH() {
+        return BULLET_WIDTH;
+    }
+
+
     public void setPosX(double posX) {
         this.posX = posX;
     }
