@@ -1,6 +1,6 @@
 package org.pio.entities.enemy;
 
-import org.pio.entities.EntityUpdate;
+import org.pio.entities.entity.EntityUpdate;
 
 public class EnemyUpdate extends EntityUpdate {
     Enemy enemy;
@@ -25,7 +25,7 @@ public class EnemyUpdate extends EntityUpdate {
         enemyMoveNow = System.nanoTime();
 
         enemyMoveUpdate();
-        enemyMoveUpdateReport();
+        enemyMoveUpdateRateCheck();
     }
 
     private void enemyMoveUpdate() {
@@ -37,7 +37,7 @@ public class EnemyUpdate extends EntityUpdate {
             enemyMoveUpdateCounter++;
         }
     }
-    private void enemyMoveUpdateReport() {
+    private void enemyMoveUpdateRateCheck() {
         if (System.currentTimeMillis() - lastTimeEnemyUpdateCheck >= 1000){
             System.out.println("T2, ENEMY UPS: " + enemyMoveUpdateCounter);
             enemyMoveUpdateCounter = 0;
