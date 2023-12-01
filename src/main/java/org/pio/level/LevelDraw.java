@@ -1,17 +1,16 @@
-package org.pio.entities;
+package org.pio.level;
 
-import org.pio.database.MainDatabase;
 import org.pio.entities.ally.Ally;
+import org.pio.entities.entityInterfaces.Drawable;
 import org.pio.entities.enemy.Enemy;
 import org.pio.helpz.KeyPoint;
 import org.pio.main.GameScreen;
 import org.pio.player.Player;
-import org.pio.scene.Level;
+import org.pio.level.Level;
 
 import java.awt.*;
-import java.util.List;
 
-public class LevelDraw {
+public class LevelDraw implements Drawable {
     Level level;
 
     public LevelDraw(Level level) {

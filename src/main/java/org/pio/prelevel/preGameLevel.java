@@ -1,6 +1,6 @@
-package org.pio.level;
+package org.pio.prelevel;
 
-import org.pio.level.mapObjects.MapObject;
+import org.pio.prelevel.mapObjects.MapObject;
 import org.pio.main.GameScreen;
 
 import java.awt.*;

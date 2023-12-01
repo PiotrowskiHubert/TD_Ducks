@@ -1,6 +1,6 @@
-package org.pio.entities;
+package org.pio.entities.bullet;
 
-import org.pio.entities.enemy.Movable;
+import org.pio.entities.entityInterfaces.Movable;
 
 public class BulletMovable implements Movable {
     Bullet bullet;

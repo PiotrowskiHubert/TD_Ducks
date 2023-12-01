@@ -1,11 +1,13 @@
-package org.pio.entities;
+package org.pio.systems;
 
 import org.pio.entities.ally.Ally;
+import org.pio.entities.bullet.Bullet;
 import org.pio.entities.enemy.Enemy;
+import org.pio.entities.entity.Entity;
 import org.pio.factory.enemy.EnemyFactoryImpl;
 import org.pio.helpz.Directions;
 import org.pio.manager.PlayerManager;
-import org.pio.scene.Level;
+import org.pio.level.Level;
 import org.pio.scene.PlayScene;
 
 import java.util.Iterator;

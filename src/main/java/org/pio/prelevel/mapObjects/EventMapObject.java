@@ -1,4 +1,4 @@
-package org.pio.level.mapObjects;
+package org.pio.prelevel.mapObjects;
 
 import org.pio.inputs.keyboard.keyboardMethods;
 import org.pio.main.Game;

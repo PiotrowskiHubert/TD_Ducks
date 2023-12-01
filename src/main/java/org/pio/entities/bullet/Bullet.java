@@ -1,4 +1,4 @@
-package org.pio.entities;
+package org.pio.entities.bullet;
 
 import java.awt.*;
 

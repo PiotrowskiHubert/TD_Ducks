@@ -1,6 +1,4 @@
-package org.pio.level.mapObjects;
-
-import org.pio.player.PreGamePlayer;
+package org.pio.prelevel.mapObjects;
 
 import java.awt.*;
 

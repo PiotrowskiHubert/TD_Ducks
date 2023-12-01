@@ -1,4 +1,4 @@
-package org.pio.scene;
+package org.pio.level;
 
 import org.pio.entities.enemy.Enemy;
 import org.pio.factory.enemy.EnemyFactoryImpl;

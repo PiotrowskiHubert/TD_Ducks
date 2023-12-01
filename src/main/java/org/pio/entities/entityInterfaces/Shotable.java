@@ -1,4 +1,4 @@
-package org.pio.entities.ally;
+package org.pio.entities.entityInterfaces;
 
 import org.pio.entities.enemy.Enemy;
 

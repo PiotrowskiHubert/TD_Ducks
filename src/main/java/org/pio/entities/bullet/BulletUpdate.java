@@ -1,6 +1,8 @@
-package org.pio.entities;
+package org.pio.entities.bullet;
 
-public class BulletUpdate extends EntityUpdate{
+import org.pio.entities.entity.EntityUpdate;
+
+public class BulletUpdate extends EntityUpdate {
     Bullet bullet;
     BulletMovable bulletMovable;
 
@@ -19,6 +21,7 @@ public class BulletUpdate extends EntityUpdate{
     @Override
     public void update() {
         bulletNow = System.nanoTime();
+
         bulletMove();
     }
 

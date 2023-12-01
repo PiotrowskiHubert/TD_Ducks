@@ -1,13 +1,12 @@
-package org.pio.entities;
+package org.pio.entities.entity;
 
-import org.pio.entities.ally.Ally;
-import org.pio.entities.enemy.Enemy;
+import org.pio.entities.entityInterfaces.Drawable;
 import org.pio.main.GameScreen;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Entity {
+public abstract class Entity implements Drawable {
     public double posX;
     public double posY;
     public int width, height, id;
@@ -37,6 +36,7 @@ public abstract class Entity {
         return new Rectangle((int) posX, (int) posY, width, height);
     }
 
+    @Override
     public void draw(Graphics g){
         g.setColor(Color.red);
         g.fillRect(bounds.getBounds().x, bounds.getBounds().y, bounds.getBounds().width, bounds.getBounds().height);
