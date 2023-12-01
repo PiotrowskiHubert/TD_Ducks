@@ -2,7 +2,7 @@ package org.pio.scene;
 
 import org.pio.entities.ally.Ally;
 import org.pio.inputs.mouse.PlaySceneMouseHandler;
-import org.pio.main.GameScreen;
+import org.pio.level.Level;
 import org.pio.player.Player;
 import org.pio.main.Game;
 import org.pio.ui.sidePanel.GameSidePanelButtonMethods;
@@ -17,7 +17,7 @@ public class PlayScene extends GameScene implements sceneMeethods {
 
     public PlayScene(Game game) {
         super(game);
-        Level.createLevel(23,14,getGame(),11);
+        Level.createLevel(23,14,11,1);
 
         this.lvl=Level.getLevel();
         this.player=new Player(2000,100);
