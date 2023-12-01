@@ -1,7 +1,6 @@
 package org.pio.inputs.mouse;
 
 import org.pio.main.GameScreen;
-import org.pio.scene.Level;
 import org.pio.ui.buttons.bRectangle;
 import org.pio.ui.sidePanel.SidePanelEditMap_DELETE;
 
@@ -47,7 +46,7 @@ public class EditSidePanelMouseHandler_DELETE implements MouseHandler{
 
             if (sidePanelEditMapDELETE.saveMap!=null){
                 if (sidePanelEditMapDELETE.saveMap.isMousePressed()&& sidePanelEditMapDELETE.saveMap.isMouseOver()){
-                    sidePanelEditMapDELETE.sidePanelEditMapMethods.saveMap(Level.getLvlArr());
+                    //sidePanelEditMapDELETE.sidePanelEditMapMethods.saveMap(Level.getLvlArr());
                     sidePanelEditMapDELETE.saveMap.setMousePressed(false);
                     sidePanelEditMapDELETE.saveMap.setMouseOver(false);
                 }
