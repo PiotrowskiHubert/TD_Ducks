@@ -15,7 +15,7 @@ public class SidePanelEditMapMethods{
 
         List<Tile[]> Tiles = Arrays.stream(lvlArr).toList();
 
-        String fileName = "src/main/resources/LevelInfo/lvl_1_Tiles.txt";
+        String fileName = "src/main/resources/LevelInfo/lvl_1_Tiles_DELETE_LATER.txt";
         try (
                 var fileWriter = new FileWriter(fileName);
                 var writer = new BufferedWriter(fileWriter);
