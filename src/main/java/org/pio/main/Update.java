@@ -1,22 +1,16 @@
 package org.pio.main;
 
-import org.pio.entities.Bullet;
-import org.pio.entities.EnemyBulletCollisionSystem;
-import org.pio.entities.Entity;
+import org.pio.entities.bullet.Bullet;
+import org.pio.systems.EnemyBulletCollisionSystem;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
-import org.pio.entities.enemy.Enemy_2;
-import org.pio.factory.enemy.EnemyFactoryImpl;
-import org.pio.helpz.Directions;
 import org.pio.helpz.Utile;
 import org.pio.manager.PlayerManager;
-import org.pio.scene.Level;
+import org.pio.level.Level;
 import org.pio.scene.PlayScene;
 
 import java.util.Iterator;
 import java.util.List;
-
-import static org.pio.helpz.Helper.distanceBetweenTwoPoints;
 
 
 public class Update {
@@ -120,7 +114,14 @@ public class Update {
 
     public void updateAnimationsEnemy(){
         if (game.getGameStates() == GameStates.GAME){
-            game.getPlayScene().getLvl().updateEnemyAnimations();
+
+            for (Enemy enemy : Level.rounds.get(Level.currentRound).getEnemies()){
+                if (enemy.currentSprite<enemy.maxSprite){
+                    enemy.currentSprite++;
+                }else {
+                    enemy.currentSprite=0;
+                }
+            }
         }
     }
 
