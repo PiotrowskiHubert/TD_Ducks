@@ -1,9 +1,7 @@
 package org.pio.helpz;
 
 import org.pio.database.MainDatabase;
-import org.pio.factory.enemy.EnemyFactoryImpl;
 import org.pio.main.GameScreen;
-import org.pio.scene.Round;
 import org.pio.tiles.Tile;
 import org.pio.tiles.aTile;
 
@@ -14,6 +12,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReadFromFileImpl implements ReadFromFile {
 
@@ -48,12 +48,11 @@ public class ReadFromFileImpl implements ReadFromFile {
                 var fileReader = new FileReader(fileName);
                 var reader = new BufferedReader(fileReader);
         ) {
-            //READ FILE
+
             String nextLine = null;
 
             while ((nextLine = reader.readLine()) != null) {
 
-                //READ NAME FROM FILE
                 if (nextLine.equals("ID")) {
                     return Integer.parseInt(reader.readLine());
                 }
@@ -255,6 +254,37 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         return -1;
     }
+
+    public static List<KeyPoint> readKeyPoints(String fileName) {
+        List<KeyPoint> keyPointList = new ArrayList<>();
+
+        try (
+                var fileReader = new FileReader(fileName);
+                var reader = new BufferedReader(fileReader);
+        ) {
+            String nextLine = null;
+
+            while ((nextLine = reader.readLine()) != null) {
+
+                String[] parts = nextLine.split(" ");
+                double x = Double.parseDouble(parts[0]);
+                double y = Double.parseDouble(parts[1]);
+
+                keyPointList.add(new KeyPoint(
+                        (int) (x * GameScreen.SCALED_UNIT_SIZE),
+                        (int) (y * GameScreen.SCALED_UNIT_SIZE))
+                );
+
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return keyPointList;
+    }
+
     @Override
     public BufferedImage readBufferedImage(String fileName) {
         BufferedImage bufferedImage = null;
@@ -315,6 +345,16 @@ public class ReadFromFileImpl implements ReadFromFile {
         }
 
         return levelArr;
+    }
+
+
+    public static void main(String[] args) {
+        ReadFromFileImpl readFromFile = new ReadFromFileImpl();
+        for (KeyPoint keyPoint : readFromFile.readKeyPoints("src/main/resources/levels/1/keypoints/lvl_1_keypoints.txt")) {
+            System.out.println(keyPoint.getPosX() + " " + keyPoint.getPosY());
+        }
+
+        System.out.println(GameScreen.SCALED_UNIT_SIZE);
     }
 
 }
