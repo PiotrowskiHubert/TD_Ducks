@@ -1,10 +1,11 @@
 package org.pio.entities.ally;
 
-import org.pio.entities.Entity;
-import org.pio.entities.EntityUpdate;
+import org.pio.entities.entity.Entity;
+import org.pio.entities.entity.EntityUpdate;
 import org.pio.entities.enemy.Enemy;
-import org.pio.entities.enemy.Updatable;
-import org.pio.scene.Level;
+import org.pio.entities.entityInterfaces.Detectable;
+import org.pio.entities.entityInterfaces.Updatable;
+import org.pio.level.Level;
 
 import java.util.Iterator;
 
@@ -38,22 +39,22 @@ public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
 
            allyNow = System.nanoTime();
 
-           allyDetect();
-           allyShot();
+           allyDetectUpdate();
+           allyShotUpdate();
            allyShotUpdateRateCheck();
         }
 
     }
 
 
-    private void allyDetect() {
+    private void allyDetectUpdate() {
         if(allyNow - lastAllyDetectUpdate >= timePerDetectUpdateAlly){
             lastAllyDetectUpdate = allyNow;
 
             detect();
         }
     }
-    private void allyShot() {
+    private void allyShotUpdate() {
         if(allyNow - lastAllyShotUpdate >= timePerShotUpdateAlly){
             lastAllyShotUpdate = allyNow;
 
