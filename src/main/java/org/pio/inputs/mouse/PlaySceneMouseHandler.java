@@ -1,9 +1,8 @@
 package org.pio.inputs.mouse;
 
 import org.pio.main.GameScreen;
-import org.pio.scene.Level;
+import org.pio.level.Level;
 import org.pio.scene.PlayScene;
-import org.pio.ui.buttons.aButton;
 
 public class PlaySceneMouseHandler implements MouseHandler {
     PlayScene playScene;
