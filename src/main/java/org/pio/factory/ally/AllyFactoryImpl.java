@@ -1,9 +1,6 @@
 package org.pio.factory.ally;
 
-import org.pio.database.MainDatabase;
-import org.pio.entities.Entity;
 import org.pio.entities.ally.Ally;
-import org.pio.entities.enemy.Enemy;
 import org.pio.helpz.Directions;
 
 public class AllyFactoryImpl implements Ally_1_Factory, Ally_2_Factory, Ally_3_Factory, Ally_4_Factory, Ally_5_Factory{

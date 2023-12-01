@@ -1,7 +1,7 @@
 package org.pio.ui.sidePanel;
 
 import org.pio.main.Update;
-import org.pio.scene.Level;
+import org.pio.level.Level;
 
 public class GameSidePanelButtonMethods {
 

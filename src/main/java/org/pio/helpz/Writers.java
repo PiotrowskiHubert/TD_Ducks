@@ -1,7 +1,5 @@
 package org.pio.helpz;
 
-import org.pio.scene.Level;
-
 import java.io.*;
 
 public class Writers {
@@ -167,7 +165,7 @@ public class Writers {
 //            path = "src/main/resources/AllyInfo/ally_5.txt";
 //            writeAllyDataToTxtFile(path, "Ally_5", "5", "32", "32", "1000000000.0", "100", "100");
 
-//            path = "src/main/resources/LevelInfo/lvl_1_Enemies.txt";
+//            path = "src/main/resources/LevelInfo/lvl_1_rounds_enemies.txt";
 //            writeRoundsDataToFile(path, 10);
 
             Writers.writeEmptyLevel("lvl_3_Tiles", 23, 14);

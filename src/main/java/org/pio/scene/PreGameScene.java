@@ -1,9 +1,9 @@
 package org.pio.scene;
 
 import org.pio.inputs.keyboard.keyboardMethods;
-import org.pio.level.mapObjects.MapObject;
+import org.pio.prelevel.mapObjects.MapObject;
 import org.pio.main.Game;
-import org.pio.level.preGameLevel;
+import org.pio.prelevel.preGameLevel;
 import org.pio.main.GameScreen;
 import org.pio.player.PreGamePlayer;
 

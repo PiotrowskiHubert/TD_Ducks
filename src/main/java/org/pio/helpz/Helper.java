@@ -1,10 +1,5 @@
 package org.pio.helpz;
 
-import org.pio.entities.enemy.Enemy;
-import org.pio.entities.Bullet;
-
-import java.util.List;
-
 public class Helper {
 
     public static boolean isInteger(String nextLine) {

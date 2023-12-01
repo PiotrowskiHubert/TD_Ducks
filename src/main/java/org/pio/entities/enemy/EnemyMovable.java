@@ -1,7 +1,8 @@
 package org.pio.entities.enemy;
 
+import org.pio.entities.entityInterfaces.Movable;
 import org.pio.helpz.Directions;
-import org.pio.scene.Level;
+import org.pio.level.Level;
 
 public class EnemyMovable implements Movable {
     Enemy enemy;

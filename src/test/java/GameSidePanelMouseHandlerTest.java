@@ -1,6 +1,4 @@
 import org.junit.Test;
-import org.pio.scene.Level;
-import org.pio.ui.sidePanel.SidePanelGame;
 
 public class GameSidePanelMouseHandlerTest {
 

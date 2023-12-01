@@ -2,7 +2,7 @@ package org.pio.ui.sidePanel;
 
 import org.pio.database.MainDatabase;
 import org.pio.inputs.mouse.GameSidePanelMouseHandler;
-import org.pio.scene.Level;
+import org.pio.level.Level;
 import org.pio.ui.buttons.ButtonPerformChangeGameSpeed;
 import org.pio.ui.buttons.ButtonPerformStartWave;
 import org.pio.ui.buttons.aButton;
@@ -11,7 +11,6 @@ import org.pio.ui.buttons.bRectangle;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class SidePanelGame extends aSidePanel{

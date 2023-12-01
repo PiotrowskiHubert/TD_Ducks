@@ -1,7 +1,7 @@
 package org.pio.player;
 
 import org.pio.helpz.Directions;
-import org.pio.scene.Level;
+import org.pio.level.Level;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

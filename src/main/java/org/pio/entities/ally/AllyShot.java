@@ -1,6 +1,7 @@
 package org.pio.entities.ally;
 
-import org.pio.entities.Bullet;
+import org.pio.entities.bullet.Bullet;
+import org.pio.entities.entityInterfaces.Shotable;
 
 public class AllyShot implements Shotable {
     Ally ally;

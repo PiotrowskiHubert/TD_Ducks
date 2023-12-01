@@ -1,7 +1,7 @@
 package org.pio.inputs.mouse;
 
 import org.pio.entities.ally.Ally;
-import org.pio.scene.Level;
+import org.pio.level.Level;
 
 import java.util.Iterator;
 
