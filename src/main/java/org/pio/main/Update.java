@@ -44,7 +44,7 @@ public class Update {
                 updatePlacedAllies();
                 bulletsUpdate();
 
-                EnemyBulletCollisionSystem.checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers);
+                EnemyBulletCollisionSystem.checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers, game.getPlayScene().getLvl());
             }
 
             lastGameUpdate = now;

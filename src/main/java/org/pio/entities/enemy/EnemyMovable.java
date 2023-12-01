@@ -3,6 +3,7 @@ package org.pio.entities.enemy;
 import org.pio.entities.entityInterfaces.Movable;
 import org.pio.helpz.Directions;
 import org.pio.level.Level;
+import org.pio.scene.PlayScene;
 
 public class EnemyMovable implements Movable {
     Enemy enemy;
@@ -54,12 +55,12 @@ public class EnemyMovable implements Movable {
         }else if (enemy.keyPointsStack.peek().getPosY()-enemy.posY<0){
             return Directions.UP;
         }else {
-            if (enemy.keypointIndex==Level.getLevel().getKeyPointsList().size()-1){
+            if (enemy.keypointIndex== PlayScene.lvl.getKeyPointsList().size()-1){
                 return null;
             }else {
                 enemy.keypointIndex++;
             }
-            enemy.keyPointsStack.push(Level.getLevel().getKeyPointsList().get(enemy.keypointIndex));
+            enemy.keyPointsStack.push(PlayScene.lvl.getKeyPointsList().get(enemy.keypointIndex));
             return calcDirection(enemy);
         }
     }

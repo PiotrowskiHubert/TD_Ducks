@@ -15,7 +15,7 @@ import java.util.List;
 
 public class EnemyBulletCollisionSystem {
 
-    public static void checkIfEnemyIsHitByBullet(List<Enemy> enemies, List<Ally> allies) {
+    public static void checkIfEnemyIsHitByBullet(List<Enemy> enemies, List<Ally> allies, Level level) {
 
         if (enemies.isEmpty()){
             return;
@@ -52,7 +52,7 @@ public class EnemyBulletCollisionSystem {
                                         int spawnOffset = 0;
                                         int enemyTypeDescendant = 1;
 
-                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, Level.getLevel().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, level.getKeyPointsList().get(nextEnemy.keypointIndex));
                                         enemy_2.keypointIndex= nextEnemy.keypointIndex;
 
                                         if (nextEnemy.direction== Directions.RIGHT){
@@ -79,7 +79,7 @@ public class EnemyBulletCollisionSystem {
                                         int spawnOffset = 0;
                                         int enemyTypeDescendant = 1;
 
-                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, Level.getLevel().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, level.getKeyPointsList().get(nextEnemy.keypointIndex));
                                         enemy_2.keypointIndex= nextEnemy.keypointIndex;
 
                                         if (nextEnemy.direction==Directions.RIGHT){
@@ -107,9 +107,9 @@ public class EnemyBulletCollisionSystem {
                                         int spawnOffset_2 = 30;
                                         int enemyTypeDescendant = 2;
 
-                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, Level.getLevel().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, level.getKeyPointsList().get(nextEnemy.keypointIndex));
                                         enemy_2.keypointIndex= nextEnemy.keypointIndex;
-                                        Enemy enemy_3 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, Level.getLevel().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        Enemy enemy_3 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, level.getKeyPointsList().get(nextEnemy.keypointIndex));
                                         enemy_3.keypointIndex= nextEnemy.keypointIndex;
 
                                         if (nextEnemy.direction==Directions.RIGHT){
@@ -146,9 +146,9 @@ public class EnemyBulletCollisionSystem {
                                         int spawnOffset_2 = 30;
                                         int enemyTypeDescendant = 1;
 
-                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, Level.getLevel().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        Enemy enemy_2 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, level.getKeyPointsList().get(nextEnemy.keypointIndex));
                                         enemy_2.keypointIndex= nextEnemy.keypointIndex;
-                                        Enemy enemy_3 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, Level.getLevel().getKeyPointsList().get(nextEnemy.keypointIndex));
+                                        Enemy enemy_3 = EnemyFactoryImpl.getEnemyFactoryImpl().createEnemy( (int) nextEnemy.posX, (int) nextEnemy.posY, nextEnemy.direction, nextEnemy.id - enemyTypeDescendant, level.getKeyPointsList().get(nextEnemy.keypointIndex));
                                         enemy_3.keypointIndex= nextEnemy.keypointIndex;
 
                                         if (nextEnemy.direction==Directions.RIGHT){

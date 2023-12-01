@@ -62,8 +62,8 @@ public class PlaySceneMouseHandler implements MouseHandler {
     }
 
     private void cancelSelectedTower() {
-        if (Level.getLevel().selectedTower!=null){
-            Level.getLevel().selectedTower=null;
+        if (playScene.getLvl().selectedTower!=null){
+            playScene.getLvl().selectedTower=null;
         }
     }
 

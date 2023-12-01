@@ -26,10 +26,9 @@ public class Level {
     public SidePanelGame sidePanelGame;
     public LevelMouseHandler mouseHandler;
     public LevelDraw levelDraw;
-    private static Level level;
 
-    public static void createLevel(int lvlWidth, int lvlHeight, int numOfRounds, int levelNum){
-        level = new Level(lvlWidth,lvlHeight,numOfRounds,levelNum);
+    public static Level createLevel(int lvlWidth, int lvlHeight, int numOfRounds, int levelNum){
+        return new Level(lvlWidth,lvlHeight,numOfRounds,levelNum);
     }
     private Level(int lvlWidth, int lvlHeight, int numOfRounds, int levelNum) {
 
@@ -64,9 +63,11 @@ public class Level {
         this.levelDraw=new LevelDraw(this);
     }
 
+
     public void drawLevel(Graphics g){
         levelDraw.draw(g);
     }
+
 
     public int getNUM_OF_ROUNDS() {
         return NUM_OF_ROUNDS;
@@ -85,9 +86,6 @@ public class Level {
     }
     public List<KeyPoint> getKeyPointsList() {
         return keyPointsList;
-    }
-    public static Level getLevel() {
-        return level;
     }
     public Ally getSelectedTower() {
         return selectedTower;

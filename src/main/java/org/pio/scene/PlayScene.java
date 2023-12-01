@@ -11,15 +11,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class PlayScene extends GameScene implements sceneMeethods {
-    private Level lvl;
+    public static Level lvl;
     public static Player player;
     public PlaySceneMouseHandler mouseHandler;
 
     public PlayScene(Game game) {
         super(game);
-        Level.createLevel(23,14,11,1);
+        this.lvl = Level.createLevel(23,14,11,1);
 
-        this.lvl=Level.getLevel();
         this.player=new Player(2000,100);
         this.mouseHandler=new PlaySceneMouseHandler(this);
     }
