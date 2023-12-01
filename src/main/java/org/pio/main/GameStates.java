@@ -6,11 +6,9 @@ public enum GameStates {
     public static void changeGameStateToGame(){
         Game.setGameStates(GAME);
     }
-
     public static void changeGameStateToSettings(){
         Game.setGameStates(MENU_SETTINGS);
     }
-
     public static void changeGameStateToMenuSelectSave(){
         Game.setGameStates(MENU_SELECT_SAVE);
     }
