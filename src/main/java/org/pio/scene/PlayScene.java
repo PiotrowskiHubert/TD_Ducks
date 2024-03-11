@@ -3,6 +3,7 @@ package org.pio.scene;
 import org.pio.entities.ally.Ally;
 import org.pio.inputs.mouse.playScene.PlaySceneMouseHandler;
 import org.pio.level.Level;
+import org.pio.main.GameSpeed;
 import org.pio.player.Player;
 import org.pio.main.Game;
 import org.pio.ui.sidePanel.game.GameSidePanelButtonMethods;
@@ -14,6 +15,7 @@ public class PlayScene extends GameScene implements sceneMeethods {
     public static Level lvl;
     public static Player player;
     public PlaySceneMouseHandler mouseHandler;
+    public static GameSpeed GAME_SPEED;
 
     public PlayScene(Game game) {
         super(game);
@@ -21,6 +23,7 @@ public class PlayScene extends GameScene implements sceneMeethods {
 
         this.player=new Player(2000,100);
         this.mouseHandler=new PlaySceneMouseHandler(this);
+        this.GAME_SPEED=GameSpeed.REGULAR;
     }
 
 
