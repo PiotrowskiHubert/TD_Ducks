@@ -13,6 +13,6 @@ public class ButtonPerformChangeGameSpeed extends ButtonPerform{
 
     @Override
     public void perform() {
-        GameSidePanelButtonMethods.changeGameSpeed();
+        GameSidePanelButtonMethods.changeGameSpeedRatio();
     }
 }
