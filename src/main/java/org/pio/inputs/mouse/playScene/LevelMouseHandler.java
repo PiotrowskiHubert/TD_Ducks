@@ -1,6 +1,7 @@
-package org.pio.inputs.mouse;
+package org.pio.inputs.mouse.playScene;
 
 import org.pio.entities.ally.Ally;
+import org.pio.inputs.mouse.MouseHandler;
 import org.pio.level.Level;
 
 import java.util.Iterator;

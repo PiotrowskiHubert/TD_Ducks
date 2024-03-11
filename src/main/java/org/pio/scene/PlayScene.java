@@ -1,11 +1,11 @@
 package org.pio.scene;
 
 import org.pio.entities.ally.Ally;
-import org.pio.inputs.mouse.PlaySceneMouseHandler;
+import org.pio.inputs.mouse.playScene.PlaySceneMouseHandler;
 import org.pio.level.Level;
 import org.pio.player.Player;
 import org.pio.main.Game;
-import org.pio.ui.sidePanel.GameSidePanelButtonMethods;
+import org.pio.ui.sidePanel.game.GameSidePanelButtonMethods;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

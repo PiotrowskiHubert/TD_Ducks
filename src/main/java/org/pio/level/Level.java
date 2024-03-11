@@ -1,14 +1,13 @@
 package org.pio.level;
 
 import org.pio.entities.ally.Ally;
-import org.pio.entities.enemy.Enemy;
 import org.pio.helpz.KeyPoint;
 import org.pio.helpz.ReadFromFileImpl;
 import org.pio.helpz.Utile;
-import org.pio.inputs.mouse.LevelMouseHandler;
+import org.pio.inputs.mouse.playScene.LevelMouseHandler;
 import org.pio.main.GameScreen;
 import org.pio.tiles.Tile;
-import org.pio.ui.sidePanel.SidePanelGame;
+import org.pio.ui.sidePanel.game.SidePanelGame;
 
 import java.awt.*;
 import java.nio.file.Path;

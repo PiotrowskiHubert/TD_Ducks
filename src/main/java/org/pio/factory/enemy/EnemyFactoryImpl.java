@@ -52,4 +52,5 @@ public class EnemyFactoryImpl implements Enemy_1_Factory, Enemy_2_Factory, Enemy
         }
         return enemyFactoryImpl;
     }
+
 }

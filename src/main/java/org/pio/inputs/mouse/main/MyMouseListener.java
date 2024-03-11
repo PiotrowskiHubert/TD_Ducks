@@ -1,4 +1,4 @@
-package org.pio.inputs.mouse;
+package org.pio.inputs.mouse.main;
 
 
 import org.pio.main.Game;
@@ -49,6 +49,17 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
                 }
             }
 
+            case EDIT_MAP -> {
+                if (e.getButton()==MouseEvent.BUTTON1){
+                    game.getEditMapScene().getMouseHandler().leftMouseClicked(e.getX(), e.getY());
+                    break;
+                }
+
+                if (e.getButton()==MouseEvent.BUTTON3){
+                    game.getEditMapScene().getMouseHandler().rightMouseClicked(e.getX(), e.getY());
+                }
+            }
+
             case GAME -> {
                 if (e.getButton()==MouseEvent.BUTTON1){
                     game.getPlayScene().mouseHandler.leftMouseClicked(e.getX(), e.getY());
@@ -84,6 +95,10 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
                 game.getSelectSaveScene().getMouseHandler().mousePressed(e.getX(), e.getY());
             }
 
+            case EDIT_MAP -> {
+                game.getEditMapScene().getMouseHandler().mousePressed(e.getX(), e.getY());
+            }
+
             case GAME -> {
                 game.getPlayScene().mouseHandler.mousePressed(e.getX(),e.getY());
             }
@@ -110,6 +125,10 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 
             case MENU_SELECT_SAVE -> {
                 game.getSelectSaveScene().getMouseHandler().mouseReleased(e.getX(), e.getY());
+            }
+
+            case EDIT_MAP -> {
+                game.getEditMapScene().getMouseHandler().mouseReleased(e.getX(), e.getY());
             }
 
             case GAME -> {

@@ -2,7 +2,7 @@ package org.pio.ui.buttons;
 
 import org.pio.entities.ally.Ally;
 import org.pio.helpz.Directions;
-import org.pio.ui.sidePanel.GameSidePanelButtonMethods;
+import org.pio.ui.sidePanel.game.GameSidePanelButtonMethods;
 
 public class ButtonPerformStartWave extends ButtonPerform{
 

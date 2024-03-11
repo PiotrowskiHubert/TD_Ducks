@@ -1,4 +1,4 @@
-package org.pio.ui.sidePanel;
+package org.pio.ui.sidePanel.game;
 
 import org.pio.main.Update;
 import org.pio.level.Level;

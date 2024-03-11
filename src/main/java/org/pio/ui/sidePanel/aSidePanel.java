@@ -1,5 +1,7 @@
 package org.pio.ui.sidePanel;
 
+import org.pio.inputs.mouse.MouseHandler;
+import org.pio.inputs.mouse.edit.sidepanel.EditMenuSidePanelMouseHandler;
 import org.pio.ui.buttons.bRectangle;
 
 import java.awt.*;
@@ -35,10 +37,16 @@ public abstract class aSidePanel implements sidePanelMethods {
         g.setColor(Color.white);
         g.fillRect(posX, posY, width, height);
     }
+
     protected void drawButtons(Graphics g) {
 
         if (currentDataLinkedMap!=null&&!currentDataLinkedMap.isEmpty()){
             currentDataLinkedMap.values().stream().forEach(button -> button.draw(g));
         }
     }
+
+    public MouseHandler getEditSidePanelMouseHandler() {
+       throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

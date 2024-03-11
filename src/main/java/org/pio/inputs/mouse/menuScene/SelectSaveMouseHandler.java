@@ -1,10 +1,11 @@
-package org.pio.inputs.mouse;
+package org.pio.inputs.mouse.menuScene;
 
+import org.pio.inputs.mouse.MouseHandler;
 import org.pio.main.GameStates;
 import org.pio.scene.SelectSaveScene;
 import org.pio.ui.buttons.aButton;
 
-public class SelectSaveMouseHandler implements MouseHandler{
+public class SelectSaveMouseHandler implements MouseHandler {
 
     SelectSaveScene selectSaveScene;
 

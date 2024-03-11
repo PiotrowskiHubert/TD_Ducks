@@ -1,10 +1,11 @@
-package org.pio.inputs.mouse;
+package org.pio.inputs.mouse.menuScene;
 
+import org.pio.inputs.mouse.MouseHandler;
 import org.pio.main.GameStates;
 import org.pio.scene.MenuScene;
 import org.pio.ui.buttons.aButton;
 
-public class MenuSceneMouseHandler implements MouseHandler{
+public class MenuSceneMouseHandler implements MouseHandler {
     private MenuScene menuScene;
 
     public MenuSceneMouseHandler(MenuScene menuScene) {

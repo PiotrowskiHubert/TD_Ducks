@@ -153,6 +153,10 @@ public abstract class AbstractMyButton implements drawable{
         this.mouseOver = mouseOver;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public void setMousePressed(boolean mousePressed) {
         this.mousePressed = mousePressed;
     }

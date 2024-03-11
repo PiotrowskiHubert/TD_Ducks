@@ -1,9 +1,8 @@
-package org.pio.inputs.mouse;
+package org.pio.inputs.mouse.playScene;
 
-import org.pio.database.MainDatabase;
-import org.pio.player.Player;
+import org.pio.inputs.mouse.MouseHandler;
 import org.pio.ui.buttons.aButton;
-import org.pio.ui.sidePanel.SidePanelGame;
+import org.pio.ui.sidePanel.game.SidePanelGame;
 
 public class GameSidePanelMouseHandler implements MouseHandler {
     SidePanelGame sidePanelGame;

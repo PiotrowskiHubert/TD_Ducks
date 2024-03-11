@@ -1,19 +1,20 @@
-package org.pio.ui.sidePanel;
+package org.pio.ui.sidePanel.game;
 
 import org.pio.database.MainDatabase;
-import org.pio.inputs.mouse.GameSidePanelMouseHandler;
+import org.pio.inputs.mouse.playScene.GameSidePanelMouseHandler;
 import org.pio.level.Level;
 import org.pio.ui.buttons.ButtonPerformChangeGameSpeed;
 import org.pio.ui.buttons.ButtonPerformStartWave;
 import org.pio.ui.buttons.aButton;
 import org.pio.ui.buttons.bRectangle;
+import org.pio.ui.sidePanel.aSidePanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SidePanelGame extends aSidePanel{
+public class SidePanelGame extends aSidePanel {
     private BufferedImage spriteSidePanel = MainDatabase.getMainDatabase().spriteAtlasDatabase.get("SidePanel");
     private List<aButton> towerButtons = new ArrayList<>();
     private List<aButton> userButtons = new ArrayList<>();

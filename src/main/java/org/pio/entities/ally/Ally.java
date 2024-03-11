@@ -2,7 +2,7 @@ package org.pio.entities.ally;
 
 import org.pio.entities.entity.Entity;
 import org.pio.entities.bullet.Bullet;
-import org.pio.inputs.mouse.AllyMouseHandler;
+import org.pio.inputs.mouse.playScene.AllyMouseHandler;
 import org.pio.helpz.Directions;
 
 import java.awt.*;

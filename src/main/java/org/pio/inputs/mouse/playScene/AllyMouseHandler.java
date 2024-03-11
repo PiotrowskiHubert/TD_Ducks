@@ -1,6 +1,7 @@
-package org.pio.inputs.mouse;
+package org.pio.inputs.mouse.playScene;
 
 import org.pio.entities.ally.Ally;
+import org.pio.inputs.mouse.MouseHandler;
 
 public class AllyMouseHandler implements MouseHandler {
     Ally ally;

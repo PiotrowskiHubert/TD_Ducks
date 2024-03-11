@@ -1,6 +1,6 @@
 package org.pio.scene;
 
-import org.pio.inputs.mouse.SelectSaveMouseHandler;
+import org.pio.inputs.mouse.menuScene.SelectSaveMouseHandler;
 import org.pio.main.Game;
 import org.pio.main.GameScreen;
 import org.pio.ui.buttons.aButton;

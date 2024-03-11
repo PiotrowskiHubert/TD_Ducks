@@ -1,5 +1,6 @@
-package org.pio.inputs.mouse;
+package org.pio.inputs.mouse.playScene;
 
+import org.pio.inputs.mouse.MouseHandler;
 import org.pio.main.GameScreen;
 import org.pio.level.Level;
 import org.pio.scene.PlayScene;

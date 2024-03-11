@@ -1,7 +1,7 @@
 package org.pio.main;
 
 import org.pio.inputs.keyboard.KeyboardListener;
-import org.pio.inputs.mouse.MyMouseListener;
+import org.pio.inputs.mouse.main.MyMouseListener;
 
 import javax.swing.*;
 import java.awt.*;

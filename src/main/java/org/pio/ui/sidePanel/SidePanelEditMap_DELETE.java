@@ -4,6 +4,7 @@ import org.pio.inputs.mouse.EditSidePanelMouseHandler_DELETE;
 import org.pio.scene.PlayScene;
 import org.pio.tiles.Tile;
 import org.pio.ui.buttons.bRectangle;
+import org.pio.ui.sidePanel.edit.SidePanelEditMapMethods;
 
 import java.awt.*;
 import java.util.LinkedHashMap;

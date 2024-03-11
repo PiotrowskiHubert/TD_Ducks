@@ -1,15 +1,16 @@
-package org.pio.ui.sidePanel;
+package org.pio.ui.sidePanel.game;
 
 import org.pio.entities.ally.Ally;
-import org.pio.inputs.mouse.UpgradeSidePanelMouseHandler;
+import org.pio.inputs.mouse.playScene.UpgradeSidePanelMouseHandler;
 import org.pio.main.GameScreen;
 import org.pio.ui.buttons.bRectangle;
 import org.pio.ui.buttons.bRectangleUpgrade;
+import org.pio.ui.sidePanel.aSidePanel;
 
 import java.awt.*;
 import java.util.LinkedHashMap;
 
-public class SidePanelUpgrade extends aSidePanel{
+public class SidePanelUpgrade extends aSidePanel {
     private UpgradeSidePanelMouseHandler upgradeSidePanelMouseHandler = new UpgradeSidePanelMouseHandler(this);
     private Ally ally;
     public SidePanelUpgrade(Ally ally, int width, int height, int posX, int posY) {

@@ -43,7 +43,7 @@ public class Game extends JFrame implements Runnable {
     private void initClass(){
 
         gameScreen=new GameScreen(this);
-        gameStates=GameStates.GAME;
+        gameStates=GameStates.PREGAME;
 
         render=new Render(this);
         update=new Update(this);
@@ -54,7 +54,7 @@ public class Game extends JFrame implements Runnable {
         settingsScene=new SettingsScene(this);
         selectSaveScene=new SelectSaveScene(this);
 
-        editMapScene =new EditScene(this);
+        editMapScene =new EditScene();
         preGameScene=new PreGameScene(this);
         playScene=new PlayScene(this);
 

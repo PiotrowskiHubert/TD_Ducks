@@ -1,9 +1,10 @@
-package org.pio.inputs.mouse;
+package org.pio.inputs.mouse.playScene;
 
+import org.pio.inputs.mouse.MouseHandler;
 import org.pio.ui.buttons.bRectangle;
-import org.pio.ui.sidePanel.SidePanelUpgrade;
+import org.pio.ui.sidePanel.game.SidePanelUpgrade;
 
-public class UpgradeSidePanelMouseHandler implements MouseHandler{
+public class UpgradeSidePanelMouseHandler implements MouseHandler {
     SidePanelUpgrade sidePanelUpgrade;
 
     public UpgradeSidePanelMouseHandler(SidePanelUpgrade sidePanelUpgrade) {

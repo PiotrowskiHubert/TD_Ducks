@@ -1,4 +1,4 @@
-package org.pio.ui.sidePanel;
+package org.pio.ui.sidePanel.edit;
 
 import org.pio.scene.PlayScene;
 import org.pio.tiles.Tile;
