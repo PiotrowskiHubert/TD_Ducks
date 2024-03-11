@@ -1,6 +1,8 @@
 package org.pio.entities.enemy;
 
 import org.pio.entities.entity.EntityUpdate;
+import org.pio.mapper.mGameSpeed;
+import org.pio.scene.PlayScene;
 
 public class EnemyUpdate extends EntityUpdate {
     Enemy enemy;
@@ -29,7 +31,8 @@ public class EnemyUpdate extends EntityUpdate {
     }
 
     private void enemyMoveUpdate() {
-        if(enemyMoveNow - lastEnemyMoveUpdate >= timePerMoveUpdateEnemy){
+
+        if(enemyMoveNow - lastEnemyMoveUpdate >= timePerMoveUpdateEnemy/mGameSpeed.changeGameSpeedRatio(PlayScene.GAME_SPEED) ){
             lastEnemyMoveUpdate = enemyMoveNow;
 
             enemyMovable.move();

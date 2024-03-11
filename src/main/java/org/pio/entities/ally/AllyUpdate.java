@@ -6,6 +6,8 @@ import org.pio.entities.enemy.Enemy;
 import org.pio.entities.entityInterfaces.Detectable;
 import org.pio.entities.entityInterfaces.Updatable;
 import org.pio.level.Level;
+import org.pio.mapper.mGameSpeed;
+import org.pio.scene.PlayScene;
 
 import java.util.Iterator;
 
@@ -48,14 +50,14 @@ public class AllyUpdate extends EntityUpdate implements Updatable, Detectable {
 
 
     private void allyDetectUpdate() {
-        if(allyNow - lastAllyDetectUpdate >= timePerDetectUpdateAlly){
+        if(allyNow - lastAllyDetectUpdate >= timePerDetectUpdateAlly/ mGameSpeed.changeGameSpeedRatio(PlayScene.GAME_SPEED)){
             lastAllyDetectUpdate = allyNow;
 
             detect();
         }
     }
     private void allyShotUpdate() {
-        if(allyNow - lastAllyShotUpdate >= timePerShotUpdateAlly){
+        if(allyNow - lastAllyShotUpdate >= timePerShotUpdateAlly/mGameSpeed.changeGameSpeedRatio(PlayScene.GAME_SPEED)){
             lastAllyShotUpdate = allyNow;
 
             allyShot.shot();

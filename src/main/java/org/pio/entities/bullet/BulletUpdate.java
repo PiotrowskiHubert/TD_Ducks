@@ -1,6 +1,8 @@
 package org.pio.entities.bullet;
 
 import org.pio.entities.entity.EntityUpdate;
+import org.pio.mapper.mGameSpeed;
+import org.pio.scene.PlayScene;
 
 public class BulletUpdate extends EntityUpdate {
     Bullet bullet;
@@ -26,7 +28,7 @@ public class BulletUpdate extends EntityUpdate {
     }
 
     private void bulletMove() {
-        if(bulletNow - lastBulletUpdate >= timePerUpdateBullet){
+        if(bulletNow - lastBulletUpdate >= timePerUpdateBullet/mGameSpeed.changeGameSpeedRatio(PlayScene.GAME_SPEED)){
             lastBulletUpdate = bulletNow;
             bulletMovable.move();
         }
