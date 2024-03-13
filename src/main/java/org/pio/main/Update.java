@@ -1,6 +1,8 @@
 package org.pio.main;
 
 import org.pio.entities.bullet.Bullet;
+import org.pio.mapper.mGameSpeed;
+import org.pio.services.AllyBulletChecker;
 import org.pio.systems.EnemyBulletCollisionSystem;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.enemy.Enemy;
@@ -32,8 +34,7 @@ public class Update {
 
         now = System.nanoTime();
 
-        if (now - lastGameUpdate >= timePerUpdateGame){
-
+        if (now - lastGameUpdate >= timePerUpdateGame/mGameSpeed.changeGameSpeedRatio(PlayScene.GAME_SPEED)){
 
             if (game.getGameStates() == GameStates.PREGAME){
                 game.getPreGameScene().update();
@@ -44,7 +45,16 @@ public class Update {
                 updatePlacedAllies();
                 bulletsUpdate();
 
-                EnemyBulletCollisionSystem.checkIfEnemyIsHitByBullet(Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers, game.getPlayScene().getLvl());
+                AllyBulletChecker.checkIfAllyBulletHitEnemy(
+                        Level.allyPlacedTowers,
+                        Level.rounds.get(Level.currentRound).getEnemies(),
+                        game.getPlayScene().getLvl()
+                );
+
+//                EnemyBulletCollisionSystem.checkIfEnemyIsHitByBullet(
+//                        Level.rounds.get(Level.currentRound).getEnemies(),Level.allyPlacedTowers, game.getPlayScene().getLvl()
+//                );
+
             }
 
             lastGameUpdate = now;
@@ -97,11 +107,15 @@ public class Update {
     }
 
     private void updateEnemies(){
-        Level.rounds.get(Level.currentRound).getEnemies().forEach(enemy -> enemy.enemyUpdate.update());
+        Level.rounds.get(Level.currentRound).getEnemies().forEach(
+                enemy -> enemy.enemyUpdate.update()
+        );
     }
 
     private void updatePlacedAllies() {
-        Level.allyPlacedTowers.forEach(ally -> ally.update.update());
+        Level.allyPlacedTowers.forEach(
+                ally -> ally.update.update()
+        );
     }
 
 
