@@ -2,6 +2,7 @@ package org.pio.helpz;
 
 import org.pio.database.MainDatabase;
 import org.pio.main.GameScreen;
+import org.pio.sprites.SpriteDetails;
 import org.pio.tiles.Tile;
 import org.pio.tiles.aTile;
 
@@ -346,15 +347,50 @@ public class ReadFromFileImpl implements ReadFromFile {
 
         return levelArr;
     }
+    public static String readKeyFromTxtFile(Path path, String key){
+        try(
+                var fileReader = new FileReader(path.toFile());
+                var reader = new BufferedReader(fileReader);
+        ){
 
+                String nextLine = null;
 
-    public static void main(String[] args) {
-        ReadFromFileImpl readFromFile = new ReadFromFileImpl();
-        for (KeyPoint keyPoint : readFromFile.readKeyPoints("src/main/resources/levels/1/keypoints/lvl_1_keypoints.txt")) {
-            System.out.println(keyPoint.getPosX() + " " + keyPoint.getPosY());
+                while ((nextLine = reader.readLine()) != null) {
+
+                    if (nextLine.equals(key)) {
+                        return reader.readLine();
+                    }
+                }
+
+        }catch (Exception e){
+            throw new RuntimeException("Error reading sprite data", e);
         }
 
-        System.out.println(GameScreen.SCALED_UNIT_SIZE);
+        throw new RuntimeException("Key not found");
+    }
+
+    public static void main(String[] args) {
+//        ReadFromFileImpl readFromFile = new ReadFromFileImpl();
+//        for (KeyPoint keyPoint : readFromFile.readKeyPoints("src/main/resources/levels/1/keypoints/lvl_1_keypoints.txt")) {
+//            System.out.println(keyPoint.getPosX() + " " + keyPoint.getPosY());
+//        }
+//
+//        System.out.println(GameScreen.SCALED_UNIT_SIZE);
+
+        //System.out.println(ReadFromFileImpl.readKeyFromTxtFile(path,"DOWN_1_WIDTH:"));
+
+        Path path = Path.of("src/main/resources/AllyInfo/sprites/blue/character_blue_idle_49x72.txt");
+        String name="UP_1";
+
+        System.out.println(readSpriteDetails(path,name).toString());
+    }
+
+    private static SpriteDetails readSpriteDetails(Path path, String name){
+        return SpriteDetails.builder().
+                name(name).
+                width(Integer.parseInt(ReadFromFileImpl.readKeyFromTxtFile(path,name+"_WIDTH:"))).
+                height(Integer.parseInt(ReadFromFileImpl.readKeyFromTxtFile(path,name+"_HEIGHT:"))).
+                build();
     }
 
 }
