@@ -349,7 +349,7 @@ public class ReadFromFileImpl implements ReadFromFile {
     }
     public static String readKeyFromTxtFile(Path path, String key){
         try(
-                var fileReader = new FileReader(path.toFile());
+                 var fileReader = new FileReader(path.toFile());
                 var reader = new BufferedReader(fileReader);
         ){
 

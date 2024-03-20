@@ -20,6 +20,7 @@ public class TxtReadersTest {
                 key,
                 (SpriteDetails.getModifierIntegerFromTxtFileForSubImages(
                         path,
+                        "null",
                         numOfSpritesBefore
                     )+extraModifier)
                 )
@@ -34,6 +35,7 @@ public class TxtReadersTest {
                         key,
                         (SpriteDetails.getModifierIntegerFromTxtFileForSubImages(
                                 path,
+                                "null",
                                 numOfSpritesBefore
                         )+extraModifier)
                 )
@@ -47,13 +49,13 @@ public class TxtReadersTest {
         Path path = Path.of("src/main/resources/AllyInfo/sprites/blue/character_blue_idle_49x72.txt");
 
         int numOfSpritesBefore = 0;
-        Assert.assertEquals(0, (int) SpriteDetails.getModifierIntegerFromTxtFileForSubImages(path, numOfSpritesBefore));
+        Assert.assertEquals(0, (int) SpriteDetails.getModifierIntegerFromTxtFileForSubImages(path, "null", numOfSpritesBefore));
 
         numOfSpritesBefore = 1;
-        Assert.assertEquals(1, (int) SpriteDetails.getModifierIntegerFromTxtFileForSubImages(path, numOfSpritesBefore));
+        Assert.assertEquals(1, (int) SpriteDetails.getModifierIntegerFromTxtFileForSubImages(path, "null", numOfSpritesBefore));
 
         numOfSpritesBefore = 2;
-        Assert.assertEquals(1, (int) SpriteDetails.getModifierIntegerFromTxtFileForSubImages(path, numOfSpritesBefore));
+        Assert.assertEquals(1, (int) SpriteDetails.getModifierIntegerFromTxtFileForSubImages(path, "null", numOfSpritesBefore));
 
     }
 }

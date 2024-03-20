@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
@@ -108,6 +109,49 @@ public class MainDatabase {
 
 //        allySpriteAtlasDatabase.put(2, getEnemySpriteAtlas());
 
+    }
+
+    public static LinkedHashMap<Directions, LinkedList<SpriteDetails>> getSpriteWithDirections(Path path, int numOfSprites){
+
+        LinkedHashMap<Directions, LinkedList<SpriteDetails>> spriteWithDirections = new LinkedHashMap<>();
+        LinkedList<SpriteDetails> listOfSpriteDetails = new LinkedList<>();
+
+        for (int i = 0; i < numOfSprites; i++) {
+            String name;
+
+            name = "UP_" + (i+1);
+            listOfSpriteDetails.add(SpriteDetails.createSpriteDetails(path, name, i));
+            //spriteWithDirections.get(Directions.UP).add(SpriteDetails.createSpriteDetails(path, name, i));
+//            name = "UP_" + (i+1);
+//            spriteWithDirections.put(Directions.UP, SpriteDetails.createSpriteDetails(path, name, i));
+//
+//            name = "DOWN_" + (i+1);
+//            spriteWithDirections.put(Directions.DOWN, SpriteDetails.createSpriteDetails(path, name, i));
+//
+//            name = "LEFT_" + (i+1);
+//            spriteWithDirections.put(Directions.LEFT, SpriteDetails.createSpriteDetails(path, name, i));
+//
+//            name = "RIGHT_" + (i+1);
+//            spriteWithDirections.put(Directions.RIGHT, SpriteDetails.createSpriteDetails(path, name, i));
+
+        }
+
+        spriteWithDirections.put(Directions.UP, listOfSpriteDetails);
+
+
+        return spriteWithDirections;
+//        LinkedHashMap<Directions, LinkedList<SpriteDetails>> spriteWithDirections = new LinkedHashMap<>();
+//
+//        for (int i = 0; i < numOfSprites; i++) {
+//            String name;
+//
+//            for(Directions direction : Directions.values()) {
+//                name = direction.name() + "_" + (i+1);
+//                spriteWithDirections.computeIfAbsent(direction, k -> new LinkedList<>()).add(SpriteDetails.createSpriteDetails(path, name, i));
+//            }
+//        }
+//
+//        return spriteWithDirections;
     }
 
     public static BufferedImage getSubImageFromSpriteAtlas(BufferedImage spriteAtlas, int xPosAtlas, int yPosAtlas, int subImageWidth, int subImageHeight){

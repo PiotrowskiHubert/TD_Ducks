@@ -1,14 +1,21 @@
 package org.pio.level;
 
+import com.sun.tools.javac.Main;
+import org.pio.database.MainDatabase;
 import org.pio.entities.ally.Ally;
 import org.pio.entities.entityInterfaces.Drawable;
 import org.pio.entities.enemy.Enemy;
+import org.pio.helpz.Directions;
 import org.pio.helpz.KeyPoint;
 import org.pio.main.GameScreen;
 import org.pio.player.Player;
 import org.pio.level.Level;
+import org.pio.sprites.SpriteDetails;
 
 import java.awt.*;
+import java.nio.file.Path;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 public class LevelDraw implements Drawable {
     Level level;
@@ -27,6 +34,54 @@ public class LevelDraw implements Drawable {
         drawAllyTowerPlaced(g);
         drawSelectedAlly(g);
         drawRoundInfo(g);
+
+        Path path = Path.of("src/main/resources/AllyInfo/sprites/blue/character_blue_idle_49x72.txt");
+
+        SpriteDetails sprite = SpriteDetails.builder()
+                .name("UP_1")
+                .width(18)
+                .height(25)
+                .image(MainDatabase.getMainDatabase().getSpriteAtlasDatabase().get("Character_blue_idle_49x112").getSubimage(
+                  0,0,18,25
+                ))
+                .build();
+
+        SpriteDetails sprite2 = SpriteDetails.builder()
+                .name("UP_2")
+                .width(18)
+                .height(25)
+                .image(MainDatabase.getMainDatabase().getSpriteAtlasDatabase().get("Character_blue_idle_49x112").getSubimage(
+                        19,0,18,25
+                ))
+                .build();
+
+        SpriteDetails sprite3 = SpriteDetails.builder()
+                .name("DOWN_1")
+                .width(18)
+                .height(25)
+                .image(MainDatabase.getMainDatabase().getSpriteAtlasDatabase().get("Character_blue_idle_49x112").getSubimage(
+                        0,26,24,28
+                ))
+                .build();
+
+        SpriteDetails sprite4 = SpriteDetails.builder()
+                .name("DOWN_2")
+                .width(18)
+                .height(25)
+                .image(MainDatabase.getMainDatabase().getSpriteAtlasDatabase().get("Character_blue_idle_49x112").getSubimage(
+                        25,26,24,28
+                ))
+                .build();
+
+        g.drawImage(sprite.getImage(), 100, 100, 37, 48, null);
+        g.drawImage(sprite2.getImage(), 100, 150, 37, 48, null);
+        g.drawImage(sprite3.getImage(), 100, 200, 42, 48, null);
+        g.drawImage(sprite4.getImage(), 100, 250, 42,48,null);
+
+
+//        g.drawImage(spriteWithDirections.get(Directions.UP).get(0).getImage(), 100, 50, null);
+//        g.drawImage(spriteWithDirections.get(Directions.UP).get(1).getImage(), 100, 100, null);
+
     }
 
     private void drawLevelOutline(Graphics g) {

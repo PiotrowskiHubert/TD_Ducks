@@ -15,6 +15,7 @@ public class SpriteDetailsFactoryTest {
 
         SpriteDetails spriteDetails = SpriteDetails.builder()
                 .name("UP_1")
+                .path(path)
                 .width(18)
                 .height(25)
                 .image(
@@ -34,14 +35,23 @@ public class SpriteDetailsFactoryTest {
         Assert.assertEquals(spriteDetails.getImage().getHeight(), 25);
         Assert.assertEquals(spriteDetails.getImage().getWidth(), 18);
 
-        Assert.assertEquals(SpriteDetails.createSpriteDetails(path, name).getImage().getHeight(), 25);
-        Assert.assertEquals(SpriteDetails.createSpriteDetails(path, name).getImage().getWidth(), 18);
+        Assert.assertEquals(SpriteDetails.createSpriteDetails(path, name,0).getImage().getHeight(), 25);
+        Assert.assertEquals(SpriteDetails.createSpriteDetails(path, name, 0).getImage().getWidth(), 18);
 
-        Assert.assertEquals(spriteDetails.getImage().getHeight(),SpriteDetails.createSpriteDetails(path, name).getImage().getHeight());
-        Assert.assertEquals(spriteDetails.getImage().getWidth(),SpriteDetails.createSpriteDetails(path, name).getImage().getWidth());
+        Assert.assertEquals(spriteDetails.getImage().getHeight(),SpriteDetails.createSpriteDetails(path, name, 0).getImage().getHeight());
+        Assert.assertEquals(spriteDetails.getImage().getWidth(),SpriteDetails.createSpriteDetails(path, name, 0).getImage().getWidth());
 
-        System.out.println(spriteDetails.toString());
-        System.out.println(SpriteDetails.createSpriteDetails(path, name).toString());
+        System.out.println(SpriteDetails.createSpriteDetails(path,name,0).toString());
     }
 
+    @Test
+    public void testDescendNumeredStringAfterKey(){
+        Assert.assertEquals("UP_1_HEIGHT", SpriteDetails.stringWithValueDescendedByOne("UP_2_HEIGHT", '_') );
+    }
+
+    @Test
+    public void testGetModifierIntegerFromTxtFileForSubImages(){
+        Path path = Path.of("src/main/resources/AllyInfo/sprites/blue/character_blue_idle_49x72.txt");
+
+    }
 }
