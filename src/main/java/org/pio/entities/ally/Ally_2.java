@@ -1,6 +1,7 @@
 package org.pio.entities.ally;
 
 import org.pio.helpz.Directions;
+import org.pio.sprites.Sprite;
 
 import java.awt.*;
 import java.util.LinkedHashMap;
@@ -8,7 +9,7 @@ import java.util.LinkedList;
 
 public class Ally_2 extends Ally {
 
-    public Ally_2(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<String>> sprites) {
+    public Ally_2(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<Sprite>> sprites) {
         super(name, id, width, height, cost, range, sprites);
     }
 
