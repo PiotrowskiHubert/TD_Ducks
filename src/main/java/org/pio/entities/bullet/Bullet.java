@@ -1,14 +1,21 @@
 package org.pio.entities.bullet;
 
-import java.awt.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+@Data
 public class Bullet {
     private final int BULLET_HEIGHT=10, BULLET_WIDTH=10;
     private double posX, posY, unitX, unitY;
-
     private Rectangle bulletHitBox;
     public BulletUpdate bulletUpdate;
-
+    private BulletType bulletType;
+    private BufferedImage sprite;
 
     public Bullet(double posX, double posY, double posXTarget, double posYTarget) {
         this.posX = posX;
@@ -57,36 +64,11 @@ public class Bullet {
         g.setColor(Color.red);
         g.fillRect(bulletHitBox.x, bulletHitBox.y, bulletHitBox.width, bulletHitBox.height);
     }
-
-
-    public double getPosX() {
-        return posX;
-    }
-    public Rectangle getBulletHitBox() {
-        return bulletHitBox;
-    }
-    public double getPosY() {
-        return posY;
-    }
-    public double getUnitX() {
-        return unitX;
-    }
-    public double getUnitY() {
-        return unitY;
-    }
     public int getBULLET_HEIGHT() {
         return BULLET_HEIGHT;
     }
     public int getBULLET_WIDTH() {
         return BULLET_WIDTH;
-    }
-
-
-    public void setPosX(double posX) {
-        this.posX = posX;
-    }
-    public void setPosY(double posY) {
-        this.posY = posY;
     }
 
 }

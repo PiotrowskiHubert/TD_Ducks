@@ -1,5 +1,7 @@
 package org.pio.level;
 
+import lombok.Getter;
+import org.pio.database.MainDatabase;
 import org.pio.entities.ally.Ally;
 import org.pio.helpz.KeyPoint;
 import org.pio.helpz.ReadFromFileImpl;
@@ -10,14 +12,16 @@ import org.pio.tiles.Tile;
 import org.pio.ui.sidePanel.game.SidePanelGame;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class Level {
     private final int START_ROUND=0, NUM_OF_ROUNDS;
     public static int currentRound, lvlHeight, lvlWidth;
-    private Tile[][] lvlArr;
+    public static Tile[][] lvlArr;
     public static List<Round> rounds = new ArrayList<>();
     public static List<Ally> allyPlacedTowers = new ArrayList<>();
     private List<KeyPoint> keyPointsList;
@@ -40,7 +44,8 @@ public class Level {
         this.lvlArr = ReadFromFileImpl.getTilesForLevelArrayFromTxt(
                 Path.of("src/main/resources/levels/" + levelNum + "/tiles/lvl_" + levelNum + "_tiles.txt"),
                 lvlWidth,
-                lvlHeight
+                lvlHeight,
+                MainDatabase.tilesDB.get("grass_tile_set_256_256")
         );
 
         this.keyPointsList = ReadFromFileImpl.readKeyPoints("src/main/resources/levels/" + levelNum + "/keypoints/lvl_" + levelNum + "_keypoints.txt");
@@ -51,12 +56,16 @@ public class Level {
                 NUM_OF_ROUNDS
         );
 
+
+        BufferedImage sidePanelImg = MainDatabase.uiPanelsDB.get("paper");
         this.sidePanelGame = new SidePanelGame(
                 (int)GameScreen.SCALED_UNIT_SIZE*4,
                 GameScreen.UNIT_SIZE*GameScreen.intScreenHeight,
                 GameScreen.UNIT_SIZE*GameScreen.intSidePanelStart,
                 GameScreen.UNIT_SIZE*0,
-                this);
+                this,
+                sidePanelImg
+        );
 
         this.mouseHandler = new LevelMouseHandler(this);
         this.levelDraw=new LevelDraw(this);

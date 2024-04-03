@@ -21,7 +21,7 @@ public class PlayScene extends GameScene implements sceneMeethods {
         super(game);
         this.lvl = Level.createLevel(23,14,11,1);
 
-        this.player=new Player(2000,100);
+        this.player=new Player(20,99);
         this.mouseHandler=new PlaySceneMouseHandler(this);
         this.GAME_SPEED=GameSpeed.REGULAR;
     }

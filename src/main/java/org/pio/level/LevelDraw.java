@@ -1,21 +1,17 @@
 package org.pio.level;
 
-import com.sun.tools.javac.Main;
 import org.pio.database.MainDatabase;
 import org.pio.entities.ally.Ally;
-import org.pio.entities.entityInterfaces.Drawable;
 import org.pio.entities.enemy.Enemy;
-import org.pio.helpz.Directions;
+import org.pio.entities.entityInterfaces.Drawable;
 import org.pio.helpz.KeyPoint;
 import org.pio.main.GameScreen;
+import org.pio.main.GameScreenStaticVariables;
 import org.pio.player.Player;
-import org.pio.level.Level;
-import org.pio.sprites.SpriteDetails;
 
 import java.awt.*;
-import java.nio.file.Path;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 
 public class LevelDraw implements Drawable {
     Level level;
@@ -25,63 +21,19 @@ public class LevelDraw implements Drawable {
     }
 
     public void draw(Graphics g){
+
+
+
         drawTiles(g);
         drawEnemy(g);
         drawBackground(g);
+
         drawLevelOutline(g);
         drawSidePanel(g);
-        drawKeyPoints(g);
+        //drawKeyPoints(g);
         drawAllyTowerPlaced(g);
         drawSelectedAlly(g);
         drawRoundInfo(g);
-
-        Path path = Path.of("src/main/resources/AllyInfo/sprites/blue/character_blue_idle_49x72.txt");
-
-        SpriteDetails sprite = SpriteDetails.builder()
-                .name("UP_1")
-                .width(18)
-                .height(25)
-                .image(MainDatabase.getMainDatabase().getSpriteAtlasDatabase().get("Character_blue_idle_49x112").getSubimage(
-                  0,0,18,25
-                ))
-                .build();
-
-        SpriteDetails sprite2 = SpriteDetails.builder()
-                .name("UP_2")
-                .width(18)
-                .height(25)
-                .image(MainDatabase.getMainDatabase().getSpriteAtlasDatabase().get("Character_blue_idle_49x112").getSubimage(
-                        19,0,18,25
-                ))
-                .build();
-
-        SpriteDetails sprite3 = SpriteDetails.builder()
-                .name("DOWN_1")
-                .width(18)
-                .height(25)
-                .image(MainDatabase.getMainDatabase().getSpriteAtlasDatabase().get("Character_blue_idle_49x112").getSubimage(
-                        0,26,24,28
-                ))
-                .build();
-
-        SpriteDetails sprite4 = SpriteDetails.builder()
-                .name("DOWN_2")
-                .width(18)
-                .height(25)
-                .image(MainDatabase.getMainDatabase().getSpriteAtlasDatabase().get("Character_blue_idle_49x112").getSubimage(
-                        25,26,24,28
-                ))
-                .build();
-
-        g.drawImage(sprite.getImage(), 100, 100, 37, 48, null);
-        g.drawImage(sprite2.getImage(), 100, 150, 37, 48, null);
-        g.drawImage(sprite3.getImage(), 100, 200, 42, 48, null);
-        g.drawImage(sprite4.getImage(), 100, 250, 42,48,null);
-
-
-//        g.drawImage(spriteWithDirections.get(Directions.UP).get(0).getImage(), 100, 50, null);
-//        g.drawImage(spriteWithDirections.get(Directions.UP).get(1).getImage(), 100, 100, null);
-
     }
 
     private void drawLevelOutline(Graphics g) {
@@ -101,11 +53,18 @@ public class LevelDraw implements Drawable {
         int offsetX=((GameScreen.intSidePanelStart-level.lvlWidth*GameScreen.SCALE)/2)*GameScreen.UNIT_SIZE;
         int offsetY=((GameScreen.intScreenHeight-level.lvlHeight*GameScreen.SCALE)/2)*GameScreen.UNIT_SIZE;
 
-        g.setColor(new Color(105, 129, 18));
-        g.fillRect(0,0,GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE,offsetY);
-        g.fillRect(0,0, offsetX, GameScreen.intScreenHeight*GameScreen.UNIT_SIZE);
-        g.fillRect(GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE-offsetX, 0, offsetX, GameScreen.intScreenHeight*GameScreen.UNIT_SIZE);
-        g.fillRect(0, (int) (GameScreen.intScreenHeight*GameScreen.UNIT_SIZE-offsetY*1.5),GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE, (int) (offsetY*1.5));
+//        g.setColor(new Color(105, 129, 18));
+//        g.fillRect(0,0,GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE,offsetY);
+//        g.fillRect(0,0, offsetX, GameScreen.intScreenHeight*GameScreen.UNIT_SIZE);
+//        g.fillRect(GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE-offsetX, 0, offsetX, GameScreen.intScreenHeight*GameScreen.UNIT_SIZE);
+//        g.fillRect(0, (int) (GameScreen.intScreenHeight*GameScreen.UNIT_SIZE-offsetY*1.5),GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE, (int) (offsetY*1.5));
+
+
+        g.drawImage(MainDatabase.tilesDB.get("grass_tile_set_256_256").get(1).getSprite(),0,0,GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE,offsetY, null);
+        g.drawImage(MainDatabase.tilesDB.get("grass_tile_set_256_256").get(1).getSprite(),0,0, offsetX, GameScreen.intScreenHeight*GameScreen.UNIT_SIZE, null);
+        g.drawImage(MainDatabase.tilesDB.get("grass_tile_set_256_256").get(1).getSprite(),GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE-offsetX, 0, offsetX, GameScreen.intScreenHeight*GameScreen.UNIT_SIZE, null);
+        g.drawImage(MainDatabase.tilesDB.get("grass_tile_set_256_256").get(1).getSprite(),0, (int) (GameScreen.intScreenHeight*GameScreen.UNIT_SIZE-offsetY*1.5),GameScreen.intSidePanelStart*GameScreen.UNIT_SIZE, (int) (offsetY*1.5), null);
+
     }
 
     private void drawTiles(Graphics g) {
@@ -137,7 +96,7 @@ public class LevelDraw implements Drawable {
     }
 
     private void drawSelectedTowerRange(Graphics g){
-        g.setColor(new Color(0f,0f,0f,.5f));
+        g.setColor(new Color(0,0,0, 65));
         g.fillOval(level.selectedTower.rangeEllipse.getBounds().x, level.selectedTower.rangeEllipse.getBounds().y, level.selectedTower.rangeEllipse.getBounds().width, level.selectedTower.rangeEllipse.getBounds().height);
     }
 
@@ -163,13 +122,174 @@ public class LevelDraw implements Drawable {
         }
     }
 
+    //TODO rename this pad please
     private void drawRoundInfo(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("TimesRoman", Font.BOLD, 20));
-        g.drawString("<3Beanelth<3: " + Player.getHealth(), 10, 40);
-        g.drawString("$$Beanollars$$: " + Player.getGold(), 10, 60);
-        g.drawString("Beam: " + (level.currentRound) + "/" + (level.getNUM_OF_ROUNDS()-1), 10, 20);
+        drawPad(g);
+        drawRoundStatus(g);
+        drawHealth(g);
+        drawMoney(g);
+    }
 
+    private void drawPad(Graphics g) {
+        BufferedImage pad = MainDatabase.roundInfoDB.get("paper_pad_2");
+        int
+                width = 360,
+                height = 56,
+                posX = ((GameScreen.screenWidth-GameScreenStaticVariables.EDIT_SIDE_PANEL_WIDTH)/2) - (width/2),
+                posY = 4;
+
+        ImageObserver observer = null;
+
+        g.drawImage(
+                pad,
+                posX,
+                posY,
+                width,
+                height,
+                null
+        );
+
+        g.setColor(new Color(218, 214, 121, 136));
+        g.fillRect(
+                posX,
+                posY,
+                width,
+                height
+        );
+    }
+
+    private void drawRoundStatus(Graphics g) {
+        String roundStatus = "Round: " + (level.currentRound) + "/" + (level.getNUM_OF_ROUNDS()-1);
+
+        g.setFont(new Font("TimesRoman", Font.BOLD, 19));
+
+        FontMetrics fm = g.getFontMetrics();
+        int stringWidth = fm.stringWidth(roundStatus);
+        int stringHeight = fm.getAscent() - fm.getDescent();
+
+        int stringPosX = (GameScreen.screenWidth-GameScreenStaticVariables.EDIT_SIDE_PANEL_WIDTH)/2 - stringWidth - 10; // Dodajemy dodatkowe 10 pikseli przerwy
+
+        int iconPosY = 8;
+        int iconHeight = 34;
+        int stringPosY = iconPosY + (iconHeight - stringHeight) / 2 + fm.getAscent();
+
+        g.setColor(Color.BLACK);
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                g.drawString(roundStatus, stringPosX + dx, stringPosY + dy);
+            }
+        }
+        g.setColor(new Color(231, 177, 37, 255));
+        g.drawString(roundStatus, stringPosX, stringPosY);
+    }
+
+    private void drawHealth(Graphics g) {
+
+        String healthIcon = "pink_neutral_black_border";
+        int iconPosX = (GameScreen.screenWidth-GameScreenStaticVariables.EDIT_SIDE_PANEL_WIDTH)/2;
+        int iconPosY = 10;
+        int iconWidth = 40;
+        int iconHeight = 40;
+        ImageObserver observer = null;
+
+        g.drawImage(
+                MainDatabase.iconsDB.get(healthIcon),
+                iconPosX,
+                iconPosY,
+                iconWidth,
+                iconHeight,
+                observer
+        );
+
+        String healthFont = "TimesRoman";
+        int healthStringFontSize = 19;
+        g.setColor(new Color(75, 21, 60, 210));
+        g.setFont(new Font(healthFont, Font.BOLD, healthStringFontSize));
+
+        String health = String.valueOf(Player.getHealth());
+
+        FontMetrics fm = g.getFontMetrics();
+        int stringWidth = fm.stringWidth(health);
+        int stringHeight = fm.getAscent() - fm.getDescent();
+
+        int stringPosX = iconPosX + (iconWidth - stringWidth) / 2;
+        int adjustStringPosY = -6;
+        int stringPosY = iconPosY + (iconHeight - stringHeight) / 2 + fm.getAscent() + adjustStringPosY;
+
+        g.drawString(
+                health,
+                stringPosX,
+                stringPosY
+        );
+    }
+
+    private void drawMoney(Graphics g) {
+        String font = "TimesRoman";
+        int fontSize = 19;
+        g.setFont(new Font(font, Font.BOLD, fontSize));
+
+        String money = String.valueOf(Player.getGold());
+
+        FontMetrics fm = g.getFontMetrics();
+        int stringWidth = fm.stringWidth(money);
+
+        int stringPosX = (GameScreen.screenWidth-GameScreenStaticVariables.EDIT_SIDE_PANEL_WIDTH)/2 + 40 + 10;
+
+        BufferedImage currencyImg = MainDatabase.iconsDB.get("beans");
+        int iconPosX = stringPosX + stringWidth + 5;
+        int iconPosY = 8;
+        int iconWidth = 34;
+        int iconHeight = 34;
+
+        int stringHeight = fm.getAscent() - fm.getDescent();
+
+        int stringPosY = iconPosY + (iconHeight - stringHeight) / 2 + fm.getAscent();
+
+        g.setColor(Color.BLACK);
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                g.drawString(money, stringPosX + dx, stringPosY + dy);
+            }
+        }
+
+        g.setColor(new Color(231, 177, 37, 255));
+        g.drawString(money, stringPosX, stringPosY);
+
+        int xOffset = 6;
+        int yOffset = 4;
+
+        g.drawImage(
+                currencyImg,
+                iconPosX,
+                iconPosY,
+                iconWidth,
+                iconHeight,
+                null
+        );
+
+        iconPosY+=yOffset;
+        iconPosX+=xOffset;
+
+        g.drawImage(
+                currencyImg,
+                iconPosX,
+                iconPosY,
+                iconWidth,
+                iconHeight,
+                null
+        );
+
+        iconPosY+=yOffset;
+        iconPosX+=xOffset;
+
+        g.drawImage(
+                currencyImg,
+                iconPosX,
+                iconPosY,
+                iconWidth,
+                iconHeight,
+                null
+        );
     }
 
 }

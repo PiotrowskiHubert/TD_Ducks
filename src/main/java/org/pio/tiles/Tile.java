@@ -1,8 +1,11 @@
 package org.pio.tiles;
 
+import lombok.Data;
+import lombok.Getter;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
+@Getter
 public class Tile extends aTile{
     private int posX, posY;
     private String tileName;

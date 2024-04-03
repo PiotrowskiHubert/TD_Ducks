@@ -11,6 +11,7 @@ import org.pio.manager.PlayerManager;
 import org.pio.level.Level;
 import org.pio.scene.PlayScene;
 
+import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 
@@ -87,21 +88,41 @@ public class Update {
 
         for (int i = 0; i < enemies.size(); i++) {
 
-            if (i < enemies.size() - 1) {
-
-                if (enemies.get(i).posX>=game.getPlayScene().getLvl().getKeyPointsList().get(game.getPlayScene().getLvl().getKeyPointsList().size()-1).getPosX()){
+                if(enemies.get(i).bounds.intersects(
+                        new Rectangle(
+                                game.getPlayScene().getLvl().getKeyPointsList().get(
+                                        game.getPlayScene().getLvl().getKeyPointsList().size()-1
+                                ).getPosX(),
+                                game.getPlayScene().getLvl().getKeyPointsList().get(
+                                        game.getPlayScene().getLvl().getKeyPointsList().size()-1
+                                ).getPosY(),
+                                game.getPlayScene().getLvl().getKeyPointsList().get(
+                                        game.getPlayScene().getLvl().getKeyPointsList().size()-1
+                                ).getWidth(),
+                                game.getPlayScene().getLvl().getKeyPointsList().get(
+                                        game.getPlayScene().getLvl().getKeyPointsList().size()-1
+                                ).getHeight()
+                        )
+                )){
                     PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).health);
                     enemies.remove(enemies.get(i));
                 }
 
-            } else {
-                if (enemies.get(i).posX>=game.getPlayScene().getLvl().getKeyPointsList().get(game.getPlayScene().getLvl().getKeyPointsList().size()-1).getPosX()){
-
-                    PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).health);
-                    enemies.remove(enemies.get(i));
-
-                }
-            }
+//            if (i < enemies.size() - 1) {
+//
+//                if (enemies.get(i).posX>=game.getPlayScene().getLvl().getKeyPointsList().get(game.getPlayScene().getLvl().getKeyPointsList().size()-1).getPosX()){
+//                    PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).health);
+//                    enemies.remove(enemies.get(i));
+//                }
+//
+//            } else {
+//                if (enemies.get(i).posX>=game.getPlayScene().getLvl().getKeyPointsList().get(game.getPlayScene().getLvl().getKeyPointsList().size()-1).getPosX()){
+//
+//                    PlayerManager.updateHealth(PlayScene.getPlayer(),enemies.get(i).health);
+//                    enemies.remove(enemies.get(i));
+//
+//                }
+//            }
         }
 
     }
@@ -120,7 +141,7 @@ public class Update {
 
 
     public void updateAnimationsPreGame(){
-        if (game.getGameStates() == GameStates.PREGAME){
+        if (Game.getGameStates() == GameStates.PREGAME){
             game.getPreGameScene().updateAnimations();
         }
 
@@ -134,6 +155,19 @@ public class Update {
                     enemy.currentSprite++;
                 }else {
                     enemy.currentSprite=0;
+                }
+            }
+        }
+    }
+
+    public void updateAnimationsAlly() {
+        if (Game.getGameStates() == GameStates.GAME){
+
+            for (Ally ally : Level.allyPlacedTowers){
+                if (ally.getCurrentSpriteNum()>=ally.getMaxSpriteNum()){
+                    ally.setCurrentSpriteNum(ally.getStartSpriteNum());
+                }else {
+                    ally.setCurrentSpriteNum(ally.getCurrentSpriteNum()+1);
                 }
             }
         }
@@ -158,6 +192,7 @@ public class Update {
         }
 
     }
+
 
 
 }

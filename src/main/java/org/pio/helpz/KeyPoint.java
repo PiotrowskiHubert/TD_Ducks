@@ -1,10 +1,12 @@
 package org.pio.helpz;
 
+import lombok.Getter;
 import org.pio.database.MainDatabase;
 import org.pio.main.GameScreen;
 
 import java.awt.*;
 
+@Getter
 public class KeyPoint {
     private int posX, posY;
     private int width, height;

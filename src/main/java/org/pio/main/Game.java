@@ -1,11 +1,16 @@
 package org.pio.main;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.pio.database.MainDatabase;
 import org.pio.manager.*;
 import org.pio.scene.*;
 
 import javax.swing.*;
 import java.awt.*;
 
+@Getter
+@Setter
 public class Game extends JFrame implements Runnable {
     public static GameStates gameStates;
     private GameScreen gameScreen;
@@ -24,8 +29,6 @@ public class Game extends JFrame implements Runnable {
 
 
     Thread gameThread_1;
-    private double timePerUpdatePlayerAnimation;
-    private double timePerUpdateEnemyAnimation;
     JFrame frame = new JFrame("GameTitle");
 
 
@@ -41,9 +44,9 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void initClass(){
-
+        MainDatabase.getMainDatabase();
         gameScreen=new GameScreen(this);
-        gameStates=GameStates.GAME;
+        gameStates=GameStates.EDIT_MAP;
 
         render=new Render(this);
         update=new Update(this);
@@ -85,11 +88,17 @@ public class Game extends JFrame implements Runnable {
 
         new Thread(() -> {
 
-            timePerUpdatePlayerAnimation =1_000_000_000.0/11.0;
-            timePerUpdateEnemyAnimation =1_000_000_000.0/13.0;
-            long lastUpdatePlayer=System.nanoTime();
-            long lastUpdateEnemy=System.nanoTime();
+            double timePerUpdatePlayerAnimation =1_000_000_000.0/11.0;
+            double timePerUpdateEnemyAnimation =1_000_000_000.0/13.0;
+            double timePerUpdateAllyAnimation = 1_000_000_000.0/1.6;
+
+
+            long lastUpdatePlayer = System.nanoTime();
+            long lastUpdateEnemy = System.nanoTime();
+            long lastUpdateAlly = System.nanoTime();
+
             long now;
+
             while (true){
                 now = System.nanoTime();
 
@@ -102,9 +111,18 @@ public class Game extends JFrame implements Runnable {
                     updateAnimationsEnemy();
                     lastUpdateEnemy=now;
                 }
+
+                if (now-lastUpdateAlly>=timePerUpdateAllyAnimation){
+                    updateAnimationsAlly();
+                    lastUpdateAlly = now;
+                }
             }
         }).start();
 
+    }
+
+    private void updateAnimationsAlly() {
+        update.updateAnimationsAlly();
     }
 
     private void updateAnimationsEnemy() {
@@ -146,40 +164,9 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
-
-    // ----------- GET ----------- //
-
-    public Render getRender() {
-        return render;
-    }
-    public PlayScene getPlayScene() {
-        return playScene;
-    }
-
     public static GameStates getGameStates() {
         return gameStates;
     }
-
-    public PreGameScene getPreGameScene() {
-        return preGameScene;
-    }
-
-    public MenuScene getMenuScene() {
-        return menuScene;
-    }
-
-    public SettingsScene getSettingsScene() {
-        return settingsScene;
-    }
-
-    public SelectSaveScene getSelectSaveScene() {
-        return selectSaveScene;
-    }
-
-    public EditScene getEditMapScene() {
-        return editMapScene;
-    }
-
 
     public static void setGameStates(GameStates gameStates) {
         Game.gameStates = gameStates;

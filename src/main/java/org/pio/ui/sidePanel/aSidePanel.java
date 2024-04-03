@@ -1,10 +1,12 @@
 package org.pio.ui.sidePanel;
 
+import lombok.Setter;
 import org.pio.inputs.mouse.MouseHandler;
 import org.pio.inputs.mouse.edit.sidepanel.EditMenuSidePanelMouseHandler;
 import org.pio.ui.buttons.bRectangle;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;
 
 public abstract class aSidePanel implements sidePanelMethods {
@@ -12,11 +14,22 @@ public abstract class aSidePanel implements sidePanelMethods {
     public LinkedHashMap<Integer, bRectangle> currentDataLinkedMap;
     public LinkedHashMap<Integer, bRectangle> allDataLinkedMap;
     protected Shape sidePanelBounds;
+    protected BufferedImage image;
     public aSidePanel(int width, int height, int posX, int posY) {
         this.width = width;
         this.height = height;
         this.posX = posX;
         this.posY = posY;
+
+        sidePanelBounds= initRectangleBounds();
+    }
+
+    public aSidePanel(int width, int height, int posX, int posY, BufferedImage image) {
+        this.width = width;
+        this.height = height;
+        this.posX = posX;
+        this.posY = posY;
+        this.image = image;
 
         sidePanelBounds= initRectangleBounds();
     }
@@ -35,7 +48,23 @@ public abstract class aSidePanel implements sidePanelMethods {
     }
     private void drawBody(Graphics g) {
         g.setColor(Color.white);
-        g.fillRect(posX, posY, width, height);
+        g.fillRect(
+                posX,
+                posY,
+                width,
+                height
+        );
+
+        if (image!=null){
+            g.drawImage(
+                    image,
+                    posX,
+                    posY,
+                    width,
+                    height,
+                    null
+            );
+        }
     }
 
     protected void drawButtons(Graphics g) {

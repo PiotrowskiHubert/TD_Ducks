@@ -1,11 +1,14 @@
 package org.pio.ui.buttons;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.pio.entities.ally.Ally;
 import org.pio.helpz.Directions;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+@Getter
 public class bRectangle extends aButton implements drawable {
     ButtonPerform buttonPerformCreateAlly = new ButtonPerformCreateAlly();
     public bRectangle(int width, int height, String name, int id) {
@@ -35,17 +38,55 @@ public class bRectangle extends aButton implements drawable {
     }
     private void drawBody(Graphics g) {
 
+        if (buttonColor != null){
+            g.setColor(buttonColor);
+        }
+
+        g.fillRect(
+                posX,
+                posY,
+                width,
+                height
+        );
+
+        if (getImage() != null){
+            g.drawImage(
+                    image,
+                    imgPosX,
+                    imgPosY,
+                    imgWidth,
+                    imgHeight,
+                    null
+            );
+        }
+
         if (mouseOver){
-            g.setColor(Color.GREEN);
-        }else {
-            g.setColor(Color.WHITE);
+            g.setColor(new Color(0,0,0, 65));
+            g.fillRect(
+                    posX,
+                    posY,
+                    width,
+                    height
+            );
         }
 
         if (mousePressed){
-            g.setColor(new Color(0x4F000000, true));
+            g.setColor(Color.BLACK);
+            g.drawRect(
+                    posX+1,
+                    posY+1,
+                    width-2,
+                    height-2
+            );
         }
 
-        g.fillRect(posX, posY, width, height);
+        g.setColor(Color.BLACK);
+        g.drawRect(
+                posX,
+                posY,
+                width,
+                height
+        );
 
     }
 

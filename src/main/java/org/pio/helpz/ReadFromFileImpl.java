@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class ReadFromFileImpl implements ReadFromFile {
@@ -286,6 +287,36 @@ public class ReadFromFileImpl implements ReadFromFile {
         return keyPointList;
     }
 
+    public static List<KeyPoint> readEditMapKeyPoints(String fileName) {
+        List<KeyPoint> keyPointList = new ArrayList<>();
+
+        try (
+                var fileReader = new FileReader(fileName);
+                var reader = new BufferedReader(fileReader);
+        ) {
+            String nextLine = null;
+
+            while ((nextLine = reader.readLine()) != null) {
+
+                String[] parts = nextLine.split(" ");
+                double x = Double.parseDouble(parts[0]);
+                double y = Double.parseDouble(parts[1]);
+
+                keyPointList.add(new KeyPoint(
+                        (int) (x * GameScreen.SCALED_UNIT_SIZE)-32,
+                        (int) (y * GameScreen.SCALED_UNIT_SIZE))
+                );
+
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return keyPointList;
+    }
+
     @Override
     public BufferedImage readBufferedImage(String fileName) {
         BufferedImage bufferedImage = null;
@@ -304,7 +335,7 @@ public class ReadFromFileImpl implements ReadFromFile {
     }
 
 
-    public static Tile[][] getTilesForLevelArrayFromTxt(Path path, int lvlWidth, int lvlHeight){
+    public static Tile[][] getTilesForEditLevelArrayFromTxt(Path path, int lvlWidth, int lvlHeight, LinkedHashMap<Integer, aTile> tileSet){
 
         Tile levelArr[][] = new Tile[lvlHeight][lvlWidth];
 
@@ -326,9 +357,55 @@ public class ReadFromFileImpl implements ReadFromFile {
                     i++;
                 }
 
-                for (aTile tile : MainDatabase.getMainDatabase().grassTileSet.values()) {
+                for (aTile tile : tileSet.values()) {
                     if (tile.getId() == Integer.parseInt(nextLine)){
-                        levelArr[i][j]=new Tile(tile.getWidth(),
+                        levelArr[i][j]=new Tile(
+                                tile.getWidth(),
+                                tile.getHeight(),
+                                j*GameScreen.UNIT_SIZE*GameScreen.SCALE+offsetX*GameScreen.UNIT_SIZE-32,
+                                i*GameScreen.UNIT_SIZE*GameScreen.SCALE+offsetY*GameScreen.UNIT_SIZE,
+                                tile.getTileName(),
+                                tile.getId(),
+                                tile.getSprite());
+                    }
+                }
+
+                j++;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return levelArr;
+    }
+
+    public static Tile[][] getTilesForLevelArrayFromTxt(Path path, int lvlWidth, int lvlHeight, LinkedHashMap<Integer, aTile> tileSet){
+
+        Tile levelArr[][] = new Tile[lvlHeight][lvlWidth];
+
+        int offsetX=(GameScreen.intSidePanelStart-lvlWidth*GameScreen.SCALE)/2;
+        int offsetY=(GameScreen.intScreenHeight-lvlHeight*GameScreen.SCALE)/2;
+
+        try (
+                var fileReader = new FileReader(path.toFile());
+                var reader = new BufferedReader(fileReader);
+        ) {
+            String nextLine = null;
+
+            int i=0;
+            int j=0;
+            while ((nextLine = reader.readLine()) != null) {
+
+                if (j == lvlWidth){
+                    j=0;
+                    i++;
+                }
+
+                for (aTile tile : tileSet.values()) {
+                    if (tile.getId() == Integer.parseInt(nextLine)){
+                        levelArr[i][j]=new Tile(
+                                tile.getWidth(),
                                 tile.getHeight(),
                                 j*GameScreen.UNIT_SIZE*GameScreen.SCALE+offsetX*GameScreen.UNIT_SIZE,
                                 i*GameScreen.UNIT_SIZE*GameScreen.SCALE+offsetY*GameScreen.UNIT_SIZE,

@@ -6,8 +6,8 @@ import org.pio.main.GameScreen;
 import java.awt.*;
 
 public class GameScene implements sceneMeethods{
-    private static int mouseX;
-    private static int mouseY;
+    public static int mouseX;
+    public static int mouseY;
     private Game game;
 
     public GameScene(Game game){

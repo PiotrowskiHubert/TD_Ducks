@@ -1,5 +1,7 @@
 package org.pio.helpz;
 
+import org.pio.tiles.Tile;
+
 import java.io.*;
 
 public class Writers {
@@ -44,8 +46,8 @@ public class Writers {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
+
     public static void writeEnemyDataToTxtFile(String fileName, String name, String id, String width, String height, String movementSpeed, String health, String damage, String gold) {
 
         try (
@@ -144,6 +146,26 @@ public class Writers {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void writeLevelTileDataToTxtFile(Tile [][] lvlArr, String fileName){
+        fileName = "src/main/resources/levels/1/tiles/"+fileName+".txt";
+
+
+        try (
+                var fileWriter = new FileWriter(fileName);
+                var writer = new BufferedWriter(fileWriter);
+        ) {
+            for (int i = 0; i < lvlArr.length; i++) {
+                for (int j = 0; j < lvlArr[i].length; j++) {
+                    writer.write(lvlArr[i][j].getId().toString());
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
         public static void main(String[] args) {

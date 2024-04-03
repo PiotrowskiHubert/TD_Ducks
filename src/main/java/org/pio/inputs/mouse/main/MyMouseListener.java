@@ -3,6 +3,7 @@ package org.pio.inputs.mouse.main;
 
 import org.pio.main.Game;
 import org.pio.main.GameStates;
+import org.pio.scene.EditScene;
 import org.pio.scene.GameScene;
 
 import java.awt.event.*;
@@ -150,7 +151,6 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
         switch (game.getGameStates()) {
             case MENU -> {
                 game.getMenuScene().getMenuSceneMouseHandler().mouseMoved(e.getX(), e.getY());
@@ -166,6 +166,8 @@ public class MyMouseListener implements MouseListener, MouseMotionListener, Mous
 
             case EDIT_MAP -> {
                 game.getEditMapScene().getMouseHandler().mouseMoved(e.getX(), e.getY());
+                GameScene.setMouseX(e.getX());
+                GameScene.setMouseY(e.getY());
             }
 
             case GAME -> {

@@ -3,10 +3,10 @@ package org.pio.database;
 import lombok.Data;
 import org.pio.entities.ally.*;
 import org.pio.entities.enemy.*;
-import org.pio.helpz.ReadFromFileImpl;
 import org.pio.helpz.Directions;
+import org.pio.read.image.ImageRead;
+import org.pio.sprites.Sprite;
 import org.pio.sprites.SpriteDetails;
-import org.pio.tiles.Tile;
 import org.pio.tiles.aTile;
 
 import javax.imageio.ImageIO;
@@ -14,41 +14,43 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 @Data
 public class MainDatabase {
+    public static LinkedHashMap<String, BufferedImage> spriteAtlasDB;
+    public static LinkedHashMap<String, LinkedHashMap<Directions, LinkedList<SpriteDetails>>> characterSpriteDetailsDB;
+    public static LinkedHashMap<String, LinkedHashMap<Directions, LinkedList<Sprite>>> characterSpriteDB;
+    public static LinkedHashMap<Integer, BufferedImage> characterPortraitsDB;
+    public static LinkedHashMap<String, LinkedHashMap<Integer, aTile>> tilesDB;
+    public static LinkedHashMap<String, BufferedImage> frameDB;
+    public static LinkedHashMap<String, BufferedImage> iconsDB;
+    public static LinkedHashMap<String, BufferedImage> uiIconsDB;
+    public static LinkedHashMap<String, BufferedImage> uiPanelsDB;
+    public static LinkedHashMap<String, BufferedImage> roundInfoDB;
     public LinkedHashMap<Integer, Enemy> enemyDatabase = new LinkedHashMap<>();
     public LinkedHashMap<Integer, Ally> allyDatabase = new LinkedHashMap<>();
-    public LinkedHashMap<String, SpriteDetails> allySpriteDetails = new LinkedHashMap<>();
-    public LinkedHashMap<String, BufferedImage> spriteAtlasDatabase = new LinkedHashMap<>();
-    public LinkedHashMap<Integer, aTile> grassTileSet;
 
     LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<BufferedImage>>> enemySpriteAtlasDatabase = new LinkedHashMap<>();
-    LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<String>>> allySpriteAtlasDatabase = new LinkedHashMap<>();
 
     private static MainDatabase mainDatabase;
     private MainDatabase(){
-        spriteAtlasDatabase.put("SidePanel",getSpriteAtlas("SidePanel.png"));
-        spriteAtlasDatabase.put("Buttons",getSpriteAtlas("AtlasButtons.png"));
-        spriteAtlasDatabase.put("GrassTileSet", setSpriteAtlas("Sprite/GrassTileSet.png"));
-        spriteAtlasDatabase.put("Character_blue_idle_49x112", setSpriteAtlas("AllyInfo/sprites/blue/character_blue_idle_49x112.png"));
-
-        grassTileSet=setGrassTileSet();
+        initSpriteAtlasDB();
+        initSpriteDetailsDB();
+        initCharacterSpriteImageDB();
+        initTilesDB();
+        initCharacterPortraitsDB();
+        initFrameDB();
+        initIconsDB();
+        initUIDB();
+        initUIIconsDB();
+        initRoundInfoDB();
 
         enemySpriteAtlasDatabase.put(1, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/RedSlimeWalk.png",8));
         enemySpriteAtlasDatabase.put(2, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/BlueSlimeWalk.png",8));
         enemySpriteAtlasDatabase.put(3, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/GreenSlimeWalk.png", 8));
         enemySpriteAtlasDatabase.put(4, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/PurpleSlimeWalk.png",8));
         enemySpriteAtlasDatabase.put(5, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/YellowSlimeWalk.png",8));
-
-//        allySpriteAtlasDatabase.put(1, getEnemySpriteAtlas());
-//        allySpriteAtlasDatabase.put(2, getEnemySpriteAtlas());
-//        allySpriteAtlasDatabase.put(3, getEnemySpriteAtlas());
-//        allySpriteAtlasDatabase.put(4, getEnemySpriteAtlas());
-//        allySpriteAtlasDatabase.put(5, getEnemySpriteAtlas());
 
         enemyDatabase.put(1, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/enemy_1.txt"));
         enemyDatabase.put(2, getEnemyInfoFromTxtFile("src/main/resources/EnemiesInfo/enemy_2.txt"));
@@ -61,56 +63,397 @@ public class MainDatabase {
         allyDatabase.put(3, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_3.txt"));
         allyDatabase.put(4, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_4.txt"));
         allyDatabase.put(5, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_5.txt"));
+    }
 
-//        Path path = Path.of("src/main/resources/AllyInfo/sprites/blue/character_blue_idle_49x72.txt");
-//        String name="UP_1";
-//        allySpriteDetails.put("1" ,SpriteDetails.createSpriteDetails(path, name));
-//        name="UP_2";
-//        allySpriteDetails.put("2" ,SpriteDetails.createSpriteDetails(path, name));
-//        name="DOWN_1";
-//        allySpriteDetails.put("3" ,SpriteDetails.createSpriteDetails(path, name));
-//        name="DOWN_2";
-//        allySpriteDetails.put("4" ,SpriteDetails.createSpriteDetails(path, name));
-//        name="LEFT_1";
-//        allySpriteDetails.put("5" ,SpriteDetails.createSpriteDetails(path, name));
-//        name="LEFT_2";
-//        allySpriteDetails.put("6" ,SpriteDetails.createSpriteDetails(path, name));
-//        name="RIGHT_1";
-//        allySpriteDetails.put("7" ,SpriteDetails.createSpriteDetails(path, name));
-//        name="RIGHT_2";
-//        allySpriteDetails.put("8" ,SpriteDetails.createSpriteDetails(path, name));
 
-//        for (SpriteDetails spriteDetails : allySpriteDetails.values()) {
-//            System.out.println(spriteDetails.toString());
-//        }
+    //TODO rename pls, terrible
+    private void initRoundInfoDB() {
+        roundInfoDB = new LinkedHashMap<>();
+        String uiPanelPath = "src/main/resources/UI/panels/";
 
-//        LinkedHashMap<Directions, LinkedList<String>> allySpriteAtlas = new LinkedHashMap<>();
-//        LinkedList<String> upSprites = new LinkedList<>();
-//        upSprites.add("1");
-//        allySpriteAtlas.put(Directions.UP, upSprites);
-//
-//        LinkedList<String> downSprites = new LinkedList<>();
-//        downSprites.add("2");
-//        allySpriteAtlas.put(Directions.DOWN, downSprites);
-//
-//        LinkedList<String> leftSprites = new LinkedList<>();
-//        leftSprites.add("3");
-//        allySpriteAtlas.put(Directions.LEFT, leftSprites);
-//
-//        LinkedList<String> rightSprites = new LinkedList<>();
-//        rightSprites.add("4");
-//        allySpriteAtlas.put(Directions.RIGHT, rightSprites);
-//
-//        allySpriteAtlasDatabase.put(1, allySpriteAtlas);
+        roundInfoDB.put(
+                "paper_pad_1",
+                getImageFromPath(
+                        Path.of(
+                                uiPanelPath + "round_info_paper.png"
+                        )
+                )
+        );
 
-//        for ( : allySpriteAtlas.get(1)) {
-//
-//        }
+        roundInfoDB.put(
+                "paper_pad_2",
+                getImageFromPath(
+                        Path.of(
+                                uiPanelPath + "round_info_paper_2.png"
+                        )
+                )
+        );
+    }
 
-//        allySpriteAtlasDatabase.put(2, getEnemySpriteAtlas());
+    private void initUIDB() {
+        initUIPanel();
+    }
+
+    private void initUIPanel() {
+        uiPanelsDB = new LinkedHashMap<>();
+        String uiPanelPath = "src/main/resources/UI/panels/";
+
+        uiPanelsDB.put(
+                "paper",
+                getImageFromPath(
+                    Path.of(
+                        uiPanelPath + "side_panel_paper.png"
+                    )
+                )
+        );
+    }
+
+    private void initUIIconsDB() {
+        uiIconsDB = new LinkedHashMap<>();
+        String uiPath = "src/main/resources/UI/buttons/";
+        uiIconsDB.put(
+                "play",
+                getImageFromPath(
+                        Path.of(
+                                uiPath + "play.png"
+                        )
+                )
+        );
+
+        uiIconsDB.put(
+                "arrow_right",
+                getImageFromPath(
+                        Path.of(
+                                uiPath + "arrow_right.png"
+                        )
+                )
+        );
+    }
+
+    private void initIconsDB() {
+        iconsDB = new LinkedHashMap<>();
+        String path = "src/main/resources/icons/";
+        iconsDB.put("beans", getImageFromPath(Path.of(path+"money/currency_beans.png")));
+        iconsDB.put("blue_happy_heart", getImageFromPath(Path.of(path+"hearts/blue_happy_heart.png")));
+        iconsDB.put("pink_neutral", getImageFromPath(Path.of(path+"hearts/pink_neutral.png")));
+        iconsDB.put("pink_neutral_black_border", getImageFromPath(Path.of(path+"hearts/pink_neutral_black_border.png")));
 
     }
 
+    private void initFrameDB() {
+        frameDB = new LinkedHashMap<>();
+        frameDB.put("wood", getImageFromPath(Path.of("src/main/resources/frames/frame_wood.png")));
+    }
+
+    private void initCharacterPortraitsDB() {
+        characterPortraitsDB = new LinkedHashMap<>();
+        characterPortraitsDB.put(1, getImageFromPath(Path.of("src/main/resources/AllyInfo/sprites/blue/character_blue_portrait_2.png")));
+        characterPortraitsDB.put(2, getImageFromPath(Path.of("src/main/resources/AllyInfo/sprites/vampiric/character_vampiric_portrait_2.png")));
+        characterPortraitsDB.put(3, getImageFromPath(Path.of("src/main/resources/AllyInfo/sprites/white/character_white_portrait_2.png")));
+        characterPortraitsDB.put(4, getImageFromPath(Path.of("src/main/resources/AllyInfo/sprites/dark/character_dark_portrait_2.png")));
+        characterPortraitsDB.put(5, getImageFromPath(Path.of("src/main/resources/AllyInfo/sprites/army/character_army_portrait_2.png")));
+
+    }
+
+    private void initTilesDB() {
+        tilesDB = new LinkedHashMap<>();
+        tilesDB.put("grass_tile_set_256_256",
+            ImageRead.getTileSet(
+                    "GRASS_TILE_",
+                    256,
+                    256,
+                    8,
+                    8,
+                    spriteAtlasDB.get("grass_tile_set_256_256")
+            )
+        );
+    }
+
+    public static MainDatabase getMainDatabase() {
+        if (mainDatabase==null){
+            mainDatabase = new MainDatabase();
+        }
+        return mainDatabase;
+    }
+    private void initSpriteAtlasDB() {
+        spriteAtlasDB = new LinkedHashMap<>();
+        spriteAtlasDB.put("SidePanel", ImageRead.readImage(Path.of("src/main/resources/SidePanel.png")));
+        spriteAtlasDB.put("Buttons", ImageRead.readImage(Path.of("src/main/resources/AtlasButtons.png")));
+        spriteAtlasDB.put("grass_tile_set_256_256", ImageRead.readImage(Path.of("src/main/resources/Sprite/grass_tile_set_256_256.png")));
+        spriteAtlasDB.put("character_blue_idle_49x112", ImageRead.readImage(Path.of("src/main/resources/AllyInfo/sprites/blue/character_blue_idle_49x112.png")));
+        spriteAtlasDB.put("character_vampiric_idle_53_114", ImageRead.readImage(Path.of("src/main/resources/AllyInfo/sprites/vampiric/character_vampiric_idle_53_114.png")));
+        spriteAtlasDB.put("character_white_idle_45_111", ImageRead.readImage(Path.of("src/main/resources/AllyInfo/sprites/white/character_white_idle_45_111.png")));
+        spriteAtlasDB.put("character_dark_idle_45_113", ImageRead.readImage(Path.of("src/main/resources/AllyInfo/sprites/dark/character_dark_idle_45_113.png")));
+        spriteAtlasDB.put("character_army_idle_39_113", ImageRead.readImage(Path.of("src/main/resources/AllyInfo/sprites/army/character_army_idle_39_113.png")));
+    }
+    private void initCharacterSpriteImageDB() {
+        characterSpriteDB = new LinkedHashMap<>();
+        putBlueCharacterSpriteToSpriteDB();
+        putVampiricCharacterSpriteToSpriteDB();
+        putWhiteCharacterSpriteToSpriteDB();
+        putDarkCharacterSpriteToSpriteDB();
+        putArmyCharacterSpriteToSpriteDB();
+    }
+
+    private void putArmyCharacterSpriteToSpriteDB() {
+        String armyCharacterSpriteName = "character_army_idle_39_113";
+        BufferedImage armyCharacterSpriteAtlas = spriteAtlasDB.get(armyCharacterSpriteName);
+
+        characterSpriteDetailsDB.get(armyCharacterSpriteName).forEach(
+                (
+                        (directions, spriteDetails) -> {
+                            characterSpriteDB.put(
+                                    armyCharacterSpriteName,
+                                    getSprites(
+                                            armyCharacterSpriteName,
+                                            armyCharacterSpriteAtlas
+                                    )
+                            );
+                        }
+                )
+        );
+    }
+
+    private void putDarkCharacterSpriteToSpriteDB() {
+        String darkCharacterSpriteName = "character_dark_idle_45_113";
+        BufferedImage darkCharacterSpriteAtlas = spriteAtlasDB.get(darkCharacterSpriteName);
+
+        characterSpriteDetailsDB.get(darkCharacterSpriteName).forEach(
+                (
+                        (directions, spriteDetails) -> {
+                            characterSpriteDB.put(
+                                    darkCharacterSpriteName,
+                                    getSprites(
+                                            darkCharacterSpriteName,
+                                            darkCharacterSpriteAtlas
+                                    )
+                            );
+                        }
+                )
+        );
+    }
+    private void putWhiteCharacterSpriteToSpriteDB() {
+        String whiteCharacterSpriteName = "character_white_idle_45_111";
+        BufferedImage whiteCharacterSpriteAtlas = spriteAtlasDB.get(whiteCharacterSpriteName);
+
+        characterSpriteDetailsDB.get(whiteCharacterSpriteName).forEach(
+                (
+                        (directions, spriteDetails) -> {
+                            characterSpriteDB.put(
+                                    whiteCharacterSpriteName,
+                                    getSprites(
+                                            whiteCharacterSpriteName,
+                                            whiteCharacterSpriteAtlas
+                                    )
+                            );
+                        }
+                )
+        );
+    }
+    public static void putBlueCharacterSpriteToSpriteDB() {
+        String blueCharacterSpriteName = "character_blue_idle_49x112";
+        BufferedImage blueCharacterSpriteAtlas = spriteAtlasDB.get(blueCharacterSpriteName);
+
+        characterSpriteDetailsDB.get(blueCharacterSpriteName).forEach(
+                (
+                        (directions, spriteDetails) -> {
+                            characterSpriteDB.put(
+                                    blueCharacterSpriteName,
+                                    getSprites(
+                                            blueCharacterSpriteName,
+                                            blueCharacterSpriteAtlas
+                                )
+                            );
+                        }
+                )
+        );
+    }
+    private void putVampiricCharacterSpriteToSpriteDB() {
+        String vampiricCharacterSpriteName = "character_vampiric_idle_53_114";
+        BufferedImage vampiricCharacterSpriteAtlas = spriteAtlasDB.get(vampiricCharacterSpriteName);
+
+        characterSpriteDetailsDB.get(vampiricCharacterSpriteName).forEach(
+                (
+                        (directions, spriteDetails) -> {
+                            characterSpriteDB.put(
+                                    vampiricCharacterSpriteName,
+                                    getSprites(
+                                            vampiricCharacterSpriteName,
+                                            vampiricCharacterSpriteAtlas
+                                    )
+                            );
+                        }
+                )
+        );
+    }
+    public static LinkedHashMap<Directions, LinkedList<Sprite>> getSprites(String spriteName, BufferedImage spriteAtlas){
+        LinkedHashMap<Directions, LinkedList<Sprite>> sprites = new LinkedHashMap<>();
+
+        Stack<Directions> directions = new Stack<>();
+        directions.push(Directions.UP);
+        directions.push(Directions.DOWN);
+        directions.push(Directions.LEFT);
+        directions.push(Directions.RIGHT);
+
+        while (!directions.isEmpty()) {
+            LinkedList<Sprite> spriteList = new LinkedList<>();
+
+            for (int i = 0; i < characterSpriteDetailsDB.get(spriteName).get(directions.peek()).size(); i++) {
+                spriteList.add(
+                        Sprite.getSprite(
+                                spriteAtlas,
+                                characterSpriteDetailsDB.get(spriteName).get(directions.peek()).get(i)
+                        )
+                );
+            }
+
+            sprites.put(directions.peek(), spriteList);
+            directions.pop();
+        }
+
+        return sprites;
+    }
+    private void initSpriteDetailsDB(){
+        characterSpriteDetailsDB = new LinkedHashMap<>();
+        putBlueCharacterSpriteDetailsToSpriteDetailsDB();
+        putVampiricCharacterSpriteDetailsToSpriteDetailsDB();
+        putWhiteCharacterSpriteDetailsToSpriteDetailsDB();
+        putDarkCharacterSpriteDetailsToSpriteDetailsDB();
+        putArmyCharacterSpriteDetailsToSpriteDetailsDB();
+    }
+
+    private void putArmyCharacterSpriteDetailsToSpriteDetailsDB() {
+        String armyCharacterSpriteDetailsName = "character_army_idle_39_113";
+
+        Path path = Path.of(
+                "src/main/resources/AllyInfo/sprites/army/character_army_idle_39_113.txt"
+        );
+
+        int numOfSprites = 2;
+
+        LinkedHashMap<String, LinkedHashMap<Directions, LinkedList<SpriteDetails>>> spriteDetails = getSpriteDetailsFromTxt(
+                armyCharacterSpriteDetailsName,
+                path,
+                numOfSprites
+        );
+
+        characterSpriteDetailsDB.putAll(spriteDetails);
+    }
+
+    private void putDarkCharacterSpriteDetailsToSpriteDetailsDB() {
+        String vampiricCharacterSpriteDetailsName = "character_dark_idle_45_113";
+
+        Path path = Path.of(
+                "src/main/resources/AllyInfo/sprites/dark/character_dark_idle_45_113.txt"
+        );
+
+        int numOfSprites = 2;
+
+        LinkedHashMap<String, LinkedHashMap<Directions, LinkedList<SpriteDetails>>> spriteDetails = getSpriteDetailsFromTxt(
+                vampiricCharacterSpriteDetailsName,
+                path,
+                numOfSprites
+        );
+
+        characterSpriteDetailsDB.putAll(spriteDetails);
+    }
+    private void putWhiteCharacterSpriteDetailsToSpriteDetailsDB() {
+        String vampiricCharacterSpriteDetailsName = "character_white_idle_45_111";
+
+        Path path = Path.of(
+                "src/main/resources/AllyInfo/sprites/white/character_white_idle_45_111.txt"
+        );
+
+        int numOfSprites = 2;
+
+        LinkedHashMap<String, LinkedHashMap<Directions, LinkedList<SpriteDetails>>> spriteDetails = getSpriteDetailsFromTxt(
+                vampiricCharacterSpriteDetailsName,
+                path,
+                numOfSprites
+        );
+
+        characterSpriteDetailsDB.putAll(spriteDetails);
+    }
+    private void putVampiricCharacterSpriteDetailsToSpriteDetailsDB() {
+        String vampiricCharacterSpriteDetailsName = "character_vampiric_idle_53_114";
+
+        Path path = Path.of(
+                "src/main/resources/AllyInfo/sprites/vampiric/character_vampiric_idle_53_114.txt"
+        );
+
+        int numOfSprites = 2;
+
+        LinkedHashMap<String, LinkedHashMap<Directions, LinkedList<SpriteDetails>>> spriteDetails = getSpriteDetailsFromTxt(
+                vampiricCharacterSpriteDetailsName,
+                path,
+                numOfSprites
+        );
+
+        characterSpriteDetailsDB.putAll(spriteDetails);
+    }
+    private void putBlueCharacterSpriteDetailsToSpriteDetailsDB() {
+        String blueCharacterSpriteDetailsName = "character_blue_idle_49x112";
+
+        Path path = Path.of(
+                "src/main/resources/AllyInfo/sprites/blue/character_blue_idle_49x72.txt"
+        );
+
+        int numOfSprites = 2;
+
+        LinkedHashMap<String, LinkedHashMap<Directions, LinkedList<SpriteDetails>>> spriteDetails = getSpriteDetailsFromTxt(
+                blueCharacterSpriteDetailsName,
+                path,
+                numOfSprites
+        );
+
+        characterSpriteDetailsDB.putAll(spriteDetails);
+    }
+    public static LinkedHashMap<String, LinkedHashMap<Directions, LinkedList<SpriteDetails>>> getSpriteDetailsFromTxt(String spriteDetailsName, Path path, int numOfSprites){
+        LinkedHashMap<Directions, LinkedList<SpriteDetails>> spriteDetailsList = getSpriteDetailsForUDLRDirections(path, numOfSprites);
+        LinkedHashMap<String, LinkedHashMap<Directions, LinkedList<SpriteDetails>>> spriteDetails = new LinkedHashMap<>();
+        spriteDetails.put(spriteDetailsName, spriteDetailsList);
+        return spriteDetails;
+    }
+    public static LinkedHashMap<Directions, LinkedList<SpriteDetails>> getSpriteDetailsForUDLRDirections(Path path, int numOfSprites){
+        LinkedHashMap<Directions, LinkedList<SpriteDetails>> spriteDetails = new LinkedHashMap<>();
+
+        Stack<Directions> directions = new Stack<>();
+        directions.push(Directions.UP);
+        directions.push(Directions.DOWN);
+        directions.push(Directions.LEFT);
+        directions.push(Directions.RIGHT);
+
+        while (!directions.isEmpty()){
+            LinkedList<SpriteDetails> spriteDetailsList = new LinkedList<>();
+
+            for (int i = 1; i < numOfSprites+1; i++) {
+                spriteDetailsList.add(
+                        getSpriteDetailsWithDirections(path, directions.peek(), i)
+                );
+            }
+
+            spriteDetails.put(directions.peek(), spriteDetailsList);
+            directions.pop();
+        }
+
+        return spriteDetails;
+    }
+    public static SpriteDetails getSpriteDetailsWithDirections(Path path, Directions direction, int numOfSprite){
+         return SpriteDetails.getSpriteDetailsFromTxtFile(path, mapDirectionToString(direction)+"_"+numOfSprite);
+    }
+    public static String mapDirectionToString(Directions direction){
+        try {
+
+            return switch (direction) {
+                case UP -> "UP";
+                case DOWN -> "DOWN";
+                case LEFT -> "LEFT";
+                case RIGHT -> "RIGHT";
+            };
+        }catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Wrong Direction direction arg");
+        }
+    }
     public static LinkedHashMap<Directions, LinkedList<SpriteDetails>> getSpriteWithDirections(Path path, int numOfSprites){
 
         LinkedHashMap<Directions, LinkedList<SpriteDetails>> spriteWithDirections = new LinkedHashMap<>();
@@ -120,60 +463,20 @@ public class MainDatabase {
             String name;
 
             name = "UP_" + (i+1);
-            listOfSpriteDetails.add(SpriteDetails.createSpriteDetails(path, name, i));
-            //spriteWithDirections.get(Directions.UP).add(SpriteDetails.createSpriteDetails(path, name, i));
-//            name = "UP_" + (i+1);
-//            spriteWithDirections.put(Directions.UP, SpriteDetails.createSpriteDetails(path, name, i));
-//
-//            name = "DOWN_" + (i+1);
-//            spriteWithDirections.put(Directions.DOWN, SpriteDetails.createSpriteDetails(path, name, i));
-//
-//            name = "LEFT_" + (i+1);
-//            spriteWithDirections.put(Directions.LEFT, SpriteDetails.createSpriteDetails(path, name, i));
-//
-//            name = "RIGHT_" + (i+1);
-//            spriteWithDirections.put(Directions.RIGHT, SpriteDetails.createSpriteDetails(path, name, i));
 
         }
 
-        spriteWithDirections.put(Directions.UP, listOfSpriteDetails);
-
-
         return spriteWithDirections;
-//        LinkedHashMap<Directions, LinkedList<SpriteDetails>> spriteWithDirections = new LinkedHashMap<>();
-//
-//        for (int i = 0; i < numOfSprites; i++) {
-//            String name;
-//
-//            for(Directions direction : Directions.values()) {
-//                name = direction.name() + "_" + (i+1);
-//                spriteWithDirections.computeIfAbsent(direction, k -> new LinkedList<>()).add(SpriteDetails.createSpriteDetails(path, name, i));
-//            }
-//        }
-//
-//        return spriteWithDirections;
     }
-
     public static BufferedImage getSubImageFromSpriteAtlas(BufferedImage spriteAtlas, int xPosAtlas, int yPosAtlas, int subImageWidth, int subImageHeight){
         return spriteAtlas.getSubimage(xPosAtlas, yPosAtlas, subImageWidth, subImageHeight);
     }
-
     public static BufferedImage getSubImageFromSpriteAtlasWithXYCordMultiplier(BufferedImage spriteAtlas,int multiplier, int xPosAtlas, int yPosAtlas, int subImageWidth, int subImageHeight){
         return spriteAtlas.getSubimage(xPosAtlas*multiplier, yPosAtlas*multiplier, subImageWidth, subImageHeight);
     }
-
     public static BufferedImage getSubImageFromSpriteAtlasWithXYDifferentCordMultiplier(BufferedImage spriteAtlas,int multiplierXPos, int multiplierYPos, int xPosAtlas, int yPosAtlas, int subImageWidth, int subImageHeight){
         return spriteAtlas.getSubimage(xPosAtlas*multiplierXPos, yPosAtlas*multiplierYPos, subImageWidth, subImageHeight);
     }
-
-
-    public static MainDatabase getMainDatabase() {
-        if (mainDatabase==null){
-            mainDatabase = new MainDatabase();
-        }
-        return mainDatabase;
-    }
-
     private Enemy getEnemyInfoFromTxtFile(String fileName){
         EnemyDatabaseImpl enemyDatabase = new EnemyDatabaseImpl();
 
@@ -198,19 +501,19 @@ public class MainDatabase {
 
         switch (fileName) {
         case "src/main/resources/AllyInfo/ally_1.txt":
-            return new Ally_1(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), allySpriteAtlasDatabase.get(1));
+            return new Ally_1(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), characterSpriteDB.get("character_blue_idle_49x112"));
 
         case "src/main/resources/AllyInfo/ally_2.txt":
-            return new Ally_2(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), allySpriteAtlasDatabase.get(2));
+            return new Ally_2(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), characterSpriteDB.get("character_vampiric_idle_53_114"));
 
         case "src/main/resources/AllyInfo/ally_3.txt":
-            return new Ally_3(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), allySpriteAtlasDatabase.get(3));
+            return new Ally_3(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), characterSpriteDB.get("character_white_idle_45_111"));
 
         case "src/main/resources/AllyInfo/ally_4.txt":
-            return new Ally_4(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), allySpriteAtlasDatabase.get(4));
+            return new Ally_4(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), characterSpriteDB.get("character_dark_idle_45_113"));
 
         case "src/main/resources/AllyInfo/ally_5.txt":
-            return new Ally_5(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), allySpriteAtlasDatabase.get(5));
+            return new Ally_5(allyDatabase.getName(fileName), allyDatabase.getId(fileName), allyDatabase.getWidth(fileName), allyDatabase.getHeight(fileName), allyDatabase.getCost(fileName), allyDatabase.getRange(fileName), characterSpriteDB.get("character_army_idle_39_113"));
 
         default:
             System.out.println("ERROR: Wrong ally text file");
@@ -218,13 +521,9 @@ public class MainDatabase {
         }
 
     }
-    private BufferedImage getSpriteAtlas(String fileName){
-        ReadFromFileImpl readFromFile = new ReadFromFileImpl();
-        return readFromFile.readBufferedImage(fileName);
-    }
     private LinkedHashMap<Directions, LinkedList<BufferedImage>> getEnemySpriteAtlas_2(String fileName, int numOfSprites){
 
-        BufferedImage spriteAtlasEnemy = setSpriteAtlas(fileName);
+        BufferedImage spriteAtlasEnemy = getImage(fileName);
 
         LinkedHashMap<Directions, LinkedList<BufferedImage>> enemySpriteAtlas = new LinkedHashMap<>();
 
@@ -255,36 +554,7 @@ public class MainDatabase {
 
         return enemySpriteAtlas;
     }
-
-    private LinkedHashMap<Directions, LinkedList<String>> getEnemySpriteAtlas(){
-
-        LinkedHashMap<Directions, LinkedList<String>> enemySpriteAtlas = new LinkedHashMap<>();
-
-        LinkedList<String> upSprites = new LinkedList<>();
-        upSprites.add("1");
-        upSprites.add("2");
-
-        LinkedList<String> downSprites = new LinkedList<>();
-        downSprites.add("3");
-        downSprites.add("4");
-
-        LinkedList<String> leftSprites = new LinkedList<>();
-        leftSprites.add("5");
-        leftSprites.add("6");
-
-        LinkedList<String> rightSprites = new LinkedList<>();
-        rightSprites.add("7");
-        rightSprites.add("8");
-
-        enemySpriteAtlas.put(Directions.UP, upSprites);
-        enemySpriteAtlas.put(Directions.DOWN, downSprites);
-        enemySpriteAtlas.put(Directions.LEFT, leftSprites);
-        enemySpriteAtlas.put(Directions.RIGHT, rightSprites);
-
-        return enemySpriteAtlas;
-    }
-
-    private BufferedImage setSpriteAtlas(String path){
+    public static BufferedImage getImage(String path){
         BufferedImage img = null;
         InputStream is = aTile.class.getClassLoader().getResourceAsStream(path);
 
@@ -298,30 +568,16 @@ public class MainDatabase {
 
         return img;
     }
-
     private BufferedImage getSpriteOutOfImage(int xCord, int yCord, int widthImg, int heightImg, BufferedImage spriteAtlas){
         return spriteAtlas.getSubimage(xCord*128,yCord*128,widthImg,heightImg);
     }
-
-
-    private LinkedHashMap<Integer, aTile> setGrassTileSet(){
-        LinkedHashMap<Integer, aTile> grassTileSet=new LinkedHashMap<>();
-        int index=0;
-
-        for (int height = 0; height < 8; height++) {
-            for (int width = 0; width < 8; width++) {
-                Tile tile=new Tile("GRASS_TILE_"+height+"_"+width, 32, 32, ++index, setTile(width, height, 32, 32, spriteAtlasDatabase.get("GrassTileSet")));
-                grassTileSet.put(tile.getId(), tile);
-            }
+    public static BufferedImage getImageFromPath(Path path){
+        try {
+            return ImageIO.read(path.toFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
-
-        return grassTileSet;
-    }
-    private BufferedImage setTile(int xCord, int yCord, int widthTile,int heightTile,BufferedImage spriteAtlas){
-        return spriteAtlas.getSubimage(xCord*widthTile, yCord*heightTile, widthTile, heightTile);
     }
 
-    public LinkedHashMap<String, BufferedImage> getSpriteAtlasDatabase() {
-        return spriteAtlasDatabase;
-    }
 }

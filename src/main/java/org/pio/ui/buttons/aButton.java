@@ -1,8 +1,13 @@
 package org.pio.ui.buttons;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+@Getter
+@Setter
 public abstract class aButton implements drawable, perform, performCreateAlly {
     public int posX, posY, width, height;
     public String text, name;
@@ -10,6 +15,9 @@ public abstract class aButton implements drawable, perform, performCreateAlly {
     public boolean mouseOver, mousePressed;
     public Shape buttonBounds;
     public ButtonPerform buttonPerform;
+    BufferedImage image;
+    int imgPosX, imgPosY, imgWidth, imgHeight;
+    Color buttonColor;
 
     public aButton(int width, int height, String name, int id) {
         this.width = width;

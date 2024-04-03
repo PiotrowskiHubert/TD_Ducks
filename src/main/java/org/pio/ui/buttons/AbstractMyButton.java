@@ -1,8 +1,13 @@
 package org.pio.ui.buttons;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+@Setter
+@Getter
 public abstract class AbstractMyButton implements drawable{
     protected int width, height, posX, posY;
     protected String name, text;
@@ -86,8 +91,6 @@ public abstract class AbstractMyButton implements drawable{
 
     public void draw(Graphics g) {
 
-
-
         if (mouseOver){
             g.setColor(Color.GREEN);
         }else {
@@ -99,6 +102,20 @@ public abstract class AbstractMyButton implements drawable{
         }
 
         g.fillRect(posX, posY, width, height);
+
+        if (image != null){
+            g.drawImage(image, posX, posY, width, height, null);
+
+            g.setColor(Color.BLACK);
+            g.drawRect(posX, posY, width, height);
+        }
+
+        if (image!=null){
+            if (mouseOver) {
+                g.setColor(Color.BLACK);
+                g.drawRect(posX+1, posY+1, width-2, height-2);
+            }
+        }
 
         if (text != null){
             drawCenteredText(g);
