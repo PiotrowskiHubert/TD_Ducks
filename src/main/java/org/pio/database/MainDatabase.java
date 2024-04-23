@@ -2,8 +2,11 @@ package org.pio.database;
 
 import lombok.Data;
 import org.pio.entities.ally.*;
+import org.pio.entities.bullet.Bullet;
+import org.pio.entities.bullet.BulletType;
 import org.pio.entities.enemy.*;
 import org.pio.helpz.Directions;
+import org.pio.helpz.ReadFromFileImpl;
 import org.pio.read.image.ImageRead;
 import org.pio.sprites.Sprite;
 import org.pio.sprites.SpriteDetails;
@@ -28,9 +31,9 @@ public class MainDatabase {
     public static LinkedHashMap<String, BufferedImage> uiIconsDB;
     public static LinkedHashMap<String, BufferedImage> uiPanelsDB;
     public static LinkedHashMap<String, BufferedImage> roundInfoDB;
+    public static LinkedHashMap<String, LinkedHashMap<BulletType, LinkedList<BufferedImage>>> bulletsDB;
     public LinkedHashMap<Integer, Enemy> enemyDatabase = new LinkedHashMap<>();
     public LinkedHashMap<Integer, Ally> allyDatabase = new LinkedHashMap<>();
-
     LinkedHashMap<Integer, LinkedHashMap<Directions, LinkedList<BufferedImage>>> enemySpriteAtlasDatabase = new LinkedHashMap<>();
 
     private static MainDatabase mainDatabase;
@@ -45,6 +48,7 @@ public class MainDatabase {
         initUIDB();
         initUIIconsDB();
         initRoundInfoDB();
+        initBulletsDB();
 
         enemySpriteAtlasDatabase.put(1, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/RedSlimeWalk.png",8));
         enemySpriteAtlasDatabase.put(2, getEnemySpriteAtlas_2("Sprite/Enemy/RedSlime/BlueSlimeWalk.png",8));
@@ -65,6 +69,44 @@ public class MainDatabase {
         allyDatabase.put(5, getAllyInfoFromTxtFile("src/main/resources/AllyInfo/ally_5.txt"));
     }
 
+    private void initBulletsDB() {
+        bulletsDB = new LinkedHashMap<>();
+        putSnowRegularBulletsToDB();
+    }
+
+    private void putSnowRegularBulletsToDB() {
+        BufferedImage spriteAtlas = spriteAtlasDB.get("bullets_snow");
+        String pathOfTxt = "src/main/resources/Bullets/snow/bullet_regular_snow.txt";
+        Path pathOfStringTxt = Path.of(pathOfTxt);
+
+        String nameOfBulletSet = "snow";
+
+        String keyNumOfSprites = "NUM_OF_SPRITES:";
+        int startPosX = 0;
+        int startPosY = 0;
+        String keySpaceBetween = "SPACE_BETWEEN:";
+        String keySpritesWidth = "SPRITES_WIDTH:";
+        String keySpritesHeight = "SPRITES_HEIGHT:";
+        String keyEqualWidth = "ALL_SPRITES_SAME_HEIGHT:";
+        String keyEqualHeight = "ALL_SPRITES_SAME_WIDTH:";
+        BulletType bulletType = BulletType.REGULAR;
+
+        bulletsDB.put(
+                nameOfBulletSet,
+                ImageRead.getBulletSet(
+                        Integer.parseInt(ReadFromFileImpl.readKeyFromTxtFile(pathOfStringTxt, keyNumOfSprites)),
+                        bulletType,
+                        spriteAtlas,
+                        startPosX,
+                        startPosY,
+                        Integer.parseInt(ReadFromFileImpl.readKeyFromTxtFile(pathOfStringTxt, keySpritesWidth)),
+                        Integer.parseInt(ReadFromFileImpl.readKeyFromTxtFile(pathOfStringTxt, keySpritesHeight)),
+                        Boolean.parseBoolean(ReadFromFileImpl.readKeyFromTxtFile(pathOfStringTxt, keyEqualWidth)),
+                        Boolean.parseBoolean(ReadFromFileImpl.readKeyFromTxtFile(pathOfStringTxt, keyEqualHeight)),
+                        Integer.parseInt(ReadFromFileImpl.readKeyFromTxtFile(pathOfStringTxt, keySpaceBetween))
+                )
+        );
+    }
 
     //TODO rename pls, terrible
     private void initRoundInfoDB() {
@@ -89,11 +131,9 @@ public class MainDatabase {
                 )
         );
     }
-
     private void initUIDB() {
         initUIPanel();
     }
-
     private void initUIPanel() {
         uiPanelsDB = new LinkedHashMap<>();
         String uiPanelPath = "src/main/resources/UI/panels/";
@@ -107,7 +147,6 @@ public class MainDatabase {
                 )
         );
     }
-
     private void initUIIconsDB() {
         uiIconsDB = new LinkedHashMap<>();
         String uiPath = "src/main/resources/UI/buttons/";
@@ -129,7 +168,6 @@ public class MainDatabase {
                 )
         );
     }
-
     private void initIconsDB() {
         iconsDB = new LinkedHashMap<>();
         String path = "src/main/resources/icons/";
@@ -139,12 +177,10 @@ public class MainDatabase {
         iconsDB.put("pink_neutral_black_border", getImageFromPath(Path.of(path+"hearts/pink_neutral_black_border.png")));
 
     }
-
     private void initFrameDB() {
         frameDB = new LinkedHashMap<>();
         frameDB.put("wood", getImageFromPath(Path.of("src/main/resources/frames/frame_wood.png")));
     }
-
     private void initCharacterPortraitsDB() {
         characterPortraitsDB = new LinkedHashMap<>();
         characterPortraitsDB.put(1, getImageFromPath(Path.of("src/main/resources/AllyInfo/sprites/blue/character_blue_portrait_2.png")));
@@ -154,7 +190,6 @@ public class MainDatabase {
         characterPortraitsDB.put(5, getImageFromPath(Path.of("src/main/resources/AllyInfo/sprites/army/character_army_portrait_2.png")));
 
     }
-
     private void initTilesDB() {
         tilesDB = new LinkedHashMap<>();
         tilesDB.put("grass_tile_set_256_256",
@@ -168,7 +203,6 @@ public class MainDatabase {
             )
         );
     }
-
     public static MainDatabase getMainDatabase() {
         if (mainDatabase==null){
             mainDatabase = new MainDatabase();
@@ -176,15 +210,19 @@ public class MainDatabase {
         return mainDatabase;
     }
     private void initSpriteAtlasDB() {
+
+        String pathToResources = "src/main/resources/";
+
         spriteAtlasDB = new LinkedHashMap<>();
-        spriteAtlasDB.put("SidePanel", ImageRead.readImage(Path.of("src/main/resources/SidePanel.png")));
-        spriteAtlasDB.put("Buttons", ImageRead.readImage(Path.of("src/main/resources/AtlasButtons.png")));
-        spriteAtlasDB.put("grass_tile_set_256_256", ImageRead.readImage(Path.of("src/main/resources/Sprite/grass_tile_set_256_256.png")));
-        spriteAtlasDB.put("character_blue_idle_49x112", ImageRead.readImage(Path.of("src/main/resources/AllyInfo/sprites/blue/character_blue_idle_49x112.png")));
-        spriteAtlasDB.put("character_vampiric_idle_53_114", ImageRead.readImage(Path.of("src/main/resources/AllyInfo/sprites/vampiric/character_vampiric_idle_53_114.png")));
-        spriteAtlasDB.put("character_white_idle_45_111", ImageRead.readImage(Path.of("src/main/resources/AllyInfo/sprites/white/character_white_idle_45_111.png")));
-        spriteAtlasDB.put("character_dark_idle_45_113", ImageRead.readImage(Path.of("src/main/resources/AllyInfo/sprites/dark/character_dark_idle_45_113.png")));
-        spriteAtlasDB.put("character_army_idle_39_113", ImageRead.readImage(Path.of("src/main/resources/AllyInfo/sprites/army/character_army_idle_39_113.png")));
+        spriteAtlasDB.put("SidePanel", ImageRead.readImage(Path.of(pathToResources + "SidePanel.png")));
+        spriteAtlasDB.put("Buttons", ImageRead.readImage(Path.of(pathToResources + "AtlasButtons.png")));
+        spriteAtlasDB.put("grass_tile_set_256_256", ImageRead.readImage(Path.of(pathToResources + "Sprite/grass_tile_set_256_256.png")));
+        spriteAtlasDB.put("character_blue_idle_49x112", ImageRead.readImage(Path.of(pathToResources + "AllyInfo/sprites/blue/character_blue_idle_49x112.png")));
+        spriteAtlasDB.put("character_vampiric_idle_53_114", ImageRead.readImage(Path.of(pathToResources + "AllyInfo/sprites/vampiric/character_vampiric_idle_53_114.png")));
+        spriteAtlasDB.put("character_white_idle_45_111", ImageRead.readImage(Path.of(pathToResources + "AllyInfo/sprites/white/character_white_idle_45_111.png")));
+        spriteAtlasDB.put("character_dark_idle_45_113", ImageRead.readImage(Path.of(pathToResources + "AllyInfo/sprites/dark/character_dark_idle_45_113.png")));
+        spriteAtlasDB.put("character_army_idle_39_113", ImageRead.readImage(Path.of(pathToResources + "AllyInfo/sprites/army/character_army_idle_39_113.png")));
+        spriteAtlasDB.put("bullets_snow", ImageRead.readImage(Path.of(pathToResources + "Bullets/snow/bullet_regular_snow.png")));
     }
     private void initCharacterSpriteImageDB() {
         characterSpriteDB = new LinkedHashMap<>();
@@ -194,7 +232,6 @@ public class MainDatabase {
         putDarkCharacterSpriteToSpriteDB();
         putArmyCharacterSpriteToSpriteDB();
     }
-
     private void putArmyCharacterSpriteToSpriteDB() {
         String armyCharacterSpriteName = "character_army_idle_39_113";
         BufferedImage armyCharacterSpriteAtlas = spriteAtlasDB.get(armyCharacterSpriteName);
@@ -213,7 +250,6 @@ public class MainDatabase {
                 )
         );
     }
-
     private void putDarkCharacterSpriteToSpriteDB() {
         String darkCharacterSpriteName = "character_dark_idle_45_113";
         BufferedImage darkCharacterSpriteAtlas = spriteAtlasDB.get(darkCharacterSpriteName);
@@ -321,7 +357,6 @@ public class MainDatabase {
         putDarkCharacterSpriteDetailsToSpriteDetailsDB();
         putArmyCharacterSpriteDetailsToSpriteDetailsDB();
     }
-
     private void putArmyCharacterSpriteDetailsToSpriteDetailsDB() {
         String armyCharacterSpriteDetailsName = "character_army_idle_39_113";
 
@@ -339,7 +374,6 @@ public class MainDatabase {
 
         characterSpriteDetailsDB.putAll(spriteDetails);
     }
-
     private void putDarkCharacterSpriteDetailsToSpriteDetailsDB() {
         String vampiricCharacterSpriteDetailsName = "character_dark_idle_45_113";
 
