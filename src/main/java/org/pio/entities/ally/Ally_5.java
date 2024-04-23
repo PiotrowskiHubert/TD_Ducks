@@ -1,5 +1,6 @@
 package org.pio.entities.ally;
 
+import org.pio.entities.bullet.BulletType;
 import org.pio.helpz.Directions;
 import org.pio.sprites.Sprite;
 
@@ -17,6 +18,7 @@ public class Ally_5 extends Ally{
 
         this.shotUpdatesPerSec = 3.0;
         this.update =new AllyUpdate(this);
+        this.bulletType = BulletType.REGULAR;
     }
 
     @Override
