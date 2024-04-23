@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.pio.entities.bullet.BulletType;
 import org.pio.entities.entity.Entity;
 import org.pio.entities.bullet.Bullet;
 import org.pio.inputs.mouse.playScene.AllyMouseHandler;
@@ -33,6 +34,7 @@ public abstract class Ally extends Entity {
     public AllyMouseHandler mouseHandler;
     public AllyDraw allyDraw;
     private int startSpriteNum, currentSpriteNum, maxSpriteNum;
+    BulletType bulletType;
 
     protected Ally(String name, int id, int width, int height, int cost, int range, LinkedHashMap<Directions, LinkedList<Sprite>> sprites) {
         super(name, id, width, height);
