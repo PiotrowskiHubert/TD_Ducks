@@ -1,6 +1,8 @@
 package org.pio.entities.ally;
 
 import org.pio.entities.bullet.Bullet;
+import org.pio.entities.bullet.BulletRegular;
+import org.pio.entities.bullet.BulletType;
 import org.pio.entities.entityInterfaces.Shotable;
 import org.pio.helpz.Directions;
 
@@ -37,14 +39,27 @@ public class AllyShot implements Shotable {
 
 
         if (!ally.enemiesInRangeList.isEmpty()){
-            ally.bulletList.add(
-                new Bullet(
-                    ally.posX + (ally.bounds.getBounds().getWidth()/2) - 5,
-                    ally.posY + (ally.bounds.getBounds().getHeight()/3) - 5,
-                    ally.enemiesInRangeList.get(0).posX,
-                    ally.enemiesInRangeList.get(0).posY
-                )
-            );
+
+            if (ally.getBulletType().equals(BulletType.REGULAR)){
+                ally.bulletList.add(
+                        new BulletRegular(
+                                ally.posX + (ally.bounds.getBounds().getWidth()/2) - 5,
+                                ally.posY + (ally.bounds.getBounds().getHeight()/3) - 5,
+                                ally.enemiesInRangeList.get(0).posX,
+                                ally.enemiesInRangeList.get(0).posY
+                        )
+                );
+            }else {
+                ally.bulletList.add(
+                        new Bullet(
+                                ally.posX + (ally.bounds.getBounds().getWidth()/2) - 5,
+                                ally.posY + (ally.bounds.getBounds().getHeight()/3) - 5,
+                                ally.enemiesInRangeList.get(0).posX,
+                                ally.enemiesInRangeList.get(0).posY
+                        )
+                );
+            }
+
         }
     }
 
