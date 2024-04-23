@@ -132,21 +132,17 @@ public class Update {
                 enemy -> enemy.enemyUpdate.update()
         );
     }
-
     private void updatePlacedAllies() {
         Level.allyPlacedTowers.forEach(
                 ally -> ally.update.update()
         );
     }
-
-
     public void updateAnimationsPreGame(){
         if (Game.getGameStates() == GameStates.PREGAME){
             game.getPreGameScene().updateAnimations();
         }
 
     }
-
     public void updateAnimationsEnemy(){
         if (game.getGameStates() == GameStates.GAME){
 
@@ -159,7 +155,6 @@ public class Update {
             }
         }
     }
-
     public void updateAnimationsAlly() {
         if (Game.getGameStates() == GameStates.GAME){
 
@@ -193,6 +188,18 @@ public class Update {
 
     }
 
+    public void updateAnimationsBullet() {
+        if (Game.getGameStates() == GameStates.GAME){
 
-
+            for (Ally ally : Level.allyPlacedTowers){
+                for (Bullet bullet : ally.bulletList){
+                    if(bullet.getCurrentSpriteNum()>=bullet.getMaxSpriteNum()){
+                        bullet.setCurrentSpriteNum(bullet.getStartSpriteNum());
+                    }else {
+                        bullet.setCurrentSpriteNum(bullet.getCurrentSpriteNum()+1);
+                    }
+                }
+            }
+        }
+    }
 }
