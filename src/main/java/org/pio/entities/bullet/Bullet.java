@@ -1,21 +1,22 @@
 package org.pio.entities.bullet;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 
 @Data
+@Getter
 public class Bullet {
     private final int BULLET_HEIGHT=10, BULLET_WIDTH=10;
-    private double posX, posY, unitX, unitY;
-    private Rectangle bulletHitBox;
+    double posX, posY, unitX, unitY;
+    Rectangle bulletHitBox;
     public BulletUpdate bulletUpdate;
     private BulletType bulletType;
-    private BufferedImage sprite;
+    LinkedList<BufferedImage> sprite;
+    int startSpriteNum, currentSpriteNum, maxSpriteNum;
+
 
     public Bullet(double posX, double posY, double posXTarget, double posYTarget) {
         this.posX = posX;
