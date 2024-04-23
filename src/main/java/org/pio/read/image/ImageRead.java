@@ -1,5 +1,7 @@
 package org.pio.read.image;
 
+import org.pio.entities.bullet.Bullet;
+import org.pio.entities.bullet.BulletType;
 import org.pio.tiles.Tile;
 import org.pio.tiles.aTile;
 
@@ -8,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.Optional;
 
 public class ImageRead {
 
@@ -61,5 +65,50 @@ public class ImageRead {
                 heightTile
         );
     }
+
+    public static LinkedHashMap<String, LinkedHashMap<BulletType, LinkedList<BufferedImage>>> getBulletSetToDB(String nameOfBulletSet, int numOfSprites, BulletType bulletType, BufferedImage spriteAtlas, int startPosXImg, int startPosYImg, int widthImg, int heightImg, boolean equalWidth, boolean equalHeight, int spaceBetweenSprites){
+        LinkedHashMap<String, LinkedHashMap<BulletType, LinkedList<BufferedImage>>> bulletSet = new LinkedHashMap<>();
+
+
+        bulletSet.put(
+                nameOfBulletSet,
+                getBulletSet(
+                    numOfSprites,
+                    bulletType,
+                    spriteAtlas,
+                    startPosXImg,
+                    startPosYImg,
+                    widthImg,
+                    heightImg,
+                    equalWidth,
+                    equalHeight,
+                    spaceBetweenSprites
+                )
+        );
+
+        return bulletSet;
+    }
+
+    public static LinkedHashMap<BulletType, LinkedList<BufferedImage>> getBulletSet(int numOfSprites, BulletType bulletType, BufferedImage spriteAtlas, int startPosXImg, int startPosYImg, int widthImg, int heightImg, boolean equalWidth, boolean equalHeight, int spaceBetweenSprites){
+        LinkedHashMap<BulletType, LinkedList<BufferedImage>> bulletSet = new LinkedHashMap<>();
+        LinkedList<BufferedImage> bulletSpriteList = new LinkedList<>();
+
+        if (equalWidth&&equalHeight){
+            for (int i = 0; i < numOfSprites; i++) {
+                bulletSpriteList.add(
+                        spriteAtlas.getSubimage(
+                                startPosXImg+(i*widthImg)+(i*spaceBetweenSprites),
+                                startPosYImg,
+                                widthImg,
+                                heightImg
+                        )
+                );
+            }
+        }
+
+        bulletSet.put(bulletType, bulletSpriteList);
+        return bulletSet;
+    }
+
 }
 
