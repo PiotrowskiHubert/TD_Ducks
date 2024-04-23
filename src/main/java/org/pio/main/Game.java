@@ -91,11 +91,12 @@ public class Game extends JFrame implements Runnable {
             double timePerUpdatePlayerAnimation =1_000_000_000.0/11.0;
             double timePerUpdateEnemyAnimation =1_000_000_000.0/13.0;
             double timePerUpdateAllyAnimation = 1_000_000_000.0/1.6;
-
+            double timePerUpdateBulletAnimation = 1_000_000_000.0/4;
 
             long lastUpdatePlayer = System.nanoTime();
             long lastUpdateEnemy = System.nanoTime();
             long lastUpdateAlly = System.nanoTime();
+            long lastUpdateBullet = System.nanoTime();
 
             long now;
 
@@ -116,6 +117,11 @@ public class Game extends JFrame implements Runnable {
                     updateAnimationsAlly();
                     lastUpdateAlly = now;
                 }
+                if (now-lastUpdateBullet>=timePerUpdateBulletAnimation){
+                    updateAnimationsBullet();
+                    lastUpdateBullet = now;
+                }
+
             }
         }).start();
 
@@ -131,6 +137,10 @@ public class Game extends JFrame implements Runnable {
 
     private void updateAnimations() {
         update.updateAnimationsPreGame();
+    }
+
+    private void updateAnimationsBullet() {
+        update.updateAnimationsBullet();
     }
 
     @Override
