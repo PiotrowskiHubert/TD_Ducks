@@ -16,3 +16,5 @@ RUN:
 1. OPEN CONSOLE 
 2. GO TO PROJECT LOCATION FROM CONSOLE EX. cd C:\projects\TD_Ducks
 3. IN CONSOLE ENTER: mvn package exec:java -Dexec.args="" 
+
+![TD_Ducks_1](https://github.com/KaczyStary/TD_Ducks/assets/98557409/d40bbc97-f659-48d8-96ab-2a06d4500cbc)
