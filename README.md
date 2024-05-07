@@ -17,7 +17,25 @@ RUN:
 2. GO TO PROJECT LOCATION FROM CONSOLE EX. cd C:\projects\TD_Ducks
 3. IN CONSOLE ENTER: mvn package exec:java -Dexec.args="" 
 
-GALLERY
+# GALLERY
+
+PLACE CHARACTER: 
+![place character](https://github.com/KaczyStary/TD_Ducks/assets/98557409/05a216a1-8223-48aa-8c45-928fcbf50e27)
+
+CHARACTER RANGE: 
+![range character](https://github.com/KaczyStary/TD_Ducks/assets/98557409/4921309d-6ee0-4b46-b093-243e8b8c81e0)
+
+CHARACTER SHOT IN RANGE:
+![shot in range](https://github.com/KaczyStary/TD_Ducks/assets/98557409/26cceeeb-a247-42a5-85bd-aa21b3d5dd1f)
+
+CHARACTERS SHOT: 
+![shot character](https://github.com/KaczyStary/TD_Ducks/assets/98557409/65e023b9-660a-4d35-9c03-77ee15bc6dcd)
+
+GAME SPEED UP: 
+![spped up](https://github.com/KaczyStary/TD_Ducks/assets/98557409/13cb9a83-1cb4-45ed-8152-947b4afcc14e)
+
+EDIT MAP: 
+![map_edit](https://github.com/KaczyStary/TD_Ducks/assets/98557409/96ccd01e-5fe6-4d3b-9b48-056e8aa2d602)
 
 GAME MAP:
 ![TD_Ducks_1](https://github.com/KaczyStary/TD_Ducks/assets/98557409/d40bbc97-f659-48d8-96ab-2a06d4500cbc)
