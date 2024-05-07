@@ -44,18 +44,15 @@ GAME MAP WITH CHARACTERS:
 ![TD_Ducks_2](https://github.com/KaczyStary/TD_Ducks/assets/98557409/330e0ff1-179a-458f-9a18-b06d8314bf0f)
 
 SHOOTING CHARACTERS:
-
 ![TD_Ducks_7](https://github.com/KaczyStary/TD_Ducks/assets/98557409/95652099-2c5c-48f6-a884-638bd54ec4b5)
 
 CHARACTERS RANGE: 
 ![TD_Ducks_4](https://github.com/KaczyStary/TD_Ducks/assets/98557409/0731b35a-8332-4b83-bdd2-c6876fa9590f)
 
 SIDEBAR WITH CHARACTERS TO SELECT:
-
 ![TD_Ducks_5](https://github.com/KaczyStary/TD_Ducks/assets/98557409/fe3b817f-8f72-49e7-97c6-861a9a947f0c)
 
 ROUND, HEALTH, MONEY INFO:
-
 ![TD_Ducks_6](https://github.com/KaczyStary/TD_Ducks/assets/98557409/ee671ca4-64da-4059-ba52-e9dc81dc37f1)
 
 
